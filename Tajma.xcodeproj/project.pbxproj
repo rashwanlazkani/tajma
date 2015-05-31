@@ -28,12 +28,13 @@
 		F87AFE841B1B903F00D3DAFC /* PhoneSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */; };
 		F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
 		F87AFE861B1B903F00D3DAFC /* StopLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */; };
-		F87AFE871B1B903F00D3DAFC /* ObjWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7E1B1B903F00D3DAFC /* ObjWrapper.swift */; };
 		F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
 		F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
 		F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
 		F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
 		F87AFE921B1B911600D3DAFC /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */; };
+		F87AFE961B1BB2F100D3DAFC /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */; };
+		F87AFE971B1BB2F100D3DAFC /* StopWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +73,6 @@
 		F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneSize.swift; sourceTree = "<group>"; };
 		F87AFE7C1B1B903F00D3DAFC /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopLine.swift; sourceTree = "<group>"; };
-		F87AFE7E1B1B903F00D3DAFC /* ObjWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjWrapper.swift; sourceTree = "<group>"; };
 		F87AFE881B1B906400D3DAFC /* LineService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineService.swift; sourceTree = "<group>"; };
 		F87AFE891B1B906400D3DAFC /* RestApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiService.swift; sourceTree = "<group>"; };
 		F87AFE8A1B1B906400D3DAFC /* StopService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopService.swift; sourceTree = "<group>"; };
@@ -80,6 +80,8 @@
 		F87AFE901B1B90AB00D3DAFC /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		F87AFE931B1B930700D3DAFC /* Tajma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tajma.entitlements; sourceTree = "<group>"; };
+		F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineWrapper.swift; sourceTree = "<group>"; };
+		F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,7 +209,8 @@
 				F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */,
 				F87AFE7C1B1B903F00D3DAFC /* Stop.swift */,
 				F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */,
-				F87AFE7E1B1B903F00D3DAFC /* ObjWrapper.swift */,
+				F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */,
+				F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -325,7 +328,6 @@
 				F87AFE7F1B1B903F00D3DAFC /* CheckBox.swift in Sources */,
 				F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */,
 				F87AFE6D1B1B8FBA00D3DAFC /* SQLiteDB.swift in Sources */,
-				F87AFE871B1B903F00D3DAFC /* ObjWrapper.swift in Sources */,
 				F87AFE821B1B903F00D3DAFC /* LinesAtStop.swift in Sources */,
 				F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */,
 				F87AFE6E1B1B8FBA00D3DAFC /* String-Extras.swift in Sources */,
@@ -335,7 +337,9 @@
 				F87AFE751B1B902400D3DAFC /* TodayLabel.swift in Sources */,
 				F87AFE801B1B903F00D3DAFC /* Global.swift in Sources */,
 				F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */,
+				F87AFE961B1BB2F100D3DAFC /* LineWrapper.swift in Sources */,
 				F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */,
+				F87AFE971B1BB2F100D3DAFC /* StopWrapper.swift in Sources */,
 				F87AFE731B1B902400D3DAFC /* Departure.swift in Sources */,
 				F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */,
 				F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */,

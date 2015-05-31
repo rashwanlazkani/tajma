@@ -18,7 +18,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let dbService = DBService()
     let lineService = LineService()
     var stopService = StopsService()
-    var objWrapper = ObjWrapper()
+    var lineWrapper = LineWrapper()
+    var stopWrapper = StopWrapper()
     let phoneSize = PhoneSize()
         
     let locationManager = CLLocationManager()
@@ -94,12 +95,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func getNearestStops() {
         stopService.getNearestStops(lat, long: long, onCompletion: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
-                self.objWrapper = json
-                if (self.objWrapper.stops.count > 0){
+                self.stopWrapper = json
+                if (self.stopWrapper.stops.count > 0){
                     self.tableView!.reloadData()
                 }
                 else{
-                    println(self.objWrapper.error)
+                    println(self.stopWrapper.error)
                 }
             })
         })
@@ -113,12 +114,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         lineService.getAllLinesAtStop(stopId, onCompletion: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
-                self.objWrapper = json
-                if (self.objWrapper.lines.count > 0){
-                    self.performSegueWithIdentifier("ShowAddLinesView", sender: indexPath)
+                self.lineWrapper = json
+                if (self.lineWrapper.lines.count > 0){
+                    self.performSegueWithIdentifier("ShowLinesView", sender: indexPath)
                 }
                 else{
-                    println(self.objWrapper.error)
+                    println(self.lineWrapper.error)
                 }
             })
             
@@ -135,7 +136,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             getNearestStops()
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
-            objWrapper.stops = dbService.getStops()
+            stopWrapper.stops = dbService.getStops()
         }
         tableView.reloadData()
     }
@@ -148,12 +149,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         stop.getStopsByInput(searchBar.text, onCompletion: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
-                self.objWrapper = json
-                if (self.objWrapper.stops.count > 0){
+                self.stopWrapper = json
+                if (self.stopWrapper.stops.count > 0){
                     self.searchBar!.text = ""
                 }
                 else{
-                    println(self.objWrapper.error)
+                    println(self.stopWrapper.error)
                 }
                 
                 self.tableView!.reloadData()
@@ -204,10 +205,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         if (segmentedControl.selectedSegmentIndex == 0){
-            return objWrapper.stops.count
+            return stopWrapper.stops.count
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
-            return objWrapper.lines.count
+            return lineWrapper.lines.count
         }
         else{
             return 0
@@ -223,11 +224,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell!.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
         }
         
-        cell!.textLabel!.text = objWrapper.stops[indexPath.row].name
+        cell!.textLabel!.text = stopWrapper.stops[indexPath.row].name
         
         cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
-        if (indexPath.row == objWrapper.stops.count - 1){
+        if (indexPath.row == stopWrapper.stops.count - 1){
            tableView.tableFooterView = UIView(frame: CGRectZero)
             
             if (indexPath.row % 2 == 0){
@@ -243,7 +244,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        getLinesAtStop(objWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
+        getLinesAtStop(stopWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
     }
     
     // MARK: - Segue
@@ -252,11 +253,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if segue.identifier == "ShowLinesView"
         {
             var row : Int = sender as! Int
-            var stop = Stop(id: objWrapper.stops[row].id, name: objWrapper.stops[row].name, lat: objWrapper.stops[row].lat, long: objWrapper.stops[row].long, distance: 0, departures: nil)
+            var stop = Stop(id: stopWrapper.stops[row].id, name: stopWrapper.stops[row].name, lat: stopWrapper.stops[row].lat, long: stopWrapper.stops[row].long, distance: 0, departures: nil)
             
-            let linesViewController = segue.destinationViewController as! LinesViewController
-            //linesViewController.lineWrapper.lines = lineWrapper.lines
-            //linesViewController.stop = stop
+            let lines = segue.destinationViewController as! LinesViewController
+            lines.lineWrapper.lines = lineWrapper.lines
+            lines.stop = stop
             lineService.getUserLinesAtStop(stop.id)
             
             self.activityIndicator.stopAnimating()

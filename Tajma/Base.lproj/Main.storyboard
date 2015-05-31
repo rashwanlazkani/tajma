@@ -61,9 +61,6 @@
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OAk-JT-hFT" id="34h-R8-24k">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
-                                                <connections>
-                                                    <segue destination="JpN-E7-M05" kind="show" identifier="ShowLinesView" id="e3p-0m-ucl"/>
-                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -92,6 +89,7 @@
                         <outlet property="searchBar" destination="IX5-0P-IUT" id="XnN-FN-ToQ"/>
                         <outlet property="segmentedControl" destination="d8P-Ba-k8V" id="VaG-5F-WvZ"/>
                         <outlet property="tableView" destination="LDn-U8-IKL" id="seY-wp-XYL"/>
+                        <segue destination="JpN-E7-M05" kind="show" identifier="ShowLinesView" id="Ead-0C-VTu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RLX-9F-GkA" sceneMemberID="firstResponder"/>

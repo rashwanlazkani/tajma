@@ -8,9 +8,7 @@
 
 import Foundation
 
-public class ObjWrapper {
-    public var lines : [Line] = []
-    public var departures : [LinesAtStop] = []
+public class StopWrapper {
     public var stops : [Stop] = []
     public var error : String = ""
 }

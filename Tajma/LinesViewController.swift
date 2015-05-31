@@ -12,8 +12,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var navController: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
     
-    var arrOne = [Int]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

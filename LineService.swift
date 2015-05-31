@@ -10,9 +10,9 @@ import Foundation
 
 public class LineService{
     var dbService = DBService()
-    var lines = ObjWrapper()
+    var lines = LineWrapper()
     
-    func getAllLinesAtStop(stopId: String, onCompletion: (ObjWrapper) -> Void){
+    func getAllLinesAtStop(stopId: String, onCompletion: (LineWrapper) -> Void){
         RestApiService.sharedInstance.findAllLinesOnStop(stopId) { json in
             self.lines.lines = []
             
@@ -66,7 +66,7 @@ public class LineService{
         dbService.getLinesAtStop(stopId)
     }
     
-    func getDeparturesAtStop(stopId: String, onCompletion: (ObjWrapper) -> Void){
+    func getDeparturesAtStop(stopId: String, onCompletion: (LineWrapper) -> Void){
         RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
             self.lines.departures = []
             

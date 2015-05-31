@@ -10,9 +10,9 @@ import Foundation
 
 class StopsService{
     var dbService = DBService()
-    var stops = ObjWrapper()
+    var stops = StopWrapper()
     
-    func getNearestStops(lat: String, long: String, onCompletion: (ObjWrapper) -> Void){
+    func getNearestStops(lat: String, long: String, onCompletion: (StopWrapper) -> Void){
         RestApiService.sharedInstance.getNearestStops(lat, long: long) { json in
             var error = json["LocationList"]
             if (error["error"] == "R0007"){
@@ -25,7 +25,7 @@ class StopsService{
                 let stops = json["LocationList"]["StopLocation"]
                 
                 var tempNames = [String]()
-                self.stops = ObjWrapper()
+                self.stops = StopWrapper()
                 
                 for (index: String, subJson: JSON) in stops {
                     let user: AnyObject = subJson["name"].object
@@ -56,7 +56,7 @@ class StopsService{
                             self.stops.stops.append(stop as Stop)
                         }
                         
-                        if (self.stops.stops.count == 20){
+                        if (self.stops.stops.count == 10){
                             break
                         }
                     }
@@ -66,13 +66,13 @@ class StopsService{
                 }
                 
                 onCompletion(self.stops)
-
+                
             }
             
         }
     }
     
-    func getStopsByInput(name : String, onCompletion: (ObjWrapper) -> Void){
+    func getStopsByInput(name : String, onCompletion: (StopWrapper) -> Void){
         RestApiService.sharedInstance.findStops(name) { json in
             
             var error = json["LocationList"]
@@ -151,5 +151,5 @@ class StopsService{
         
         return stop
     }
-
+    
 }
