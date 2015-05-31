@@ -42,6 +42,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         arrTwo.append(11)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        navigationController?.navigationBar.hidden = true
+    }
+    
     // MARK: - Functions
     func initiateViews(){
         // Gradient view
@@ -54,6 +58,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         navController.layer.insertSublayer(gradient, atIndex: 0)
         
         // SearchBar
+        var textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = UIColor.whiteColor()
+        
         searchBar.setImage(UIImage(named: "SearchWhite"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal);
         
         var textfield:UITextField = searchBar.valueForKey("searchField") as! UITextField
@@ -119,14 +126,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        self.performSegueWithIdentifier("ShowLinesView", sender: indexPath)
         //getLinesAtStop(stopWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
     }
     
     // MARK: - Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!)
     {
-        
+        if segue.identifier == "ShowLinesView"
+        {
+            println("TEST")
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="R3x-0W-ZXV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="b3Y-wY-JjN">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -17,6 +17,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6P0-lf-Vmn">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="107"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Sök hållplats" translatesAutoresizingMaskIntoConstraints="NO" id="IX5-0P-IUT">
+                                        <rect key="frame" x="0.0" y="15" width="600" height="44"/>
+                                        <offsetWrapper key="searchFieldBackgroundPositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="d8P-Ba-k8V">
+                                        <rect key="frame" x="8" y="66" width="584" height="29"/>
+                                        <segments>
+                                            <segment title="" image="check-white"/>
+                                            <segment title="Nära mig"/>
+                                        </segments>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="segmentedControl_Changed:" destination="R3x-0W-ZXV" eventType="valueChanged" id="pn4-R7-Oeh"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="d8P-Ba-k8V" secondAttribute="bottom" constant="13" id="7yZ-uE-AU8"/>
+                                    <constraint firstAttribute="trailing" secondItem="IX5-0P-IUT" secondAttribute="trailing" id="9T7-RC-d8m"/>
+                                    <constraint firstItem="d8P-Ba-k8V" firstAttribute="top" secondItem="IX5-0P-IUT" secondAttribute="bottom" constant="7" id="HUl-hL-AxJ"/>
+                                    <constraint firstItem="IX5-0P-IUT" firstAttribute="top" secondItem="6P0-lf-Vmn" secondAttribute="top" constant="15" id="bLT-P0-HLg"/>
+                                    <constraint firstItem="d8P-Ba-k8V" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leadingMargin" id="oxB-Ke-Jdi"/>
+                                    <constraint firstItem="IX5-0P-IUT" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leading" id="rUG-dL-2bn"/>
+                                    <constraint firstItem="d8P-Ba-k8V" firstAttribute="centerX" secondItem="IX5-0P-IUT" secondAttribute="centerX" id="vJw-ke-Jpy"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NQy-A8-fKc">
                                 <rect key="frame" x="0.0" y="107" width="600" height="493"/>
                                 <subviews>
@@ -39,52 +69,21 @@
                                     </tableView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="LDn-U8-IKL" firstAttribute="top" secondItem="NQy-A8-fKc" secondAttribute="top" id="FPw-ex-Eg8"/>
-                                    <constraint firstAttribute="bottom" secondItem="LDn-U8-IKL" secondAttribute="bottom" id="j45-zY-gQm"/>
-                                    <constraint firstAttribute="trailing" secondItem="LDn-U8-IKL" secondAttribute="trailing" id="kRt-ax-slF"/>
-                                    <constraint firstItem="LDn-U8-IKL" firstAttribute="leading" secondItem="NQy-A8-fKc" secondAttribute="leading" id="zgS-WZ-FAs"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6P0-lf-Vmn">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="107"/>
-                                <subviews>
-                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Sök hållplats" translatesAutoresizingMaskIntoConstraints="NO" id="IX5-0P-IUT">
-                                        <rect key="frame" x="0.0" y="15" width="600" height="44"/>
-                                        <offsetWrapper key="searchFieldBackgroundPositionAdjustment" horizontal="0.0" vertical="0.0"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </searchBar>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="d8P-Ba-k8V">
-                                        <rect key="frame" x="8" y="66" width="584" height="29"/>
-                                        <segments>
-                                            <segment title="" image="check-white"/>
-                                            <segment title="Nära mig"/>
-                                        </segments>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="segmentedControl_Changed:" destination="R3x-0W-ZXV" eventType="valueChanged" id="pn4-R7-Oeh"/>
-                                        </connections>
-                                    </segmentedControl>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="d8P-Ba-k8V" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leadingMargin" id="3dd-Td-AaS"/>
-                                    <constraint firstItem="d8P-Ba-k8V" firstAttribute="top" secondItem="IX5-0P-IUT" secondAttribute="bottom" constant="7" id="FvX-S7-CLm"/>
-                                    <constraint firstItem="d8P-Ba-k8V" firstAttribute="centerX" secondItem="IX5-0P-IUT" secondAttribute="centerX" id="Rwt-Mg-zIP"/>
-                                    <constraint firstItem="IX5-0P-IUT" firstAttribute="top" secondItem="6P0-lf-Vmn" secondAttribute="top" constant="15" id="bds-6e-fTj"/>
-                                    <constraint firstAttribute="bottom" secondItem="d8P-Ba-k8V" secondAttribute="bottom" constant="13" id="ewa-ZF-IHO"/>
-                                    <constraint firstItem="IX5-0P-IUT" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leading" id="pdF-rj-sF3"/>
-                                    <constraint firstAttribute="trailing" secondItem="IX5-0P-IUT" secondAttribute="trailing" id="qh2-le-vDo"/>
+                                    <constraint firstAttribute="trailing" secondItem="LDn-U8-IKL" secondAttribute="trailing" id="3wg-xz-frY"/>
+                                    <constraint firstItem="LDn-U8-IKL" firstAttribute="top" secondItem="NQy-A8-fKc" secondAttribute="top" id="Bdy-uQ-gIw"/>
+                                    <constraint firstItem="LDn-U8-IKL" firstAttribute="leading" secondItem="NQy-A8-fKc" secondAttribute="leading" id="Oy2-4l-iyV"/>
+                                    <constraint firstAttribute="bottom" secondItem="LDn-U8-IKL" secondAttribute="bottom" id="nKO-Pr-FrQ"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="NQy-A8-fKc" firstAttribute="trailing" secondItem="6P0-lf-Vmn" secondAttribute="trailing" id="0Id-b7-NfH"/>
-                            <constraint firstItem="6P0-lf-Vmn" firstAttribute="leading" secondItem="MTv-Uq-wLZ" secondAttribute="leadingMargin" constant="-17" id="8vw-0F-P7c"/>
-                            <constraint firstItem="NQy-A8-fKc" firstAttribute="bottom" secondItem="aCV-Th-0s2" secondAttribute="top" id="RbJ-6U-1tK"/>
-                            <constraint firstItem="NQy-A8-fKc" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leading" id="UY5-tq-xW8"/>
-                            <constraint firstItem="6P0-lf-Vmn" firstAttribute="leading" secondItem="MTv-Uq-wLZ" secondAttribute="leading" id="gO9-G8-hZ2"/>
-                            <constraint firstAttribute="trailing" secondItem="6P0-lf-Vmn" secondAttribute="trailing" id="qUf-YW-2WL"/>
-                            <constraint firstItem="NQy-A8-fKc" firstAttribute="top" secondItem="6P0-lf-Vmn" secondAttribute="bottom" id="uWq-zJ-BWc"/>
-                            <constraint firstItem="6P0-lf-Vmn" firstAttribute="top" secondItem="MTv-Uq-wLZ" secondAttribute="top" id="yDI-lj-PbZ"/>
+                            <constraint firstItem="NQy-A8-fKc" firstAttribute="top" secondItem="6P0-lf-Vmn" secondAttribute="bottom" id="0lb-n5-7gO"/>
+                            <constraint firstItem="NQy-A8-fKc" firstAttribute="trailing" secondItem="6P0-lf-Vmn" secondAttribute="trailing" id="PG2-0B-HzX"/>
+                            <constraint firstItem="NQy-A8-fKc" firstAttribute="leading" secondItem="MTv-Uq-wLZ" secondAttribute="leading" id="Ylk-e3-xt3"/>
+                            <constraint firstAttribute="trailing" secondItem="6P0-lf-Vmn" secondAttribute="trailing" id="dmM-4e-lmX"/>
+                            <constraint firstItem="6P0-lf-Vmn" firstAttribute="top" secondItem="MTv-Uq-wLZ" secondAttribute="top" id="fPN-Hl-bP7"/>
+                            <constraint firstItem="NQy-A8-fKc" firstAttribute="bottom" secondItem="aCV-Th-0s2" secondAttribute="top" id="lQK-db-dox"/>
+                            <constraint firstItem="NQy-A8-fKc" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leading" id="sMT-17-PJY"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iZd-Lf-Z2T"/>
@@ -97,7 +96,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RLX-9F-GkA" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="878" y="773"/>
+            <point key="canvasLocation" x="1638" y="779"/>
         </scene>
         <!--LinesView Controller-->
         <scene sceneID="EMT-ub-K2k">
@@ -113,6 +112,14 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cyK-FV-iEP">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anT-mT-9gd">
+                                        <rect key="frame" x="279" y="341" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -127,31 +134,45 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mf-87-y9r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1536" y="343"/>
+            <point key="canvasLocation" x="2470" y="779"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="G9I-GX-eFG">
+        <scene sceneID="Kg4-cE-aMj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CtF-LB-5Gn" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b3Y-wY-JjN" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HXz-Jl-DiM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iBK-66-zU0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="JpN-E7-M05" kind="push" id="Ijg-Rv-QM5"/>
+                        <segue destination="R3x-0W-ZXV" kind="relationship" relationship="rootViewController" id="U32-uT-zLH"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HMg-U2-qQ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gtA-8M-LtC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="238" y="343"/>
+            <point key="canvasLocation" x="826" y="779"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="WXN-wQ-oRR">
+            <objects>
+                <viewController id="NL6-Gw-PsS" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Q8n-2k-7pa"/>
+                        <viewControllerLayoutGuide type="bottom" id="yjd-M2-tk5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sTj-DC-OJc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CE4-dj-eRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>
         <image name="check-white" width="22" height="22"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="e3p-0m-ucl"/>
-    </inferredMetricsTieBreakers>
 </document>

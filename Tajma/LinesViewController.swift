@@ -12,7 +12,10 @@ class LinesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        navigationController?.navigationBar.hidden = false
     }
     
     override func didReceiveMemoryWarning() {
