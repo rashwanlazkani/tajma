@@ -44,6 +44,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidAppear(animated: Bool) {
         navigationController?.navigationBar.hidden = true
+        tableView.reloadData()
     }
     
     // MARK: - Functions
