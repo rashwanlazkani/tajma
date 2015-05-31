@@ -15,6 +15,25 @@
 		F843A3B01B1B04C2008F4505 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */; };
 		F843A3BC1B1B04C2008F4505 /* TajmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */; };
 		F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3C51B1B066B008F4505 /* LinesViewController.swift */; };
+		F87AFE681B1B8A0F00D3DAFC /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE671B1B8A0E00D3DAFC /* DBService.swift */; };
+		F87AFE6D1B1B8FBA00D3DAFC /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */; };
+		F87AFE6E1B1B8FBA00D3DAFC /* String-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */; };
+		F87AFE731B1B902400D3DAFC /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE701B1B902400D3DAFC /* Departure.swift */; };
+		F87AFE741B1B902400D3DAFC /* LineAtStopToday.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */; };
+		F87AFE751B1B902400D3DAFC /* TodayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* TodayLabel.swift */; };
+		F87AFE7F1B1B903F00D3DAFC /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE761B1B903F00D3DAFC /* CheckBox.swift */; };
+		F87AFE801B1B903F00D3DAFC /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE771B1B903F00D3DAFC /* Global.swift */; };
+		F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
+		F87AFE821B1B903F00D3DAFC /* LinesAtStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE791B1B903F00D3DAFC /* LinesAtStop.swift */; };
+		F87AFE841B1B903F00D3DAFC /* PhoneSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */; };
+		F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
+		F87AFE861B1B903F00D3DAFC /* StopLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */; };
+		F87AFE871B1B903F00D3DAFC /* ObjWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7E1B1B903F00D3DAFC /* ObjWrapper.swift */; };
+		F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
+		F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
+		F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
+		F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
+		F87AFE921B1B911600D3DAFC /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +59,27 @@
 		F843A3BA1B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TajmaTests.swift; sourceTree = "<group>"; };
 		F843A3C51B1B066B008F4505 /* LinesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesViewController.swift; sourceTree = "<group>"; };
+		F87AFE671B1B8A0E00D3DAFC /* DBService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
+		F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDB.swift; sourceTree = "<group>"; };
+		F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-Extras.swift"; sourceTree = "<group>"; };
+		F87AFE701B1B902400D3DAFC /* Departure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Departure.swift; sourceTree = "<group>"; };
+		F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineAtStopToday.swift; sourceTree = "<group>"; };
+		F87AFE721B1B902400D3DAFC /* TodayLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayLabel.swift; sourceTree = "<group>"; };
+		F87AFE761B1B903F00D3DAFC /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		F87AFE771B1B903F00D3DAFC /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		F87AFE781B1B903F00D3DAFC /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		F87AFE791B1B903F00D3DAFC /* LinesAtStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesAtStop.swift; sourceTree = "<group>"; };
+		F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneSize.swift; sourceTree = "<group>"; };
+		F87AFE7C1B1B903F00D3DAFC /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
+		F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopLine.swift; sourceTree = "<group>"; };
+		F87AFE7E1B1B903F00D3DAFC /* ObjWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjWrapper.swift; sourceTree = "<group>"; };
+		F87AFE881B1B906400D3DAFC /* LineService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineService.swift; sourceTree = "<group>"; };
+		F87AFE891B1B906400D3DAFC /* RestApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiService.swift; sourceTree = "<group>"; };
+		F87AFE8A1B1B906400D3DAFC /* StopService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopService.swift; sourceTree = "<group>"; };
+		F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSONService.swift; sourceTree = "<group>"; };
+		F87AFE901B1B90AB00D3DAFC /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		F87AFE931B1B930700D3DAFC /* Tajma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tajma.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F87AFE921B1B911600D3DAFC /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +104,8 @@
 		F843A3941B1B04C2008F4505 = {
 			isa = PBXGroup;
 			children = (
+				F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */,
+				F87AFE661B1B89C100D3DAFC /* Core */,
 				F843A39F1B1B04C2008F4505 /* Tajma */,
 				F843A3B81B1B04C2008F4505 /* TajmaTests */,
 				F843A39E1B1B04C2008F4505 /* Products */,
@@ -81,6 +124,7 @@
 		F843A39F1B1B04C2008F4505 /* Tajma */ = {
 			isa = PBXGroup;
 			children = (
+				F87AFE931B1B930700D3DAFC /* Tajma.entitlements */,
 				F843A3A21B1B04C2008F4505 /* AppDelegate.swift */,
 				F843A3A71B1B04C2008F4505 /* ViewController.swift */,
 				F843A3C51B1B066B008F4505 /* LinesViewController.swift */,
@@ -88,6 +132,7 @@
 				F843A3AC1B1B04C2008F4505 /* Images.xcassets */,
 				F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */,
 				F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */,
+				F87AFE901B1B90AB00D3DAFC /* Bridging-Header.h */,
 				F843A3A01B1B04C2008F4505 /* Supporting Files */,
 			);
 			path = Tajma;
@@ -116,6 +161,55 @@
 				F843A3BA1B1B04C2008F4505 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F87AFE661B1B89C100D3DAFC /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F87AFE6A1B1B8FA300D3DAFC /* DB */,
+				F87AFE6F1B1B8FE000D3DAFC /* Models */,
+				F87AFE691B1B8F7A00D3DAFC /* Services */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		F87AFE691B1B8F7A00D3DAFC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F87AFE671B1B8A0E00D3DAFC /* DBService.swift */,
+				F87AFE881B1B906400D3DAFC /* LineService.swift */,
+				F87AFE891B1B906400D3DAFC /* RestApiService.swift */,
+				F87AFE8A1B1B906400D3DAFC /* StopService.swift */,
+				F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		F87AFE6A1B1B8FA300D3DAFC /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */,
+				F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */,
+			);
+			name = DB;
+			sourceTree = "<group>";
+		};
+		F87AFE6F1B1B8FE000D3DAFC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F87AFE701B1B902400D3DAFC /* Departure.swift */,
+				F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */,
+				F87AFE721B1B902400D3DAFC /* TodayLabel.swift */,
+				F87AFE761B1B903F00D3DAFC /* CheckBox.swift */,
+				F87AFE771B1B903F00D3DAFC /* Global.swift */,
+				F87AFE781B1B903F00D3DAFC /* Line.swift */,
+				F87AFE791B1B903F00D3DAFC /* LinesAtStop.swift */,
+				F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */,
+				F87AFE7C1B1B903F00D3DAFC /* Stop.swift */,
+				F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */,
+				F87AFE7E1B1B903F00D3DAFC /* ObjWrapper.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,6 +261,12 @@
 				TargetAttributes = {
 					F843A39C1B1B04C2008F4505 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 7XDMTA49ZT;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					F843A3B41B1B04C2008F4505 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -219,9 +319,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				F843A3A81B1B04C2008F4505 /* ViewController.swift in Sources */,
+				F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */,
+				F87AFE741B1B902400D3DAFC /* LineAtStopToday.swift in Sources */,
+				F87AFE681B1B8A0F00D3DAFC /* DBService.swift in Sources */,
+				F87AFE7F1B1B903F00D3DAFC /* CheckBox.swift in Sources */,
 				F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */,
+				F87AFE6D1B1B8FBA00D3DAFC /* SQLiteDB.swift in Sources */,
+				F87AFE871B1B903F00D3DAFC /* ObjWrapper.swift in Sources */,
+				F87AFE821B1B903F00D3DAFC /* LinesAtStop.swift in Sources */,
+				F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */,
+				F87AFE6E1B1B8FBA00D3DAFC /* String-Extras.swift in Sources */,
+				F87AFE861B1B903F00D3DAFC /* StopLine.swift in Sources */,
+				F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */,
+				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,
+				F87AFE751B1B902400D3DAFC /* TodayLabel.swift in Sources */,
+				F87AFE801B1B903F00D3DAFC /* Global.swift in Sources */,
+				F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */,
 				F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */,
+				F87AFE731B1B902400D3DAFC /* Departure.swift in Sources */,
+				F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */,
 				F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */,
+				F87AFE841B1B903F00D3DAFC /* PhoneSize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,9 +466,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Tajma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -358,9 +481,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Tajma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -417,6 +545,7 @@
 				F843A3C11B1B04C2008F4505 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F843A3C21B1B04C2008F4505 /* Build configuration list for PBXNativeTarget "TajmaTests" */ = {
 			isa = XCConfigurationList;
@@ -425,6 +554,7 @@
 				F843A3C41B1B04C2008F4505 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -7,39 +7,50 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-    
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
     @IBOutlet var navController: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    var arrOne = [Int]()
-    var arrTwo = [Int]()
+    let dbService = DBService()
+    let lineService = LineService()
+    var stopService = StopsService()
+    var objWrapper = ObjWrapper()
+    let phoneSize = PhoneSize()
+        
+    let locationManager = CLLocationManager()
+    var activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+    }
+    
+    var lat : String = ""
+    var long : String = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dbService.addTablesIfNotExists()
+        
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
         
         searchBar!.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         
         initiateViews()
-        
-        arrOne.append(0)
-        arrOne.append(2)
-        arrOne.append(4)
-        arrOne.append(6)
-        arrOne.append(8)
-        arrOne.append(10)
-        
-        arrTwo.append(1)
-        arrTwo.append(3)
-        arrTwo.append(5)
-        arrTwo.append(7)
-        arrTwo.append(9)
-        arrTwo.append(11)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -70,32 +81,141 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // TableView
         tableView.separatorColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 1)
+        
+        // Activity indicator
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
+        activityIndicator.color = UIColor.grayColor()
+        self.view.addSubview(activityIndicator)
+
+    }
+    
+    func getNearestStops() {
+        stopService.getNearestStops(lat, long: long, onCompletion: { json -> Void in
+            dispatch_async(dispatch_get_main_queue(),{
+                self.objWrapper = json
+                if (self.objWrapper.stops.count > 0){
+                    self.tableView!.reloadData()
+                }
+                else{
+                    println(self.objWrapper.error)
+                }
+            })
+        })
+        
+    }
+    
+    func getLinesAtStop(stopId : String, indexPath : Int){
+        
+        activityIndicator.startAnimating()
+        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+        
+        lineService.getAllLinesAtStop(stopId, onCompletion: { json -> Void in
+            dispatch_async(dispatch_get_main_queue(),{
+                self.objWrapper = json
+                if (self.objWrapper.lines.count > 0){
+                    self.performSegueWithIdentifier("ShowAddLinesView", sender: indexPath)
+                }
+                else{
+                    println(self.objWrapper.error)
+                }
+            })
+            
+            dispatch_async(dispatch_get_main_queue(),{
+                self.activityIndicator.stopAnimating()
+                UIApplication.sharedApplication().endIgnoringInteractionEvents()
+            })
+        })
     }
     
     // MARK: - Events
     @IBAction func segmentedControl_Changed(sender: UISegmentedControl) {
+        if (segmentedControl.selectedSegmentIndex == 0){
+            getNearestStops()
+        }
+        else if (segmentedControl.selectedSegmentIndex == 1){
+            objWrapper.stops = dbService.getStops()
+        }
         tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        var stop = StopsService()
+        
+        activityIndicator.startAnimating()
+        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+        
+        stop.getStopsByInput(searchBar.text, onCompletion: { json -> Void in
+            dispatch_async(dispatch_get_main_queue(),{
+                self.objWrapper = json
+                if (self.objWrapper.stops.count > 0){
+                    self.searchBar!.text = ""
+                }
+                else{
+                    println(self.objWrapper.error)
+                }
+                
+                self.tableView!.reloadData()
+                
+                self.activityIndicator.stopAnimating()
+                UIApplication.sharedApplication().endIgnoringInteractionEvents()
+            })
+        })
+        
+    }
+
+    // MARK: - Location Manager
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
+            if (error != nil){
+                println("Error: " + error.localizedDescription)
+                return
+            }
+            if (placemarks.count > 0){
+                let pm = placemarks[0] as! CLPlacemark
+                self.displayLocationInfo(pm)
+            }
+            else{
+                println("Error with location data")
+            }
+        })
+    }
+    
+    func displayLocationInfo (placemark : CLPlacemark){
+        // Vi har en location, behöver inte titta mer
+        self.locationManager.stopUpdatingLocation()
+        
+        lat = String(stringInterpolationSegment: placemark.location.coordinate.latitude)
+        long = String(stringInterpolationSegment: placemark.location.coordinate.longitude)
+        
+        getNearestStops()
+    }
+    
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        println("Error: " + error.localizedDescription)
     }
     
     // MARK: - TableView
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1;
+        return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if (arrOne.count < 10 || arrTwo.count < 10){
-            return 14
+        if (segmentedControl.selectedSegmentIndex == 0){
+            return objWrapper.stops.count
+        }
+        else if (segmentedControl.selectedSegmentIndex == 1){
+            return objWrapper.lines.count
         }
         else{
-            return 14
+            return 0
         }
-        
     }
     
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        tableView.backgroundColor = UIColor.whiteColor()
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
         if(indexPath.row % 2 == 0){
             cell!.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
@@ -103,31 +223,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell!.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
         }
         
-        // Behövs inte sen?
-        if (segmentedControl.selectedSegmentIndex == 0){
-            if (indexPath.row >= arrOne.count){
-                cell!.textLabel!.text = nil
+        cell!.textLabel!.text = objWrapper.stops[indexPath.row].name
+        
+        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        if (indexPath.row == objWrapper.stops.count - 1){
+           tableView.tableFooterView = UIView(frame: CGRectZero)
+            
+            if (indexPath.row % 2 == 0){
+                tableView.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
             }
             else{
-                cell!.textLabel!.text = String(arrOne[indexPath.row])
-            }
-        }
-        else{
-            if (indexPath.row >= arrOne.count){
-                cell!.textLabel!.text = nil
-            }
-            else{
-                cell!.textLabel!.text = String(arrTwo[indexPath.row])
+                tableView.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
             }
         }
         
-        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         return cell!
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        //getLinesAtStop(stopWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
+        getLinesAtStop(objWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
     }
     
     // MARK: - Segue
@@ -135,7 +251,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         if segue.identifier == "ShowLinesView"
         {
-            println("TEST")
+            var row : Int = sender as! Int
+            var stop = Stop(id: objWrapper.stops[row].id, name: objWrapper.stops[row].name, lat: objWrapper.stops[row].lat, long: objWrapper.stops[row].long, distance: 0, departures: nil)
+            
+            let linesViewController = segue.destinationViewController as! LinesViewController
+            //linesViewController.lineWrapper.lines = lineWrapper.lines
+            //linesViewController.stop = stop
+            lineService.getUserLinesAtStop(stop.id)
+            
+            self.activityIndicator.stopAnimating()
+            UIApplication.sharedApplication().endIgnoringInteractionEvents()
         }
     }
     
