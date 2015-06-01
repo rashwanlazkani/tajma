@@ -1,6 +1,6 @@
 //
 //  CheckBox.swift
-//  Tajmapp
+//  Tajma
 //
 //  Created by Rashwan Lazkani on 2015-05-02.
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
@@ -10,8 +10,8 @@ import UIKit
 
 class CheckBox: UIButton {
     // images
-    let checkedImage = UIImage(named: "checked_checkbox") as UIImage!
-    let uncheckedImage = UIImage(named: "unchecked_checkbox") as UIImage!
+    let checkedImage = UIImage(named: "check-box-red") as UIImage!
+    let uncheckedImage = UIImage(named: "unchecked-box") as UIImage!
     
     // bool properties
     var isChecked : Bool = false{

@@ -39,7 +39,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         dbService.addTablesIfNotExists()
         
         self.locationManager.delegate = self
@@ -55,6 +54,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     override func viewDidAppear(animated: Bool) {
+        lineWrapper = LineWrapper()
         navigationController?.navigationBar.hidden = true
         tableView.reloadData()
     }
@@ -134,6 +134,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func segmentedControl_Changed(sender: UISegmentedControl) {
         if (segmentedControl.selectedSegmentIndex == 0){
             getNearestStops()
+            searchBar.resignFirstResponder()
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
             stopWrapper.stops = dbService.getStops()
@@ -164,8 +165,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             })
         })
         
+        searchBar.resignFirstResponder()
+        
     }
-
+    
     // MARK: - Location Manager
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in

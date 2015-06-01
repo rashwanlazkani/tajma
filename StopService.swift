@@ -12,6 +12,7 @@ class StopsService{
     var dbService = DBService()
     var stops = StopWrapper()
     
+    // Cache
     func getNearestStops(lat: String, long: String, onCompletion: (StopWrapper) -> Void){
         RestApiService.sharedInstance.getNearestStops(lat, long: long) { json in
             var error = json["LocationList"]
@@ -72,6 +73,7 @@ class StopsService{
         }
     }
     
+    // Cache
     func getStopsByInput(name : String, onCompletion: (StopWrapper) -> Void){
         RestApiService.sharedInstance.findStops(name) { json in
             

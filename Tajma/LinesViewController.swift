@@ -10,9 +10,22 @@ import UIKit
 
 class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var navController: UINavigationItem!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var tableView: UITableView!
     
-
+    var lineWrapper = LineWrapper()
+    var stop : Stop!
+    var currentLinesAndDirections = [String]()
+    let dbService = DBService()
+    let phoneSize = PhoneSize()
+    var checkBoxes = [CheckBox]()
+    
+    
+    
+    var checkBoxButton = UIButton()
+    
+    let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,23 +34,10 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.delegate = self
         tableView.dataSource = self
         
-        initiateViews()
-        initiateViews()
+        self.title = stop.name
         
-        arrOne.append(0)
-        arrOne.append(2)
-        arrOne.append(4)
-        arrOne.append(6)
-        arrOne.append(8)
-        arrOne.append(10)
-        arrOne.append(0)
-        arrOne.append(2)
-        arrOne.append(4)
-        arrOne.append(6)
-        arrOne.append(8)
-        arrOne.append(10)
-        arrOne.append(8)
-        arrOne.append(10)
+        initiateViews()
+        showLines()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -51,24 +51,53 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: - Functions
     func initiateViews(){
         // NavBar
-        
         var nav = self.navigationController?.navigationBar
-        
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.colors = [UIColor(red: 9/255, green: 128/255, blue: 129/255, alpha: 1).CGColor, UIColor(red: 72/255, green: 174/255, blue: 151/255, alpha: 1).CGColor]
         gradient.locations = [0.0, 1.0]
         gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
         gradient.frame = CGRectMake(0, 0, nav!.frame.size.width, nav!.frame.size.height)
-        
-        // 2
         nav!.barStyle = UIBarStyle.Black
         nav!.tintColor = UIColor.whiteColor()
         
         // TableView
         tableView.separatorColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 1)
+        
+        // NavBar
+        activityIndicator.frame = CGRectMake(100, 100, 100, 100);
+        self.view.addSubview(activityIndicator)
     }
-
+    
+    func showLines(){
+        var tagId = 0
+        var viewHeight = 25
+        
+        for line in lineWrapper.lines{
+            var checkBox = CheckBox()
+            checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
+            checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+            checkBox.tag = tagId
+            
+            var stopLine : StopLine
+            
+            if (contains(Global.allaStopp, line.lineAndDirection)){
+                stopLine = StopLine(stopId: stop.id, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, lineAndDirection: line.lineAndDirection, isChecked: true)
+                checkBox.isChecked = true
+            }
+            else{
+                stopLine = StopLine(stopId: stop.id, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, lineAndDirection: line.lineAndDirection, isChecked: false)
+            }
+            
+            Global.linesAtStop.append(stopLine as StopLine)
+            checkBoxes.append(checkBox)
+            
+            viewHeight += 55
+            tagId++
+        }
+        
+        scrollView.contentSize = CGSize(width: phoneSize.width, height: viewHeight)
+    }
     
     // MARK: - TableView
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -77,39 +106,37 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return 14
+        return lineWrapper.lines.count
     }
     
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        
-        tableView.backgroundColor = UIColor.whiteColor()
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
-        
-        var checked = UIImage(named: "check-box-red")
-        var unChecked = UIImage(named: "unchecked-box")
-        
-        var imageView : UIImageView
         
         if(indexPath.row % 2 == 0){
             cell!.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
-            cell!.textLabel!.text = "Hållplats"
-            imageView = UIImageView(image: checked)
+            cell!.textLabel!.text = lineWrapper.lines[indexPath.row].lineAndDirection
+            cell!.accessoryView = checkBoxes[indexPath.row].imageView!
         } else{
             cell!.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
-            cell!.textLabel!.text = "Hållplats"
-            imageView = UIImageView(image: unChecked)
+            cell!.textLabel!.text = lineWrapper.lines[indexPath.row].lineAndDirection
+            //cell!.accessoryView = checkBoxes[indexPath.row].imageView!
+            var checked = UIImage(named: "check-box-red")
+            var imageView = UIImageView(image: checked)
+            cell!.accessoryView = imageView
         }
         
-        if (indexPath.row >= arrOne.count){
-            cell!.textLabel!.text = nil
-        }
-        else{
+        if (indexPath.row == lineWrapper.lines.count - 1){
+            tableView.tableFooterView = UIView(frame: CGRectZero)
             
+            if (indexPath.row % 2 == 0){
+                tableView.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
+            }
+            else{
+                tableView.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
+            }
         }
         
-        cell!.accessoryView = imageView
-
         return cell!
     }
     
@@ -117,7 +144,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     {
         //getLinesAtStop(stopWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
     }
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

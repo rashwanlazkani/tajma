@@ -12,6 +12,7 @@ public class LineService{
     var dbService = DBService()
     var lines = LineWrapper()
     
+    // Cache
     func getAllLinesAtStop(stopId: String, onCompletion: (LineWrapper) -> Void){
         RestApiService.sharedInstance.findAllLinesOnStop(stopId) { json in
             self.lines.lines = []
@@ -62,10 +63,12 @@ public class LineService{
         }
     }
     
+    // DB
     func getUserLinesAtStop(stopId: String){
         dbService.getLinesAtStop(stopId)
     }
     
+    // Live -> WS
     func getDeparturesAtStop(stopId: String, onCompletion: (LineWrapper) -> Void){
         RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
             self.lines.departures = []
