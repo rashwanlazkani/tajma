@@ -13,6 +13,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet var viewWrapper: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var navItem: UINavigationItem!
     
     var lineWrapper = LineWrapper()
     var stop : Stop!
@@ -55,22 +56,16 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: - Functions
     func initiateViews(){
         // NavBar
-        var nav = self.navigationController?.navigationBar
-        let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.colors = [UIColor(red: 9/255, green: 128/255, blue: 129/255, alpha: 1).CGColor, UIColor(red: 72/255, green: 174/255, blue: 151/255, alpha: 1).CGColor]
-        gradient.locations = [0.0, 1.0]
-        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
-        gradient.frame = CGRectMake(0, 0, nav!.frame.size.width, nav!.frame.size.height)
-        nav!.barStyle = UIBarStyle.Black
-        nav!.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 9/255, green: 128/255, blue: 129/255, alpha: 1)
+        activityIndicator.frame = CGRectMake(100, 100, 100, 100);
+        self.view.addSubview(activityIndicator)
+        
+        self.navigationItem.title = "Bakåt"
         
         // TableView
         tableView.separatorColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 1)
-        
-        // NavBar
-        activityIndicator.frame = CGRectMake(100, 100, 100, 100);
-        self.view.addSubview(activityIndicator)
     }
     
     func showLines(){

@@ -157,6 +157,7 @@
                     <navigationItem key="navigationItem" id="aeP-xd-OHh"/>
                     <connections>
                         <outlet property="navController" destination="aeP-xd-OHh" id="sdT-3U-hs1"/>
+                        <outlet property="navItem" destination="aeP-xd-OHh" id="ttg-aw-tNb"/>
                         <outlet property="scrollView" destination="cyK-FV-iEP" id="Xe9-Qw-nK1"/>
                         <outlet property="tableView" destination="MLr-1b-bu7" id="YQB-dE-jWy"/>
                         <outlet property="viewWrapper" destination="fT8-xv-T6D" id="4oV-p0-Nnb"/>

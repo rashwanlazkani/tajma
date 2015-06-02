@@ -144,12 +144,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     override func didMoveToParentViewController(parent: UIViewController?) {
+        // För att uppdatera listan över tillagda stopp
         if (parent != nil) {
             if (segmentedControl.selectedSegmentIndex == 1){
-                stopWrapper.stops = dbService.getStops()
+                var tempStops : [Stop]
+                tempStops = dbService.getStops()
+                
+                if (tempStops.count != stopWrapper.stops.count){
+                    stopWrapper.stops = dbService.getStops()
+                    tableView.reloadData()
+                }
             }
-
-            tableView.reloadData()
+            
         }
     }
     
