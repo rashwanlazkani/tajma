@@ -8,6 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		F80667511B1D157C00A26B5D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
+		F80667591B1E5CA100A26B5D /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F80667581B1E5CA100A26B5D /* NotificationCenter.framework */; };
+		F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806675D1B1E5CA100A26B5D /* TodayViewController.swift */; };
+		F80667601B1E5CA100A26B5D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */; };
+		F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F80667561B1E5CA100A26B5D /* TajmaToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F80667691B1E5CDD00A26B5D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */; };
+		F806676B1B1E5D7200A26B5D /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE671B1B8A0E00D3DAFC /* DBService.swift */; };
+		F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
+		F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
+		F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
+		F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
+		F80667701B1E5D7900A26B5D /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE701B1B902400D3DAFC /* Departure.swift */; };
+		F80667711B1E5D7900A26B5D /* LineAtStopToday.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */; };
+		F80667721B1E5D7900A26B5D /* TodayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* TodayLabel.swift */; };
+		F80667731B1E5D7900A26B5D /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE761B1B903F00D3DAFC /* CheckBox.swift */; };
+		F80667741B1E5D7900A26B5D /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE771B1B903F00D3DAFC /* Global.swift */; };
+		F80667751B1E5D7900A26B5D /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
+		F80667761B1E5D7900A26B5D /* LinesAtStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE791B1B903F00D3DAFC /* LinesAtStop.swift */; };
+		F80667771B1E5D7900A26B5D /* PhoneSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */; };
+		F80667781B1E5D7900A26B5D /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
+		F80667791B1E5D7900A26B5D /* StopLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */; };
+		F806677A1B1E5D7900A26B5D /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */; };
+		F806677B1B1E5D7900A26B5D /* StopWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */; };
+		F806677C1B1E5D9800A26B5D /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */; };
+		F806677D1B1E5D9800A26B5D /* String-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */; };
+		F806677F1B1E5DC600A26B5D /* DepartureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806677E1B1E5DC600A26B5D /* DepartureService.swift */; };
 		F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A21B1B04C2008F4505 /* AppDelegate.swift */; };
 		F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */; };
 		F843A3A81B1B04C2008F4505 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A71B1B04C2008F4505 /* ViewController.swift */; };
@@ -39,6 +64,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F80667611B1E5CA100A26B5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F843A3951B1B04C2008F4505 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F80667551B1E5CA100A26B5D;
+			remoteInfo = TajmaToday;
+		};
 		F843A3B61B1B04C2008F4505 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F843A3951B1B04C2008F4505 /* Project object */;
@@ -48,8 +80,30 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F80667671B1E5CA100A26B5D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		F80667501B1D157C00A26B5D /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		F80667561B1E5CA100A26B5D /* TajmaToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TajmaToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F80667581B1E5CA100A26B5D /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		F806675C1B1E5CA100A26B5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F806675D1B1E5CA100A26B5D /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		F80667681B1E5CBA00A26B5D /* TajmaToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TajmaToday.entitlements; sourceTree = "<group>"; };
+		F806676A1B1E5D2200A26B5D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		F806677E1B1E5DC600A26B5D /* DepartureService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartureService.swift; sourceTree = "<group>"; };
 		F843A39D1B1B04C2008F4505 /* Tajma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tajma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F843A3A11B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F843A3A21B1B04C2008F4505 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +141,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F80667531B1E5CA100A26B5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F80667691B1E5CDD00A26B5D /* libsqlite3.0.dylib in Frameworks */,
+				F80667591B1E5CA100A26B5D /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F843A39A1B1B04C2008F4505 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -113,13 +176,43 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
-		F843A3941B1B04C2008F4505 = {
+		F80667571B1E5CA100A26B5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */,
+				F80667581B1E5CA100A26B5D /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F806675A1B1E5CA100A26B5D /* TajmaToday */ = {
+			isa = PBXGroup;
+			children = (
+				F80667681B1E5CBA00A26B5D /* TajmaToday.entitlements */,
+				F806675D1B1E5CA100A26B5D /* TodayViewController.swift */,
+				F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */,
+				F806676A1B1E5D2200A26B5D /* Bridging-Header.h */,
+				F806675B1B1E5CA100A26B5D /* Supporting Files */,
+			);
+			path = TajmaToday;
+			sourceTree = "<group>";
+		};
+		F806675B1B1E5CA100A26B5D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F806675C1B1E5CA100A26B5D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F843A3941B1B04C2008F4505 = {
+			isa = PBXGroup;
+			children = (
 				F87AFE661B1B89C100D3DAFC /* Core */,
 				F843A39F1B1B04C2008F4505 /* Tajma */,
 				F843A3B81B1B04C2008F4505 /* TajmaTests */,
+				F806675A1B1E5CA100A26B5D /* TajmaToday */,
+				F80667571B1E5CA100A26B5D /* Frameworks */,
 				F843A39E1B1B04C2008F4505 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -129,6 +222,7 @@
 			children = (
 				F843A39D1B1B04C2008F4505 /* Tajma.app */,
 				F843A3B51B1B04C2008F4505 /* TajmaTests.xctest */,
+				F80667561B1E5CA100A26B5D /* TajmaToday.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				F87AFE671B1B8A0E00D3DAFC /* DBService.swift */,
+				F806677E1B1E5DC600A26B5D /* DepartureService.swift */,
 				F87AFE881B1B906400D3DAFC /* LineService.swift */,
 				F87AFE891B1B906400D3DAFC /* RestApiService.swift */,
 				F87AFE8A1B1B906400D3DAFC /* StopService.swift */,
@@ -229,6 +324,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F80667551B1E5CA100A26B5D /* TajmaToday */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F80667641B1E5CA100A26B5D /* Build configuration list for PBXNativeTarget "TajmaToday" */;
+			buildPhases = (
+				F80667521B1E5CA100A26B5D /* Sources */,
+				F80667531B1E5CA100A26B5D /* Frameworks */,
+				F80667541B1E5CA100A26B5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TajmaToday;
+			productName = TajmaToday;
+			productReference = F80667561B1E5CA100A26B5D /* TajmaToday.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		F843A39C1B1B04C2008F4505 /* Tajma */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F843A3BF1B1B04C2008F4505 /* Build configuration list for PBXNativeTarget "Tajma" */;
@@ -236,10 +348,12 @@
 				F843A3991B1B04C2008F4505 /* Sources */,
 				F843A39A1B1B04C2008F4505 /* Frameworks */,
 				F843A39B1B1B04C2008F4505 /* Resources */,
+				F80667671B1E5CA100A26B5D /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F80667621B1E5CA100A26B5D /* PBXTargetDependency */,
 			);
 			name = Tajma;
 			productName = Tajma;
@@ -273,6 +387,15 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Rashwan Lazkani";
 				TargetAttributes = {
+					F80667551B1E5CA100A26B5D = {
+						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 7XDMTA49ZT;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					F843A39C1B1B04C2008F4505 = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = 7XDMTA49ZT;
@@ -303,11 +426,20 @@
 			targets = (
 				F843A39C1B1B04C2008F4505 /* Tajma */,
 				F843A3B41B1B04C2008F4505 /* TajmaTests */,
+				F80667551B1E5CA100A26B5D /* TajmaToday */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F80667541B1E5CA100A26B5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F80667601B1E5CA100A26B5D /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F843A39B1B1B04C2008F4505 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -328,6 +460,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F80667521B1E5CA100A26B5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F80667761B1E5D7900A26B5D /* LinesAtStop.swift in Sources */,
+				F806677B1B1E5D7900A26B5D /* StopWrapper.swift in Sources */,
+				F80667771B1E5D7900A26B5D /* PhoneSize.swift in Sources */,
+				F806677C1B1E5D9800A26B5D /* SQLiteDB.swift in Sources */,
+				F80667781B1E5D7900A26B5D /* Stop.swift in Sources */,
+				F806677D1B1E5D9800A26B5D /* String-Extras.swift in Sources */,
+				F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */,
+				F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */,
+				F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */,
+				F80667701B1E5D7900A26B5D /* Departure.swift in Sources */,
+				F80667791B1E5D7900A26B5D /* StopLine.swift in Sources */,
+				F80667731B1E5D7900A26B5D /* CheckBox.swift in Sources */,
+				F80667711B1E5D7900A26B5D /* LineAtStopToday.swift in Sources */,
+				F806677A1B1E5D7900A26B5D /* LineWrapper.swift in Sources */,
+				F80667741B1E5D7900A26B5D /* Global.swift in Sources */,
+				F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */,
+				F80667721B1E5D7900A26B5D /* TodayLabel.swift in Sources */,
+				F80667751B1E5D7900A26B5D /* Line.swift in Sources */,
+				F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */,
+				F806676B1B1E5D7200A26B5D /* DBService.swift in Sources */,
+				F806677F1B1E5DC600A26B5D /* DepartureService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F843A3991B1B04C2008F4505 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -370,6 +530,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F80667621B1E5CA100A26B5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F80667551B1E5CA100A26B5D /* TajmaToday */;
+			targetProxy = F80667611B1E5CA100A26B5D /* PBXContainerItemProxy */;
+		};
 		F843A3B71B1B04C2008F4505 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F843A39C1B1B04C2008F4505 /* Tajma */;
@@ -397,6 +562,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F80667651B1E5CA100A26B5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TajmaToday/TajmaToday.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TajmaToday/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "TajmaToday/Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		F80667661B1E5CA100A26B5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TajmaToday/TajmaToday.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = TajmaToday/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "TajmaToday/Bridging-Header.h";
+			};
+			name = Release;
+		};
 		F843A3BD1B1B04C2008F4505 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -545,6 +744,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F80667641B1E5CA100A26B5D /* Build configuration list for PBXNativeTarget "TajmaToday" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F80667651B1E5CA100A26B5D /* Debug */,
+				F80667661B1E5CA100A26B5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		F843A3981B1B04C2008F4505 /* Build configuration list for PBXProject "Tajma" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
