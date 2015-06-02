@@ -7,7 +7,7 @@
         <!--Today View Controller-->
         <scene sceneID="hWP-dc-rAX">
             <objects>
-                <tableViewController id="SJb-KJ-Cpi" userLabel="Today View Controller" customClass="TodayTableViewController" customModule="TajmAppToday" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="SJb-KJ-Cpi" userLabel="Today View Controller" customClass="TodayTableViewController" customModule="TajmaToday" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="BEX-eB-IRv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

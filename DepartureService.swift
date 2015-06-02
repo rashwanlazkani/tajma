@@ -43,9 +43,11 @@ public class DepartureService {
                 var track = subJson["track"].string ?? ""
                 var direction = subJson["direction"].string!
                 
-                var rtTimeFromServer = subJson["rtTime"].string! ?? subJson["time"].string!
+                var rtTimeFromServer = subJson["rtTime"].string ?? subJson["time"].string
+                
+                var rtDate = subJson["rtDate"].string ?? subJson["date"].string
 
-                var rtTime = [subJson["rtDate"].string! + " " + rtTimeFromServer]
+                var rtTime = [rtDate!  + " " + rtTimeFromServer!]
                 
                 let serverTime = dateFormatter.dateFromString(serverDate) as NSDate!
                 let departureTime = dateFormatter.dateFromString(rtTime[0]) as NSDate!
