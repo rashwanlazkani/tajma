@@ -10,6 +10,7 @@ import UIKit
 
 class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var navController: UINavigationItem!
+    @IBOutlet var viewWrapper: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,12 +19,9 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     var currentLinesAndDirections = [String]()
     let dbService = DBService()
     let phoneSize = PhoneSize()
+    var checkBoxService = CheckBox()
     var checkBoxes = [CheckBox]()
-    
-    
-    
-    var checkBoxButton = UIButton()
-    
+ 
     let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     
     override func viewDidLoad() {
@@ -46,6 +44,13 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidDisappear(animated: Bool) {
         navigationController?.navigationBar.hidden = true
+    }
+    
+    // MARK: - Events
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        if (parent == nil) {
+            dbService.addLinesToStop(stop)
+        }
     }
     
     // MARK: - Functions
@@ -78,6 +83,8 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
             checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
             checkBox.tag = tagId
+            checkBox.frame = CGRectMake(50, 50, 50, 50)
+            checkBox.center = CGPoint(x: view.bounds.width - 25, y: 44 / 2.0)
             
             var stopLine : StopLine
             
@@ -92,7 +99,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             Global.linesAtStop.append(stopLine as StopLine)
             checkBoxes.append(checkBox)
             
-            viewHeight += 55
+            viewHeight += 20
             tagId++
         }
         
@@ -113,17 +120,36 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     {
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
         
+        var view = UIView()
+        view.frame = CGRectMake(30, 30, 30, 30)
+        view.layer.cornerRadius = 5
+        view.center = CGPoint(x: view.bounds.width, y: 44 / 2.0)
+        view.backgroundColor = UIColor(rgba: lineWrapper.lines[indexPath.row].fgColor)
+        
+        var sname = ""
+        var letterSname = lineWrapper.lines[indexPath.row].sname.toInt()
+        if (count(lineWrapper.lines[indexPath.row].sname) > 3) || letterSname == nil{
+            let snameArr = Array(lineWrapper.lines[indexPath.row].sname)
+            sname = String(snameArr[0])
+        }
+        else{
+            sname = lineWrapper.lines[indexPath.row].sname
+        }
+        
+        var label = UILabel(frame: CGRectMake(0, 0, 30, 30))
+        label.textAlignment = NSTextAlignment.Center
+        label.text = sname ?? lineWrapper.lines[indexPath.row].sname
+        label.textColor = UIColor(rgba: lineWrapper.lines[indexPath.row].bgColor)
+        cell!.textLabel!.text = "\t   " + lineWrapper.lines[indexPath.row].direction
+        
+        view.addSubview(label)
+        cell!.addSubview(view)
+        cell!.addSubview(checkBoxes[indexPath.row])
+        
         if(indexPath.row % 2 == 0){
             cell!.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
-            cell!.textLabel!.text = lineWrapper.lines[indexPath.row].lineAndDirection
-            cell!.accessoryView = checkBoxes[indexPath.row].imageView!
         } else{
             cell!.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
-            cell!.textLabel!.text = lineWrapper.lines[indexPath.row].lineAndDirection
-            //cell!.accessoryView = checkBoxes[indexPath.row].imageView!
-            var checked = UIImage(named: "check-box-red")
-            var imageView = UIImageView(image: checked)
-            cell!.accessoryView = imageView
         }
         
         if (indexPath.row == lineWrapper.lines.count - 1){
@@ -131,9 +157,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             if (indexPath.row % 2 == 0){
                 tableView.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
+                //viewWrapper.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
             }
             else{
                 tableView.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
+                //viewWrapper.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
             }
         }
         

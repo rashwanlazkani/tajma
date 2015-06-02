@@ -116,11 +116,21 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="0zD-U8-xaL">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="0zD-U8-xaL">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0zD-U8-xaL" id="Zjt-hu-V7H">
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vxt-xj-d6O" customClass="CheckBox" customModule="Tajma" customModuleProvider="target">
+                                                            <rect key="frame" x="290" y="11" width="22" height="22"/>
+                                                            <state key="normal" image="unchecked-box"/>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="Vxt-xj-d6O" firstAttribute="top" secondItem="Zjt-hu-V7H" secondAttribute="topMargin" constant="3" id="qfT-Pv-eD3"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="Vxt-xj-d6O" secondAttribute="trailing" id="sOf-US-qsS"/>
+                                                    </constraints>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
@@ -149,11 +159,12 @@
                         <outlet property="navController" destination="aeP-xd-OHh" id="sdT-3U-hs1"/>
                         <outlet property="scrollView" destination="cyK-FV-iEP" id="Xe9-Qw-nK1"/>
                         <outlet property="tableView" destination="MLr-1b-bu7" id="YQB-dE-jWy"/>
+                        <outlet property="viewWrapper" destination="fT8-xv-T6D" id="4oV-p0-Nnb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mf-87-y9r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1317.3333333333333" y="737.45333333333338"/>
+            <point key="canvasLocation" x="1316" y="737"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kg4-cE-aMj">
@@ -176,6 +187,7 @@
     </scenes>
     <resources>
         <image name="check-white" width="22" height="22"/>
+        <image name="unchecked-box" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

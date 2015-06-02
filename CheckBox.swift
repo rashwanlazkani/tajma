@@ -32,6 +32,9 @@ class CheckBox: UIButton {
     }
     
     func buttonClicked(sender : UIButton){
+        
+        println(sender.tag)
+        
         if (isChecked == true){
             for stopline in Global.linesAtStop{
                 if (stopline.tag == sender.tag){
@@ -53,6 +56,21 @@ class CheckBox: UIButton {
             }
             
         }
+    }
+    
+    func getImage(index : Int) -> UIImage{
+        for stopline in Global.linesAtStop{
+            if (stopline.tag == index){
+                if (stopline.isChecked){
+                    return checkedImage
+                }
+                else{
+                    return uncheckedImage
+                }
+            }
+        }
+        
+        return UIImage()
     }
 
 }

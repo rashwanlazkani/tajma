@@ -35,6 +35,8 @@ public class LineService{
                     var direction = subJson["direction"].string
                     var type = subJson["type"].string
                     var track = subJson["track"].string
+                    var fgColor = subJson["fgColor"].string
+                    var bgColor = subJson["bgColor"].string
                     
                     if (sname == nil && direction == nil){
                         self.lines.error = "No stop"
@@ -48,7 +50,7 @@ public class LineService{
                         if (!contains(tempNames, lineAndDirection)){
                             tempNames.insert(lineAndDirection, atIndex: 0)
                             
-                            var line = Line(name: name ?? "", sname: sname ?? "", direction: direction ?? "", type: type ?? "", track: track ?? "", lineAndDirection: lineAndDirection)
+                            var line = Line(name: name ?? "", sname: sname ?? "", direction: direction ?? "", type: type ?? "", track: track ?? "", fgColor: fgColor ?? "", bgColor: bgColor ?? "", lineAndDirection: lineAndDirection)
                             self.lines.lines.append(line as Line)
                         }
                     }

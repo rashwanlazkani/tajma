@@ -139,6 +139,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         else if (segmentedControl.selectedSegmentIndex == 1){
             stopWrapper.stops = dbService.getStops()
         }
+        
         tableView.reloadData()
     }
     
@@ -194,6 +195,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         long = String(stringInterpolationSegment: placemark.location.coordinate.longitude)
         
         getNearestStops()
+        
+        tableView.reloadData()
     }
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
@@ -207,15 +210,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if (segmentedControl.selectedSegmentIndex == 0){
-            return stopWrapper.stops.count
-        }
-        else if (segmentedControl.selectedSegmentIndex == 1){
-            return lineWrapper.lines.count
-        }
-        else{
-            return 0
-        }
+        return stopWrapper.stops.count
     }
     
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell

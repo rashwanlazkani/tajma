@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F80667511B1D157C00A26B5D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 		F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A21B1B04C2008F4505 /* AppDelegate.swift */; };
 		F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */; };
 		F843A3A81B1B04C2008F4505 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A71B1B04C2008F4505 /* ViewController.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F80667501B1D157C00A26B5D /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F843A39D1B1B04C2008F4505 /* Tajma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tajma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F843A3A11B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F843A3A21B1B04C2008F4505 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F806674F1B1D156E00A26B5D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F80667501B1D157C00A26B5D /* UIColor.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		F843A3941B1B04C2008F4505 = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +178,7 @@
 		F87AFE661B1B89C100D3DAFC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F806674F1B1D156E00A26B5D /* Extensions */,
 				F87AFE6A1B1B8FA300D3DAFC /* DB */,
 				F87AFE6F1B1B8FE000D3DAFC /* Models */,
 				F87AFE691B1B8F7A00D3DAFC /* Services */,
@@ -334,6 +345,7 @@
 				F87AFE861B1B903F00D3DAFC /* StopLine.swift in Sources */,
 				F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */,
 				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,
+				F80667511B1D157C00A26B5D /* UIColor.swift in Sources */,
 				F87AFE751B1B902400D3DAFC /* TodayLabel.swift in Sources */,
 				F87AFE801B1B903F00D3DAFC /* Global.swift in Sources */,
 				F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */,

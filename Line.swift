@@ -14,14 +14,18 @@ public class Line {
     public var direction: String
     public var type: String
     public var track: String
+    public var fgColor: String
+    public var bgColor: String
     public var lineAndDirection: String
     
-    public init(name : String, sname: String, direction: String, type: String, track: String, lineAndDirection: String) {
+    public init(name : String, sname: String, direction: String, type: String, track: String, fgColor: String, bgColor: String, lineAndDirection: String) {
         self.name = name
         self.sname = sname
         self.direction = direction
         self.type = type
         self.track = track
+        self.fgColor = fgColor
+        self.bgColor = bgColor
         self.lineAndDirection = lineAndDirection
     }
 }
