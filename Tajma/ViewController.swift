@@ -51,6 +51,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.dataSource = self
         
         initiateViews()
+        
+        self.title = "Bakåt"
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -58,7 +60,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         navigationController?.navigationBar.hidden = true
         tableView.reloadData()
     }
-    
+ 
     // MARK: - Functions
     func initiateViews(){
         // Gradient view

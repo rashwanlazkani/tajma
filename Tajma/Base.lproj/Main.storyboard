@@ -154,7 +154,11 @@
                             <constraint firstItem="cyK-FV-iEP" firstAttribute="leading" secondItem="fT8-xv-T6D" secondAttribute="leading" id="swW-KK-Jbu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="aeP-xd-OHh"/>
+                    <navigationItem key="navigationItem" id="aeP-xd-OHh">
+                        <barButtonItem key="backBarButtonItem" systemItem="trash" id="tWo-rp-9P6">
+                            <color key="tintColor" red="0.72549019609999998" green="0.23154237329999999" blue="0.17218144730000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="navController" destination="aeP-xd-OHh" id="sdT-3U-hs1"/>
                         <outlet property="navItem" destination="aeP-xd-OHh" id="ttg-aw-tNb"/>

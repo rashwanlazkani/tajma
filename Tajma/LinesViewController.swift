@@ -62,7 +62,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         activityIndicator.frame = CGRectMake(100, 100, 100, 100);
         self.view.addSubview(activityIndicator)
         
-        self.navigationItem.title = "Bakåt"
+        self.navigationItem.backBarButtonItem!.title = "Backhh"
         
         // TableView
         tableView.separatorColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 1)
