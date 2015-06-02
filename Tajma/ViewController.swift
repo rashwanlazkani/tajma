@@ -143,7 +143,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.reloadData()
     }
     
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        if (parent != nil) {
+            if (segmentedControl.selectedSegmentIndex == 1){
+                stopWrapper.stops = dbService.getStops()
+            }
+
+            tableView.reloadData()
+        }
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.enablesReturnKeyAutomatically = false
+    }
+    
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if (count(searchBar.text) == 0){
+            return
+        }
         var stop = StopsService()
         
         activityIndicator.startAnimating()

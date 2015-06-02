@@ -39,7 +39,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     override func viewDidAppear(animated: Bool) {
-        
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -99,7 +98,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             Global.linesAtStop.append(stopLine as StopLine)
             checkBoxes.append(checkBox)
             
-            viewHeight += 20
+            viewHeight += 54
             tagId++
         }
         
