@@ -118,6 +118,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             dispatch_async(dispatch_get_main_queue(),{
                 self.lineWrapper = json
                 if (self.lineWrapper.lines.count > 0){
+                    
                     self.performSegueWithIdentifier("ShowLinesView", sender: indexPath)
                 }
                 else{

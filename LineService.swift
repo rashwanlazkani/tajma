@@ -44,12 +44,13 @@ public class LineService{
                         
                     }
                     else{
+                        
                         var lineAndDirection = self.subStringSnameAndDirection(sname!, direction: direction!, addWhereTo: false)
                         
                         // Kollar så att man endast visar en linje + direction per hållplats
                         if (!contains(tempNames, lineAndDirection)){
                             tempNames.insert(lineAndDirection, atIndex: 0)
-                            
+
                             var line = Line(name: name ?? "", sname: sname ?? "", direction: direction ?? "", type: type ?? "", track: track ?? "", fgColor: fgColor ?? "", bgColor: bgColor ?? "", lineAndDirection: lineAndDirection)
                             self.lines.lines.append(line as Line)
                         }
@@ -102,6 +103,7 @@ public class LineService{
                     var sname = subJson["sname"].string
                     var direction = subJson["direction"].string
                     var departure = subJson["rtTime"].string
+                    
                     
                     var lineAndDirection = sname! + " " + direction!
                     lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Buss", withString: "")
