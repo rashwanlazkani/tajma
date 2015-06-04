@@ -101,59 +101,13 @@
             <objects>
                 <viewController id="JpN-E7-M05" userLabel="LinesView Controller" customClass="LinesViewController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UX6-WN-9yj"/>
-                        <viewControllerLayoutGuide type="bottom" id="MAg-IZ-TSz"/>
+                        <viewControllerLayoutGuide type="top" id="6qH-6I-e4g"/>
+                        <viewControllerLayoutGuide type="bottom" id="oLQ-Vy-aZC"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fT8-xv-T6D">
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="SqA-E1-eEe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cyK-FV-iEP">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="MLr-1b-bu7">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="0zD-U8-xaL">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0zD-U8-xaL" id="Zjt-hu-V7H">
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vxt-xj-d6O" customClass="CheckBox" customModule="Tajma" customModuleProvider="target">
-                                                            <rect key="frame" x="290" y="11" width="22" height="22"/>
-                                                            <state key="normal" image="unchecked-box"/>
-                                                        </button>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="Vxt-xj-d6O" firstAttribute="top" secondItem="Zjt-hu-V7H" secondAttribute="topMargin" constant="3" id="qfT-Pv-eD3"/>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="Vxt-xj-d6O" secondAttribute="trailing" id="sOf-US-qsS"/>
-                                                    </constraints>
-                                                </tableViewCellContentView>
-                                            </tableViewCell>
-                                        </prototypes>
-                                    </tableView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="MLr-1b-bu7" firstAttribute="centerX" secondItem="cyK-FV-iEP" secondAttribute="centerX" id="4yX-j2-oo0"/>
-                                    <constraint firstItem="MLr-1b-bu7" firstAttribute="top" secondItem="cyK-FV-iEP" secondAttribute="top" id="Rbo-AR-z2e"/>
-                                    <constraint firstAttribute="bottom" secondItem="MLr-1b-bu7" secondAttribute="bottom" id="Yln-PB-dq0"/>
-                                    <constraint firstItem="MLr-1b-bu7" firstAttribute="centerY" secondItem="cyK-FV-iEP" secondAttribute="centerY" id="aPk-jx-27N"/>
-                                    <constraint firstItem="MLr-1b-bu7" firstAttribute="leading" secondItem="cyK-FV-iEP" secondAttribute="leading" id="l7x-I9-VdB"/>
-                                    <constraint firstAttribute="trailing" secondItem="MLr-1b-bu7" secondAttribute="trailing" id="ohX-0Q-g2h"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="cyK-FV-iEP" secondAttribute="trailing" id="ItP-Sn-1LU"/>
-                            <constraint firstItem="cyK-FV-iEP" firstAttribute="bottom" secondItem="MAg-IZ-TSz" secondAttribute="top" id="iuc-EC-LjC"/>
-                            <constraint firstItem="cyK-FV-iEP" firstAttribute="top" secondItem="fT8-xv-T6D" secondAttribute="top" id="rbi-DW-S8u"/>
-                            <constraint firstItem="cyK-FV-iEP" firstAttribute="leading" secondItem="fT8-xv-T6D" secondAttribute="leading" id="swW-KK-Jbu"/>
-                        </constraints>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </scrollView>
                     <navigationItem key="navigationItem" id="aeP-xd-OHh">
                         <barButtonItem key="backBarButtonItem" systemItem="trash" id="tWo-rp-9P6">
                             <color key="tintColor" red="0.72549019609999998" green="0.23154237329999999" blue="0.17218144730000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -162,9 +116,7 @@
                     <connections>
                         <outlet property="navController" destination="aeP-xd-OHh" id="sdT-3U-hs1"/>
                         <outlet property="navItem" destination="aeP-xd-OHh" id="ttg-aw-tNb"/>
-                        <outlet property="scrollView" destination="cyK-FV-iEP" id="Xe9-Qw-nK1"/>
-                        <outlet property="tableView" destination="MLr-1b-bu7" id="YQB-dE-jWy"/>
-                        <outlet property="viewWrapper" destination="fT8-xv-T6D" id="4oV-p0-Nnb"/>
+                        <outlet property="scrollView" destination="SqA-E1-eEe" id="4h1-KX-rOf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mf-87-y9r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -192,7 +144,6 @@
     </scenes>
     <resources>
         <image name="check-white" width="22" height="22"/>
-        <image name="unchecked-box" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

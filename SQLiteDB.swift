@@ -246,7 +246,7 @@ private let SQLITE_TRANSIENT = sqlite3_destructor_type(COpaquePointer(bitPattern
 			}
 		}
 		let path = docDir.stringByAppendingPathComponent(dbName)
-		println("Database path: \(path)")
+		//println("Database path: \(path)")
 		// Check if copy of DB is there in Documents directory
 		if !(fm.fileExistsAtPath(path)) {
 			// The database does not exist, so copy to Documents directory
