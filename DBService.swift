@@ -42,6 +42,8 @@ class DBService {
             stops.append(stop)
         }
         
+        stops.sort({ $0.name < $1.name })
+        
         return stops
 
     }
