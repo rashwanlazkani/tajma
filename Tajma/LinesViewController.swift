@@ -59,7 +59,7 @@ class LinesViewController: UIViewController {
         var height = 0
         var tag = 0
 
-        self.lineWrapper.lines.sort({$0.sname.toInt() < $1.sname.toInt() ? $0.sname < $1.name : $0.sname < $1.sname })
+        self.lineWrapper.lines.sort({$0.sname.toInt() < $1.sname.toInt() ? $0.sname < $1.name : $0.name < $1.name })
         
         for line in lineWrapper.lines{
             var checkBox = CheckBox()
