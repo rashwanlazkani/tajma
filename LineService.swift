@@ -104,7 +104,6 @@ public class LineService{
                     var direction = subJson["direction"].string
                     var departure = subJson["rtTime"].string
                     
-                    
                     var lineAndDirection = sname! + " " + direction!
                     lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Buss", withString: "")
                     lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Spårvagn", withString: "")
