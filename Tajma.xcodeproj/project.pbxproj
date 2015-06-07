@@ -209,7 +209,7 @@
 		F843A3941B1B04C2008F4505 = {
 			isa = PBXGroup;
 			children = (
-				F87AFE661B1B89C100D3DAFC /* Core */,
+				F87AFE661B1B89C100D3DAFC /* Domain */,
 				F843A39F1B1B04C2008F4505 /* Tajma */,
 				F843A3B81B1B04C2008F4505 /* TajmaTests */,
 				F806675A1B1E5CA100A26B5D /* TajmaToday */,
@@ -270,7 +270,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F87AFE661B1B89C100D3DAFC /* Core */ = {
+		F87AFE661B1B89C100D3DAFC /* Domain */ = {
 			isa = PBXGroup;
 			children = (
 				F806674F1B1D156E00A26B5D /* Extensions */,
@@ -278,7 +278,7 @@
 				F87AFE6F1B1B8FE000D3DAFC /* Models */,
 				F87AFE691B1B8F7A00D3DAFC /* Services */,
 			);
-			name = Core;
+			name = Domain;
 			sourceTree = "<group>";
 		};
 		F87AFE691B1B8F7A00D3DAFC /* Services */ = {
