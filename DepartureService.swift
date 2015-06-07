@@ -101,24 +101,9 @@ public class DepartureService {
     }
     
     func getMyDepartures(lat: Double, long: Double) -> [Stop] {
-        
-//        println("LAT")
-//        println(lat)
-//        println("LONG")
-//        println(long)        
-        
         var stops = dbService.getStops()
         var closestStops = [Stop]()
-        
-        //- getMyDestination
-        //-   hämtar mina stops från db
-        //-   hämtar departures via Västtrafi api
-        //-   räkna ut avstånd
-        //-   merga stops med departures
-        //-   sortera baserat på avstånd
-        //-   returnera samlat objekt tillbaka hit
-        
-        
+
         var getDeparturesGroup = dispatch_group_create()
         
         // Hämta x närmaste hållplatser i närheten
