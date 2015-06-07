@@ -132,7 +132,29 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return linesAtStop.count
+        if (linesAtStop.count > iPhoneModelSize()){
+            return iPhoneModelSize()
+        }
+        else{
+            return linesAtStop.count
+        }
+    }
+    
+    func iPhoneModelSize() -> Int{
+        let modelName = UIDevice.currentDevice().modelName
+
+        switch modelName {
+            case "iPhone 4", "iPhone 4S" :
+                return 9
+            case "iPhone 5", "iPhone 5C", "iPhone 5S" :
+                return 11
+            case "iPhone 6" :
+                return 14
+            case "iPhone 6 Plus" :
+                return 17
+            default:
+            return 20
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -160,12 +182,12 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         directionLabel.font = directionLabel.font.fontWithSize(12)
         
         var snameView = UIView()
-        snameView.frame = CGRectMake(30, 30, 40, 30)
+        snameView.frame = CGRectMake(30, 30, 30, 25)
         snameView.layer.cornerRadius = 5
         snameView.center = CGPoint(x: 25, y: 23)
         snameView.backgroundColor = UIColor(rgba: linesAtStop[indexPath.row].fgColor)
         
-        var snameLabel = UILabel(frame: CGRectMake(5, 0, 30, 30))
+        var snameLabel = UILabel(frame: CGRectMake(3, 0, 25, 25))
         snameLabel.textAlignment = NSTextAlignment.Center
         snameLabel.textColor = UIColor(rgba: linesAtStop[indexPath.row].bgColor)
         snameLabel.font = snameLabel.font.fontWithSize(12)
@@ -178,8 +200,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         depLabelTwo.textColor = UIColor.lightGrayColor()
         depLabelTwo.font = depLabelTwo.font.fontWithSize(12)
         
-        var separatorLine = UIView(frame: CGRect(x: 0, y: 44, width: Int(cell.frame.size.width), height: 1))
-        separatorLine.backgroundColor = UIColor(rgba: "#F8F8FF")
+        var separatorLine = UIView(frame: CGRect(x: 0, y: 40, width: Int(cell.frame.size.width), height: 1))
+        separatorLine.backgroundColor = UIColor(rgba: "#d3d3d3")
         
         var sname = ""
         if (count(linesAtStop[indexPath.row].sname) > 3){
@@ -190,10 +212,20 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             sname = linesAtStop[indexPath.row].sname
         }
         
+        if (indexPath.row >= iPhoneModelSize() - 1){
+            stopLabel.text =  "Max antal linjer. Listar närmaste avgångar."
+            
+            stopLabel.font = stopLabel.font.fontWithSize(12)
+            cell.addSubview(stopLabel)
+            
+            return cell
+        }
+
         // Inget stopp || Inget stopp i närheten || Inga avgångar hittades
         if (linesAtStop[indexPath.row].isStop && linesAtStop[indexPath.row].distance == 99999){
-            cell.textLabel?.textColor = UIColor.grayColor()
-            cell.textLabel?.text = linesAtStop[indexPath.row].stopName
+            stopLabel.text = linesAtStop[indexPath.row].stopName
+            
+            cell.addSubview(stopLabel)
         }
             // En hållplats (rubrik)
         else if (linesAtStop[indexPath.row].isStop){
@@ -202,6 +234,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             cell.addSubview(stopLabel)
             cell.addSubview(distanceLabel)
+            
+            return cell
             
         }
             // Linje på hållplats
@@ -250,7 +284,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         
         cell.userInteractionEnabled = false
         cell.textLabel?.font = UIFont.systemFontOfSize(12)
-        
+        self.tableView.rowHeight = 35
+
         return cell
     }
     
@@ -269,10 +304,12 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         
         linesAtStop = [TodayLabel]()
         
+        var tempArr = [-10, -10]
+        
         if (userStops.count == 0){
             var noStop = "Ingen hållplats har lagts till."
             
-            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], isStop: true)
+            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
             linesAtStop.append(todayLabel)
             
             updateTable()
@@ -286,7 +323,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         
         if (stops.count == 0){
             var noStop = "Ingen hållplats i närheten."
-            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], isStop: true)
+            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
             linesAtStop.append(todayLabel)
             
             updateTable()
@@ -294,11 +331,11 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         else{
             for stop in stops{
                 
-                var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], isStop: true)
+                var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
                 linesAtStop.append(todayLabel)
                 
                 if (stop.departures?.count == 0){
-                    todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], isStop: true)
+                    todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
                     linesAtStop.append(todayLabel)
                     continue
                 }
@@ -307,7 +344,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                     
                     var departureTimesArr = [Int]()
                     
-                    var departureText = departure.sname + " " + departure.direction + " "
                     var index = 0
                     
                     departure.rtTimes.sort({$0 < $1})
@@ -317,17 +353,11 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                         if (index == 2){
                             continue
                         }
-                        if (index != 0){
-                            departureText += ", "
-                        }
-                        
                         if rtTime == 0{
                             departureTimesArr.append(0)
-                            departureText += "Nu"
                         }
                         else{
                             departureTimesArr.append(rtTime)
-                            departureText += String(rtTime)
                         }
                         index++
                     }
@@ -339,6 +369,22 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 
             }
             
+            //linesAtStop.sort({ $0.distance < $1.distance ? $0.rtTimes[0] < $1.rtTimes[0] : $0.distance < $1.distance })
+            
+            let temp = linesAtStop.sorted {
+                switch ($0.distance,$1.distance) {
+                    // if neither “category" is nil and contents are equal,
+                case let (lhs,rhs) where lhs == rhs:
+                    // compare “status” (> because DESC order)
+                    return $0.rtTimes[0] < $1.rtTimes[0]
+                    // else just compare “category” using <
+                case let (lhs, rhs):
+                    return lhs < rhs
+                }
+            }
+            
+            linesAtStop = temp
+
             self.updateTable()
         }
     }

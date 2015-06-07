@@ -61,6 +61,7 @@
 		F87AFE921B1B911600D3DAFC /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */; };
 		F87AFE961B1BB2F100D3DAFC /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */; };
 		F87AFE971B1BB2F100D3DAFC /* StopWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */; };
+		F87B99941B24CF0C0082A541 /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceChecker.swift */; };
 		F8B511691B22FA0400388866 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 /* End PBXBuildFile section */
 
@@ -139,6 +140,7 @@
 		F87AFE931B1B930700D3DAFC /* Tajma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tajma.entitlements; sourceTree = "<group>"; };
 		F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineWrapper.swift; sourceTree = "<group>"; };
 		F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWrapper.swift; sourceTree = "<group>"; };
+		F87B99931B24CF0C0082A541 /* DeviceChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceChecker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				F80667501B1D157C00A26B5D /* UIColor.swift */,
+				F87B99931B24CF0C0082A541 /* DeviceChecker.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				F80667741B1E5D7900A26B5D /* Global.swift in Sources */,
 				F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */,
 				F80667721B1E5D7900A26B5D /* TodayLabel.swift in Sources */,
+				F87B99941B24CF0C0082A541 /* DeviceChecker.swift in Sources */,
 				F80667751B1E5D7900A26B5D /* Line.swift in Sources */,
 				F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */,
 				F806676B1B1E5D7200A26B5D /* DBService.swift in Sources */,
