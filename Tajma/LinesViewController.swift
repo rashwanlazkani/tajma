@@ -101,19 +101,19 @@ class LinesViewController: UIViewController {
             
             // SnameView
             var snameView = UIView()
-            snameView.frame = CGRectMake(30, 30, 30, 30)
+            snameView.frame = CGRectMake(30, 30, 40, 30)
             snameView.layer.cornerRadius = 5
             snameView.center = CGPoint(x: 25, y: 23)
             snameView.backgroundColor = UIColor(rgba: line.fgColor)
             
             // SnameLabel
-            var snameLabel = UILabel(frame: CGRectMake(0, 0, 30, 30))
+            var snameLabel = UILabel(frame: CGRectMake(0, 0, 40, 30))
             snameLabel.textAlignment = NSTextAlignment.Center
             snameLabel.text = sname ?? line.sname
             snameLabel.textColor = UIColor(rgba: line.bgColor)
             
             // DirectionLabel
-            var directionLabel = UILabel(frame: CGRectMake(0, 8, 330, 30))
+            var directionLabel = UILabel(frame: CGRectMake(5, 8, 330, 30))
             directionLabel.textAlignment = NSTextAlignment.Left
             directionLabel.textColor = UIColor.blackColor()
             directionLabel.text = "\t     \(line.direction)"

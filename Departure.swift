@@ -13,13 +13,17 @@ public class Departure {
     public var sname: String
     public var track: String
     public var direction: String
+    public var fgColor: String
+    public var bgColor: String
     public var rtTimes: [Int]
     
-    public init(stopId: String, sname: String, track: String, direction: String, rtTimes:[Int]) {
+    public init(stopId: String, sname: String, track: String, direction: String, fgColor: String, bgColor: String, rtTimes:[Int]) {
         self.stopId = stopId
         self.sname = sname
         self.track = track
         self.direction = direction
+        self.fgColor = fgColor
+        self.bgColor = bgColor
         self.rtTimes = rtTimes
     }
 }

@@ -33,6 +33,7 @@
 		F806677C1B1E5D9800A26B5D /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */; };
 		F806677D1B1E5D9800A26B5D /* String-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */; };
 		F806677F1B1E5DC600A26B5D /* DepartureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806677E1B1E5DC600A26B5D /* DepartureService.swift */; };
+		F82BB7591B23B7800097775D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 		F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A21B1B04C2008F4505 /* AppDelegate.swift */; };
 		F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */; };
 		F843A3A81B1B04C2008F4505 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A71B1B04C2008F4505 /* ViewController.swift */; };
@@ -208,7 +209,7 @@
 		F843A3941B1B04C2008F4505 = {
 			isa = PBXGroup;
 			children = (
-				F87AFE661B1B89C100D3DAFC /* Core */,
+				F87AFE661B1B89C100D3DAFC /* Domain */,
 				F843A39F1B1B04C2008F4505 /* Tajma */,
 				F843A3B81B1B04C2008F4505 /* TajmaTests */,
 				F806675A1B1E5CA100A26B5D /* TajmaToday */,
@@ -269,7 +270,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F87AFE661B1B89C100D3DAFC /* Core */ = {
+		F87AFE661B1B89C100D3DAFC /* Domain */ = {
 			isa = PBXGroup;
 			children = (
 				F806674F1B1D156E00A26B5D /* Extensions */,
@@ -277,7 +278,7 @@
 				F87AFE6F1B1B8FE000D3DAFC /* Models */,
 				F87AFE691B1B8F7A00D3DAFC /* Services */,
 			);
-			name = Core;
+			name = Domain;
 			sourceTree = "<group>";
 		};
 		F87AFE691B1B8F7A00D3DAFC /* Services */ = {
@@ -471,6 +472,7 @@
 				F80667781B1E5D7900A26B5D /* Stop.swift in Sources */,
 				F806677D1B1E5D9800A26B5D /* String-Extras.swift in Sources */,
 				F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */,
+				F82BB7591B23B7800097775D /* UIColor.swift in Sources */,
 				F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */,
 				F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */,
 				F80667701B1E5D7900A26B5D /* Departure.swift in Sources */,
@@ -751,6 +753,7 @@
 				F80667661B1E5CA100A26B5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F843A3981B1B04C2008F4505 /* Build configuration list for PBXProject "Tajma" */ = {
 			isa = XCConfigurationList;

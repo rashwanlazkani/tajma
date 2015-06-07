@@ -42,6 +42,8 @@ public class DepartureService {
                 var sname = subJson["sname"].string!
                 var track = subJson["track"].string ?? ""
                 var direction = subJson["direction"].string!
+                var fgColor = subJson["fgColor"].string!
+                var bgColor = subJson["bgColor"].string!
                 
                 var rtTimeFromServer = subJson["rtTime"].string ?? subJson["time"].string
                 
@@ -54,7 +56,7 @@ public class DepartureService {
                 
                 let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverTime) / 60) - 1
                 
-                var departure = Departure(stopId: stopId, sname: sname, track: track, direction: direction, rtTimes: [intervalBetweenDepartures])
+                var departure = Departure(stopId: stopId, sname: sname, track: track, direction: direction, fgColor: fgColor, bgColor: bgColor, rtTimes: [intervalBetweenDepartures])
                 tempDepartures.append(departure)
             }
             
@@ -81,7 +83,7 @@ public class DepartureService {
                     departure.rtTimes.append(row.rtTimes[0])
                 }
                 else {
-                    departure = Departure(stopId: row.stopId, sname: row.sname, track: row.track, direction: row.direction, rtTimes: row.rtTimes)
+                    departure = Departure(stopId: row.stopId, sname: row.sname, track: row.track, direction: row.direction, fgColor: row.fgColor, bgColor: row.bgColor, rtTimes: row.rtTimes)
                     self.departures.append(departure)
                 }
                 
@@ -99,25 +101,9 @@ public class DepartureService {
     }
     
     func getMyDepartures(lat: Double, long: Double) -> [Stop] {
-        
-        println("LAT")
-        println(lat)
-        println("LONG")
-        println(long)
-        
-        
         var stops = dbService.getStops()
         var closestStops = [Stop]()
-        
-        //- getMyDestination
-        //-   hämtar mina stops från db
-        //-   hämtar departures via Västtrafi api
-        //-   räkna ut avstånd
-        //-   merga stops med departures
-        //-   sortera baserat på avstånd
-        //-   returnera samlat objekt tillbaka hit
-        
-        
+
         var getDeparturesGroup = dispatch_group_create()
         
         // Hämta x närmaste hållplatser i närheten
