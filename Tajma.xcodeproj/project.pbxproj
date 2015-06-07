@@ -62,6 +62,7 @@
 		F87AFE921B1B911600D3DAFC /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */; };
 		F87AFE961B1BB2F100D3DAFC /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */; };
 		F87AFE971B1BB2F100D3DAFC /* StopWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */; };
+		F8B511691B22FA0400388866 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -472,7 +473,11 @@
 				F80667781B1E5D7900A26B5D /* Stop.swift in Sources */,
 				F806677D1B1E5D9800A26B5D /* String-Extras.swift in Sources */,
 				F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */,
+<<<<<<< HEAD
 				F82BB7591B23B7800097775D /* UIColor.swift in Sources */,
+=======
+				F8B511691B22FA0400388866 /* UIColor.swift in Sources */,
+>>>>>>> origin/master
 				F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */,
 				F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */,
 				F80667701B1E5D7900A26B5D /* Departure.swift in Sources */,

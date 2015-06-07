@@ -98,7 +98,7 @@ class LinesViewController: UIViewController {
             else{
                 sname = line.sname
             }
-            
+
             // SnameView
             var snameView = UIView()
             snameView.frame = CGRectMake(30, 30, 40, 30)
@@ -111,6 +111,7 @@ class LinesViewController: UIViewController {
             snameLabel.textAlignment = NSTextAlignment.Center
             snameLabel.text = sname ?? line.sname
             snameLabel.textColor = UIColor(rgba: line.bgColor)
+            snameLabel.font = snameLabel.font.fontWithSize(11)
             
             // DirectionLabel
             var directionLabel = UILabel(frame: CGRectMake(5, 8, 330, 30))

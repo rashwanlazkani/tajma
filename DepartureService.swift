@@ -101,6 +101,15 @@ public class DepartureService {
     }
     
     func getMyDepartures(lat: Double, long: Double) -> [Stop] {
+<<<<<<< HEAD
+=======
+        
+//        println("LAT")
+//        println(lat)
+//        println("LONG")
+//        println(long)        
+        
+>>>>>>> origin/master
         var stops = dbService.getStops()
         var closestStops = [Stop]()
 
