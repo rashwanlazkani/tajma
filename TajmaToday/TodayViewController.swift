@@ -10,9 +10,7 @@ import UIKit
 import NotificationCenter
 import CoreLocation
 
-class TodayTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NCWidgetProviding, CLLocationManagerDelegate {
-    
-    @IBOutlet weak var tableView: UITableView!
+class TodayTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, NCWidgetProviding, CLLocationManagerDelegate {
     
     var lat  = ""
     var long = ""
@@ -37,6 +35,8 @@ class TodayTableViewController: UIViewController, UITableViewDataSource, UITable
     
     var stops = [Stop]()
     
+    //var stops = [String]()
+    
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -52,9 +52,6 @@ class TodayTableViewController: UIViewController, UITableViewDataSource, UITable
                 
                 return
             }
-            
-            tableView.delegate = self
-            tableView.dataSource = self
             
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -130,20 +127,22 @@ class TodayTableViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // MARK: - Table view data source
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return linesAtStop.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         
-        var containerView = UIView()
+        for view in cell.subviews{
+            view.removeFromSuperview()
+        }
         
-        containerView.removeFromSuperview()
+        var containerView = UIView()
         
         var stopLabel = UILabel(frame: CGRectMake(0, 8, 330, 30))
         stopLabel.textAlignment = NSTextAlignment.Left
@@ -154,22 +153,22 @@ class TodayTableViewController: UIViewController, UITableViewDataSource, UITable
         distanceLabel.textAlignment = NSTextAlignment.Left
         distanceLabel.textColor = UIColor.grayColor()
         distanceLabel.font = distanceLabel.font.fontWithSize(10)
-
+        
         var directionLabel = UILabel(frame: CGRectMake(55, 8, 300, 30))
         directionLabel.textAlignment = NSTextAlignment.Left
         directionLabel.textColor = UIColor.whiteColor()
         directionLabel.font = directionLabel.font.fontWithSize(12)
         
         var snameView = UIView()
-        snameView.frame = CGRectMake(30, 30, 30, 30)
+        snameView.frame = CGRectMake(30, 30, 40, 30)
         snameView.layer.cornerRadius = 5
         snameView.center = CGPoint(x: 25, y: 23)
         snameView.backgroundColor = UIColor(rgba: linesAtStop[indexPath.row].fgColor)
         
-        var snameLabel = UILabel(frame: CGRectMake(0, 0, 30, 30))
+        var snameLabel = UILabel(frame: CGRectMake(5, 0, 30, 30))
         snameLabel.textAlignment = NSTextAlignment.Center
         snameLabel.textColor = UIColor(rgba: linesAtStop[indexPath.row].bgColor)
-        snameLabel.font = snameLabel.font.fontWithSize(11)
+        snameLabel.font = snameLabel.font.fontWithSize(12)
         
         var depLabelOne = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 8, 30, 30))
         depLabelOne.textColor = UIColor.whiteColor()
@@ -178,6 +177,9 @@ class TodayTableViewController: UIViewController, UITableViewDataSource, UITable
         var depLabelTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 30, 8, 30, 30))
         depLabelTwo.textColor = UIColor.lightGrayColor()
         depLabelTwo.font = depLabelTwo.font.fontWithSize(12)
+        
+        var separatorLine = UIView(frame: CGRect(x: 0, y: 44, width: Int(cell.frame.size.width), height: 1))
+        separatorLine.backgroundColor = UIColor(rgba: "#F8F8FF")
         
         var sname = ""
         if (count(linesAtStop[indexPath.row].sname) > 3){
@@ -190,19 +192,19 @@ class TodayTableViewController: UIViewController, UITableViewDataSource, UITable
         
         // Inget stopp || Inget stopp i närheten || Inga avgångar hittades
         if (linesAtStop[indexPath.row].isStop && linesAtStop[indexPath.row].distance == 99999){
-            cell.textLabel!.textColor = UIColor.grayColor()
-            cell.textLabel!.textColor = UIColor.whiteColor()
-            cell.textLabel!.text = linesAtStop[indexPath.row].stopName
+            cell.textLabel?.textColor = UIColor.grayColor()
+            cell.textLabel?.text = linesAtStop[indexPath.row].stopName
         }
-        // En hållplats (rubrik)
+            // En hållplats (rubrik)
         else if (linesAtStop[indexPath.row].isStop){
             stopLabel.text = linesAtStop[indexPath.row].stopName
             distanceLabel.text = String(linesAtStop[indexPath.row].distance) + " m"
             
-            containerView.addSubview(stopLabel)
-            containerView.addSubview(distanceLabel)
+            cell.addSubview(stopLabel)
+            cell.addSubview(distanceLabel)
+            
         }
-        // Linje på hållplats
+            // Linje på hållplats
         else{
             snameLabel.text = sname ?? linesAtStop[indexPath.row].sname
             var index = 0
@@ -237,20 +239,22 @@ class TodayTableViewController: UIViewController, UITableViewDataSource, UITable
             
             directionLabel.text = linesAtStop[indexPath.row].direction
             
-            containerView.addSubview(snameView)
+            cell.addSubview(snameView)
             snameView.addSubview(snameLabel)
-            containerView.addSubview(directionLabel)
-            containerView.addSubview(depLabelOne)
-            containerView.addSubview(depLabelTwo)
+            cell.addSubview(directionLabel)
+            cell.addSubview(depLabelOne)
+            cell.addSubview(depLabelTwo)
+            cell.addSubview(separatorLine)
+            
         }
         
-        cell.addSubview(containerView)
         cell.userInteractionEnabled = false
+        cell.textLabel?.font = UIFont.systemFontOfSize(12)
         
         return cell
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.layer.backgroundColor = UIColor.clearColor().CGColor
     }
     
@@ -268,7 +272,7 @@ class TodayTableViewController: UIViewController, UITableViewDataSource, UITable
         if (userStops.count == 0){
             var noStop = "Ingen hållplats har lagts till."
             
-            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "",rtTimes: [], isStop: true)
+            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], isStop: true)
             linesAtStop.append(todayLabel)
             
             updateTable()
@@ -282,7 +286,7 @@ class TodayTableViewController: UIViewController, UITableViewDataSource, UITable
         
         if (stops.count == 0){
             var noStop = "Ingen hållplats i närheten."
-            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "",rtTimes: [], isStop: true)
+            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], isStop: true)
             linesAtStop.append(todayLabel)
             
             updateTable()
@@ -290,7 +294,7 @@ class TodayTableViewController: UIViewController, UITableViewDataSource, UITable
         else{
             for stop in stops{
                 
-                var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", fgColor: "", bgColor: "",rtTimes: [], isStop: true)
+                var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], isStop: true)
                 linesAtStop.append(todayLabel)
                 
                 if (stop.departures?.count == 0){
@@ -347,8 +351,8 @@ class TodayTableViewController: UIViewController, UITableViewDataSource, UITable
     
     func viewLoadingDataInput(){
         linesAtStop = [TodayLabel]()
-        
-        var todayLabel = TodayLabel(stopName: "", distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], isStop: true)
+        // LADDAR DATA TEXT
+        var todayLabel = TodayLabel(stopName: "Laddar data...", distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], isStop: true)
         linesAtStop.append(todayLabel)
         
         updateTable()
