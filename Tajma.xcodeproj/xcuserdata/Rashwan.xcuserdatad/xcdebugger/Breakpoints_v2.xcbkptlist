@@ -2,4 +2,144 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LineService.swift"
+            timestampString = "455652510.662204"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "getAllLinesAtStop(_:onCompletion:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tajma.LineService.(getAllLinesAtStop (Tajma.LineService) -&gt; (Swift.String, onCompletion : (Tajma.LineWrapper) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "Tajma"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Filer/Programmering/iOS/Tajma/LineService.swift"
+                  timestampString = "456073409.833915"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "4748">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tajma.LineService.(getAllLinesAtStop (Tajma.LineService) -&gt; (Swift.String, onCompletion : (Tajma.LineWrapper) -&gt; ()) -&gt; ()).(closure #1).(implicit closure #2)"
+                  moduleName = "Tajma"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Filer/Programmering/iOS/Tajma/LineService.swift"
+                  timestampString = "456073409.840954"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tajma.LineService.(getAllLinesAtStop (Tajma.LineService) -&gt; (Swift.String, onCompletion : (Tajma.LineWrapper) -&gt; ()) -&gt; ()).(closure #1).(implicit closure #3)"
+                  moduleName = "Tajma"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Filer/Programmering/iOS/Tajma/LineService.swift"
+                  timestampString = "456073409.841383"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tajma.LineService.(getAllLinesAtStop (Tajma.LineService) -&gt; (Swift.String, onCompletion : (Tajma.LineWrapper) -&gt; ()) -&gt; ()).(closure #1).(implicit closure #4)"
+                  moduleName = "Tajma"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Filer/Programmering/iOS/Tajma/LineService.swift"
+                  timestampString = "456073409.841744"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tajma.LineService.(getAllLinesAtStop (Tajma.LineService) -&gt; (Swift.String, onCompletion : (Tajma.LineWrapper) -&gt; ()) -&gt; ()).(closure #1).(implicit closure #5)"
+                  moduleName = "Tajma"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Filer/Programmering/iOS/Tajma/LineService.swift"
+                  timestampString = "456073409.842078"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tajma.LineService.(getAllLinesAtStop (Tajma.LineService) -&gt; (Swift.String, onCompletion : (Tajma.LineWrapper) -&gt; ()) -&gt; ()).(closure #1).(implicit closure #6)"
+                  moduleName = "Tajma"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Filer/Programmering/iOS/Tajma/LineService.swift"
+                  timestampString = "456073409.8424"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tajma.LineService.(getAllLinesAtStop (Tajma.LineService) -&gt; (Swift.String, onCompletion : (Tajma.LineWrapper) -&gt; ()) -&gt; ()).(closure #1).(implicit closure #7)"
+                  moduleName = "Tajma"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Filer/Programmering/iOS/Tajma/LineService.swift"
+                  timestampString = "456073409.842714"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tajma.LineService.(getAllLinesAtStop (Tajma.LineService) -&gt; (Swift.String, onCompletion : (Tajma.LineWrapper) -&gt; ()) -&gt; ()).(closure #1).(implicit closure #8)"
+                  moduleName = "Tajma"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Filer/Programmering/iOS/Tajma/LineService.swift"
+                  timestampString = "456073409.843036"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "54"
+                  endingLineNumber = "54"
+                  offsetFromSymbolStart = "0">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
