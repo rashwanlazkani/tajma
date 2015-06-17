@@ -12,6 +12,9 @@ import CoreLocation
 
 class TodayTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, NCWidgetProviding, CLLocationManagerDelegate {
     
+    
+    @IBOutlet weak var table: UITableView!
+    
     var lat  = ""
     var long = ""
     
@@ -45,7 +48,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         self.locationManager.requestWhenInUseAuthorization()
         
         if (CLLocationManager.locationServicesEnabled()){
-            viewLoadingDataInput()
+            //viewLoadingDataInput()
             
             if CLLocationManager.authorizationStatus() == .Denied {
                 userNeedToTurnOnLocalization()
@@ -66,9 +69,9 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         if (locationService){
-            viewLoadingDataInput()
+            //viewLoadingDataInput()
             
             updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15.0, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
         }
@@ -160,56 +163,68 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         
-        for view in cell.subviews{
-            view.removeFromSuperview()
+        cell.userInteractionEnabled = false
+        
+        if (linesAtStop.count == 0){
+            return cell
         }
         
-        var containerView = UIView()
-        
-        var stopLabel = UILabel(frame: CGRectMake(0, 8, 330, 30))
+        for view in cell.subviews{
+            if (toString(view.dynamicType) != "_UITableViewCellSeparatorView") {
+                view.removeFromSuperview()
+            }
+        }
+
+        var stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
         stopLabel.textAlignment = NSTextAlignment.Left
         stopLabel.textColor = UIColor.grayColor()
-        stopLabel.font = stopLabel.font.fontWithSize(16)
+        stopLabel.font = UIFont.boldSystemFontOfSize(16)
         
-        var distanceLabel = UILabel(frame: CGRectMake(tableView.bounds.width - 40, 8, 30, 30))
+        var distanceLabel = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 4, 100, 30))
         distanceLabel.textAlignment = NSTextAlignment.Left
         distanceLabel.textColor = UIColor.grayColor()
-        distanceLabel.font = distanceLabel.font.fontWithSize(10)
+        distanceLabel.font = distanceLabel.font.fontWithSize(12)
         
-        var directionLabel = UILabel(frame: CGRectMake(55, 8, 300, 30))
+        var directionWidth = 0
+        
+        switch iPhoneModelSize() {
+            // 5
+            case 11 :
+                directionWidth = 160
+            // 6
+            case 14 :
+                directionWidth = 210
+            // 6P
+            case 17 :
+                directionWidth = 245
+            // Simulator, iPad osv
+            default:
+                directionWidth = 250
+        }
+
+        
+        var directionLabel = UILabel(frame:  CGRect(x: 52, y: 4, width: directionWidth, height: 30))
         directionLabel.textAlignment = NSTextAlignment.Left
         directionLabel.textColor = UIColor.whiteColor()
-        directionLabel.font = directionLabel.font.fontWithSize(12)
+        directionLabel.font = directionLabel.font.fontWithSize(14)
         
-        var snameView = UIView()
-        snameView.frame = CGRectMake(30, 30, 30, 25)
-        snameView.layer.cornerRadius = 5
-        snameView.center = CGPoint(x: 25, y: 23)
-        snameView.backgroundColor = UIColor(rgba: linesAtStop[indexPath.row].fgColor)
+        var snameLabel = UILabel(frame: CGRectMake(8, 4, 40, 30))
+        snameLabel.textAlignment = NSTextAlignment.Left
+        snameLabel.textColor = UIColor.whiteColor()
+        snameLabel.font = UIFont.boldSystemFontOfSize(14)
         
-        var snameLabel = UILabel(frame: CGRectMake(3, 0, 25, 25))
-        snameLabel.textAlignment = NSTextAlignment.Center
-        snameLabel.textColor = UIColor(rgba: linesAtStop[indexPath.row].bgColor)
-        snameLabel.font = snameLabel.font.fontWithSize(12)
-        
-        var depLabelOne = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 8, 30, 30))
+        var depLabelOne = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
         depLabelOne.textColor = UIColor.whiteColor()
-        depLabelOne.font = depLabelOne.font.fontWithSize(12)
+        depLabelOne.font = depLabelOne.font.fontWithSize(14)
         
-        var depLabelTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 30, 8, 30, 30))
+        var depLabelTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 25, 4, 30, 30))
         depLabelTwo.textColor = UIColor.lightGrayColor()
-        depLabelTwo.font = depLabelTwo.font.fontWithSize(12)
+        depLabelTwo.font = depLabelTwo.font.fontWithSize(14)
         
-        var separatorLine = UIView(frame: CGRect(x: 0, y: 40, width: Int(cell.frame.size.width), height: 1))
-        separatorLine.backgroundColor = UIColor(rgba: "#d3d3d3")
-        
-        var sname = ""
-        if (count(linesAtStop[indexPath.row].sname) > 3){
-            let snameArr = Array(linesAtStop[indexPath.row].sname)
-            sname = String(snameArr[0])
-        }
-        else{
-            sname = linesAtStop[indexPath.row].sname
+        var letterSname = linesAtStop[indexPath.row].sname.toInt()
+        // Linje med bokstäver
+        if (letterSname == nil){
+            snameLabel.font = UIFont.boldSystemFontOfSize(10)
         }
         
         if (indexPath.row >= iPhoneModelSize() - 1){
@@ -225,12 +240,17 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         if (linesAtStop[indexPath.row].isStop && linesAtStop[indexPath.row].distance == 99999){
             stopLabel.text = linesAtStop[indexPath.row].stopName
             
+            stopLabel.textColor = UIColor.whiteColor()
+            stopLabel.font = stopLabel.font.fontWithSize(12)
+            
             cell.addSubview(stopLabel)
         }
             // En hållplats (rubrik)
         else if (linesAtStop[indexPath.row].isStop){
             stopLabel.text = linesAtStop[indexPath.row].stopName
             distanceLabel.text = String(linesAtStop[indexPath.row].distance) + " m"
+            
+            self.tableView.layoutMargins = UIEdgeInsetsZero
             
             cell.addSubview(stopLabel)
             cell.addSubview(distanceLabel)
@@ -240,7 +260,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
             // Linje på hållplats
         else{
-            snameLabel.text = sname ?? linesAtStop[indexPath.row].sname
+            snameLabel.text = linesAtStop[indexPath.row].sname
             var index = 0
             for rtTime in linesAtStop[indexPath.row].rtTimes{
                 
@@ -273,19 +293,15 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             directionLabel.text = linesAtStop[indexPath.row].direction
             
-            cell.addSubview(snameView)
-            snameView.addSubview(snameLabel)
+            cell.addSubview(snameLabel)
             cell.addSubview(directionLabel)
             cell.addSubview(depLabelOne)
             cell.addSubview(depLabelTwo)
-            cell.addSubview(separatorLine)
             
         }
         
-        cell.userInteractionEnabled = false
-        cell.textLabel?.font = UIFont.systemFontOfSize(12)
-        self.tableView.rowHeight = 35
-
+        tableView.rowHeight = 36
+        
         return cell
     }
     
@@ -299,6 +315,9 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     func getDeparturesAtStop(){
+        
+        println(lat)
+        println(long)
         
         var userStops = dbService.getStops()
         

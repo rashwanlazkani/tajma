@@ -45,6 +45,10 @@ public class DepartureService {
                 var fgColor = subJson["fgColor"].string!
                 var bgColor = subJson["bgColor"].string!
                 
+                if (sname == "SVAR"){
+                    sname = "SVART"
+                }
+                
                 var rtTimeFromServer = subJson["rtTime"].string ?? subJson["time"].string
                 
                 var rtDate = subJson["rtDate"].string ?? subJson["date"].string
