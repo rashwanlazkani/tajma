@@ -166,6 +166,14 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         cell.userInteractionEnabled = false
         
         if (linesAtStop.count == 0){
+            var tempLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
+            tempLabel.textAlignment = NSTextAlignment.Left
+            tempLabel.textColor = UIColor.grayColor()
+            tempLabel.font = UIFont.boldSystemFontOfSize(16)
+            
+            tempLabel.text = "Laddar data..."
+            cell.addSubview(tempLabel)
+
             return cell
         }
         

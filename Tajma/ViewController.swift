@@ -223,7 +223,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         long = String(stringInterpolationSegment: placemark.location.coordinate.longitude)
         
         getNearestStops()
-        
         tableView.reloadData()
     }
     
@@ -244,16 +243,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
+        /*
         if(indexPath.row % 2 == 0){
             cell!.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
         } else{
             cell!.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
         }
-        
+        */
         cell!.textLabel!.text = stopWrapper.stops[indexPath.row].name
         
         cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
+        // Sätta bakgrunden på tableView
+        /*
         if (indexPath.row == stopWrapper.stops.count - 1){
            tableView.tableFooterView = UIView(frame: CGRectZero)
             
@@ -264,7 +266,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 tableView.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
             }
         }
-        
+        */
         return cell!
     }
     
