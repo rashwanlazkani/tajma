@@ -26,6 +26,8 @@ class LinesViewController: UIViewController {
         navigationController?.navigationBar.hidden = false
 
         self.title = stop.name
+        self.scrollView.bounces = true
+        self.scrollView.alwaysBounceVertical = true
         
         initiateViews()
         drawLinesTableView()
@@ -75,13 +77,13 @@ class LinesViewController: UIViewController {
             Global.linesAtStop.append(stopLine as StopLine)
             
             var view = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 44))
-            
+            /*
             if(tag % 2 == 0){
                 view.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
             } else{
                 view.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
             }
-            
+            */
             var sname = ""
             var letterSname = line.sname.toInt()
             if (count(line.sname) > 3) || letterSname == nil{
