@@ -78,7 +78,7 @@ class DBService {
         let getRows = db.query("SELECT * FROM Lines where stopId = '\(stopId)'")
         
         for row in getRows{
-            var stopline = StopLine(stopId: row["stopId"]!.asString(), sname: row["sname"]!.asString(), tag: 0, type: row["type"]!.asString(), track: row["track"]!.asString(), lineAndDirection: row["lineAndDirection"]!.asString(), isChecked: true)
+            var stopline = StopLine(stopId: row["stopId"]!.asString(), stopName: row["stopName"]!.asString(), lat: row["lat"]!.asString(), long: row["long"]!.asString(), sname: row["sname"]!.asString(), tag: 0, type: row["type"]!.asString(), track: row["track"]!.asString(), lineAndDirection: row["lineAndDirection"]!.asString(), isChecked: true)
             
             Global.allaStopp.append(row["lineAndDirection"]!.asString())
             
@@ -142,34 +142,36 @@ class DBService {
 
     }
     
-    func addLinesToStop(stop: Stop){
+    func addLinesToStop(stop: StopLine){
         // Ta bort alla stopp från hållplatsen för att sedan lägga till dem
-        db.query("DELETE FROM Lines WHERE stopId = '\(stop.id)'")
+        db.query("DELETE FROM Lines WHERE stopId = '\(stop.stopId)'")
         
         // Kolla om hållplatsen redan finns
-        var data = db.query("SELECT count(*) FROM Stops WHERE stopId = '\(stop.id)'")
+        var data = db.query("SELECT count(*) FROM Stops WHERE stopId = '\(stop.stopId)'")
         var row = data[0]
         var totStops = row["count(*)"]!.asInt()
         // Annars lägg till
         if (totStops == 0){
-            db.query("INSERT INTO Stops VALUES('\(stop.id)','\(stop.name)','\(stop.lat)','\(stop.long)')")
+            db.query("INSERT INTO Stops VALUES('\(stop.stopId)','\(stop.stopName)','\(stop.lat)','\(stop.long)')")
         }
         
         for stopline in Global.linesAtStop
         {
-            if (stopline.isChecked == true && stopline.stopId == stop.id){
-                db.query("INSERT INTO Lines VALUES ('\(stopline.stopId)','\(stopline.sname)', '\(stopline.lineAndDirection)', '\(stopline.type)', '\(stopline.track)')")
+            if (stopline.isChecked == true && stopline.stopId == stop.stopId){
+                db.query("INSERT INTO Lines VALUES ('\(stopline.stopId)','\(stopline.stopName)','\(stopline.lat)','\(stopline.long)','\(stopline.sname)', '\(stopline.lineAndDirection)', '\(stopline.type)', '\(stopline.track)')")
             }
         }
         
-        var queryLines = db.query("SELECT count(*) FROM Lines WHERE stopId = '\(stop.id)'")
-        var lines = queryLines[0]
-        var totLines = lines["count(*)"]!.asInt()
+        var queryLines = db.query("SELECT count(*) FROM Lines WHERE stopId = '\(stop.stopId)'")
         
-        if (totLines == 0){
-            removeStop(stop.id)
+        if (!queryLines.isEmpty){
+            var lines = queryLines[0]
+            var totLines = lines["count(*)"]!.asInt()
+            
+            if (totLines == 0){
+                removeStop(stop.stopId)
+            }
         }
-
     }
     
     func getLines() -> [LineAtStopToday]{
@@ -199,7 +201,7 @@ class DBService {
         if (tableExists.isEmpty){
             //   create tables
             db.execute("CREATE TABLE 'Stops' ('stopId' VARCHAR NOT NULL  UNIQUE , 'stopName' VARCHAR, 'lat' VARCHAR, 'long' VARCHAR)")
-            db.execute("CREATE TABLE 'Lines' ('stopId' VARCHAR NOT NULL , 'sname' VARCHAR NOT NULL , 'lineAndDirection' VARCHAR NOT NULL , 'type' VARCHAR NOT NULL, 'track' VARCHAR NOT NULL)")
+            db.execute("CREATE TABLE 'Lines' ('stopId' VARCHAR NOT NULL, 'stopName' VARCHAR NOT NULL, 'lat' VARCHAR NOT NULL, 'long' VARCHAR NOT NULL,  'sname' VARCHAR NOT NULL , 'lineAndDirection' VARCHAR NOT NULL , 'type' VARCHAR NOT NULL, 'track' VARCHAR NOT NULL)")
         }
     }
 }

@@ -10,6 +10,9 @@ import Foundation
 
 public class StopLine {
     public var stopId: String
+    public var stopName: String
+    public var lat: String
+    public var long: String
     public var sname: String
     public var tag: Int
     public var type: String
@@ -17,8 +20,11 @@ public class StopLine {
     public var lineAndDirection: String
     public var isChecked: Bool
     
-    public init(stopId: String, sname: String, tag: Int, type: String, track: String, lineAndDirection:String, isChecked: Bool) {
+    public init(stopId: String, stopName: String, lat: String, long: String, sname: String, tag: Int, type: String, track: String, lineAndDirection:String, isChecked: Bool) {
         self.stopId = stopId
+        self.stopName = stopName
+        self.lat = lat
+        self.long = long
         self.sname = sname
         self.tag = tag
         self.type = type
