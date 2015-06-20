@@ -198,6 +198,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
+    @IBAction func infoButton_Clicked(sender: UIButton) {
+        //self.performSegueWithIdentifier("ShowInfoView", sender: nil)
+    }
+    
     // MARK: - Location Manager
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
@@ -278,7 +282,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: - Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!)
     {
-        if segue.identifier == "ShowLinesView"
+        if (segue.identifier == "ShowLinesView")
         {
             var row : Int = sender as! Int
             var stop = Stop(id: stopWrapper.stops[row].id, name: stopWrapper.stops[row].name, lat: stopWrapper.stops[row].lat, long: stopWrapper.stops[row].long, distance: 0, departures: nil)

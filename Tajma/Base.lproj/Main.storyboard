@@ -5,6 +5,49 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Info View Controller-->
+        <scene sceneID="C2F-fm-EOX">
+            <objects>
+                <viewController id="7SI-it-BPf" customClass="InfoViewController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2gL-zM-SYL"/>
+                        <viewControllerLayoutGuide type="bottom" id="kBN-b0-2bD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S9L-k5-0O5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zeL-5m-Bll">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="9BT-l7-hRT">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9BT-l7-hRT" id="VCD-mg-pj7">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zeL-5m-Bll" firstAttribute="leading" secondItem="S9L-k5-0O5" secondAttribute="leadingMargin" constant="-16" id="XeU-BR-SMS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zeL-5m-Bll" secondAttribute="trailing" constant="-16" id="Y5z-MS-psW"/>
+                            <constraint firstItem="kBN-b0-2bD" firstAttribute="top" secondItem="zeL-5m-Bll" secondAttribute="bottom" id="o2P-XF-uJY"/>
+                            <constraint firstItem="zeL-5m-Bll" firstAttribute="top" secondItem="S9L-k5-0O5" secondAttribute="topMargin" id="pKa-qZ-MJa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="HKu-Xg-Gkl"/>
+                    <connections>
+                        <outlet property="tableView" destination="zeL-5m-Bll" id="JAD-w1-lrr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5TD-b6-Atg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="873" y="-29"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="ei6-a1-9zM">
             <objects>
@@ -26,7 +69,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="d8P-Ba-k8V">
-                                        <rect key="frame" x="8" y="66" width="304" height="29"/>
+                                        <rect key="frame" x="8" y="66" width="255" height="29"/>
                                         <segments>
                                             <segment title="Alla"/>
                                             <segment title="" image="check-white"/>
@@ -36,15 +79,27 @@
                                             <action selector="segmentedControl_Changed:" destination="R3x-0W-ZXV" eventType="valueChanged" id="pn4-R7-Oeh"/>
                                         </connections>
                                     </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="erj-fx-VgB">
+                                        <rect key="frame" x="280" y="63" width="32" height="32"/>
+                                        <state key="normal" image="help">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="infoButton_Clicked:" destination="R3x-0W-ZXV" eventType="touchUpInside" id="Bwd-UU-uQ8"/>
+                                            <segue destination="7SI-it-BPf" kind="push" identifier="ShowInfoView" id="fmx-0m-OTq"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="d8P-Ba-k8V" secondAttribute="bottom" constant="13" id="7yZ-uE-AU8"/>
                                     <constraint firstAttribute="trailing" secondItem="IX5-0P-IUT" secondAttribute="trailing" id="9T7-RC-d8m"/>
-                                    <constraint firstItem="d8P-Ba-k8V" firstAttribute="top" secondItem="IX5-0P-IUT" secondAttribute="bottom" constant="7" id="HUl-hL-AxJ"/>
+                                    <constraint firstItem="d8P-Ba-k8V" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leadingMargin" id="Ae0-6C-LN3"/>
+                                    <constraint firstItem="d8P-Ba-k8V" firstAttribute="top" secondItem="IX5-0P-IUT" secondAttribute="bottom" constant="7" id="B2n-2Q-j0K"/>
+                                    <constraint firstAttribute="bottom" secondItem="d8P-Ba-k8V" secondAttribute="bottom" constant="13" id="VQp-9y-Og7"/>
+                                    <constraint firstAttribute="bottom" secondItem="erj-fx-VgB" secondAttribute="bottom" constant="12" id="W3i-3m-UXh"/>
+                                    <constraint firstItem="erj-fx-VgB" firstAttribute="trailing" secondItem="6P0-lf-Vmn" secondAttribute="trailingMargin" id="Yf8-qd-MuI"/>
                                     <constraint firstItem="IX5-0P-IUT" firstAttribute="top" secondItem="6P0-lf-Vmn" secondAttribute="top" constant="15" id="bLT-P0-HLg"/>
-                                    <constraint firstItem="d8P-Ba-k8V" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leadingMargin" id="oxB-Ke-Jdi"/>
+                                    <constraint firstAttribute="trailing" secondItem="d8P-Ba-k8V" secondAttribute="trailing" constant="57" id="qP2-zE-EsK"/>
                                     <constraint firstItem="IX5-0P-IUT" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leading" id="rUG-dL-2bn"/>
-                                    <constraint firstItem="d8P-Ba-k8V" firstAttribute="centerX" secondItem="IX5-0P-IUT" secondAttribute="centerX" id="vJw-ke-Jpy"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NQy-A8-fKc">
@@ -94,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RLX-9F-GkA" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="873.60000000000002" y="737.45333333333338"/>
+            <point key="canvasLocation" x="873" y="737"/>
         </scene>
         <!--LinesView Controller-->
         <scene sceneID="EMT-ub-K2k">
@@ -144,6 +199,7 @@
     </scenes>
     <resources>
         <image name="check-white" width="22" height="22"/>
+        <image name="help" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
