@@ -78,7 +78,7 @@ class DBService {
         let getRows = db.query("SELECT * FROM Lines where stopId = '\(stopId)'")
         
         for row in getRows{
-            var stopline = StopLine(stopId: row["stopId"]!.asString(), stopName: row["stopName"]!.asString(), lat: row["lat"]!.asString(), long: row["long"]!.asString(), sname: row["sname"]!.asString(), tag: 0, type: row["type"]!.asString(), track: row["track"]!.asString(), lineAndDirection: row["lineAndDirection"]!.asString(), isChecked: true)
+            var stopline = StopLine(stopId: row["stopId"]!.asString(), stopName: row["stopName"]!.asString(), lat: row["lat"]!.asString(), long: row["long"]!.asString(), sname: row["sname"]!.asString(), tag: 0, type: row["type"]!.asString(), track: row["track"]!.asString(), direction: row["direction"]!.asString(), lineAndDirection: row["lineAndDirection"]!.asString(), isChecked: true)
             
             Global.allaStopp.append(row["lineAndDirection"]!.asString())
             
@@ -92,7 +92,7 @@ class DBService {
         var lines = db.query("SELECT * FROM Lines WHERE stopId = \(stopId)")
         
         for line in lines{
-            var lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString())
+            var lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString(), direction: line["direction"]!.asString())
             
             lineArr.append(lineAtStop)
         }
@@ -107,7 +107,7 @@ class DBService {
         var tempLinesAtStopTodayArr = [LineAtStopToday]()
         
         for line in userStops{
-            var lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString())
+            var lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString(), direction: line["direction"]!.asString())
             tempLinesAtStopTodayArr.append(lineAtStop)
         }
         
@@ -155,10 +155,13 @@ class DBService {
             db.query("INSERT INTO Stops VALUES('\(stop.stopId)','\(stop.stopName)','\(stop.lat)','\(stop.long)')")
         }
         
+        var temp = [StopLine]()
+        
         for stopline in Global.linesAtStop
         {
             if (stopline.isChecked == true && stopline.stopId == stop.stopId){
-                db.query("INSERT INTO Lines VALUES ('\(stopline.stopId)','\(stopline.stopName)','\(stopline.lat)','\(stopline.long)','\(stopline.sname)', '\(stopline.lineAndDirection)', '\(stopline.type)', '\(stopline.track)')")
+                temp.append(stopline)
+                db.query("INSERT INTO Lines VALUES ('\(stopline.stopId)','\(stopline.stopName)','\(stopline.lat)','\(stopline.long)','\(stopline.sname)', '\(stopline.direction)', '\(stopline.lineAndDirection)', '\(stopline.type)', '\(stopline.track)')")
             }
         }
         
@@ -179,7 +182,7 @@ class DBService {
         var lines = db.query("SELECT * FROM Lines")
         
         for line in lines{
-            var lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString())
+            var lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString(), direction: line["direction"]!.asString())
             
             lineArr.append(lineAtStop)
         }
@@ -201,7 +204,7 @@ class DBService {
         if (tableExists.isEmpty){
             //   create tables
             db.execute("CREATE TABLE 'Stops' ('stopId' VARCHAR NOT NULL  UNIQUE , 'stopName' VARCHAR, 'lat' VARCHAR, 'long' VARCHAR)")
-            db.execute("CREATE TABLE 'Lines' ('stopId' VARCHAR NOT NULL, 'stopName' VARCHAR NOT NULL, 'lat' VARCHAR NOT NULL, 'long' VARCHAR NOT NULL,  'sname' VARCHAR NOT NULL , 'lineAndDirection' VARCHAR NOT NULL , 'type' VARCHAR NOT NULL, 'track' VARCHAR NOT NULL)")
+            db.execute("CREATE TABLE 'Lines' ('stopId' VARCHAR NOT NULL, 'stopName' VARCHAR NOT NULL, 'lat' VARCHAR NOT NULL, 'long' VARCHAR NOT NULL,  'sname' VARCHAR NOT NULL , 'direction' VARCHAR NOT NULL, 'lineAndDirection'VARCHAR NOT NULL, 'type' VARCHAR NOT NULL, 'track' VARCHAR NOT NULL)")
         }
     }
 }

@@ -45,6 +45,8 @@ public class DepartureService {
                 var fgColor = subJson["fgColor"].string!
                 var bgColor = subJson["bgColor"].string!
                 
+                println(direction)
+                
                 if (sname == "SVAR"){
                     sname = "SVART"
                 }
@@ -68,6 +70,7 @@ public class DepartureService {
             
             var previousSname = ""
             var previousTrack = ""
+            var previousDirection = ""
             for row in tempDepartures {
                 
                 var existingStop = self.stopService.checkIfUserHasAddedStop(stopId)
@@ -82,7 +85,7 @@ public class DepartureService {
                 var departure : Departure
                 
                 
-                if (previousSname == row.sname && previousTrack == row.track) {
+                if (previousSname == row.sname && previousTrack == row.track && previousDirection == row.direction) {
                     departure = self.departures[self.departures.count - 1]
                     departure.rtTimes.append(row.rtTimes[0])
                 }
@@ -94,6 +97,7 @@ public class DepartureService {
                 
                 previousSname = row.sname
                 previousTrack = row.track
+                previousDirection = row.direction
             }
             
             onCompletion(self.departures)
@@ -153,9 +157,9 @@ public class DepartureService {
                     
                     
                     for line in linesAtStop {
-                    
+                        print(line.direction)
                         for departure in departures{
-                            if (departure.sname != line.sname || departure.track != line.track) {
+                            if (departure.sname != line.sname || departure.track != line.track || departure.direction != line.direction) {
                                 continue
                             }
                             else{
