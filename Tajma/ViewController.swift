@@ -41,15 +41,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         dbService.addTablesIfNotExists()
         
-        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
-        var rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
-        
-        leftSwipe.direction = .Left
-        rightSwipe.direction = .Right
-        
-        view.addGestureRecognizer(leftSwipe)
-        view.addGestureRecognizer(rightSwipe)
-        
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
@@ -104,7 +95,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func getNearestStops() {
-        println("Getting nearest stops")
         stopService.getNearestStops(lat, long: long, onCompletion: { json -> Void in
             self.activityIndicator.startAnimating()
             dispatch_async(dispatch_get_main_queue(),{
@@ -116,8 +106,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     println(self.stopWrapper.error)
                 }
                 self.activityIndicator.stopAnimating()
-                
-                println("Done getting nearest stops")
             })
         })
         
@@ -234,9 +222,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         lat = String(stringInterpolationSegment: placemark.location.coordinate.latitude)
         long = String(stringInterpolationSegment: placemark.location.coordinate.longitude)
         
-        println(lat)
-        println(long)
-        
         getNearestStops()
         tableView.reloadData()
     }
@@ -290,19 +275,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         getLinesAtStop(stopWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
     }
     
-    
-    
-    func handleSwipes(sender:UISwipeGestureRecognizer) {
-        if (sender.direction == .Left) {
-            println("Swipe Left")
-            
-        }
-        
-        if (sender.direction == .Right) {
-            println("Swipe Right")
-            
-        }
-    }
     // MARK: - Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!)
     {

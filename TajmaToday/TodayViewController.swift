@@ -73,7 +73,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         if (locationService){
             //viewLoadingDataInput()
             
-            updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(1500.0, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
+            updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15.0, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
         }
         
     }

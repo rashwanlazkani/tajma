@@ -67,11 +67,11 @@ class LinesViewController: UIViewController {
             var stopLine : StopLine
             
             if (contains(Global.allaStopp, line.lineAndDirection)){
-                stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: true)
+                stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, lineAndDirection: line.lineAndDirection, isChecked: true)
                 checkBox.isChecked = true
             }
             else{
-                stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: false)
+                stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, lineAndDirection: line.lineAndDirection, isChecked: false)
             }
             
             Global.linesAtStop.append(stopLine as StopLine)
