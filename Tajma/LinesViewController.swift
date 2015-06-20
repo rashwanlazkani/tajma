@@ -19,12 +19,12 @@ class LinesViewController: UIViewController {
     let dbService = DBService()
     let phoneSize = PhoneSize()
     var checkBoxService = CheckBox()
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBar.hidden = false
-
+        
         self.title = stop.name
         self.scrollView.bounces = true
         self.scrollView.alwaysBounceVertical = true
@@ -53,7 +53,7 @@ class LinesViewController: UIViewController {
     func drawLinesTableView(){
         var height = 0
         var tag = 0
-
+        
         self.lineWrapper.lines.sort({$0.sname.toInt() < $1.sname.toInt() ? $0.sname < $1.name : $0.name < $1.name })
         
         for line in lineWrapper.lines{
@@ -67,11 +67,11 @@ class LinesViewController: UIViewController {
             var stopLine : StopLine
             
             if (contains(Global.allaStopp, line.lineAndDirection)){
-                stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, lineAndDirection: line.lineAndDirection, isChecked: true)
+                stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: true)
                 checkBox.isChecked = true
             }
             else{
-                stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, lineAndDirection: line.lineAndDirection, isChecked: false)
+                stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: false)
             }
             
             Global.linesAtStop.append(stopLine as StopLine)
@@ -79,9 +79,9 @@ class LinesViewController: UIViewController {
             var view = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 44))
             /*
             if(tag % 2 == 0){
-                view.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
+            view.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
             } else{
-                view.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
+            view.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
             }
             */
             var sname = ""
@@ -93,7 +93,7 @@ class LinesViewController: UIViewController {
             else{
                 sname = line.sname
             }
-
+            
             // SnameView
             var snameView = UIView()
             snameView.frame = CGRectMake(30, 30, 30, 30)
@@ -131,7 +131,7 @@ class LinesViewController: UIViewController {
         }
         
         scrollView.contentSize = CGSize(width: phoneSize.width, height: height)
-
+        
     }
     
     override func didReceiveMemoryWarning() {

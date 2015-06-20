@@ -12,10 +12,12 @@ public class LineAtStopToday {
     public var stopId: String
     public var track: String
     public var sname: String
+    public var direction: String
     
-    public init(stopId: String, track:String, sname: String) {
+    public init(stopId: String, track:String, sname: String, direction: String) {
         self.stopId = stopId
         self.track = track
         self.sname = sname
+        self.direction = direction
     }
 }

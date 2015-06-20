@@ -45,6 +45,8 @@ public class DepartureService {
                 var fgColor = subJson["fgColor"].string!
                 var bgColor = subJson["bgColor"].string!
                 
+                println(direction)
+                
                 if (sname == "SVAR"){
                     sname = "SVART"
                 }
@@ -52,7 +54,7 @@ public class DepartureService {
                 var rtTimeFromServer = subJson["rtTime"].string ?? subJson["time"].string
                 
                 var rtDate = subJson["rtDate"].string ?? subJson["date"].string
-
+                
                 var rtTime = [rtDate!  + " " + rtTimeFromServer!]
                 
                 let serverTime = dateFormatter.dateFromString(serverDate) as NSDate!
@@ -66,23 +68,27 @@ public class DepartureService {
             
             tempDepartures.sort({ $0.sname != $1.sname ? $0.sname < $1.sname : $0.track < $1.track})
             
+            tempDepartures.sort({$0.direction != $1.direction})
+            
+            
             var previousSname = ""
             var previousTrack = ""
+            var previousDirection = ""
             for row in tempDepartures {
                 
                 var existingStop = self.stopService.checkIfUserHasAddedStop(stopId)
                 
                 
-//                if (!existingStop.name.isEmpty){
-//                }
-//                else{
-//                }
+                //                if (!existingStop.name.isEmpty){
+                //                }
+                //                else{
+                //                }
                 
                 
                 var departure : Departure
                 
                 
-                if (previousSname == row.sname && previousTrack == row.track) {
+                if (previousSname == row.sname && previousTrack == row.track && previousDirection == row.direction) {
                     departure = self.departures[self.departures.count - 1]
                     departure.rtTimes.append(row.rtTimes[0])
                 }
@@ -94,6 +100,7 @@ public class DepartureService {
                 
                 previousSname = row.sname
                 previousTrack = row.track
+                previousDirection = row.direction
             }
             
             onCompletion(self.departures)
@@ -107,7 +114,7 @@ public class DepartureService {
     func getMyDepartures(lat: Double, long: Double) -> [Stop] {
         var stops = dbService.getStops()
         var closestStops = [Stop]()
-
+        
         var getDeparturesGroup = dispatch_group_create()
         
         // Hämta x närmaste hållplatser i närheten
@@ -144,18 +151,16 @@ public class DepartureService {
             
             for stop in closestStops {
                 let linesAtStop = dbService.getLinesAtStopArr(stop.id)
-
+                
                 // hämta departures via Västtrafik api
                 dispatch_group_enter(getDeparturesGroup)
                 getDeparturesFromStop(stop.id, onCompletion: { departures -> Void in
                     
                     stop.departures = [Departure]()
                     
-                    
                     for line in linesAtStop {
-                    
                         for departure in departures{
-                            if (departure.sname != line.sname || departure.track != line.track) {
+                            if (departure.sname != line.sname || departure.track != line.track || departure.direction != line.direction) {
                                 continue
                             }
                             else{
