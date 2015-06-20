@@ -68,7 +68,7 @@ public class DepartureService {
             
             tempDepartures.sort({ $0.sname != $1.sname ? $0.sname < $1.sname : $0.track < $1.track})
             
-            tempDepartures.sort({$0.direction != $1.direction})
+            tempDepartures.sort({$0.direction < $1.direction})
             
             
             var previousSname = ""
