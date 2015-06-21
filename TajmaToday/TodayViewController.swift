@@ -130,8 +130,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
         var stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
         stopLabel.textAlignment = NSTextAlignment.Left
-        stopLabel.textColor = UIColor.whiteColor()
-        stopLabel.font = UIFont.boldSystemFontOfSize(16)
+        stopLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
+        stopLabel.font = UIFont.boldSystemFontOfSize(12)
         
         var distanceLabel = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 4, 100, 30))
         distanceLabel.textAlignment = NSTextAlignment.Left
@@ -143,25 +143,25 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         var directionLabel = UILabel(frame:  CGRect(x: 52, y: 4, width: directionWidth, height: 30))
         directionLabel.textAlignment = NSTextAlignment.Left
         directionLabel.textColor = UIColor.whiteColor()
-        directionLabel.font = directionLabel.font.fontWithSize(14)
+        directionLabel.font = directionLabel.font.fontWithSize(12)
         
         var snameLabel = UILabel(frame: CGRectMake(8, 4, 40, 30))
         snameLabel.textAlignment = NSTextAlignment.Left
         snameLabel.textColor = UIColor.whiteColor()
-        snameLabel.font = UIFont.boldSystemFontOfSize(14)
+        snameLabel.font = UIFont.boldSystemFontOfSize(12)
         
         var depLabelOne = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
         depLabelOne.textColor = UIColor.whiteColor()
-        depLabelOne.font = depLabelOne.font.fontWithSize(14)
+        depLabelOne.font = depLabelOne.font.fontWithSize(12)
         
         var depLabelTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 25, 4, 30, 30))
         depLabelTwo.textColor = UIColor.lightGrayColor()
-        depLabelTwo.font = depLabelTwo.font.fontWithSize(14)
+        depLabelTwo.font = depLabelTwo.font.fontWithSize(12)
         
         var letterSname = linesAtStop[indexPath.row].sname.toInt()
         // Linje med bokstäver
         if (letterSname == nil){
-            snameLabel.font = UIFont.boldSystemFontOfSize(10)
+            snameLabel.font = UIFont.boldSystemFontOfSize(12)
         }
         
         // Max antal linjer
@@ -177,25 +177,45 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
         
         // Inget stopp || Inget stopp i närheten || Inga avgångar hittades
-        if (linesAtStop[indexPath.row].isStop && linesAtStop[indexPath.row].distance == 99999){
-            let btnMainApp = UIButton(frame: CGRectMake(0, 0, cell.bounds.width, 38))
-            btnMainApp.backgroundColor = UIColor.clearColor()
-            btnMainApp.setTitle(linesAtStop[indexPath.row].stopName, forState: UIControlState.Normal)
-            btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
-            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(12)
-            btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
+        if (linesAtStop[indexPath.row].isStop && linesAtStop[indexPath.row].distance == 99999) || (linesAtStop[indexPath.row].distance == 12345678){
             
-            cell.userInteractionEnabled = true
+            for view in cell.subviews{
+                view.removeFromSuperview()
+            }
             
-            cell.addSubview(btnMainApp)
+            if (linesAtStop[indexPath.row].distance == 99999){
+                stopLabel.text = linesAtStop[indexPath.row].stopName
+                
+                cell.userInteractionEnabled = true
+                cell.addSubview(stopLabel)
+            }
+            else if (linesAtStop[indexPath.row].distance == 12345678){
+                let btnMainApp = UIButton(frame: CGRectMake(10,0, cell.bounds.width - 40, 35))
+                btnMainApp.backgroundColor = UIColor.clearColor()
+                btnMainApp.setTitle("Lägg till ny hållplats", forState: UIControlState.Normal)
+                btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
+                btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(12)
+                btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
+                btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
+                btnMainApp.layer.cornerRadius = 5
+                
+                cell.userInteractionEnabled = true
+                cell.addSubview(btnMainApp)
+            }
+            
+            return cell
         }
             // En hållplats (rubrik)
         else if (linesAtStop[indexPath.row].isStop){
+            var view = UILabel(frame: CGRectMake(0, 0, 1000, 36))
+            view.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.1)
+
             stopLabel.text = linesAtStop[indexPath.row].stopName
             distanceLabel.text = String(linesAtStop[indexPath.row].distance) + " m"
   
-            cell.addSubview(stopLabel)
-            cell.addSubview(distanceLabel)
+            view.addSubview(stopLabel)
+            view.addSubview(distanceLabel)
+            cell.addSubview(view)
             cell.userInteractionEnabled = false
             
             return cell
@@ -203,12 +223,15 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
         // Sista raden
         else if (indexPath.row == linesAtStop.count - 1){
-            let btnMainApp = UIButton(frame: CGRectMake(0, 0, cell.bounds.width, 38))
+            
+            let btnMainApp = UIButton(frame: CGRectMake(cell.bounds.width / 5,3, 200, 30))
             btnMainApp.backgroundColor = UIColor.clearColor()
-            btnMainApp.setTitle("Visa närmaste hållplatser.", forState: UIControlState.Normal)
+            btnMainApp.setTitle("Hantera stopp", forState: UIControlState.Normal)
             btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
             btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(12)
             btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
+            btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
+            btnMainApp.layer.cornerRadius = 5
             
             cell.userInteractionEnabled = true
             
@@ -327,25 +350,30 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         // För att sorteringen ska funka måste alla items i linesAtStop arrayen ha departures
         var tempArr = [-10, -10]
         
-        if (userStops.count == 0){
-            var noStop = "Ingen hållplats har lagts till. Öppna närmaste."
-            
-            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
-            linesAtStop.append(todayLabel)
-            
-            updateTable()
-            
-            return
-            
-        }
+//        if (userStops.count == 0){
+//            var noStop = "Ingen hållplats har lagts till. Öppna närmaste."
+//            
+//            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
+//            linesAtStop.append(todayLabel)
+//            
+//            updateTable()
+//            
+//            return
+//            
+//        }
         
         // ta data och platta till den med sektioner så att den passar listan
         var stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
-        if (stops.count == 0){
-            var noStop = "Ingen hållplats i närheten. Öppna närmaste."
+        if (userStops.count == 0 || stops.count == 0){
+            var noStop = "Ingen vald hållplats i närheten :("
             var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
+            
             linesAtStop.append(todayLabel)
+            
+            var todayButton = TodayLabel(stopName: noStop, distance: 12345678, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
+            
+            linesAtStop.append(todayButton)
             
             updateTable()
         }

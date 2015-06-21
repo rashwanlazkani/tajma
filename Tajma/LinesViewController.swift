@@ -71,10 +71,6 @@ class LinesViewController: UIViewController {
         scrollView.backgroundColor = UIColor.whiteColor()
     }
     
-    func buttonClicked(sender : UIButton){
-        println("HJASHJS")
-    }
-    
     func drawLinesTableView(){
         var height = 0
         var tag = 0
@@ -107,13 +103,7 @@ class LinesViewController: UIViewController {
             Global.linesAtStop.append(stopLine)
             
             var view = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 44))
-            /*
-            if(tag % 2 == 0){
-            view.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
-            } else{
-            view.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
-            }
-            */
+
             var fontSize = CGFloat(16)
             var sname = ""
             var letterSname = line.sname.toInt()
@@ -154,6 +144,10 @@ class LinesViewController: UIViewController {
             // SepartorView
             var separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
             separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.5)
+            
+            if (isChecked){
+                //directionLabel.font = UIFont.boldSystemFontOfSize(16)
+            }
             
             view.addSubview(checkBox)
             view.addSubview(snameView)

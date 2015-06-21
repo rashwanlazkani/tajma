@@ -21,7 +21,8 @@ class CheckBox: UIButton {
         didSet{
             if (isChecked == true){
                 self.setImage(checkedImage, forState: .Normal)
-                self.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
+                self.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
+                
                 self.sendSubviewToBack(self)
             }
             else{

@@ -165,7 +165,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     func openHelp(){
-        let webV:UIWebView = UIWebView(frame: CGRectMake(0, self.navigationController!.navigationBar.bounds.height + 20, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - 80))
+        let webV:UIWebView = UIWebView(frame: CGRectMake(0, self.navigationController!.navigationBar.bounds.height - 44, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - 65))
         webV.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.tajmajeudjeyfbryasbasteyashy.rashwanlazkani.se/")!))
         //webV.delegate = self;
         self.view.addSubview(webV)    }

@@ -276,7 +276,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             var myStops = dbService.getStopsId()
             
             if (contains(myStops, stopWrapper.stops[indexPath.row].id)){
-                let imageName = "darkcheck"
+                let imageName = "check-red"
                 let image = UIImage(named: imageName)
                 let imageView = UIImageView(image: image!)
                 imageView.frame = CGRect(x: phoneSize.width - 70, y: 12, width: 16, height: 16)
