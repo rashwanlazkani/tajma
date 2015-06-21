@@ -182,6 +182,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         if (count(searchBar.text) == 0){
+            searchBar.resignFirstResponder()
             return
         }
         var stop = StopsService()
@@ -314,6 +315,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
+        searchBar.resignFirstResponder()
         // Hämta om närmaste stopp
         if (stopWrapper.stops[indexPath.row].id == "0" && stopWrapper.stops[indexPath.row].distance == -200){
             getNearestStops()
