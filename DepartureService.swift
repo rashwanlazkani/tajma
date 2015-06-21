@@ -45,8 +45,6 @@ public class DepartureService {
                 var fgColor = subJson["fgColor"].string!
                 var bgColor = subJson["bgColor"].string!
                 
-                println(direction)
-                
                 if (sname == "SVAR"){
                     sname = "SVART"
                 }

@@ -100,7 +100,6 @@ class DBService {
         return lineArr
     }
     
-    
     func getLinesAtStopToday(stopId: String) -> [LineAtStopToday]{
         let userStops = db.query("SELECT * FROM Lines where stopid = '\(stopId)'")
         

@@ -12,50 +12,33 @@ import CoreLocation
 
 class TodayTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, NCWidgetProviding, CLLocationManagerDelegate {
     
-    
-    @IBOutlet weak var table: UITableView!
-    
     var lat  = ""
     var long = ""
-    
     var dbService = DBService()
     var departureService = DepartureService()
     var lineService = LineService()
     var linesAtStop = [TodayLabel]()
-    
     var departures = [Departure]()
-    
     var updateDataTimer = NSTimer()
-    
     var timerUpdate = false
     var firstRun = true
     var locationService = false
-    
+    var stops = [Stop]()
+    let locationManager = CLLocationManager()
     var preferedViewHeight:CGFloat{
         var height = CGFloat(linesAtStop.count * 44)
         return height
     }
     
-    var stops = [Stop]()
-    
-    //var stops = [String]()
-    
-    let locationManager = CLLocationManager()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.locationManager.requestWhenInUseAuthorization()
-        
         if (CLLocationManager.locationServicesEnabled()){
-            //viewLoadingDataInput()
-            
             if CLLocationManager.authorizationStatus() == .Denied {
                 userNeedToTurnOnLocalization()
-                
                 return
             }
-            
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
@@ -71,23 +54,15 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         super.viewWillAppear(animated)
 
         if (locationService){
-            //viewLoadingDataInput()
-            
             updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15.0, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
         }
-        
     }
     
     override func viewDidDisappear(animated: Bool) {
         updateDataTimer.invalidate()
     }
     
-    func updateSize(){
-        var preferredSize = self.preferredContentSize
-        preferredSize.height = self.preferedViewHeight
-        self.preferredContentSize = preferredSize
-    }
-    
+    // MARK: - Location
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
@@ -122,7 +97,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         println("Error: " + error.localizedDescription)
     }
     
-    
     // MARK: - Widget Delegate
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)!) {
         self.tableView.reloadData()
@@ -135,6 +109,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Om mer än maxlängd
         if (linesAtStop.count > iPhoneModelSize()){
             return iPhoneModelSize()
         }
@@ -143,46 +118,16 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
     }
     
-    func iPhoneModelSize() -> Int{
-        let modelName = UIDevice.currentDevice().modelName
-
-        switch modelName {
-            case "iPhone 4", "iPhone 4S" :
-                return 9
-            case "iPhone 5", "iPhone 5C", "iPhone 5S" :
-                return 11
-            case "iPhone 6" :
-                return 14
-            case "iPhone 6 Plus" :
-                return 17
-            default:
-            return 20
-        }
-    }
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         
-        cell.userInteractionEnabled = false
-        
-        if (linesAtStop.count == 0){
-            var tempLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
-            tempLabel.textAlignment = NSTextAlignment.Left
-            tempLabel.textColor = UIColor.grayColor()
-            tempLabel.font = UIFont.boldSystemFontOfSize(16)
-            
-            tempLabel.text = "Laddar data..."
-            cell.addSubview(tempLabel)
-
-            return cell
-        }
-        
+        // Rensa alla views
         for view in cell.subviews{
             if (toString(view.dynamicType) != "_UITableViewCellSeparatorView") {
                 view.removeFromSuperview()
             }
         }
-
+    
         var stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
         stopLabel.textAlignment = NSTextAlignment.Left
         stopLabel.textColor = UIColor.grayColor()
@@ -193,23 +138,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         distanceLabel.textColor = UIColor.grayColor()
         distanceLabel.font = distanceLabel.font.fontWithSize(12)
         
-        var directionWidth = 0
-        
-        switch iPhoneModelSize() {
-            // 5
-            case 11 :
-                directionWidth = 160
-            // 6
-            case 14 :
-                directionWidth = 210
-            // 6P
-            case 17 :
-                directionWidth = 245
-            // Simulator, iPad osv
-            default:
-                directionWidth = 250
-        }
-
+        var directionWidth = getDirectionWith()
         
         var directionLabel = UILabel(frame:  CGRect(x: 52, y: 4, width: directionWidth, height: 30))
         directionLabel.textAlignment = NSTextAlignment.Left
@@ -235,39 +164,61 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             snameLabel.font = UIFont.boldSystemFontOfSize(10)
         }
         
+        // Max antal linjer
         if (indexPath.row >= iPhoneModelSize() - 1){
             stopLabel.text =  "Max antal linjer. Listar närmaste avgångar."
             
             stopLabel.font = stopLabel.font.fontWithSize(12)
             cell.addSubview(stopLabel)
             
+            cell.userInteractionEnabled = false
+            
             return cell
         }
-
+        
         // Inget stopp || Inget stopp i närheten || Inga avgångar hittades
         if (linesAtStop[indexPath.row].isStop && linesAtStop[indexPath.row].distance == 99999){
-            stopLabel.text = linesAtStop[indexPath.row].stopName
+            let btnMainApp = UIButton(frame: CGRectMake(0, 0, cell.bounds.width, 38))
+            btnMainApp.backgroundColor = UIColor.clearColor()
+            btnMainApp.setTitle(linesAtStop[indexPath.row].stopName, forState: UIControlState.Normal)
+            btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
+            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(12)
+            btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
             
-            stopLabel.textColor = UIColor.whiteColor()
-            stopLabel.font = stopLabel.font.fontWithSize(12)
+            cell.userInteractionEnabled = true
             
-            cell.addSubview(stopLabel)
+            cell.addSubview(btnMainApp)
         }
             // En hållplats (rubrik)
         else if (linesAtStop[indexPath.row].isStop){
             stopLabel.text = linesAtStop[indexPath.row].stopName
             distanceLabel.text = String(linesAtStop[indexPath.row].distance) + " m"
-            
-            self.tableView.layoutMargins = UIEdgeInsetsZero
-            
+  
             cell.addSubview(stopLabel)
             cell.addSubview(distanceLabel)
+            cell.userInteractionEnabled = false
             
             return cell
             
         }
+        // Sista raden
+        else if (indexPath.row == linesAtStop.count - 1){
+            let btnMainApp = UIButton(frame: CGRectMake(0, 0, cell.bounds.width, 38))
+            btnMainApp.backgroundColor = UIColor.clearColor()
+            btnMainApp.setTitle("Visa närmaste hållplatser.", forState: UIControlState.Normal)
+            btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
+            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(12)
+            btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
+            
+            cell.userInteractionEnabled = true
+            
+            cell.addSubview(btnMainApp)
+        }
             // Linje på hållplats
         else{
+            
+            cell.userInteractionEnabled = false
+            
             snameLabel.text = linesAtStop[indexPath.row].sname
             var index = 0
             for rtTime in linesAtStop[indexPath.row].rtTimes{
@@ -309,12 +260,59 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
         
         tableView.rowHeight = 36
-        
+
         return cell
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.layer.backgroundColor = UIColor.clearColor().CGColor
+    }
+    
+    // MARK: - Events
+    func openMainApp(sender: UIButton!) {
+        var url = NSURL(fileURLWithPath: "Tajma://home")
+        self.extensionContext?.openURL(url!, completionHandler: nil)
+    }
+    
+    // MARK: - Functions
+    func updateSize(){
+        var preferredSize = self.preferredContentSize
+        preferredSize.height = self.preferedViewHeight
+        self.preferredContentSize = preferredSize
+    }
+    
+    func iPhoneModelSize() -> Int{
+        let modelName = UIDevice.currentDevice().modelName
+
+        switch modelName {
+            case "iPhone 4", "iPhone 4S" :
+                return 8
+            case "iPhone 5", "iPhone 5C", "iPhone 5S" :
+                return 10
+            case "iPhone 6" :
+                return 13
+            case "iPhone 6 Plus" :
+                return 16
+            default:
+            return 20
+        }
+    }
+    
+    func getDirectionWith() -> Int{
+        switch iPhoneModelSize() {
+            // 5
+        case 10 :
+            return 160
+            // 6
+        case 13 :
+            return 210
+            // 6P
+        case 15 :
+            return 245
+            // Simulator, iPad osv
+        default:
+            return 250
+        }
     }
     
     func getLocationAndUpdateView(){
@@ -323,18 +321,14 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     func getDeparturesAtStop(){
-        
-        println(lat)
-        println(long)
-        
         var userStops = dbService.getStops()
         
         linesAtStop = [TodayLabel]()
-        
+        // För att sorteringen ska funka måste alla items i linesAtStop arrayen ha departures
         var tempArr = [-10, -10]
         
         if (userStops.count == 0){
-            var noStop = "Ingen hållplats har lagts till."
+            var noStop = "Ingen hållplats har lagts till. Öppna närmaste."
             
             var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
             linesAtStop.append(todayLabel)
@@ -349,7 +343,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         var stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
         if (stops.count == 0){
-            var noStop = "Ingen hållplats i närheten."
+            var noStop = "Ingen hållplats i närheten. Öppna närmaste."
             var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
             linesAtStop.append(todayLabel)
             
@@ -396,7 +390,9 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 
             }
             
-            //linesAtStop.sort({ $0.distance < $1.distance ? $0.rtTimes[0] < $1.rtTimes[0] : $0.distance < $1.distance })
+            // Lägger till en rad i slutet för att alltid kunna visa en knapp för att returnera till appen
+            var todayLabel = TodayLabel(stopName: "", distance: 10101010, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: false)
+            linesAtStop.append(todayLabel)
             
             let temp = linesAtStop.sorted {
                 switch ($0.distance,$1.distance) {
@@ -420,15 +416,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         self.tableView.backgroundColor = UIColor.clearColor()
         self.updateSize()
         self.tableView.reloadData()
-    }
-    
-    func viewLoadingDataInput(){
-        linesAtStop = [TodayLabel]()
-        // LADDAR DATA TEXT
-        var todayLabel = TodayLabel(stopName: "Laddar data...", distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], isStop: true)
-        linesAtStop.append(todayLabel)
-        
-        updateTable()
     }
     
     func userNeedToTurnOnLocalization(){

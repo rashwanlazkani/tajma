@@ -247,6 +247,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
+        
         /*
         if(indexPath.row % 2 == 0){
             cell!.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
@@ -296,7 +297,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             UIApplication.sharedApplication().endIgnoringInteractionEvents()
         }
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

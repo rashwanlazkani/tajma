@@ -27,9 +27,6 @@
                     </tableView>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="200"/>
-                    <connections>
-                        <outlet property="table" destination="BEX-eB-IRv" id="rIS-HW-NDV"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QyT-cH-C0b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
