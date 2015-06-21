@@ -103,7 +103,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.tableView!.reloadData()
                 }
                 else{
-                    var stop = Stop(id: "0", name: "Fel vid hämtning, tryck för att ladda om", lat: "0", long: "0", distance: -200, departures: nil)
+                    var stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200, departures: nil)
                     self.stopWrapper.stops.append(stop)
                     self.tableView!.reloadData()
                     println("ASASA")

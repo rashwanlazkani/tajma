@@ -74,7 +74,7 @@ class LinesViewController: UIViewController {
                 stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: false)
             }
             
-            Global.linesAtStop.append(stopLine as StopLine)
+            Global.linesAtStop.append(stopLine)
             
             var view = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 44))
             /*
@@ -116,7 +116,7 @@ class LinesViewController: UIViewController {
             
             // SepartorView
             var separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
-            separatorView.backgroundColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 1)
+            separatorView.backgroundColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 0.5)
             
             view.addSubview(snameView)
             snameView.addSubview(snameLabel)
@@ -130,6 +130,10 @@ class LinesViewController: UIViewController {
             tag++
         }
         
+        var separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
+        separatorView.backgroundColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 0.5)
+        
+        self.view.addSubview(separatorView)
         scrollView.contentSize = CGSize(width: phoneSize.width, height: height)
         
     }
