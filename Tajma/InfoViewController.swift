@@ -15,10 +15,15 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     var mail: MFMailComposeViewController!
     var  items = [String]()
     
+    var phoneSize = PhoneSize()
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Information"
+        
         initiateViews()
         
         // TableView
@@ -28,13 +33,34 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         items = ["Ge oss feedback","Gilla oss på facebook","Dela appen", "Betygsätt Tajma", "Hjälp"]
     }
     
+    override func willMoveToParentViewController(parent: UIViewController?) {
+        super.willMoveToParentViewController(parent)
+        if parent == nil {
+            self.navigationController?.navigationBar.translucent = true
+        }
+    }
+    
     // MARK: - Functions
     func initiateViews(){
         // NavBar
         navigationController?.navigationBar.hidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 9/255, green: 128/255, blue: 129/255, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
+        
+        self.navigationController?.navigationBar.translucent = false
+        
+        var title = UILabel(frame: CGRectMake(0, 4, 200, 30))
+        title.textAlignment = NSTextAlignment.Center
+        title.textColor = UIColor.whiteColor()
+        title.font = UIFont.boldSystemFontOfSize(16)
+        title.text = "Information"
+        
+        var navBarTitleView = UIView(frame: CGRect(x: phoneSize.width / 2, y: 0, width: 200, height: 44))
+        navBarTitleView.backgroundColor = UIColor.clearColor()
+        self.navigationItem.titleView = navBarTitleView
+        
+        navBarTitleView.addSubview(title)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
