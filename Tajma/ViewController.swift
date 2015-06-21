@@ -99,6 +99,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
         activityIndicator.color = UIColor.grayColor()
         self.view.addSubview(activityIndicator)
+        
+        searchBar.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal);
 
     }
     
