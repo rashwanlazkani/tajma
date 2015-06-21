@@ -248,6 +248,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
         
+        for view in cell!.subviews{
+            if (toString(view.dynamicType) == "UIImageView") {
+                view.removeFromSuperview()
+            }
+        }
+        
+        if (segmentedControl.selectedSegmentIndex == 0){
+            var myStops = dbService.getStopsId()
+            
+            if (contains(myStops, stopWrapper.stops[indexPath.row].id)){
+                let imageName = "darkcheck"
+                let image = UIImage(named: imageName)
+                let imageView = UIImageView(image: image!)
+                imageView.frame = CGRect(x: phoneSize.width - 70, y: 12, width: 16, height: 16)
+                
+                cell?.addSubview(imageView)
+                
+            }
+        }
+        
         /*
         if(indexPath.row % 2 == 0){
             cell!.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)

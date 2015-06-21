@@ -31,6 +31,18 @@ class DBService {
         db = SQLiteDB.sharedInstance()
     }
     
+    func getStopsId() -> [String]{
+        var ids = [String]()
+        
+        let userStops = db.query("SELECT stopId FROM stops")
+        
+        for row in userStops{
+            ids.append(row["stopId"]!.asString())
+        }
+        
+        return ids
+    }
+    
     func getStops() -> [Stop]{
         var stops = [Stop]()
         
