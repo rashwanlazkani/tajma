@@ -23,6 +23,7 @@ class LinesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //navigationController?.navigationBar.translucent = false
         navigationController?.navigationBar.hidden = false
         
         self.title = stop.name
@@ -40,14 +41,27 @@ class LinesViewController: UIViewController {
         navigationController?.navigationBar.hidden = true
     }
     
+    override func willMoveToParentViewController(parent: UIViewController?) {
+        super.willMoveToParentViewController(parent)
+        if parent == nil {
+            self.navigationController?.navigationBar.translucent = true
+        }
+    }
+    
     // MARK: - Functions
     func initiateViews(){
         // NavBar
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 9/255, green: 128/255, blue: 129/255, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
+        
+        self.navigationController?.navigationBar.translucent = false
         
         scrollView.backgroundColor = UIColor.whiteColor()
+    }
+    
+    func buttonClicked(sender : UIButton){
+        println("HJASHJS")
     }
     
     func drawLinesTableView(){
@@ -61,17 +75,22 @@ class LinesViewController: UIViewController {
             checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
             checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
             checkBox.tag = tag
-            checkBox.frame = CGRectMake(50, 50, 1000, 50)
+            checkBox.frame = CGRectMake(50, 50, 1000, 44)
             checkBox.center = CGPoint(x: scrollView.bounds.width - 25, y: 44 / 2.0)
             
             var stopLine : StopLine
+            var isChecked = false
             
             if (contains(Global.allaStopp, line.lineAndDirection)){
                 stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: true)
                 checkBox.isChecked = true
+                
+                isChecked = true
             }
             else{
                 stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: false)
+                
+                isChecked = false
             }
             
             Global.linesAtStop.append(stopLine)
@@ -84,11 +103,17 @@ class LinesViewController: UIViewController {
             view.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
             }
             */
+            var fontSize = CGFloat(16)
             var sname = ""
             var letterSname = line.sname.toInt()
-            if (count(line.sname) > 3) || letterSname == nil{
+            // Bokstväver
+            if (letterSname == nil){
                 let snameArr = Array(line.sname)
                 sname = String(snameArr[0])
+            }
+            else if (count(line.sname) > 2){
+                fontSize = CGFloat(12)
+                sname = line.sname
             }
             else{
                 sname = line.sname
@@ -106,26 +131,27 @@ class LinesViewController: UIViewController {
             snameLabel.textAlignment = NSTextAlignment.Center
             snameLabel.text = sname ?? line.sname
             snameLabel.textColor = UIColor(rgba: line.bgColor)
-            snameLabel.font = snameLabel.font.fontWithSize(11)
+            snameLabel.font = snameLabel.font.fontWithSize(fontSize)
             
             // DirectionLabel
             var directionLabel = UILabel(frame: CGRectMake(0, 8, 330, 30))
             directionLabel.textAlignment = NSTextAlignment.Left
-            directionLabel.textColor = UIColor.blackColor()
+            directionLabel.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
             directionLabel.text = "\t     \(line.direction)"
+            directionLabel.font = directionLabel.font.fontWithSize(16)
             
             // SepartorView
             var separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
-            separatorView.backgroundColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 0.5)
+            separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.5)
             
+            view.addSubview(checkBox)
             view.addSubview(snameView)
             snameView.addSubview(snameLabel)
             view.addSubview(directionLabel)
-            view.addSubview(checkBox)
             
             scrollView.addSubview(view)
             scrollView.addSubview(separatorView)
-            
+
             height += 44
             tag++
         }

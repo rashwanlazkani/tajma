@@ -57,21 +57,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidAppear(animated: Bool) {
         lineWrapper = LineWrapper()
+
+        navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        navigationController?.navigationBar.tintColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 0)]
+        
         navigationController?.navigationBar.hidden = true
+        
         tableView.reloadData()
     }
  
     // MARK: - Functions
     func initiateViews(){
         // Gradient view
-        let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.colors = [UIColor(red: 9/255, green: 128/255, blue: 129/255, alpha: 1).CGColor, UIColor(red: 72/255, green: 174/255, blue: 151/255, alpha: 1).CGColor]
-        gradient.locations = [0.0, 1.0]
-        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
-        gradient.frame = CGRectMake(0, 0, self.view.frame.size.width, navController.frame.size.height)
-        navController.layer.insertSublayer(gradient, atIndex: 0)
+//        let gradient: CAGradientLayer = CAGradientLayer()
+//        gradient.colors = [UIColor(red: 9/255, green: 128/255, blue: 129/255, alpha: 1).CGColor, UIColor(red: 72/255, green: 174/255, blue: 151/255, alpha: 1).CGColor]
+//        gradient.locations = [0.0, 1.0]
+//        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+//        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
+//        gradient.frame = CGRectMake(0, 0, self.view.frame.size.width, navController.frame.size.height)
+        //navController.layer.insertSublayer(UIColor(red: 9/255, green: 128/255, blue: 129/255, alpha: 1).CGColor, atIndex: 0)
         
+        navController.backgroundColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
+          
         // SearchBar
         var textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.whiteColor()
@@ -201,11 +209,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         searchBar.resignFirstResponder()
         
     }
-    
-    @IBAction func infoButton_Clicked(sender: UIButton) {
-        //self.performSegueWithIdentifier("ShowInfoView", sender: nil)
-    }
-    
+
     // MARK: - Location Manager
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in

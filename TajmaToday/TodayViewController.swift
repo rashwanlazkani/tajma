@@ -130,7 +130,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
         var stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
         stopLabel.textAlignment = NSTextAlignment.Left
-        stopLabel.textColor = UIColor.grayColor()
+        stopLabel.textColor = UIColor.whiteColor()
         stopLabel.font = UIFont.boldSystemFontOfSize(16)
         
         var distanceLabel = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 4, 100, 30))

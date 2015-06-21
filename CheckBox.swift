@@ -21,9 +21,12 @@ class CheckBox: UIButton {
         didSet{
             if (isChecked == true){
                 self.setImage(checkedImage, forState: .Normal)
+                self.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
+                self.sendSubviewToBack(self)
             }
             else{
                 self.setImage(uncheckedImage, forState: .Normal)
+                self.backgroundColor = UIColor.clearColor()
             }
         }
     }
@@ -34,6 +37,10 @@ class CheckBox: UIButton {
     }
     
     func buttonClicked(sender : UIButton){
+        
+        
+        //var linesView: LinesViewController()
+        
         
         if (isChecked == true){
             for stopline in Global.linesAtStop{
@@ -54,23 +61,7 @@ class CheckBox: UIButton {
                     return
                 }
             }
-            
         }
-    }
-    
-    func getImage(index : Int) -> UIImage{
-        for stopline in Global.linesAtStop{
-            if (stopline.tag == index){
-                if (stopline.isChecked){
-                    return checkedImage
-                }
-                else{
-                    return uncheckedImage
-                }
-            }
-        }
-        
-        return UIImage()
     }
 
 }

@@ -63,13 +63,23 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6P0-lf-Vmn">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="107"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Sök hållplats" translatesAutoresizingMaskIntoConstraints="NO" id="IX5-0P-IUT">
-                                        <rect key="frame" x="0.0" y="15" width="320" height="44"/>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Sök hållplats" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IX5-0P-IUT">
+                                        <rect key="frame" x="55" y="15" width="210" height="44"/>
+                                        <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <offsetWrapper key="searchFieldBackgroundPositionAdjustment" horizontal="0.0" vertical="0.0"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZY-ax-fvf">
+                                        <rect key="frame" x="16" y="24" width="28" height="28"/>
+                                        <state key="normal" image="42-info">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="7SI-it-BPf" kind="push" id="WWI-YA-9eo"/>
+                                        </connections>
+                                    </button>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="d8P-Ba-k8V">
-                                        <rect key="frame" x="8" y="66" width="255" height="29"/>
+                                        <rect key="frame" x="8" y="66" width="304" height="29"/>
                                         <segments>
                                             <segment title="Alla"/>
                                             <segment title="" image="check-white"/>
@@ -79,27 +89,15 @@
                                             <action selector="segmentedControl_Changed:" destination="R3x-0W-ZXV" eventType="valueChanged" id="pn4-R7-Oeh"/>
                                         </connections>
                                     </segmentedControl>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="erj-fx-VgB">
-                                        <rect key="frame" x="280" y="63" width="32" height="32"/>
-                                        <state key="normal" image="help">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="infoButton_Clicked:" destination="R3x-0W-ZXV" eventType="touchUpInside" id="Bwd-UU-uQ8"/>
-                                            <segue destination="7SI-it-BPf" kind="push" identifier="ShowInfoView" id="fmx-0m-OTq"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="IX5-0P-IUT" secondAttribute="trailing" id="9T7-RC-d8m"/>
+                                    <constraint firstAttribute="trailing" secondItem="IX5-0P-IUT" secondAttribute="trailing" constant="55" id="9T7-RC-d8m"/>
                                     <constraint firstItem="d8P-Ba-k8V" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leadingMargin" id="Ae0-6C-LN3"/>
                                     <constraint firstItem="d8P-Ba-k8V" firstAttribute="top" secondItem="IX5-0P-IUT" secondAttribute="bottom" constant="7" id="B2n-2Q-j0K"/>
                                     <constraint firstAttribute="bottom" secondItem="d8P-Ba-k8V" secondAttribute="bottom" constant="13" id="VQp-9y-Og7"/>
-                                    <constraint firstAttribute="bottom" secondItem="erj-fx-VgB" secondAttribute="bottom" constant="12" id="W3i-3m-UXh"/>
-                                    <constraint firstItem="erj-fx-VgB" firstAttribute="trailing" secondItem="6P0-lf-Vmn" secondAttribute="trailingMargin" id="Yf8-qd-MuI"/>
                                     <constraint firstItem="IX5-0P-IUT" firstAttribute="top" secondItem="6P0-lf-Vmn" secondAttribute="top" constant="15" id="bLT-P0-HLg"/>
-                                    <constraint firstAttribute="trailing" secondItem="d8P-Ba-k8V" secondAttribute="trailing" constant="57" id="qP2-zE-EsK"/>
-                                    <constraint firstItem="IX5-0P-IUT" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leading" id="rUG-dL-2bn"/>
+                                    <constraint firstAttribute="trailing" secondItem="d8P-Ba-k8V" secondAttribute="trailing" constant="8" id="qP2-zE-EsK"/>
+                                    <constraint firstItem="IX5-0P-IUT" firstAttribute="leading" secondItem="6P0-lf-Vmn" secondAttribute="leading" constant="55" id="rUG-dL-2bn"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NQy-A8-fKc">
@@ -198,8 +196,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="42-info" width="28" height="28"/>
         <image name="check-white" width="22" height="22"/>
-        <image name="help" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
