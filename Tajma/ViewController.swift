@@ -95,14 +95,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func getNearestStops() {
+        self.activityIndicator.startAnimating()
         stopService.getNearestStops(lat, long: long, onCompletion: { json -> Void in
-            self.activityIndicator.startAnimating()
             dispatch_async(dispatch_get_main_queue(),{
                 self.stopWrapper = json
                 if (self.stopWrapper.stops.count > 0){
                     self.tableView!.reloadData()
                 }
                 else{
+                    var stop = Stop(id: "0", name: "Fel vid hämtning, tryck för att ladda om", lat: "0", long: "0", distance: -200, departures: nil)
+                    self.stopWrapper.stops.append(stop)
+                    self.tableView!.reloadData()
+                    println("ASASA")
                     println(self.stopWrapper.error)
                 }
                 self.activityIndicator.stopAnimating()
@@ -207,6 +211,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
                 println("Error: " + error.localizedDescription)
+                self.getNearestStops()
                 return
             }
             if (placemarks.count > 0){
@@ -254,6 +259,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
+        // Kunde inte ladda närmaste stopp
+        if (stopWrapper.stops[indexPath.row].id == "0" && stopWrapper.stops[indexPath.row].distance == -200){
+            cell!.textLabel!.text = stopWrapper.stops[indexPath.row].name
+            cell!.accessoryType = UITableViewCellAccessoryType.None
+            
+            return cell!
+        }
+        
         if (segmentedControl.selectedSegmentIndex == 0){
             var myStops = dbService.getStopsId()
             
@@ -263,7 +276,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let imageView = UIImageView(image: image!)
                 imageView.frame = CGRect(x: phoneSize.width - 70, y: 12, width: 16, height: 16)
                 
-                cell?.addSubview(imageView)
+                cell!.addSubview(imageView)
                 
             }
         }
@@ -297,7 +310,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        getLinesAtStop(stopWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
+        // Hämta om närmaste stopp
+        if (stopWrapper.stops[indexPath.row].id == "0" && stopWrapper.stops[indexPath.row].distance == -200){
+            getNearestStops()
+        }
+        // Hämta linjer på stopp
+        else{
+            getLinesAtStop(stopWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
+        }
     }
     
     // MARK: - Segue
