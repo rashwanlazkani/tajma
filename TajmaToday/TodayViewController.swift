@@ -138,17 +138,10 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         distanceLabel.textColor = UIColor.grayColor()
         distanceLabel.font = distanceLabel.font.fontWithSize(12)
         
-        var directionWidth = getDirectionWith()
-        
-        var directionLabel = UILabel(frame:  CGRect(x: 52, y: 4, width: directionWidth, height: 30))
-        directionLabel.textAlignment = NSTextAlignment.Left
-        directionLabel.textColor = UIColor.whiteColor()
-        directionLabel.font = directionLabel.font.fontWithSize(14)
-        
-        var snameLabel = UILabel(frame: CGRectMake(8, 4, 40, 30))
-        snameLabel.textAlignment = NSTextAlignment.Left
-        snameLabel.textColor = UIColor.whiteColor()
-        snameLabel.font = UIFont.boldSystemFontOfSize(14)
+        var lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: getLabelWidth(), height: 30))
+        lblSnameDir.textAlignment = NSTextAlignment.Left
+        lblSnameDir.textColor = UIColor.whiteColor()
+        lblSnameDir.font = UIFont.boldSystemFontOfSize(14)
         
         var depLabelOne = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
         depLabelOne.textColor = UIColor.whiteColor()
@@ -161,7 +154,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         var letterSname = linesAtStop[indexPath.row].sname.toInt()
         // Linje med bokstäver
         if (letterSname == nil){
-            snameLabel.font = UIFont.boldSystemFontOfSize(14)
+            lblSnameDir.font = UIFont.boldSystemFontOfSize(14)
         }
         
         // Max antal linjer
@@ -186,7 +179,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             if (linesAtStop[indexPath.row].distance == 99999){
                 stopLabel.text = linesAtStop[indexPath.row].stopName
                 
-                cell.userInteractionEnabled = true
+                cell.userInteractionEnabled = false
                 cell.addSubview(stopLabel)
             }
             else if (linesAtStop[indexPath.row].distance == 12345678){
@@ -202,8 +195,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 cell.userInteractionEnabled = true
                 cell.addSubview(btnMainApp)
             }
-            
-            return cell
         }
             // En hållplats (rubrik)
         else if (linesAtStop[indexPath.row].isStop){
@@ -212,10 +203,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
   
             cell.addSubview(stopLabel)
             cell.addSubview(distanceLabel)
+            
             cell.userInteractionEnabled = false
-            
-            return cell
-            
         }
         // Sista raden
         else if (indexPath.row == linesAtStop.count - 1){
@@ -235,10 +224,9 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
             // Linje på hållplats
         else{
+            lblSnameDir.text = linesAtStop[indexPath.row].sname
+            lblSnameDir.text! += "   " + linesAtStop[indexPath.row].direction
             
-            cell.userInteractionEnabled = false
-            
-            snameLabel.text = linesAtStop[indexPath.row].sname
             var index = 0
             for rtTime in linesAtStop[indexPath.row].rtTimes{
                 
@@ -269,17 +257,15 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 
             }
             
-            directionLabel.text = linesAtStop[indexPath.row].direction
-            
-            cell.addSubview(snameLabel)
-            cell.addSubview(directionLabel)
+            cell.addSubview(lblSnameDir)
             cell.addSubview(depLabelOne)
             cell.addSubview(depLabelTwo)
             
+            cell.userInteractionEnabled = false
         }
         
         tableView.rowHeight = 36
-
+        
         return cell
     }
     
@@ -317,7 +303,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
     }
     
-    func getDirectionWith() -> Int{
+    func getLabelWidth() -> Int{
         switch iPhoneModelSize() {
             // 5
         case 10 :
