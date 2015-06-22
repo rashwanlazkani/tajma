@@ -21,6 +21,7 @@ class RestApiService: NSObject {
     // Singleton
     static let sharedInstance = RestApiService()
     
+    // api/stop/nearest/{latitude}/{longitude}
     func getNearestStops(lat: String, long: String, onCompletion: (JSON) -> Void){
         let route = "http://api.vasttrafik.se/bin/rest.exe/v1/location.nearbystops?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000"
         
@@ -30,6 +31,7 @@ class RestApiService: NSObject {
         
     }
     
+    // api/stop/find/{latitude}/{longitude}
     func findStops(userInput: String, onCompletion: (JSON) -> Void){
         var escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         let route = "http://api.vasttrafik.se/bin/rest.exe/v1/location.name?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&input=\(escapedUserInput)"
@@ -40,6 +42,7 @@ class RestApiService: NSObject {
         
     }
     
+    // skall ersättas med lokalt anrop
     func findLinesOnStopAtTime (stopId: String, onCompletion: (JSON) -> Void){
         
         let date = NSDate() //Get current date
@@ -64,6 +67,7 @@ class RestApiService: NSObject {
         
     }
     
+    // api/route/find/{stopId}
     func findAllLinesOnStop (stopId: String, onCompletion: (JSON) -> Void){
         var date = NSDate() //Get current date
         
@@ -99,6 +103,9 @@ class RestApiService: NSObject {
         
     }
     
+    // api/stoptime/departures/{stopId}/{tripId}/
+    
+    // skall ersättas med lokalt anrop
     func getDeparturesAtStop (stopId: String, onCompletion: (JSON) -> Void){
         let route = "http://api.vasttrafik.se/bin/rest.exe/v1/departureBoard?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&id=\(stopId)&timeSpan=120&maxDeparturesPerLine=2"
         
@@ -107,6 +114,7 @@ class RestApiService: NSObject {
         })
     }
     
+    // private
     func addDays(date: NSDate, additionalDays: Int) -> NSDate {
         // adding $additionalDays
         var components = NSDateComponents()
@@ -118,6 +126,7 @@ class RestApiService: NSObject {
         return futureDate!
     }
     
+    // private
     func makeHTTPGetRequest(path: String, onCompletion: ServiceResponse) {
         let request = NSMutableURLRequest(URL: NSURL(string: path)!)
         

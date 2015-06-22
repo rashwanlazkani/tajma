@@ -207,15 +207,11 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
             // En hållplats (rubrik)
         else if (linesAtStop[indexPath.row].isStop){
-            var view = UILabel(frame: CGRectMake(0, 0, 1000, 36))
-            view.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.1)
-
             stopLabel.text = linesAtStop[indexPath.row].stopName
             distanceLabel.text = String(linesAtStop[indexPath.row].distance) + " m"
   
-            view.addSubview(stopLabel)
-            view.addSubview(distanceLabel)
-            cell.addSubview(view)
+            cell.addSubview(stopLabel)
+            cell.addSubview(distanceLabel)
             cell.userInteractionEnabled = false
             
             return cell
