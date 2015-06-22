@@ -131,7 +131,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         var stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
         stopLabel.textAlignment = NSTextAlignment.Left
         stopLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
-        stopLabel.font = UIFont.boldSystemFontOfSize(12)
+        stopLabel.font = UIFont.boldSystemFontOfSize(14)
         
         var distanceLabel = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 4, 100, 30))
         distanceLabel.textAlignment = NSTextAlignment.Left
@@ -143,32 +143,32 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         var directionLabel = UILabel(frame:  CGRect(x: 52, y: 4, width: directionWidth, height: 30))
         directionLabel.textAlignment = NSTextAlignment.Left
         directionLabel.textColor = UIColor.whiteColor()
-        directionLabel.font = directionLabel.font.fontWithSize(12)
+        directionLabel.font = directionLabel.font.fontWithSize(14)
         
         var snameLabel = UILabel(frame: CGRectMake(8, 4, 40, 30))
         snameLabel.textAlignment = NSTextAlignment.Left
         snameLabel.textColor = UIColor.whiteColor()
-        snameLabel.font = UIFont.boldSystemFontOfSize(12)
+        snameLabel.font = UIFont.boldSystemFontOfSize(14)
         
         var depLabelOne = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
         depLabelOne.textColor = UIColor.whiteColor()
-        depLabelOne.font = depLabelOne.font.fontWithSize(12)
+        depLabelOne.font = depLabelOne.font.fontWithSize(14)
         
         var depLabelTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 25, 4, 30, 30))
         depLabelTwo.textColor = UIColor.lightGrayColor()
-        depLabelTwo.font = depLabelTwo.font.fontWithSize(12)
+        depLabelTwo.font = depLabelTwo.font.fontWithSize(14)
         
         var letterSname = linesAtStop[indexPath.row].sname.toInt()
         // Linje med bokstäver
         if (letterSname == nil){
-            snameLabel.font = UIFont.boldSystemFontOfSize(12)
+            snameLabel.font = UIFont.boldSystemFontOfSize(14)
         }
         
         // Max antal linjer
         if (indexPath.row >= iPhoneModelSize() - 1){
             stopLabel.text =  "Max antal linjer. Listar närmaste avgångar."
             
-            stopLabel.font = stopLabel.font.fontWithSize(12)
+            stopLabel.font = stopLabel.font.fontWithSize(14)
             cell.addSubview(stopLabel)
             
             cell.userInteractionEnabled = false
@@ -194,7 +194,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 btnMainApp.backgroundColor = UIColor.clearColor()
                 btnMainApp.setTitle("Lägg till ny hållplats", forState: UIControlState.Normal)
                 btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
-                btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(12)
+                btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
                 btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
                 btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
                 btnMainApp.layer.cornerRadius = 5
@@ -224,7 +224,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             btnMainApp.backgroundColor = UIColor.clearColor()
             btnMainApp.setTitle("Hantera stopp", forState: UIControlState.Normal)
             btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
-            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(12)
+            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
             btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
             btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
             btnMainApp.layer.cornerRadius = 5

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TajmaToday/TodayViewController.swift"
-            timestampString = "456694253.79606"
+            timestampString = "456694556.975162"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "467"
-            endingLineNumber = "467"
+            startingLineNumber = "462"
+            endingLineNumber = "462"
             landmarkName = "TodayTableViewController"
             landmarkType = "3">
          </BreakpointContent>
