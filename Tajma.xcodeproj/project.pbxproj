@@ -62,6 +62,8 @@
 		F87AFE961B1BB2F100D3DAFC /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */; };
 		F87AFE971B1BB2F100D3DAFC /* StopWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */; };
 		F87B99941B24CF0C0082A541 /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceChecker.swift */; };
+		F88F545C1B38AB3000F0D402 /* RowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* RowType.swift */; };
+		F88F545D1B38AE5E00F0D402 /* RowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* RowType.swift */; };
 		F8B511691B22FA0400388866 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 		F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */; };
 		F8E080FE1B35B06000A96A45 /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceChecker.swift */; };
@@ -144,6 +146,7 @@
 		F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineWrapper.swift; sourceTree = "<group>"; };
 		F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWrapper.swift; sourceTree = "<group>"; };
 		F87B99931B24CF0C0082A541 /* DeviceChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceChecker.swift; sourceTree = "<group>"; };
+		F88F545B1B38AB3000F0D402 /* RowType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowType.swift; sourceTree = "<group>"; };
 		F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		F8E081001B35B1D000A96A45 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -336,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				F8E081001B35B1D000A96A45 /* Info.swift */,
+				F88F545B1B38AB3000F0D402 /* RowType.swift */,
 			);
 			name = Enum;
 			sourceTree = "<group>";
@@ -492,6 +496,7 @@
 				F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */,
 				F8B511691B22FA0400388866 /* UIColor.swift in Sources */,
 				F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */,
+				F88F545C1B38AB3000F0D402 /* RowType.swift in Sources */,
 				F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */,
 				F80667701B1E5D7900A26B5D /* Departure.swift in Sources */,
 				F80667791B1E5D7900A26B5D /* StopLine.swift in Sources */,
@@ -531,6 +536,7 @@
 				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,
 				F80667511B1D157C00A26B5D /* UIColor.swift in Sources */,
 				F87AFE751B1B902400D3DAFC /* TodayLabel.swift in Sources */,
+				F88F545D1B38AE5E00F0D402 /* RowType.swift in Sources */,
 				F87AFE801B1B903F00D3DAFC /* Global.swift in Sources */,
 				F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */,
 				F87AFE961B1BB2F100D3DAFC /* LineWrapper.swift in Sources */,

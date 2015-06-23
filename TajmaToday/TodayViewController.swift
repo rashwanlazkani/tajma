@@ -54,7 +54,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         super.viewWillAppear(animated)
 
         if (locationService){
-            updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15.0, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
+            updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(1005.0, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
         }
     }
     
@@ -123,8 +123,11 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         
         // Rensa alla views
         for view in cell.subviews{
-            if (toString(view.dynamicType) != "_UITableViewCellSeparatorView") {
-                view.removeFromSuperview()
+            view.removeFromSuperview()
+            if (toString(view.dynamicType) != "_UITableViewCellSeparatorView" && toString(view.dynamicType) != "UITableViewCellContentView") {
+                
+                
+                //println(toString(view.dynamicType))
             }
         }
     
@@ -157,8 +160,11 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             lblSnameDir.font = UIFont.boldSystemFontOfSize(14)
         }
         
+        println("iPhone\(iPhoneModelSize())")
+        println("Row:\(indexPath.row)")
+        
         // Max antal linjer
-        if (indexPath.row >= iPhoneModelSize() - 1){
+        if (indexPath.row == iPhoneModelSize() - 1){
             stopLabel.text =  "Max antal linjer. Listar närmaste avgångar."
             
             stopLabel.font = stopLabel.font.fontWithSize(14)
@@ -169,6 +175,22 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             return cell
         }
         
+        if (indexPath.row >= iPhoneModelSize()){
+            let btnMainApp = UIButton(frame: CGRectMake(cell.bounds.width / 5,36, 200, 30))
+            btnMainApp.backgroundColor = UIColor.clearColor()
+            btnMainApp.setTitle("Hantera stopp!!!!!!!!", forState: UIControlState.Normal)
+            btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
+            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
+            btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
+            btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
+            btnMainApp.layer.cornerRadius = 5
+            
+            cell.userInteractionEnabled = true
+            
+            cell.addSubview(btnMainApp)
+            
+            return cell
+        }
         // Inget stopp || Inget stopp i närheten || Inga avgångar hittades
         if (linesAtStop[indexPath.row].isStop && linesAtStop[indexPath.row].distance == 99999) || (linesAtStop[indexPath.row].distance == 12345678){
             
@@ -205,11 +227,16 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             cell.addSubview(distanceLabel)
             
             cell.userInteractionEnabled = false
+            
+            var separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
+            separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
+            
+            cell.addSubview(separatorView)
         }
         // Sista raden
         else if (indexPath.row == linesAtStop.count - 1){
             
-            let btnMainApp = UIButton(frame: CGRectMake(cell.bounds.width / 5,3, 200, 30))
+            let btnMainApp = UIButton(frame: CGRectMake(cell.bounds.width / 5,20, 200, 30))
             btnMainApp.backgroundColor = UIColor.clearColor()
             btnMainApp.setTitle("Hantera stopp", forState: UIControlState.Normal)
             btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
@@ -257,6 +284,10 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 
             }
             
+            var separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
+            separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
+            
+            cell.addSubview(separatorView)
             cell.addSubview(lblSnameDir)
             cell.addSubview(depLabelOne)
             cell.addSubview(depLabelTwo)
@@ -299,7 +330,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             case "iPhone 6 Plus" :
                 return 16
             default:
-            return 20
+            return 13
         }
     }
     
