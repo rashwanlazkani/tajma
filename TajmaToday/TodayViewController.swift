@@ -125,9 +125,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         for view in cell.subviews{
             view.removeFromSuperview()
             if (toString(view.dynamicType) != "_UITableViewCellSeparatorView" && toString(view.dynamicType) != "UITableViewCellContentView") {
-                
-                
-                //println(toString(view.dynamicType))
             }
         }
     
@@ -159,10 +156,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         if (letterSname == nil){
             lblSnameDir.font = UIFont.boldSystemFontOfSize(14)
         }
-        
-        println("iPhone\(iPhoneModelSize())")
-        println("Row:\(indexPath.row)")
-        
+
         // Max antal linjer
         if (indexPath.row == iPhoneModelSize() - 1){
             stopLabel.text =  "Max antal linjer. Listar närmaste avgångar."
