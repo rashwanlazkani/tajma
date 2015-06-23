@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum RowType {
+public enum Row {
     case BlankRow
     case Button
     case ButtonAddStop
