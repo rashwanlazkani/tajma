@@ -36,7 +36,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         self.locationManager.requestWhenInUseAuthorization()
         if (CLLocationManager.locationServicesEnabled()){
             if CLLocationManager.authorizationStatus() == .Denied {
-                userNeedToTurnOnLocalization()
+                locationOff()
                 return
             }
             locationManager.delegate = self
@@ -46,15 +46,15 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             locationService = true
         }
         else{
-            userNeedToTurnOnLocalization()
+            locationOff()
         }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         if (locationService){
-            updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(1005.0, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
+            updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
         }
     }
     
@@ -86,7 +86,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         long = String(stringInterpolationSegment: placemark.location.coordinate.longitude)
         
         if (firstRun || timerUpdate){
-            getDeparturesAtStop()
+            getData()
             
             firstRun = false
             timerUpdate = false
@@ -95,6 +95,21 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
         println("Error: " + error.localizedDescription)
+    }
+    
+    func getLocationAndUpdateView(){
+        timerUpdate = true
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationOff(){
+        linesAtStop = [TodayLabel]()
+        
+        var todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
+        linesAtStop.append(todayLabel)
+        
+        locationService = false
+        updateTable()
     }
     
     // MARK: - Widget Delegate
@@ -127,11 +142,11 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             if (toString(view.dynamicType) != "_UITableViewCellSeparatorView" && toString(view.dynamicType) != "UITableViewCellContentView") {
             }
         }
-    
+        
         var stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
         stopLabel.textAlignment = NSTextAlignment.Left
         stopLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
-        stopLabel.font = UIFont.boldSystemFontOfSize(14)
+        stopLabel.font = stopLabel.font.fontWithSize(14)
         
         var distanceLabel = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 4, 100, 30))
         distanceLabel.textAlignment = NSTextAlignment.Left
@@ -141,7 +156,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         var lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: getLabelWidth(), height: 30))
         lblSnameDir.textAlignment = NSTextAlignment.Left
         lblSnameDir.textColor = UIColor.whiteColor()
-        lblSnameDir.font = UIFont.boldSystemFontOfSize(14)
+        lblSnameDir.font = lblSnameDir.font.fontWithSize(14)
         
         var depLabelOne = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
         depLabelOne.textColor = UIColor.whiteColor()
@@ -154,9 +169,9 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         var letterSname = linesAtStop[indexPath.row].sname.toInt()
         // Linje med bokstäver
         if (letterSname == nil){
-            lblSnameDir.font = UIFont.boldSystemFontOfSize(14)
+            lblSnameDir.font = lblSnameDir.font.fontWithSize(14)
         }
-
+        
         // Max antal linjer
         if (indexPath.row == iPhoneModelSize() - 1){
             stopLabel.text =  "Max antal linjer. Listar närmaste avgångar."
@@ -186,22 +201,22 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             return cell
         }
         // Inget stopp || Inget stopp i närheten || Inga avgångar hittades
-        if (linesAtStop[indexPath.row].isStop && linesAtStop[indexPath.row].distance == 99999) || (linesAtStop[indexPath.row].distance == 12345678){
+        if (linesAtStop[indexPath.row].row == Row.Info || linesAtStop[indexPath.row].row == Row.ButtonAddStop){
             
             for view in cell.subviews{
                 view.removeFromSuperview()
             }
             
-            if (linesAtStop[indexPath.row].distance == 99999){
+            if (linesAtStop[indexPath.row].row == Row.Info){
                 stopLabel.text = linesAtStop[indexPath.row].stopName
                 
                 cell.userInteractionEnabled = false
                 cell.addSubview(stopLabel)
             }
-            else if (linesAtStop[indexPath.row].distance == 12345678){
+            else if (linesAtStop[indexPath.row].row == Row.ButtonAddStop){
                 let btnMainApp = UIButton(frame: CGRectMake(10,0, cell.bounds.width - 40, 35))
                 btnMainApp.backgroundColor = UIColor.clearColor()
-                btnMainApp.setTitle("Lägg till ny hållplats", forState: UIControlState.Normal)
+                btnMainApp.setTitle(linesAtStop[indexPath.row].stopName, forState: UIControlState.Normal)
                 btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
                 btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
                 btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
@@ -213,10 +228,10 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             }
         }
             // En hållplats (rubrik)
-        else if (linesAtStop[indexPath.row].isStop){
+        else if (linesAtStop[indexPath.row].row == Row.Stop){
             stopLabel.text = linesAtStop[indexPath.row].stopName
             distanceLabel.text = String(linesAtStop[indexPath.row].distance) + " m"
-  
+            
             cell.addSubview(stopLabel)
             cell.addSubview(distanceLabel)
             
@@ -227,24 +242,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             cell.addSubview(separatorView)
         }
-        // Sista raden
-        else if (indexPath.row == linesAtStop.count - 1){
-            
-            let btnMainApp = UIButton(frame: CGRectMake(cell.bounds.width / 5,20, 200, 30))
-            btnMainApp.backgroundColor = UIColor.clearColor()
-            btnMainApp.setTitle("Hantera stopp", forState: UIControlState.Normal)
-            btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
-            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
-            btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
-            btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
-            btnMainApp.layer.cornerRadius = 5
-            
-            cell.userInteractionEnabled = true
-            
-            cell.addSubview(btnMainApp)
-        }
             // Linje på hållplats
-        else{
+        else if (linesAtStop[indexPath.row].row == Row.Trip){
             lblSnameDir.text = linesAtStop[indexPath.row].sname
             lblSnameDir.text! += "   " + linesAtStop[indexPath.row].direction
             
@@ -288,6 +287,27 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             cell.userInteractionEnabled = false
         }
+            //Sista raden
+        else if (linesAtStop[indexPath.row].row == Row.Button){
+            let btnMainApp = UIButton(frame: CGRectMake(cell.bounds.width / 5,3, 200, 30))
+            btnMainApp.backgroundColor = UIColor.clearColor()
+            btnMainApp.setTitle("Hantera stopp", forState: UIControlState.Normal)
+            btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
+            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
+            btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
+            btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
+            btnMainApp.layer.cornerRadius = 5
+            
+            cell.userInteractionEnabled = true
+            
+            cell.addSubview(btnMainApp)
+            
+            var separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
+            separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
+            
+            cell.addSubview(separatorView)
+        }
+        
         
         tableView.rowHeight = 36
         
@@ -298,13 +318,127 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         cell.layer.backgroundColor = UIColor.clearColor().CGColor
     }
     
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if (linesAtStop.count == 0){
+            var view = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, tableView.bounds.height));
+            var distanceLabel = UILabel(frame: CGRectMake(0, 4, 200, 30))
+            distanceLabel.textAlignment = NSTextAlignment.Left
+            distanceLabel.textColor = UIColor.grayColor()
+            distanceLabel.font = distanceLabel.font.fontWithSize(14)
+            distanceLabel.text = "Laddar hållplatser..."
+            
+            view.addSubview(distanceLabel)
+            
+            return view
+        }
+        else{
+            var table = UIView(frame: CGRectZero)
+            tableView.tableFooterView = table
+            table.hidden = true
+            tableView.tableFooterView?.hidden = true
+            self.tableView.backgroundColor = UIColor.clearColor()
+            
+            return table
+        }
+    }
+    
     // MARK: - Events
     func openMainApp(sender: UIButton!) {
+        println("Click")
         var url = NSURL(fileURLWithPath: "Tajma://home")
         self.extensionContext?.openURL(url!, completionHandler: nil)
     }
     
     // MARK: - Functions
+    func getData(){
+        var userStops = dbService.getStops()
+        linesAtStop = [TodayLabel]()
+        // För att sorteringen ska funka måste alla items i linesAtStop arrayen ha departures
+        var tempArr = [-10, -10]
+        
+        // ta data och platta till den med sektioner så att den passar listan
+        var stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
+        
+        if (userStops.count == 0 || stops.count == 0){
+            var todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
+            linesAtStop.append(todayLabel)
+            
+            var todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.ButtonAddStop)
+            linesAtStop.append(todayButton)
+            
+            updateTable()
+        }
+        else{
+            // Koden nedan loopar igenom alla stopp
+            // Alla stopp lagras i linesAtStop arrayen
+            // linesAtStop sorteras sedan efter distans > rtTimes
+            // "Inga avgångar hittades" har en fiktiv distans på 1000000 för att hamna under hållplatsen
+            // Sista raden har också en fiktiv distans på 1000001 för att hamna sist för att göra plats för "Gå till appen" knappen
+            for stop in stops{
+                var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
+                linesAtStop.append(todayLabel)
+                
+                if (stop.departures?.count == 0){
+                    todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: 1000000, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
+                    linesAtStop.append(todayLabel)
+                }
+                else{
+                    // Loopa igenom linjer på hållplatsen
+                    for departure in stop.departures!{
+                        var rtTimesArr = [Int]()
+                        var index = 0
+                        departure.rtTimes.sort({$0 < $1})
+                        
+                        for rtTime in departure.rtTimes{
+                            // Hämta endast två tider
+                            if (index == 2){
+                                continue
+                            }
+                            if rtTime == 0{
+                                rtTimesArr.append(0)
+                            }
+                            else{
+                                rtTimesArr.append(rtTime)
+                            }
+                            index++
+                        }
+                        
+                        var trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Trip)
+                        
+                        linesAtStop.append(trip)
+                    }
+                    
+                }
+            }
+            
+            // Lägger till en rad i slutet för att alltid kunna visa en knapp för att returnera till appen
+            var todayLabel = TodayLabel(stopName: "", distance: 1000001, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Button)
+            linesAtStop.append(todayLabel)
+            
+            let sortedList = linesAtStop.sorted {
+                switch ($0.distance,$1.distance) {
+                    // if neither “category" is nil and contents are equal,
+                case let (lhs,rhs) where lhs == rhs:
+                    // compare “status” (> because DESC order)
+                    return $0.rtTimes[0] < $1.rtTimes[0]
+                    // else just compare “category” using <
+                case let (lhs, rhs):
+                    return lhs < rhs
+                }
+            }
+            
+            linesAtStop = sortedList
+            
+            self.updateTable()
+        }
+    }
+    
+    func updateTable(){
+        self.tableView.backgroundColor = UIColor.clearColor()
+        self.updateSize()
+        self.tableView.reloadData()
+    }
+    
     func updateSize(){
         var preferredSize = self.preferredContentSize
         preferredSize.height = self.preferedViewHeight
@@ -312,18 +446,16 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     func iPhoneModelSize() -> Int{
-        let modelName = UIDevice.currentDevice().modelName
-
-        switch modelName {
-            case "iPhone 4", "iPhone 4S" :
-                return 8
-            case "iPhone 5", "iPhone 5C", "iPhone 5S" :
-                return 10
-            case "iPhone 6" :
-                return 13
-            case "iPhone 6 Plus" :
-                return 16
-            default:
+        switch UIDevice.currentDevice().modelName {
+        case "iPhone 4", "iPhone 4S" :
+            return 8
+        case "iPhone 5", "iPhone 5C", "iPhone 5S" :
+            return 10
+        case "iPhone 6" :
+            return 13
+        case "iPhone 6 Plus" :
+            return 16
+        default:
             return 13
         }
     }
@@ -343,125 +475,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         default:
             return 250
         }
-    }
-    
-    func getLocationAndUpdateView(){
-        timerUpdate = true
-        locationManager.startUpdatingLocation()
-    }
-    
-    func getDeparturesAtStop(){
-        var userStops = dbService.getStops()
-        
-        linesAtStop = [TodayLabel]()
-        // För att sorteringen ska funka måste alla items i linesAtStop arrayen ha departures
-        var tempArr = [-10, -10]
-        
-//        if (userStops.count == 0){
-//            var noStop = "Ingen hållplats har lagts till. Öppna närmaste."
-//            
-//            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
-//            linesAtStop.append(todayLabel)
-//            
-//            updateTable()
-//            
-//            return
-//            
-//        }
-        
-        // ta data och platta till den med sektioner så att den passar listan
-        var stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
-        
-        if (userStops.count == 0 || stops.count == 0){
-            var noStop = "Ingen vald hållplats i närheten :("
-            var todayLabel = TodayLabel(stopName: noStop, distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
-            
-            linesAtStop.append(todayLabel)
-            
-            var todayButton = TodayLabel(stopName: noStop, distance: 12345678, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
-            
-            linesAtStop.append(todayButton)
-            
-            updateTable()
-        }
-        else{
-            for stop in stops{
-                
-                var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
-                linesAtStop.append(todayLabel)
-                
-                if (stop.departures?.count == 0){
-                    todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: true)
-                    linesAtStop.append(todayLabel)
-                    continue
-                }
-                
-                for departure in stop.departures!{
-                    
-                    var departureTimesArr = [Int]()
-                    
-                    var index = 0
-                    
-                    departure.rtTimes.sort({$0 < $1})
-                    
-                    for rtTime in departure.rtTimes{
-                        // Hämta endast två tider
-                        if (index == 2){
-                            continue
-                        }
-                        if rtTime == 0{
-                            departureTimesArr.append(0)
-                        }
-                        else{
-                            departureTimesArr.append(rtTime)
-                        }
-                        index++
-                    }
-                    
-                    var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: departureTimesArr, isStop: false)
-                    
-                    linesAtStop.append(todayLabel)
-                }
-                
-            }
-            
-            // Lägger till en rad i slutet för att alltid kunna visa en knapp för att returnera till appen
-            var todayLabel = TodayLabel(stopName: "", distance: 10101010, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, isStop: false)
-            linesAtStop.append(todayLabel)
-            
-            let temp = linesAtStop.sorted {
-                switch ($0.distance,$1.distance) {
-                    // if neither “category" is nil and contents are equal,
-                case let (lhs,rhs) where lhs == rhs:
-                    // compare “status” (> because DESC order)
-                    return $0.rtTimes[0] < $1.rtTimes[0]
-                    // else just compare “category” using <
-                case let (lhs, rhs):
-                    return lhs < rhs
-                }
-            }
-            
-            linesAtStop = temp
-
-            self.updateTable()
-        }
-    }
-    
-    func updateTable(){
-        self.tableView.backgroundColor = UIColor.clearColor()
-        self.updateSize()
-        self.tableView.reloadData()
-    }
-    
-    func userNeedToTurnOnLocalization(){
-        linesAtStop = [TodayLabel]()
-        
-        var todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 99999, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], isStop: true)
-        linesAtStop.append(todayLabel)
-        
-        locationService = false
-        
-        updateTable()
     }
     
     override func didReceiveMemoryWarning() {

@@ -16,9 +16,9 @@ public class TodayLabel {
     public var fgColor: String
     public var bgColor: String
     public var rtTimes: [Int]
-    public var isStop: Bool
+    public var row: Row
     
-    public init(stopName : String, distance: Int, sname: String, direction: String, fgColor: String, bgColor: String, rtTimes: [Int], isStop: Bool) {
+    public init(stopName : String, distance: Int, sname: String, direction: String, fgColor: String, bgColor: String, rtTimes: [Int], row: Row) {
         self.stopName = stopName
         self.distance = distance
         self.sname = sname
@@ -26,6 +26,6 @@ public class TodayLabel {
         self.fgColor = fgColor
         self.bgColor = bgColor
         self.rtTimes = rtTimes
-        self.isStop = isStop
+        self.row = row
     }
 }

@@ -105,8 +105,8 @@ public class DepartureService {
         }
     }
     
-    func roundToTwentyFive(x : Double) -> Int {
-        return 25 * Int(round(x / 25.0))
+    func roundToFive(x : Double) -> Int {
+        return 5 * Int(round(x / 5.0))
     }
     
     func getMyDepartures(lat: Double, long: Double) -> [Stop] {
@@ -127,7 +127,7 @@ public class DepartureService {
                 var stopLocation = CLLocation(latitude: stopLat, longitude: stopLong)
                 var distance = userLocation.distanceFromLocation(stopLocation)
                 
-                var roundDistance = roundToTwentyFive(distance)
+                var roundDistance = roundToFive(distance)
                 
                 stop.distance = roundDistance
             }
@@ -139,7 +139,7 @@ public class DepartureService {
             
             // hämta upp till 5 st stops inom 300 meter eller upp till 2 stops i övriga fall
             for stop in stops {
-                if (closestStops.count < 5 && stop.distance <= 300 || closestStops.count < 2 && stop.distance < 1000){
+                if (closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000){
                     closestStops.append(stop)
                 }
                 else{
