@@ -173,7 +173,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
         
         // Max antal linjer
-        if (indexPath.row == iPhoneModelSize() - 1){
+        if (indexPath.row == iPhoneModelSize() - 2){
             stopLabel.text =  "Max antal linjer. Listar närmaste avgångar."
             
             stopLabel.font = stopLabel.font.fontWithSize(14)
@@ -183,11 +183,27 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             return cell
         }
+        // Sista raden vid max antal linjer
+        if (indexPath.row == iPhoneModelSize() - 1){
+            let btnMainApp = UIButton(frame: CGRectMake(10,0, cell.bounds.width - 40, 35))
+            btnMainApp.backgroundColor = UIColor.clearColor()
+            btnMainApp.setTitle("Lägg till ny hållplats", forState: UIControlState.Normal)
+            btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
+            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
+            btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
+            btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
+            btnMainApp.layer.cornerRadius = 5
+            
+            cell.userInteractionEnabled = true
+            cell.addSubview(btnMainApp)
+            
+            return cell
+        }
         
         if (indexPath.row >= iPhoneModelSize()){
-            let btnMainApp = UIButton(frame: CGRectMake(cell.bounds.width / 5,36, 200, 30))
+            let btnMainApp = UIButton(frame: CGRectMake(40,3, cell.bounds.width - 80, 30))
             btnMainApp.backgroundColor = UIColor.clearColor()
-            btnMainApp.setTitle("Hantera stopp!!!!!!!!", forState: UIControlState.Normal)
+            btnMainApp.setTitle("Hantera stopp", forState: UIControlState.Normal)
             btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
             btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
             btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
@@ -200,7 +216,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             return cell
         }
-        // Inget stopp || Inget stopp i närheten || Inga avgångar hittades
+        // Inget stopp || Inget stopp i närheten
         if (linesAtStop[indexPath.row].row == Row.Info || linesAtStop[indexPath.row].row == Row.ButtonAddStop){
             
             for view in cell.subviews{
@@ -216,7 +232,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             else if (linesAtStop[indexPath.row].row == Row.ButtonAddStop){
                 let btnMainApp = UIButton(frame: CGRectMake(10,0, cell.bounds.width - 40, 35))
                 btnMainApp.backgroundColor = UIColor.clearColor()
-                btnMainApp.setTitle(linesAtStop[indexPath.row].stopName, forState: UIControlState.Normal)
+                btnMainApp.setTitle("Lägg till ny hållplats", forState: UIControlState.Normal)
                 btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
                 btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
                 btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
@@ -227,7 +243,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 cell.addSubview(btnMainApp)
             }
         }
-            // En hållplats (rubrik)
+        // En hållplats (rubrik)
         else if (linesAtStop[indexPath.row].row == Row.Stop){
             stopLabel.text = linesAtStop[indexPath.row].stopName
             distanceLabel.text = String(linesAtStop[indexPath.row].distance) + " m"
@@ -242,7 +258,17 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             cell.addSubview(separatorView)
         }
-            // Linje på hållplats
+        //Inga avgångar hittades
+        else if (linesAtStop[indexPath.row].row == Row.NoDepartures){
+            stopLabel.text = linesAtStop[indexPath.row].stopName
+            
+            stopLabel.font = UIFont.italicSystemFontOfSize(12)
+            stopLabel.textColor = UIColor.whiteColor()
+            
+            cell.userInteractionEnabled = false
+            cell.addSubview(stopLabel)
+        }
+        // Linje på hållplats
         else if (linesAtStop[indexPath.row].row == Row.Trip){
             lblSnameDir.text = linesAtStop[indexPath.row].sname
             lblSnameDir.text! += "   " + linesAtStop[indexPath.row].direction
@@ -289,7 +315,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
             //Sista raden
         else if (linesAtStop[indexPath.row].row == Row.Button){
-            let btnMainApp = UIButton(frame: CGRectMake(cell.bounds.width / 5,3, 200, 30))
+            let btnMainApp = UIButton(frame: CGRectMake(40,3, cell.bounds.width - 80, 30))
             btnMainApp.backgroundColor = UIColor.clearColor()
             btnMainApp.setTitle("Hantera stopp", forState: UIControlState.Normal)
             btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
@@ -305,11 +331,10 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             var separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
             separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
             
-            cell.addSubview(separatorView)
+            //cell.addSubview(separatorView)
         }
         
-        
-        tableView.rowHeight = 36
+        self.preferredContentSize = CGSizeMake(0, CGFloat(linesAtStop.count * 36));
         
         return cell
     }
@@ -342,6 +367,14 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
     }
     
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 100.0
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 36.0
+    }
+    
     // MARK: - Events
     func openMainApp(sender: UIButton!) {
         println("Click")
@@ -351,7 +384,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     // MARK: - Functions
     func getData(){
-        var userStops = dbService.getStops()
+        var isStop = 0
         linesAtStop = [TodayLabel]()
         // För att sorteringen ska funka måste alla items i linesAtStop arrayen ha departures
         var tempArr = [-10, -10]
@@ -359,7 +392,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         // ta data och platta till den med sektioner så att den passar listan
         var stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
-        if (userStops.count == 0 || stops.count == 0){
+        if (stops.count == 0){
             var todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
             linesAtStop.append(todayLabel)
             
@@ -376,10 +409,12 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             // Sista raden har också en fiktiv distans på 1000001 för att hamna sist för att göra plats för "Gå till appen" knappen
             for stop in stops{
                 var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
+                
+                isStop++
                 linesAtStop.append(todayLabel)
                 
                 if (stop.departures?.count == 0){
-                    todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: 1000000, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
+                    todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: stop.distance, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.NoDepartures)
                     linesAtStop.append(todayLabel)
                 }
                 else{
@@ -427,6 +462,9 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 }
             }
             
+            // Kollar om vi har fler än 1 stopp och fler än maxrader
+            // Visar närmaste avgångar för alla
+
             linesAtStop = sortedList
             
             self.updateTable()
@@ -448,15 +486,15 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     func iPhoneModelSize() -> Int{
         switch UIDevice.currentDevice().modelName {
         case "iPhone 4", "iPhone 4S" :
-            return 8
+            return 7
         case "iPhone 5", "iPhone 5C", "iPhone 5S" :
-            return 10
+            return 9
         case "iPhone 6" :
-            return 13
+            return 12
         case "iPhone 6 Plus" :
-            return 16
+            return 15
         default:
-            return 13
+            return 12
         }
     }
     
