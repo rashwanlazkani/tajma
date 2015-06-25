@@ -145,6 +145,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             */
         }
         
+        var maxRows = false
+        
         var stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
         stopLabel.textAlignment = NSTextAlignment.Left
         stopLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
@@ -175,19 +177,14 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
         
         // Max antal linjer
-        if (indexPath.row == iPhoneModelSize() - 2){
-            stopLabel.text =  "Max antal linjer. Listar närmaste avgångar."
-            
-            stopLabel.font = stopLabel.font.fontWithSize(14)
-            cell.addSubview(stopLabel)
-            
-            cell.userInteractionEnabled = false
-            
-            return cell
-        }
-        // Sista raden vid max antal linjer
         if (indexPath.row == iPhoneModelSize() - 1){
-            let btnMainApp = UIButton(frame: CGRectMake(10,0, cell.bounds.width - 40, 35))
+            
+            stopLabel.text =  "Max antal linjer. Listar närmaste avgångar"
+            stopLabel.frame = CGRectMake(8, 0, 330, 30)
+            stopLabel.font = UIFont.italicSystemFontOfSize(12)
+            stopLabel.textColor = UIColor.whiteColor()
+            
+            let btnMainApp = UIButton(frame: CGRectMake(10,30, cell.bounds.width - 40, 35))
             btnMainApp.backgroundColor = UIColor.clearColor()
             btnMainApp.setTitle("Lägg till ny hållplats", forState: UIControlState.Normal)
             btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
@@ -196,8 +193,14 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
             btnMainApp.layer.cornerRadius = 5
             
+            
             cell.userInteractionEnabled = true
+            cell.addSubview(stopLabel)
             cell.addSubview(btnMainApp)
+            
+            tableView.rowHeight = 45
+            
+            self.preferredContentSize = CGSizeMake(0, CGFloat(iPhoneModelSize() * 38));
             
             return cell
         }
@@ -378,7 +381,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 36.0
+        return 35.0
     }
     
     // MARK: - Events
@@ -492,15 +495,15 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     func iPhoneModelSize() -> Int{
         switch UIDevice.currentDevice().modelName {
         case "iPhone 4", "iPhone 4S" :
-            return 7
+            return 8
         case "iPhone 5", "iPhone 5C", "iPhone 5S" :
-            return 9
+            return 10
         case "iPhone 6" :
-            return 12
+            return 13
         case "iPhone 6 Plus" :
-            return 15
+            return 16
         default:
-            return 12
+            return 13
         }
     }
     
