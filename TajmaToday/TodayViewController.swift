@@ -139,8 +139,10 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         // Rensa alla views
         for view in cell.subviews{
             view.removeFromSuperview()
+            /*
             if (toString(view.dynamicType) != "_UITableViewCellSeparatorView" && toString(view.dynamicType) != "UITableViewCellContentView") {
             }
+            */
         }
         
         var stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
@@ -189,7 +191,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             btnMainApp.backgroundColor = UIColor.clearColor()
             btnMainApp.setTitle("Lägg till ny hållplats", forState: UIControlState.Normal)
             btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
-            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
+            btnMainApp.titleLabel?.font = UIFont.systemFontOfSize(14.0)
             btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
             btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
             btnMainApp.layer.cornerRadius = 5
@@ -205,7 +207,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             btnMainApp.backgroundColor = UIColor.clearColor()
             btnMainApp.setTitle("Hantera stopp", forState: UIControlState.Normal)
             btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
-            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
+            btnMainApp.titleLabel?.font = UIFont.systemFontOfSize(14.0)
             btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
             btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
             btnMainApp.layer.cornerRadius = 5
@@ -234,7 +236,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 btnMainApp.backgroundColor = UIColor.clearColor()
                 btnMainApp.setTitle("Lägg till ny hållplats", forState: UIControlState.Normal)
                 btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
-                btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
+                btnMainApp.titleLabel?.font = UIFont.systemFontOfSize(14.0)
                 btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
                 btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
                 btnMainApp.layer.cornerRadius = 5
@@ -271,7 +273,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         // Linje på hållplats
         else if (linesAtStop[indexPath.row].row == Row.Trip){
             lblSnameDir.text = linesAtStop[indexPath.row].sname
-            lblSnameDir.text! += "   " + linesAtStop[indexPath.row].direction
+            lblSnameDir.text! += " " + linesAtStop[indexPath.row].direction
             
             var index = 0
             for rtTime in linesAtStop[indexPath.row].rtTimes{
@@ -315,11 +317,11 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
             //Sista raden
         else if (linesAtStop[indexPath.row].row == Row.Button){
-            let btnMainApp = UIButton(frame: CGRectMake(40,3, cell.bounds.width - 80, 30))
+            let btnMainApp = UIButton(frame: CGRectMake(40,13, cell.bounds.width - 80, 35))
             btnMainApp.backgroundColor = UIColor.clearColor()
             btnMainApp.setTitle("Hantera stopp", forState: UIControlState.Normal)
             btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
-            btnMainApp.titleLabel?.font = UIFont.boldSystemFontOfSize(14)
+            btnMainApp.titleLabel?.font = UIFont.systemFontOfSize(14.0)
             btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
             btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
             btnMainApp.layer.cornerRadius = 5
@@ -331,10 +333,14 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             var separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
             separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
             
+            tableView.rowHeight = 45
+            
+            return cell
+            
             //cell.addSubview(separatorView)
         }
         
-        self.preferredContentSize = CGSizeMake(0, CGFloat(linesAtStop.count * 36));
+        self.preferredContentSize = CGSizeMake(0, CGFloat(linesAtStop.count * 36 + 20));
         
         return cell
     }
