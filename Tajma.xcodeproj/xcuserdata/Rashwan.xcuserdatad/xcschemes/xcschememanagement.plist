@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Tajma WatchKit App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>Tajma.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -28,6 +33,11 @@
 			<true/>
 		</dict>
 		<key>F843A3B41B1B04C2008F4505</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F87257391B3F2D5E006CBDA8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

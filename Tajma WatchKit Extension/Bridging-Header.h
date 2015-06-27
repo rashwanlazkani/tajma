@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-#ifndef TajmappWatchKit_Bridging_Header_h
-#define TajmappWatchKit_Bridging_Header_h
+#ifndef TajmappToday_Bridging_Header_h
+#define TajmappToday_Bridging_Header_h
 
 #import <sqlite3.h>
 #import <time.h>

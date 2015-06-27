@@ -41,6 +41,36 @@
 		F843A3B01B1B04C2008F4505 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */; };
 		F843A3BC1B1B04C2008F4505 /* TajmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */; };
 		F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3C51B1B066B008F4505 /* LinesViewController.swift */; };
+		F87257351B3F2D5E006CBDA8 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87257341B3F2D5E006CBDA8 /* InterfaceController.swift */; };
+		F87257371B3F2D5E006CBDA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87257361B3F2D5E006CBDA8 /* Images.xcassets */; };
+		F872573B1B3F2D5E006CBDA8 /* Tajma WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */; };
+		F87257431B3F2D5E006CBDA8 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F87257411B3F2D5E006CBDA8 /* Interface.storyboard */; };
+		F87257451B3F2D5E006CBDA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87257441B3F2D5E006CBDA8 /* Images.xcassets */; };
+		F87257481B3F2D5E006CBDA8 /* Tajma WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F87257501B3F2DB0006CBDA8 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */; };
+		F87257531B3F2DEE006CBDA8 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE671B1B8A0E00D3DAFC /* DBService.swift */; };
+		F87257541B3F2E08006CBDA8 /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */; };
+		F87257551B3F2E08006CBDA8 /* String-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */; };
+		F87257561B3F2E19006CBDA8 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
+		F87257571B3F2E21006CBDA8 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE761B1B903F00D3DAFC /* CheckBox.swift */; };
+		F87257581B3F2E21006CBDA8 /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE701B1B902400D3DAFC /* Departure.swift */; };
+		F87257591B3F2E21006CBDA8 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE771B1B903F00D3DAFC /* Global.swift */; };
+		F872575A1B3F2E21006CBDA8 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
+		F872575B1B3F2E21006CBDA8 /* LineAtStopToday.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */; };
+		F872575C1B3F2E21006CBDA8 /* LinesAtStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE791B1B903F00D3DAFC /* LinesAtStop.swift */; };
+		F872575D1B3F2E21006CBDA8 /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */; };
+		F872575E1B3F2E21006CBDA8 /* PhoneSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */; };
+		F872575F1B3F2E21006CBDA8 /* StopLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */; };
+		F87257601B3F2E21006CBDA8 /* StopWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */; };
+		F87257611B3F2E21006CBDA8 /* TodayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* TodayLabel.swift */; };
+		F87257621B3F2E2D006CBDA8 /* DepartureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806677E1B1E5DC600A26B5D /* DepartureService.swift */; };
+		F87257631B3F2E2D006CBDA8 /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
+		F87257641B3F2E2D006CBDA8 /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
+		F87257651B3F2E2D006CBDA8 /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
+		F87257661B3F2E2D006CBDA8 /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
+		F87257691B3F3198006CBDA8 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E081001B35B1D000A96A45 /* Info.swift */; };
+		F872576A1B3F3198006CBDA8 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
+		F872576C1B3F3391006CBDA8 /* DataRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F872576B1B3F3391006CBDA8 /* DataRowController.swift */; };
 		F87AFE681B1B8A0F00D3DAFC /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE671B1B8A0E00D3DAFC /* DBService.swift */; };
 		F87AFE6D1B1B8FBA00D3DAFC /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */; };
 		F87AFE6E1B1B8FBA00D3DAFC /* String-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */; };
@@ -68,6 +98,8 @@
 		F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */; };
 		F8E080FE1B35B06000A96A45 /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceChecker.swift */; };
 		F8E081011B35B1D000A96A45 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E081001B35B1D000A96A45 /* Info.swift */; };
+		F8F6E0AC1B3F410B005CCEBF /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
+		F8F6E0AD1B3F410B005CCEBF /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceChecker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +117,20 @@
 			remoteGlobalIDString = F843A39C1B1B04C2008F4505;
 			remoteInfo = Tajma;
 		};
+		F872573C1B3F2D5E006CBDA8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F843A3951B1B04C2008F4505 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F87257391B3F2D5E006CBDA8;
+			remoteInfo = "Tajma WatchKit App";
+		};
+		F87257461B3F2D5E006CBDA8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F843A3951B1B04C2008F4505 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F872572F1B3F2D5D006CBDA8;
+			remoteInfo = "Tajma WatchKit Extension";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -95,6 +141,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */,
+				F87257481B3F2D5E006CBDA8 /* Tajma WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,6 +170,17 @@
 		F843A3BA1B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TajmaTests.swift; sourceTree = "<group>"; };
 		F843A3C51B1B066B008F4505 /* LinesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesViewController.swift; sourceTree = "<group>"; };
+		F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Tajma WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F87257331B3F2D5E006CBDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F87257341B3F2D5E006CBDA8 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		F87257361B3F2D5E006CBDA8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tajma WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F87257401B3F2D5E006CBDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F87257421B3F2D5E006CBDA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		F87257441B3F2D5E006CBDA8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F87257521B3F2DE1006CBDA8 /* Tajma WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Tajma WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		F87257681B3F3161006CBDA8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		F872576B1B3F3391006CBDA8 /* DataRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRowController.swift; sourceTree = "<group>"; };
 		F87AFE671B1B8A0E00D3DAFC /* DBService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
 		F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDB.swift; sourceTree = "<group>"; };
 		F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-Extras.swift"; sourceTree = "<group>"; };
@@ -176,6 +234,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F872572D1B3F2D5D006CBDA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F87257501B3F2DB0006CBDA8 /* libsqlite3.0.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -224,6 +290,8 @@
 				F843A39F1B1B04C2008F4505 /* Tajma */,
 				F843A3B81B1B04C2008F4505 /* TajmaTests */,
 				F806675A1B1E5CA100A26B5D /* TajmaToday */,
+				F87257311B3F2D5E006CBDA8 /* Tajma WatchKit Extension */,
+				F872573E1B3F2D5E006CBDA8 /* Tajma WatchKit App */,
 				F80667571B1E5CA100A26B5D /* Frameworks */,
 				F843A39E1B1B04C2008F4505 /* Products */,
 			);
@@ -235,6 +303,8 @@
 				F843A39D1B1B04C2008F4505 /* Tajma.app */,
 				F843A3B51B1B04C2008F4505 /* TajmaTests.xctest */,
 				F80667561B1E5CA100A26B5D /* TajmaToday.appex */,
+				F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */,
+				F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -278,6 +348,45 @@
 			isa = PBXGroup;
 			children = (
 				F843A3BA1B1B04C2008F4505 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F87257311B3F2D5E006CBDA8 /* Tajma WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F87257521B3F2DE1006CBDA8 /* Tajma WatchKit Extension.entitlements */,
+				F872576B1B3F3391006CBDA8 /* DataRowController.swift */,
+				F87257341B3F2D5E006CBDA8 /* InterfaceController.swift */,
+				F87257361B3F2D5E006CBDA8 /* Images.xcassets */,
+				F87257681B3F3161006CBDA8 /* Bridging-Header.h */,
+				F87257321B3F2D5E006CBDA8 /* Supporting Files */,
+			);
+			path = "Tajma WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		F87257321B3F2D5E006CBDA8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F87257331B3F2D5E006CBDA8 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F872573E1B3F2D5E006CBDA8 /* Tajma WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				F87257411B3F2D5E006CBDA8 /* Interface.storyboard */,
+				F87257441B3F2D5E006CBDA8 /* Images.xcassets */,
+				F872573F1B3F2D5E006CBDA8 /* Supporting Files */,
+			);
+			path = "Tajma WatchKit App";
+			sourceTree = "<group>";
+		};
+		F872573F1B3F2D5E006CBDA8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F87257401B3F2D5E006CBDA8 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -377,6 +486,7 @@
 			);
 			dependencies = (
 				F80667621B1E5CA100A26B5D /* PBXTargetDependency */,
+				F87257471B3F2D5E006CBDA8 /* PBXTargetDependency */,
 			);
 			name = Tajma;
 			productName = Tajma;
@@ -400,6 +510,39 @@
 			productName = TajmaTests;
 			productReference = F843A3B51B1B04C2008F4505 /* TajmaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F872572F1B3F2D5D006CBDA8 /* Tajma WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F872574E1B3F2D5E006CBDA8 /* Build configuration list for PBXNativeTarget "Tajma WatchKit Extension" */;
+			buildPhases = (
+				F872572C1B3F2D5D006CBDA8 /* Sources */,
+				F872572D1B3F2D5D006CBDA8 /* Frameworks */,
+				F872572E1B3F2D5D006CBDA8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F872573D1B3F2D5E006CBDA8 /* PBXTargetDependency */,
+			);
+			name = "Tajma WatchKit Extension";
+			productName = "Tajma WatchKit Extension";
+			productReference = F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		F87257391B3F2D5E006CBDA8 /* Tajma WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F872574D1B3F2D5E006CBDA8 /* Build configuration list for PBXNativeTarget "Tajma WatchKit App" */;
+			buildPhases = (
+				F87257381B3F2D5E006CBDA8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Tajma WatchKit App";
+			productName = "Tajma WatchKit App";
+			productReference = F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
 		};
 /* End PBXNativeTarget section */
 
@@ -432,6 +575,18 @@
 						CreatedOnToolsVersion = 6.3.2;
 						TestTargetID = F843A39C1B1B04C2008F4505;
 					};
+					F872572F1B3F2D5D006CBDA8 = {
+						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 7XDMTA49ZT;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					F87257391B3F2D5E006CBDA8 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
 				};
 			};
 			buildConfigurationList = F843A3981B1B04C2008F4505 /* Build configuration list for PBXProject "Tajma" */;
@@ -450,6 +605,8 @@
 				F843A39C1B1B04C2008F4505 /* Tajma */,
 				F843A3B41B1B04C2008F4505 /* TajmaTests */,
 				F80667551B1E5CA100A26B5D /* TajmaToday */,
+				F872572F1B3F2D5D006CBDA8 /* Tajma WatchKit Extension */,
+				F87257391B3F2D5E006CBDA8 /* Tajma WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -477,6 +634,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F872572E1B3F2D5D006CBDA8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F872573B1B3F2D5E006CBDA8 /* Tajma WatchKit App.app in Resources */,
+				F87257371B3F2D5E006CBDA8 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F87257381B3F2D5E006CBDA8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F87257431B3F2D5E006CBDA8 /* Interface.storyboard in Resources */,
+				F87257451B3F2D5E006CBDA8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,6 +732,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F872572C1B3F2D5D006CBDA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F872576C1B3F3391006CBDA8 /* DataRowController.swift in Sources */,
+				F87257591B3F2E21006CBDA8 /* Global.swift in Sources */,
+				F872575F1B3F2E21006CBDA8 /* StopLine.swift in Sources */,
+				F8F6E0AD1B3F410B005CCEBF /* DeviceChecker.swift in Sources */,
+				F872575E1B3F2E21006CBDA8 /* PhoneSize.swift in Sources */,
+				F87257641B3F2E2D006CBDA8 /* RestApiService.swift in Sources */,
+				F87257541B3F2E08006CBDA8 /* SQLiteDB.swift in Sources */,
+				F87257601B3F2E21006CBDA8 /* StopWrapper.swift in Sources */,
+				F87257551B3F2E08006CBDA8 /* String-Extras.swift in Sources */,
+				F87257661B3F2E2D006CBDA8 /* SwiftyJSONService.swift in Sources */,
+				F87257651B3F2E2D006CBDA8 /* StopService.swift in Sources */,
+				F87257571B3F2E21006CBDA8 /* CheckBox.swift in Sources */,
+				F87257581B3F2E21006CBDA8 /* Departure.swift in Sources */,
+				F872575D1B3F2E21006CBDA8 /* LineWrapper.swift in Sources */,
+				F872575C1B3F2E21006CBDA8 /* LinesAtStop.swift in Sources */,
+				F87257561B3F2E19006CBDA8 /* Stop.swift in Sources */,
+				F872575B1B3F2E21006CBDA8 /* LineAtStopToday.swift in Sources */,
+				F87257611B3F2E21006CBDA8 /* TodayLabel.swift in Sources */,
+				F872575A1B3F2E21006CBDA8 /* Line.swift in Sources */,
+				F872576A1B3F3198006CBDA8 /* Row.swift in Sources */,
+				F8F6E0AC1B3F410B005CCEBF /* UIColor.swift in Sources */,
+				F87257621B3F2E2D006CBDA8 /* DepartureService.swift in Sources */,
+				F87257631B3F2E2D006CBDA8 /* LineService.swift in Sources */,
+				F87257351B3F2D5E006CBDA8 /* InterfaceController.swift in Sources */,
+				F87257531B3F2DEE006CBDA8 /* DBService.swift in Sources */,
+				F87257691B3F3198006CBDA8 /* Info.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -569,6 +777,16 @@
 			isa = PBXTargetDependency;
 			target = F843A39C1B1B04C2008F4505 /* Tajma */;
 			targetProxy = F843A3B61B1B04C2008F4505 /* PBXContainerItemProxy */;
+		};
+		F872573D1B3F2D5E006CBDA8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F87257391B3F2D5E006CBDA8 /* Tajma WatchKit App */;
+			targetProxy = F872573C1B3F2D5E006CBDA8 /* PBXContainerItemProxy */;
+		};
+		F87257471B3F2D5E006CBDA8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F872572F1B3F2D5D006CBDA8 /* Tajma WatchKit Extension */;
+			targetProxy = F87257461B3F2D5E006CBDA8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -587,6 +805,14 @@
 				F843A3AF1B1B04C2008F4505 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		F87257411B3F2D5E006CBDA8 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F87257421B3F2D5E006CBDA8 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -772,6 +998,72 @@
 			};
 			name = Release;
 		};
+		F87257491B3F2D5E006CBDA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Tajma WatchKit Extension/Tajma WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Tajma WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Tajma WatchKit Extension/Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		F872574A1B3F2D5E006CBDA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Tajma WatchKit Extension/Tajma WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "Tajma WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Tajma WatchKit Extension/Bridging-Header.h";
+			};
+			name = Release;
+		};
+		F872574B1B3F2D5E006CBDA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IBSC_MODULE = Tajma_WatchKit_Extension;
+				INFOPLIST_FILE = "Tajma WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		F872574C1B3F2D5E006CBDA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				IBSC_MODULE = Tajma_WatchKit_Extension;
+				INFOPLIST_FILE = "Tajma WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -807,6 +1099,24 @@
 			buildConfigurations = (
 				F843A3C31B1B04C2008F4505 /* Debug */,
 				F843A3C41B1B04C2008F4505 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F872574D1B3F2D5E006CBDA8 /* Build configuration list for PBXNativeTarget "Tajma WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F872574B1B3F2D5E006CBDA8 /* Debug */,
+				F872574C1B3F2D5E006CBDA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F872574E1B3F2D5E006CBDA8 /* Build configuration list for PBXNativeTarget "Tajma WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F87257491B3F2D5E006CBDA8 /* Debug */,
+				F872574A1B3F2D5E006CBDA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
