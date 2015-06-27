@@ -13,16 +13,18 @@ public class TodayLabel {
     public var distance: Int
     public var sname: String
     public var direction: String
+    public var snameAndDirection: String
     public var fgColor: String
     public var bgColor: String
     public var rtTimes: [Int]
     public var row: Row
     
-    public init(stopName : String, distance: Int, sname: String, direction: String, fgColor: String, bgColor: String, rtTimes: [Int], row: Row) {
+    public init(stopName : String, distance: Int, sname: String, direction: String, snameAndDirection: String, fgColor: String, bgColor: String, rtTimes: [Int], row: Row) {
         self.stopName = stopName
         self.distance = distance
         self.sname = sname
         self.direction = direction
+        self.snameAndDirection = snameAndDirection
         self.fgColor = fgColor
         self.bgColor = bgColor
         self.rtTimes = rtTimes

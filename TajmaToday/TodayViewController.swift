@@ -105,7 +105,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     func locationOff(){
         linesAtStop = [TodayLabel]()
         
-        var todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
+        var todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
         linesAtStop.append(todayLabel)
         
         locationService = false
@@ -261,6 +261,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             var separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
             separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
             
+            //let subString = (lblSnameDir.text! as NSString).containsString("via")
+            
             cell.addSubview(separatorView)
             cell.addSubview(lblSnameDir)
             cell.addSubview(depLabelOne)
@@ -353,10 +355,10 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         var stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
         if (stops.count == 0){
-            var todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
+            var todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
             linesAtStop.append(todayLabel)
             
-            var todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.ButtonAddStop)
+            var todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.ButtonAddStop)
             linesAtStop.append(todayButton)
             
             updateTable()
@@ -368,13 +370,13 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             // "Inga avgångar hittades" har en fiktiv distans på 1000000 för att hamna under hållplatsen
             // Sista raden har också en fiktiv distans på 1000001 för att hamna sist för att göra plats för "Gå till appen" knappen
             for stop in stops{
-                var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
+                var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
                 
                 isStop++
                 linesAtStop.append(todayLabel)
                 
                 if (stop.departures?.count == 0){
-                    todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: stop.distance, sname: "", direction: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.NoDepartures)
+                    todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.NoDepartures)
                     linesAtStop.append(todayLabel)
                 }
                 else{
@@ -398,13 +400,14 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                             index++
                         }
                         
-                        var trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Trip)
+                        var trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Trip)
                         
                         linesAtStop.append(trip)
                     }
                     
                 }
             }
+            
             
             let sortedList = linesAtStop.sorted {
                 switch ($0.distance,$1.distance) {
@@ -418,11 +421,36 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 }
             }
             
+            linesAtStop = sortedList
+            
+            var temp = [TodayLabel]()
+            if (linesAtStop.count > iPhoneModelSize()){
+                var index = 0
+                var arr = [String]()
+                
+                var temp = [TodayLabel]()
+                
+                for stop in linesAtStop{
+                    if (stop.snameAndDirection == ""){
+                        stop.snameAndDirection += String(index)
+                    }
+                    if (!contains(arr, stop.snameAndDirection)){
+                        temp.append(stop)
+                        arr.append(stop.snameAndDirection)
+                    }
+                    
+                    index++
+                }
+                
+                linesAtStop = temp
+            }
+            
+            // VISA EJ ENDAST HÅLLPLATSNAMNET
             // Kollar om vi har fler än 1 stopp och fler än maxrader
             // Visar närmaste avgångar för alla
             
-            linesAtStop = sortedList
-            
+            //linesAtStop = sortedList
+    
             self.updateTable()
         }
     }
@@ -450,7 +478,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         case "iPhone 6 Plus" :
             return 16
         default:
-            return 13
+            return 10
         }
     }
     

@@ -281,7 +281,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let imageName = "check-red"
                 let image = UIImage(named: imageName)
                 let imageView = UIImageView(image: image!)
-                imageView.frame = CGRect(x: phoneSize.width - 70, y: 12, width: 16, height: 16)
+                imageView.frame = CGRect(x: phoneSize.width - 70, y: 12, width: Int(imageView.image?.size.width ?? 16), height: Int(imageView.image?.size.height ?? 16))
                 
                 cell!.addSubview(imageView)
                 

@@ -108,7 +108,11 @@ class LinesViewController: UIViewController {
             var sname = ""
             var letterSname = line.sname.toInt()
             // Bokstväver
-            if (letterSname == nil){
+            if (line.sname == "16X"){
+                fontSize = CGFloat(12)
+                sname = line.sname
+            }
+            else if (letterSname == nil){
                 let snameArr = Array(line.sname)
                 sname = String(snameArr[0])
             }
@@ -135,7 +139,7 @@ class LinesViewController: UIViewController {
             snameLabel.font = snameLabel.font.fontWithSize(fontSize)
             
             // DirectionLabel
-            var directionLabel = UILabel(frame: CGRectMake(0, 8, 330, 30))
+            var directionLabel = UILabel(frame: CGRectMake(0, 8, getLabelWidth(), 30))
             directionLabel.textAlignment = NSTextAlignment.Left
             directionLabel.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
             directionLabel.text = "\t     \(line.direction)"
@@ -167,6 +171,38 @@ class LinesViewController: UIViewController {
         self.view.addSubview(separatorView)
         scrollView.contentSize = CGSize(width: phoneSize.width, height: height)
         
+    }
+    
+    func iPhoneModelSize() -> Int{
+        switch UIDevice.currentDevice().modelName {
+        case "iPhone 4", "iPhone 4S" :
+            return 8
+        case "iPhone 5", "iPhone 5C", "iPhone 5S" :
+            return 10
+        case "iPhone 6" :
+            return 13
+        case "iPhone 6 Plus" :
+            return 16
+        default:
+            return 13
+        }
+    }
+    
+    func getLabelWidth() -> CGFloat{
+        switch iPhoneModelSize() {
+            // 5
+        case 10 :
+            return 280.0
+            // 6
+        case 13 :
+            return 330.0
+            // 6P
+        case 16 :
+            return 370.0
+            // Simulator, iPad osv
+        default:
+            return 300
+        }
     }
     
     override func didReceiveMemoryWarning() {

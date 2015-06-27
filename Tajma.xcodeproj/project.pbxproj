@@ -319,18 +319,18 @@
 		F87AFE6F1B1B8FE000D3DAFC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F87AFE701B1B902400D3DAFC /* Departure.swift */,
-				F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */,
-				F87AFE721B1B902400D3DAFC /* TodayLabel.swift */,
 				F87AFE761B1B903F00D3DAFC /* CheckBox.swift */,
+				F87AFE701B1B902400D3DAFC /* Departure.swift */,
 				F87AFE771B1B903F00D3DAFC /* Global.swift */,
 				F87AFE781B1B903F00D3DAFC /* Line.swift */,
+				F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */,
 				F87AFE791B1B903F00D3DAFC /* LinesAtStop.swift */,
+				F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */,
 				F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */,
 				F87AFE7C1B1B903F00D3DAFC /* Stop.swift */,
 				F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */,
-				F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */,
 				F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */,
+				F87AFE721B1B902400D3DAFC /* TodayLabel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
