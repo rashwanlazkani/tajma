@@ -151,10 +151,8 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                     // Loopa igenom linjer på hållplatsen
                     for departure in stop.departures!{
                         var rtTimesArr = [Int]()
-                        var index = 0
                         departure.rtTimes.sort({$0 < $1})
-                        
-                        for rtTime in departure.rtTimes{
+                        for (index, rtTime) in enumerate(departure.rtTimes){
                             // Hämta endast två tider
                             if (index == 2){
                                 continue
@@ -165,7 +163,6 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                             else{
                                 rtTimesArr.append(rtTime)
                             }
-                            index++
                         }
                         
                         var trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Trip)
@@ -193,12 +190,11 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
             
             var temp = [TodayLabel]()
             if (linesAtStop.count > watchSize()){
-                var index = 0
                 var arr = [String]()
                 
                 var temp = [TodayLabel]()
                 
-                for stop in linesAtStop{
+                for (index, stop) in enumerate(linesAtStop){
                     // Om sista raden endast är en hållplats så vill vi inte visa denna
                     if (index >= watchSize() && stop.snameAndDirection == ""){
                         break
@@ -210,8 +206,6 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                         temp.append(stop)
                         arr.append(stop.snameAndDirection)
                     }
-                    
-                    index++
                 }
                 
                 linesAtStop = temp
