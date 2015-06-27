@@ -17,6 +17,7 @@ class DBService {
         var url = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.tajma.today")!
         var urlSubString = url.absoluteString!.stringByReplacingOccurrencesOfString("file:///", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
+        // skapa en file manager för att hanera filerna
         let filemgr = NSFileManager.defaultManager()
         let databuffer = filemgr.contentsAtPath(urlSubString)
         

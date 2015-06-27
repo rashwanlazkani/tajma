@@ -430,7 +430,13 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 
                 var temp = [TodayLabel]()
                 
+                println(iPhoneModelSize())
+                
                 for stop in linesAtStop{
+                    // Om sista raden endast är en hållplats så vill vi inte visa denna
+                    if (index >= iPhoneModelSize() && stop.snameAndDirection == ""){
+                         break
+                    }
                     if (stop.snameAndDirection == ""){
                         stop.snameAndDirection += String(index)
                     }
@@ -478,7 +484,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         case "iPhone 6 Plus" :
             return 16
         default:
-            return 10
+            return 13
         }
     }
     
