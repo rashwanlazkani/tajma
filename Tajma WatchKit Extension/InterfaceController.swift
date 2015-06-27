@@ -277,9 +277,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
             else{
                 
                 var tempText = ""
-                var index = 0
-                for rtTime in stop.rtTimes{
-                    
+                for (index, rtTime) in enumerate(stop.rtTimes){
                     if (index == 0 && rtTime == 0){
                         tempText = "Nu"
                     }
@@ -302,9 +300,6 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                             tempText += ", " + String(rtTime)
                         }
                     }
-                    
-                    index++
-                    
                 }
                 
                 var x = ""
