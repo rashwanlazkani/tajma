@@ -228,9 +228,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             lblSnameDir.text = linesAtStop[indexPath.row].sname
             lblSnameDir.text! += " " + linesAtStop[indexPath.row].direction
             
-            var index = 0
-            for rtTime in linesAtStop[indexPath.row].rtTimes{
-                
+            for (index, rtTime) in enumerate(linesAtStop[indexPath.row].rtTimes){
                 if (index == 0 && rtTime == 0){
                     depLabelOne.text = "Nu"
                 }
@@ -253,9 +251,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                         depLabelTwo.text = String(rtTime)
                     }
                 }
-                
-                index++
-                
             }
             
             var separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
@@ -383,10 +378,9 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                     // Loopa igenom linjer på hållplatsen
                     for departure in stop.departures!{
                         var rtTimesArr = [Int]()
-                        var index = 0
                         departure.rtTimes.sort({$0 < $1})
                         
-                        for rtTime in departure.rtTimes{
+                        for (index, rtTime) in enumerate(departure.rtTimes){
                             // Hämta endast två tider
                             if (index == 2){
                                 continue
@@ -397,7 +391,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                             else{
                                 rtTimesArr.append(rtTime)
                             }
-                            index++
                         }
                         
                         var trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Trip)
@@ -425,14 +418,10 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             var temp = [TodayLabel]()
             if (linesAtStop.count > iPhoneModelSize()){
-                var index = 0
                 var arr = [String]()
-                
                 var temp = [TodayLabel]()
                 
-                println(iPhoneModelSize())
-                
-                for stop in linesAtStop{
+                for (index, stop) in enumerate(linesAtStop){
                     // Om sista raden endast är en hållplats så vill vi inte visa denna
                     if (index >= iPhoneModelSize() && stop.snameAndDirection == ""){
                          break
@@ -444,8 +433,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                         temp.append(stop)
                         arr.append(stop.snameAndDirection)
                     }
-                    
-                    index++
                 }
                 
                 linesAtStop = temp
