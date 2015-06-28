@@ -437,13 +437,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 
                 linesAtStop = temp
             }
-            
-            // VISA EJ ENDAST HÅLLPLATSNAMNET
-            // Kollar om vi har fler än 1 stopp och fler än maxrader
-            // Visar närmaste avgångar för alla
-            
-            //linesAtStop = sortedList
-    
+
             self.updateTable()
         }
     }
