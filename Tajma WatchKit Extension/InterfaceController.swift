@@ -297,8 +297,8 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 }
                 
                 var x = ""
-                if (count(stop.snameAndDirection) >= 35){
-                    x = stop.snameAndDirection.subStringTo(26) + "..."
+                if (count(stop.snameAndDirection) >= 26){
+                    x = stop.snameAndDirection.subStringTo(24) + "..."
                 }
                 else{
                     x = stop.snameAndDirection

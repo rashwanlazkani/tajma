@@ -25,10 +25,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     var locationService = false
     var stops = [Stop]()
     let locationManager = CLLocationManager()
-    var preferedViewHeight:CGFloat{
-        var height = CGFloat(linesAtStop.count * 44)
-        return height
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -422,8 +418,11 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 var temp = [TodayLabel]()
                 
                 for (index, stop) in enumerate(linesAtStop){
+                    if (index == 13){
+                        var x = 0
+                    }
                     // Om sista raden endast är en hållplats så vill vi inte visa denna
-                    if (index >= iPhoneModelSize() && stop.snameAndDirection == ""){
+                    if (index == iPhoneModelSize() - 1 && stop.snameAndDirection == ""){
                          break
                     }
                     if (stop.snameAndDirection == ""){
@@ -444,14 +443,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     func updateTable(){
         self.tableView.backgroundColor = UIColor.clearColor()
-        self.updateSize()
         self.tableView.reloadData()
-    }
-    
-    func updateSize(){
-        var preferredSize = self.preferredContentSize
-        preferredSize.height = self.preferedViewHeight
-        self.preferredContentSize = preferredSize
     }
     
     func iPhoneModelSize() -> Int{

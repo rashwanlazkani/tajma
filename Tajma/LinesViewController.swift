@@ -44,6 +44,7 @@ class LinesViewController: UIViewController {
         super.willMoveToParentViewController(parent)
         if parent == nil {
             self.navigationController?.navigationBar.translucent = true
+            self.navigationController?.navigationBar.hidden = true
         }
     }
     
