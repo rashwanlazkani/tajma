@@ -25,6 +25,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let locationManager = CLLocationManager()
     var activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
     
+    var lat : String = ""
+    var long : String = ""
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -34,9 +37,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.init(coder: aDecoder)
     }
     
-    var lat : String = ""
-    var long : String = ""
-
     override func viewDidLoad() {
         super.viewDidLoad()
         dbService.addTablesIfNotExists()
@@ -69,15 +69,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
  
     // MARK: - Functions
     func initiateViews(){
-        // Gradient view
-//        let gradient: CAGradientLayer = CAGradientLayer()
-//        gradient.colors = [UIColor(red: 9/255, green: 128/255, blue: 129/255, alpha: 1).CGColor, UIColor(red: 72/255, green: 174/255, blue: 151/255, alpha: 1).CGColor]
-//        gradient.locations = [0.0, 1.0]
-//        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-//        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
-//        gradient.frame = CGRectMake(0, 0, self.view.frame.size.width, navController.frame.size.height)
-        //navController.layer.insertSublayer(UIColor(red: 9/255, green: 128/255, blue: 129/255, alpha: 1).CGColor, atIndex: 0)
-        
         navController.backgroundColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
           
         // SearchBar
@@ -287,31 +278,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell!.addSubview(imageView)
             
         }
-        
-        /*
-        if(indexPath.row % 2 == 0){
-            cell!.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
-        } else{
-            cell!.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
-        }
-        */
+    
         cell!.textLabel!.text = stopWrapper.stops[indexPath.row].name
-        
         cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
-        // Sätta bakgrunden på tableView
-        /*
-        if (indexPath.row == stopWrapper.stops.count - 1){
-           tableView.tableFooterView = UIView(frame: CGRectZero)
-            
-            if (indexPath.row % 2 == 0){
-                tableView.backgroundColor = UIColor(red: 242/255, green: 239/255, blue: 233/255, alpha: 1)
-            }
-            else{
-                tableView.backgroundColor = UIColor(red: 236/255, green: 234/255, blue: 227/255, alpha: 1)
-            }
-        }
-        */
         return cell!
     }
     
@@ -350,7 +320,4 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
 }
-
