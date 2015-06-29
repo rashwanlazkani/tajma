@@ -106,6 +106,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func getNearestStops() {
         self.activityIndicator.startAnimating()
+        self.locationManager.startUpdatingLocation()
         stopService.getNearestStops(lat, long: long, onCompletion: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.stopWrapper = json
@@ -119,6 +120,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     println("ASASA")
                     println(self.stopWrapper.error)
                 }
+                self.locationManager.stopUpdatingLocation()
                 self.activityIndicator.stopAnimating()
             })
         })
