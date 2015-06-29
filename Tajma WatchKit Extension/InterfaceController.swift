@@ -233,7 +233,6 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     }
     
     func updateTable(){
-        println(UIDevice.currentDevice().name)
         table.setNumberOfRows(linesAtStop.count, withRowType: "Row")
         
         for (index, stop) in enumerate(linesAtStop){

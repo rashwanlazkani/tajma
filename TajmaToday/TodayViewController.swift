@@ -121,8 +121,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Om mer än maxlängd
-        if (linesAtStop.count > iPhoneModelSize()){
-            return iPhoneModelSize()
+        if (linesAtStop.count > DeviceService.iPhoneModelSize()){
+            return DeviceService.iPhoneModelSize()
         }
         else{
             return linesAtStop.count
@@ -153,7 +153,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         distanceLabel.textColor = UIColor.grayColor()
         distanceLabel.font = distanceLabel.font.fontWithSize(12)
         
-        var lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: getLabelWidth(), height: 30))
+        var lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceService.getLabelWidth(), height: 30))
         lblSnameDir.textAlignment = NSTextAlignment.Left
         lblSnameDir.textColor = UIColor.whiteColor()
         lblSnameDir.font = lblSnameDir.font.fontWithSize(14)
@@ -260,11 +260,11 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             cell.addSubview(depLabelTwo)
         }
         
-        if (linesAtStop.count < iPhoneModelSize()){
+        if (linesAtStop.count < DeviceService.iPhoneModelSize()){
             self.preferredContentSize = CGSizeMake(0, CGFloat(linesAtStop.count * 36))
         }
         else{
-            self.preferredContentSize = CGSizeMake(0, CGFloat(iPhoneModelSize() * 36 + 5))
+            self.preferredContentSize = CGSizeMake(0, CGFloat(DeviceService.iPhoneModelSize() * 36 + 5))
         }
         
         
@@ -288,7 +288,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             return view
         }
-        else if (linesAtStop.count > iPhoneModelSize()){
+        else if (linesAtStop.count > DeviceService.iPhoneModelSize()){
              var view = UIView(frame: CGRectMake(0, 120, 300, 36));
             
             var maxLabel = UILabel(frame: CGRectMake(8, 10, 300, 36))
@@ -413,7 +413,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             linesAtStop = sortedList
             
             var temp = [TodayLabel]()
-            if (linesAtStop.count > iPhoneModelSize()){
+            if (linesAtStop.count > DeviceService.iPhoneModelSize()){
                 var arr = [String]()
                 var temp = [TodayLabel]()
                 
@@ -422,7 +422,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                         var x = 0
                     }
                     // Om sista raden endast är en hållplats så vill vi inte visa denna
-                    if (index == iPhoneModelSize() - 1 && stop.snameAndDirection == ""){
+                    if (index == DeviceService.iPhoneModelSize() - 1 && stop.snameAndDirection == ""){
                          break
                     }
                     if (stop.snameAndDirection == ""){
@@ -444,38 +444,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     func updateTable(){
         self.tableView.backgroundColor = UIColor.clearColor()
         self.tableView.reloadData()
-    }
-    
-    func iPhoneModelSize() -> Int{
-        switch UIDevice.currentDevice().modelName {
-        case "iPhone 4", "iPhone 4S" :
-            return 8
-        case "iPhone 5", "iPhone 5C", "iPhone 5S" :
-            return 10
-        case "iPhone 6" :
-            return 13
-        case "iPhone 6 Plus" :
-            return 16
-        default:
-            return 13
-        }
-    }
-    
-    func getLabelWidth() -> Int{
-        switch iPhoneModelSize() {
-            // 5
-        case 10 :
-            return 160
-            // 6
-        case 13 :
-            return 210
-            // 6P
-        case 15 :
-            return 245
-            // Simulator, iPad osv
-        default:
-            return 250
-        }
     }
     
     override func didReceiveMemoryWarning() {
