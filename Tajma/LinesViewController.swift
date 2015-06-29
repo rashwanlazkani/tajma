@@ -49,6 +49,11 @@ class LinesViewController: UIViewController {
     
     // MARK: - Functions
     func initiateViews(){
+        // NavController
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0/255, green: 121/255, blue: 191/255, alpha: 1)
+        
         var title = UILabel(frame: CGRectMake(0, 4, 200, 30))
         title.textAlignment = NSTextAlignment.Center
         title.textColor = UIColor.whiteColor()
@@ -60,11 +65,6 @@ class LinesViewController: UIViewController {
         self.navigationItem.titleView = navBarTitleView
         
         navBarTitleView.addSubview(title)
-        
-        // NavBar
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
         
         self.navigationController?.navigationBar.translucent = false
         

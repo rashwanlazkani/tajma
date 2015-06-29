@@ -69,7 +69,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
  
     // MARK: - Functions
     func initiateViews(){
-        navController.backgroundColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
+        // NavController
+        navController.backgroundColor = UIColor(red: 0/255, green: 121/255, blue: 191/255, alpha: 1)
           
         // SearchBar
         var textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
@@ -108,7 +109,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     var stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200, departures: nil)
                     self.stopWrapper.stops.append(stop)
                     self.tableView!.reloadData()
-                    println("ASASA")
                     println(self.stopWrapper.error)
                 }
                 self.locationManager.stopUpdatingLocation()
