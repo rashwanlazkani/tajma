@@ -151,7 +151,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         var distanceLabel = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 4, 100, 30))
         distanceLabel.textAlignment = NSTextAlignment.Left
         distanceLabel.textColor = UIColor.grayColor()
-        distanceLabel.font = distanceLabel.font.fontWithSize(12)
+        distanceLabel.font = distanceLabel.font.fontWithSize(14)
         
         var lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceService.getLabelWidth(), height: 30))
         lblSnameDir.textAlignment = NSTextAlignment.Left

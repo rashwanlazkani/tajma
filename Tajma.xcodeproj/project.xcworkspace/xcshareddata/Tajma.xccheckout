@@ -7,21 +7,21 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>484531C0-7F31-4A90-8938-EC77275EDC70</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Tajma</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>539BF8B7573078D64E64CE08360E692A40D37C23</key>
-		<string>https://bitbucket.org/rashwanlazkani/tajma.git</string>
+		<string>https://bitbucket.org/rashwanlazkani/tajma-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Tajma.xcodeproj</string>
+	<string>Tajma.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>539BF8B7573078D64E64CE08360E692A40D37C23</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://bitbucket.org/rashwanlazkani/tajma.git</string>
+	<string>https://bitbucket.org/rashwanlazkani/tajma-ios.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
