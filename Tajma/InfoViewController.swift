@@ -47,7 +47,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         navigationController?.navigationBar.hidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0/255, green: 121/255, blue: 191/255, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1)
         
         self.navigationController?.navigationBar.translucent = false
         

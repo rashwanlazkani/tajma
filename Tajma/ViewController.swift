@@ -70,7 +70,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: - Functions
     func initiateViews(){
         // NavController
-        navController.backgroundColor = UIColor(red: 0/255, green: 121/255, blue: 191/255, alpha: 1)
+        navController.backgroundColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1)
           
         // SearchBar
         var textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
