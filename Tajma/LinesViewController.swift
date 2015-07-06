@@ -68,7 +68,7 @@ class LinesViewController: UIViewController {
         
         self.navigationController?.navigationBar.translucent = false
         
-        scrollView.backgroundColor = UIColor.whiteColor()
+        scrollView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     }
     
     func drawLinesTableView(){
@@ -77,7 +77,7 @@ class LinesViewController: UIViewController {
         
         self.lineWrapper.lines.sort({$0.sname.toInt() < $1.sname.toInt() ? $0.sname < $1.name : $0.name < $1.name })
         
-        for line in lineWrapper.lines{
+        for (index, line) in enumerate(lineWrapper.lines){
             var checkBox = CheckBox()
             checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
             checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -163,10 +163,28 @@ class LinesViewController: UIViewController {
 
             height += 44
             tag++
+            
+            if(index % 2 == 0){
+                view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+            } else{
+                view.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+            }
+            
+            
+            // Sätta bakgrunden på tableView
+            if (index == lineWrapper.lines.count - 1){
+                if (index % 2 == 0){
+                    scrollView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+                }
+                else{
+                    scrollView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+                }
+            }
+
         }
         
         var separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
-        separatorView.backgroundColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 0.5)
+        separatorView.backgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
         
         self.view.addSubview(separatorView)
         scrollView.contentSize = CGSize(width: phoneSize.width, height: height)

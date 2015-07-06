@@ -84,6 +84,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // TableView
         tableView.separatorColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 1)
+        tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+        tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
         
         // Activity indicator
         activityIndicator.center = self.view.center
@@ -281,6 +283,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
         cell!.textLabel!.text = stopWrapper.stops[indexPath.row].name
         cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        if(indexPath.row % 2 == 0){
+            cell!.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+        } else{
+            cell!.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+        }
+        
+        
+        // Sätta bakgrunden på tableView
+        if (indexPath.row == stopWrapper.stops.count - 1){
+            tableView.tableFooterView = UIView(frame: CGRectZero)
+            
+            if (indexPath.row % 2 == 0){
+                tableView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+            }
+            else{
+               tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+            }
+        }
         
         return cell!
     }

@@ -62,6 +62,9 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         self.navigationItem.titleView = navBarTitleView
         
         navBarTitleView.addSubview(title)
+        
+        tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+        tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -80,6 +83,26 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         
         cell.textLabel!.text = items[indexPath.row]
+        
+        if(indexPath.row % 2 == 0){
+            cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+        } else{
+            cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+        }
+        
+        
+        // Sätta bakgrunden på tableView
+        if (indexPath.row == items.count - 1){
+            tableView.tableFooterView = UIView(frame: CGRectZero)
+            
+            if (indexPath.row % 2 == 0){
+                tableView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+            }
+            else{
+                tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+            }
+        }
+        
         return cell
     }
     
