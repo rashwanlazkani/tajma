@@ -83,6 +83,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         
         cell.textLabel!.text = items[indexPath.row]
+        cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         
         if(indexPath.row % 2 == 0){
             cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)

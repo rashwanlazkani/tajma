@@ -255,6 +255,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
         
+        cell?.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+        
         for view in cell!.subviews{
             if (toString(view.dynamicType) == "UIImageView") {
                 view.removeFromSuperview()
