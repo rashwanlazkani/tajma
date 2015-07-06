@@ -237,25 +237,29 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
         
         for (index, stop) in enumerate(linesAtStop){
             let row = table.rowControllerAtIndex(index) as! DataRowController
+            row.group.setBackgroundColor(UIColor.clearColor())
             
             var text = ""
             if (stop.row == Row.Stop){
+                row.group.setHeight(15.0)
                 // 22
                 var strLength = count(stop.stopName)
                 if (strLength > 26){
-                    var x = stop.stopName.subStringTo(24)
-                    text = "\(x) \n Avstånd \(String(stop.distance))m"
-                    
-                    println(x)
+                    var stop = stop.stopName.subStringTo(24)
+                    // Med avstånd
+                    //text = "\(stop) \n Avstånd \(String(stop.distance))m"
+                    text = "\(stop)"
                 }
                 else{
                     
                 }
                 
                 
-                let font = UIFont(name: "Arial", size: 8.0)
+                let font = UIFont(name: "Arial", size: 10.0)
                 
-                text = "\(stop.stopName) \n Avstånd \(String(stop.distance))m"
+                // Med avstånd
+                //text = "\(stop.stopName) \n Avstånd \(String(stop.distance))m"
+                text = "\(stop.stopName)"
                 
                 let attrString = NSAttributedString(
                     string: text,
@@ -263,12 +267,11 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                         object: font!,
                         forKey: NSFontAttributeName) as [NSObject : AnyObject])
                 
-                row.label.setTextColor(UIColor.greenColor())
-                
+                row.label.setTextColor(UIColor.grayColor())
                 row.label.setAttributedText(attrString)
             }
             else{
-                
+
                 var tempText = ""
                 for (index, rtTime) in enumerate(stop.rtTimes){
                     if (index == 0 && rtTime == 0){
@@ -304,7 +307,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 }
                 
                 
-                text = "\(x) \n Avgång: \(tempText)"
+                text = "\(x) \n\(tempText)"
                 let font = UIFont(name: "Arial", size: 8.0)
                 
                 let attrString = NSAttributedString(
@@ -314,6 +317,8 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                         forKey: NSFontAttributeName) as [NSObject : AnyObject])
                 
                 row.label.setAttributedText(attrString)
+                
+                row.group.setHeight(30.0)
             }
             
         }

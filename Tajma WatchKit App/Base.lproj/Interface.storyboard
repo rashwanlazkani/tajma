@@ -15,11 +15,11 @@
                                 <tableRow identifier="Row" id="heh-F9-zTI" customClass="DataRowController" customModule="Tajma_WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="uFH-JL-SKD">
                                         <items>
-                                            <imageView alignment="left" hidden="YES" id="JxM-VJ-bib"/>
-                                            <label width="107" height="37.5" alignment="left" text="Label" numberOfLines="2" id="lAN-qm-Nwz"/>
+                                            <label width="136" height="19.5" alignment="left" text="Label" numberOfLines="2" id="lAN-qm-Nwz"/>
                                         </items>
                                     </group>
                                     <connections>
+                                        <outlet property="group" destination="uFH-JL-SKD" id="eRj-Dc-XzN"/>
                                         <outlet property="label" destination="lAN-qm-Nwz" id="FX9-4i-lfg"/>
                                     </connections>
                                 </tableRow>

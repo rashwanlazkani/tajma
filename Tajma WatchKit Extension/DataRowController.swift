@@ -9,5 +9,6 @@
 import WatchKit
 
 class DataRowController: NSObject {
+    @IBOutlet weak var group: WKInterfaceGroup!
     @IBOutlet weak var label: WKInterfaceLabel!
 }
