@@ -26,6 +26,12 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     var stops = [Stop]()
     let locationManager = CLLocationManager()
     
+    // Behövs då en bugg finns att denna inte alltid öppnas
+    // http://stackoverflow.com/questions/24128024/today-extension-has-a-title-but-no-body-ios-8
+    override func awakeFromNib() {
+        self.preferredContentSize = CGSize(width: 50, height: 20)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -223,6 +229,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         else if (linesAtStop[indexPath.row].row == Row.Trip){
             lblSnameDir.text = linesAtStop[indexPath.row].sname
             lblSnameDir.text! += " " + linesAtStop[indexPath.row].direction
+            
+            println(lblSnameDir)
             
             for (index, rtTime) in enumerate(linesAtStop[indexPath.row].rtTimes){
                 if (index == 0 && rtTime == 0){
