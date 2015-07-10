@@ -107,7 +107,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func getNearestStops() {
         self.activityIndicator.startAnimating()
         self.segmentedControl.enabled = false
-        self.locationManager.startUpdatingLocation()
         stopService.getNearestStops(lat, long: long, onCompletion: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.stopWrapper = json
@@ -165,6 +164,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: - Events
     @IBAction func segmentedControl_Changed(sender: UISegmentedControl) {
         if (segmentedControl.selectedSegmentIndex == 0){
+            self.locationManager.startUpdatingLocation()
             getNearestStops()
             self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
             searchBar.resignFirstResponder()
@@ -233,6 +233,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
                 println("Error: " + error.localizedDescription)
+                self.getNearestStops()
                 return
             }
             if (placemarks.count > 0){
