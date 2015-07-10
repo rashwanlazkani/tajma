@@ -106,6 +106,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func getNearestStops() {
         self.activityIndicator.startAnimating()
+        self.segmentedControl.enabled = false
         self.locationManager.startUpdatingLocation()
         stopService.getNearestStops(lat, long: long, onCompletion: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
@@ -130,6 +131,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     println(self.stopWrapper.error)
                 }
                 self.locationManager.stopUpdatingLocation()
+                self.segmentedControl.enabled = true
                 self.activityIndicator.stopAnimating()
             })
         })
@@ -231,7 +233,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
                 println("Error: " + error.localizedDescription)
-                self.getNearestStops()
                 return
             }
             if (placemarks.count > 0){
