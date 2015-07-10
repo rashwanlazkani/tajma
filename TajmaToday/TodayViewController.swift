@@ -286,7 +286,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if (linesAtStop.count == 0){
             var view = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, tableView.bounds.height));
-            var loadingLabel = UILabel(frame: CGRectMake(0, 4, 200, 30))
+            var loadingLabel = UILabel(frame: CGRectMake(0, 4, 200, 15))
             loadingLabel.textAlignment = NSTextAlignment.Left
             loadingLabel.textColor = UIColor.grayColor()
             loadingLabel.font = loadingLabel.font.fontWithSize(14)

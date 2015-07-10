@@ -11,7 +11,7 @@
 		F80667591B1E5CA100A26B5D /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F80667581B1E5CA100A26B5D /* NotificationCenter.framework */; };
 		F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806675D1B1E5CA100A26B5D /* TodayViewController.swift */; };
 		F80667601B1E5CA100A26B5D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */; };
-		F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F80667561B1E5CA100A26B5D /* TajmaToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F80667631B1E5CA100A26B5D /* Tajma.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F80667561B1E5CA100A26B5D /* Tajma.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F80667691B1E5CDD00A26B5D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */; };
 		F806676B1B1E5D7200A26B5D /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE671B1B8A0E00D3DAFC /* DBService.swift */; };
 		F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
@@ -143,7 +143,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */,
+				F80667631B1E5CA100A26B5D /* Tajma.appex in Embed App Extensions */,
 				F87257481B3F2D5E006CBDA8 /* Tajma WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -153,7 +153,7 @@
 
 /* Begin PBXFileReference section */
 		F80667501B1D157C00A26B5D /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
-		F80667561B1E5CA100A26B5D /* TajmaToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TajmaToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F80667561B1E5CA100A26B5D /* Tajma.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Tajma.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F80667581B1E5CA100A26B5D /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		F806675C1B1E5CA100A26B5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F806675D1B1E5CA100A26B5D /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -306,7 +306,7 @@
 			children = (
 				F843A39D1B1B04C2008F4505 /* Tajma.app */,
 				F843A3B51B1B04C2008F4505 /* TajmaTests.xctest */,
-				F80667561B1E5CA100A26B5D /* TajmaToday.appex */,
+				F80667561B1E5CA100A26B5D /* Tajma.appex */,
 				F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */,
 				F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */,
 			);
@@ -475,7 +475,7 @@
 			);
 			name = TajmaToday;
 			productName = TajmaToday;
-			productReference = F80667561B1E5CA100A26B5D /* TajmaToday.appex */;
+			productReference = F80667561B1E5CA100A26B5D /* Tajma.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		F843A39C1B1B04C2008F4505 /* Tajma */ = {
@@ -830,7 +830,7 @@
 		F80667651B1E5CA100A26B5D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = TajmaToday/TajmaToday.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -839,7 +839,7 @@
 				);
 				INFOPLIST_FILE = TajmaToday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Tajma;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "TajmaToday/Bridging-Header.h";
@@ -849,12 +849,12 @@
 		F80667661B1E5CA100A26B5D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = TajmaToday/TajmaToday.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TajmaToday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Tajma;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "TajmaToday/Bridging-Header.h";
