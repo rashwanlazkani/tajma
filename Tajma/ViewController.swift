@@ -107,9 +107,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.tableView!.reloadData()
                 }
                 else{
-                    var stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200, departures: nil)
-                    self.stopWrapper.stops.append(stop)
-                    self.tableView!.reloadData()
+                    var stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200,
+                        departures: nil)
+                    
+                    if (self.stopWrapper.stops.isEmpty){
+                        self.stopWrapper.stops.append(stop)
+                        self.tableView!.reloadData()
+                    }
+                    // Om true, så har vi gått från att försöka ladda om vid fel till att försöka hämta igen men fel igen
+                    else if (self.stopWrapper.stops[0].id != "0" && self.stopWrapper.stops[0].distance != -200){
+                        self.stopWrapper.stops.append(stop)
+                        self.tableView!.reloadData()
+                    }
+                    
                     println(self.stopWrapper.error)
                 }
                 self.locationManager.stopUpdatingLocation()
@@ -237,7 +247,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        // Vi fick ett fel och kunde inte hämta location, visa felmeddelande i app.
         println("Error: " + error.localizedDescription)
+        
+        stopWrapper.stops = [Stop]()
+        
+        var stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200, departures: nil)
+        self.stopWrapper.stops.append(stop)
+        self.tableView!.reloadData()
     }
     
     // MARK: - TableView
