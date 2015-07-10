@@ -95,7 +95,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.view.addSubview(activityIndicator)
         
         searchBar.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal);
-
     }
     
     func getNearestStops() {
@@ -318,6 +317,38 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Hämta linjer på stopp
         else{
             getLinesAtStop(stopWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
+        }
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell,
+        forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        // Remove seperator inset
+        if cell.respondsToSelector("setSeparatorInset:") {
+            cell.separatorInset = UIEdgeInsetsZero
+        }
+        
+        // Prevent the cell from inheriting the Table View's margin settings
+        if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+            cell.preservesSuperviewLayoutMargins = false
+        }
+        
+        // Explictly set your cell's layout margins
+        if cell.respondsToSelector("setLayoutMargins:") {
+            cell.layoutMargins = UIEdgeInsetsZero
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // Force your tableview margins (this may be a bad idea)
+        if self.tableView.respondsToSelector("setSeparatorInset:") {
+            self.tableView.separatorInset = UIEdgeInsetsZero
+        }
+        
+        if self.tableView.respondsToSelector("setLayoutMargins:") {
+            self.tableView.layoutMargins = UIEdgeInsetsZero
         }
     }
     
