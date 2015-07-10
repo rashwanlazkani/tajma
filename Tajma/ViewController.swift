@@ -94,6 +94,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         activityIndicator.color = UIColor.grayColor()
         self.view.addSubview(activityIndicator)
         
+        // För att sätta bakgrundfärg och opacitet på placeholdertext för searchBar
+        var txt:UITextField = searchBar.valueForKey("searchField") as! UITextField
+        
+        var attR = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)])
+        
+        txt.attributedPlaceholder = attR
+        
         searchBar.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal);
     }
     
