@@ -164,6 +164,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func segmentedControl_Changed(sender: UISegmentedControl) {
         if (segmentedControl.selectedSegmentIndex == 0){
             getNearestStops()
+            self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
             searchBar.resignFirstResponder()
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
@@ -208,6 +209,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.stopWrapper = json
                 if (self.stopWrapper.stops.count > 0){
                     self.searchBar!.text = ""
+                    self.segmentedControl.setTitle("Sökresultat", forSegmentAtIndex: 0)
                 }
                 else{
                     println(self.stopWrapper.error)
