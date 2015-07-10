@@ -22,8 +22,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Information"
-        
         initiateViews()
         
         // TableView
@@ -51,10 +49,10 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         
         self.navigationController?.navigationBar.translucent = false
         
-        var title = UILabel(frame: CGRectMake(0, 4, 200, 30))
+        var title = UILabel(frame: CGRectMake(0, 6, 200, 30))
         title.textAlignment = NSTextAlignment.Center
         title.textColor = UIColor.whiteColor()
-        title.font = UIFont.boldSystemFontOfSize(16)
+        title.font = title.font.fontWithSize(18)
         title.text = "Information"
         
         var navBarTitleView = UIView(frame: CGRect(x: phoneSize.width / 2, y: 0, width: 200, height: 44))
@@ -122,6 +120,38 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         }
         else if (indexPath.row == 4){
             openHelp()
+        }
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell,
+        forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        // Remove seperator inset
+        if cell.respondsToSelector("setSeparatorInset:") {
+            cell.separatorInset = UIEdgeInsetsZero
+        }
+        
+        // Prevent the cell from inheriting the Table View's margin settings
+        if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+            cell.preservesSuperviewLayoutMargins = false
+        }
+        
+        // Explictly set your cell's layout margins
+        if cell.respondsToSelector("setLayoutMargins:") {
+            cell.layoutMargins = UIEdgeInsetsZero
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // Force your tableview margins (this may be a bad idea)
+        if self.tableView.respondsToSelector("setSeparatorInset:") {
+            self.tableView.separatorInset = UIEdgeInsetsZero
+        }
+        
+        if self.tableView.respondsToSelector("setLayoutMargins:") {
+            self.tableView.layoutMargins = UIEdgeInsetsZero
         }
     }
     
