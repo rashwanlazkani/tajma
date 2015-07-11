@@ -35,24 +35,21 @@ class LinesViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        navigationController?.navigationBar.hidden = true
-    }
-    
     override func willMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
         if parent == nil {
             self.navigationController?.navigationBar.translucent = true
-            self.navigationController?.navigationBar.hidden = true
         }
     }
     
     // MARK: - Functions
     func initiateViews(){
         // NavController
+        navigationController?.navigationBar.hidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1)
+        self.navigationController?.navigationBar.translucent = false
         
         var title = UILabel(frame: CGRectMake(0, 6, 200, 30))
         title.textAlignment = NSTextAlignment.Center
@@ -65,8 +62,6 @@ class LinesViewController: UIViewController {
         self.navigationItem.titleView = navBarTitleView
         
         navBarTitleView.addSubview(title)
-        
-        self.navigationController?.navigationBar.translucent = false
         
         scrollView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
     }

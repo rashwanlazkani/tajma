@@ -46,7 +46,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1)
-        
         self.navigationController?.navigationBar.translucent = false
         
         var title = UILabel(frame: CGRectMake(0, 6, 200, 30))
