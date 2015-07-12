@@ -33,12 +33,14 @@ class LinesViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        self.navigationController?.navigationBar.layer.zPosition = 1
     }
     
     override func willMoveToParentViewController(parent: UIViewController?) {
         super.willMoveToParentViewController(parent)
         if parent == nil {
             self.navigationController?.navigationBar.translucent = true
+            self.navigationController?.navigationBar.layer.zPosition = -1
         }
     }
     
@@ -54,7 +56,7 @@ class LinesViewController: UIViewController {
         var title = UILabel(frame: CGRectMake(0, 6, 200, 30))
         title.textAlignment = NSTextAlignment.Center
         title.textColor = UIColor.whiteColor()
-        title.font = title.font.fontWithSize(18)
+        title.font = title.font.fontWithSize(17)
         title.text = stop.name
         
         var navBarTitleView = UIView(frame: CGRect(x: phoneSize.width / 2, y: 0, width: 200, height: 44))

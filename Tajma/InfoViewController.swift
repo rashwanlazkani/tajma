@@ -22,6 +22,8 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.layer.zPosition = 1
+        
         initiateViews()
         
         // TableView
@@ -35,6 +37,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         super.willMoveToParentViewController(parent)
         if parent == nil {
             self.navigationController?.navigationBar.translucent = true
+            self.navigationController?.navigationBar.layer.zPosition = -1
         }
     }
     
@@ -51,7 +54,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         var title = UILabel(frame: CGRectMake(0, 6, 200, 30))
         title.textAlignment = NSTextAlignment.Center
         title.textColor = UIColor.whiteColor()
-        title.font = title.font.fontWithSize(18)
+        title.font = title.font.fontWithSize(17)
         title.text = "Information"
         
         var navBarTitleView = UIView(frame: CGRect(x: phoneSize.width / 2, y: 0, width: 200, height: 44))

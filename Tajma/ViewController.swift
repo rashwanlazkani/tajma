@@ -57,8 +57,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidAppear(animated: Bool) {
         lineWrapper = LineWrapper()
+        
+        self.navigationController?.navigationBar.layer.zPosition = 1
 
-        navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        navigationController?.navigationBar.barStyle = UIBarStyle.Default
         navigationController?.navigationBar.tintColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 0)]
         
@@ -69,14 +71,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
  
     // MARK: - Functions
     func initiateViews(){
+        
+        self.view.backgroundColor = UIColor.whiteColor()
+        
         // NavController
         navController.backgroundColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1)
           
         // SearchBar
         var textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.whiteColor()
-        
-        searchBar.setImage(UIImage(named: "SearchWhite"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal);
+        searchBar.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
+        searchBar.tintColor = UIColor(red: 32/255, green: 106/255, blue: 196/255, alpha: 1)
         
         var textfield:UITextField = searchBar.valueForKey("searchField") as! UITextField
         var attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
@@ -101,7 +106,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         txt.attributedPlaceholder = attR
         
-        searchBar.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal);
+        // SegmentedControl
+        segmentedControl.layer.masksToBounds = true
+        segmentedControl.layer.cornerRadius = 6
+        segmentedControl.layer.borderColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1).CGColor
+        segmentedControl.layer.borderWidth = 1.0
+        segmentedControl.backgroundColor = UIColor(red: 32/255, green: 106/255, blue: 196/255, alpha: 1)
     }
     
     func getNearestStops() {
@@ -189,6 +199,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
             }
             
+        }
+        else{
+            self.navigationController?.navigationBar.layer.zPosition = -1
         }
     }
     
