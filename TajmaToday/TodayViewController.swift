@@ -405,6 +405,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 }
             }
             
+            //linesAtStop.sort({$0.snameAndDirection == $1.snameAndDirection})
             
             let sortedList = linesAtStop.sorted {
                 switch ($0.distance,$1.distance) {

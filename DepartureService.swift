@@ -64,27 +64,14 @@ public class DepartureService {
                 tempDepartures.append(departure)
             }
             
-            tempDepartures.sort({ $0.sname != $1.sname ? $0.sname < $1.sname : $0.track < $1.track})
-            
-            tempDepartures.sort({$0.direction < $1.direction})
-            
+            tempDepartures.sort({ $0.sname != $1.sname ? $0.sname < $1.sname : $0.direction < $1.direction})
             
             var previousSname = ""
             var previousTrack = ""
             var previousDirection = ""
             for row in tempDepartures {
-                
                 var existingStop = self.stopService.checkIfUserHasAddedStop(stopId)
-                
-                
-                //                if (!existingStop.name.isEmpty){
-                //                }
-                //                else{
-                //                }
-                
-                
                 var departure : Departure
-                
                 
                 if (previousSname == row.sname && previousTrack == row.track && previousDirection == row.direction) {
                     departure = self.departures[self.departures.count - 1]
@@ -148,12 +135,12 @@ public class DepartureService {
             }
             
             for stop in closestStops {
-                let linesAtStop = dbService.getLinesAtStopArr(stop.id)
+                var linesAtStop = dbService.getLinesAtStopArr(stop.id)
                 
                 // hämta departures via Västtrafik api
                 dispatch_group_enter(getDeparturesGroup)
                 getDeparturesFromStop(stop.id, onCompletion: { departures -> Void in
-                    
+
                     stop.departures = [Departure]()
                     
                     for line in linesAtStop {
