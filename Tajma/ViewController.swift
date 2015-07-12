@@ -15,6 +15,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
+    var webView = UIWebView()
+    var btnCloseWebView  = UIButton()
+    
     let dbService = DBService()
     let lineService = LineService()
     var stopService = StopsService()
@@ -53,6 +56,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         initiateViews()
         
         self.title = "Bakåt"
+        
+        // Förstagångsguide som öppnas första gången appen öppnas
+        let firstLaunch = NSUserDefaults.standardUserDefaults().boolForKey("FirstLaunch")
+        if !firstLaunch  {
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "FirstLaunch")
+            
+            webView = UIWebView(frame: CGRectMake(0, self.navigationController!.navigationBar.bounds.height - 44, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - 50))
+            webView.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.tajmahelpappwebsite.rashwanlazkani.se/")!))
+            
+            btnCloseWebView = UIButton(frame: CGRectMake(view.bounds.width - 100,view.bounds.height - 45, 80, 40))
+            btnCloseWebView.backgroundColor = UIColor.clearColor()
+            btnCloseWebView.setTitle("Stäng", forState: UIControlState.Normal)
+            btnCloseWebView.addTarget(self, action: "closeWebView:", forControlEvents: .TouchUpInside)
+            btnCloseWebView.titleLabel?.font = UIFont.systemFontOfSize(14.0)
+            btnCloseWebView.titleLabel?.textAlignment = NSTextAlignment.Left
+            btnCloseWebView.backgroundColor = UIColor.grayColor()
+            btnCloseWebView.layer.cornerRadius = 5
+            
+            view.addSubview(webView)
+            view.addSubview(btnCloseWebView)
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -112,6 +136,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         segmentedControl.layer.borderColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1).CGColor
         segmentedControl.layer.borderWidth = 1.0
         segmentedControl.backgroundColor = UIColor(red: 32/255, green: 106/255, blue: 196/255, alpha: 1)
+    }
+    
+    func closeWebView(sender: UIButton!){
+        btnCloseWebView.removeFromSuperview()
+        webView.removeFromSuperview()
     }
     
     func getNearestStops() {
