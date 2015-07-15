@@ -28,13 +28,13 @@ class DeviceService {
         switch DeviceService.iPhoneModelSize() {
             // 5
         case 10 :
-            return 280.0
+            return 200.0
             // 6
         case 13 :
-            return 330.0
+            return 250.0
             // 6P
         case 16 :
-            return 370.0
+            return 290.0
             // Simulator, iPad osv
         default:
             return 300

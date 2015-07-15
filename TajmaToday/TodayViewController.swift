@@ -34,6 +34,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         self.locationManager.requestWhenInUseAuthorization()
         if (CLLocationManager.locationServicesEnabled()){
@@ -54,6 +55,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        println(DeviceService.iPhoneModelSize())
         
         if (locationService){
             updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
@@ -158,6 +161,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         distanceLabel.textAlignment = NSTextAlignment.Left
         distanceLabel.textColor = UIColor.grayColor()
         distanceLabel.font = distanceLabel.font.fontWithSize(14)
+        
+        println(DeviceService.getLabelWidth())
         
         var lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceService.getLabelWidth(), height: 30))
         lblSnameDir.textAlignment = NSTextAlignment.Left
