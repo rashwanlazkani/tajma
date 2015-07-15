@@ -237,52 +237,50 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
             row.group.setBackgroundColor(UIColor.clearColor())
             
             var text = ""
+            var font = UIFont()
+            
+            // Tajma rubrik
             if (stop.distance == -1000){
                 row.group.setHeight(30.0)
                 row.label.setHeight(30.0)
-                var font = UIFont(name: "Arial", size: 12.0)
+                font = UIFont(name: "Arial", size: 12.0)!
                 
-                // Med avstånd
-                //text = "\(stop.stopName) \n Avstånd \(String(stop.distance))m"
                 text = "\(stop.stopName)"
                 
                 let attrString = NSAttributedString(
                     string: text,
                     attributes: NSDictionary(
-                        object: font!,
+                        object: font,
                         forKey: NSFontAttributeName) as [NSObject : AnyObject])
                 
                 row.label.setTextColor(UIColor.redColor())
                 row.label.setAttributedText(attrString)
             }
+            // Hållplats
             else if (stop.row == Row.Stop){
                 row.group.setHeight(30.0)
                 row.label.setHeight(30.0)
-                var font = UIFont(name: "Arial", size: 10.0)
-                // 22
+            
+                font = UIFont(name: "Arial", size: 10.0)!
                 var strLength = count(stop.stopName)
+                
                 if (strLength > 26){
                     var stopname = stop.stopName.subStringTo(24)
-                    // Med avstånd
                     text = "\(stopname) \n\(String(stop.distance))m"
-                    //text = "\(stop)"
                 }
-                else{
-                    
-                }
-                // Med avstånd
+                
                 text = "\(stop.stopName) \n\(String(stop.distance))m"
-                //text = "\(stop.stopName)"
                 
                 let attrString = NSAttributedString(
                     string: text,
                     attributes: NSDictionary(
-                        object: font!,
+                        object: font,
                         forKey: NSFontAttributeName) as [NSObject : AnyObject])
                 
                 row.label.setTextColor(UIColor.grayColor())
                 row.label.setAttributedText(attrString)
             }
+            // Avgångar
             else{
                 var tempText = ""
                 for (index, rtTime) in enumerate(stop.rtTimes){
@@ -310,16 +308,15 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                     }
                 }
                 
-                var x = ""
+                var snameAndDirection = ""
                 if (count(stop.snameAndDirection) >= 26){
-                    x = stop.snameAndDirection.subStringTo(24) + "..."
+                    snameAndDirection = stop.snameAndDirection.subStringTo(24) + "..."
                 }
                 else{
-                    x = stop.snameAndDirection
+                    snameAndDirection = stop.snameAndDirection
                 }
                 
-                
-                text = "\(x) \n\(tempText)"
+                text = "\(snameAndDirection) \n\(tempText)"
                 let font = UIFont(name: "Arial", size: 8.0)
                 
                 let attrString = NSAttributedString(
@@ -329,7 +326,6 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                         forKey: NSFontAttributeName) as [NSObject : AnyObject])
                 
                 row.label.setAttributedText(attrString)
-                
                 row.group.setHeight(30.0)
             }
             
