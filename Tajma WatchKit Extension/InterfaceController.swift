@@ -114,7 +114,6 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     }
     
     func getData(){
-        var isStop = 0
         linesAtStop = [TodayLabel]()
         // För att sorteringen ska funka måste alla items i linesAtStop arrayen ha departures
         var tempArr = [-10, -10]
@@ -140,7 +139,6 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
             for stop in stops{
                 var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
                 
-                isStop++
                 linesAtStop.append(todayLabel)
                 
                 if (stop.departures?.count == 0){
@@ -172,6 +170,11 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                     
                 }
             }
+            
+            // Tom rad för att visa Tajma namnet i början
+            var heading = TodayLabel(stopName: "Tajma", distance: -1000, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
+            
+            linesAtStop.append(heading)
             
             
             let sortedList = linesAtStop.sorted {
@@ -211,12 +214,6 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 linesAtStop = temp
             }
             
-            // VISA EJ ENDAST HÅLLPLATSNAMNET
-            // Kollar om vi har fler än 1 stopp och fler än maxrader
-            // Visar närmaste avgångar för alla
-            
-            //linesAtStop = sortedList
-            
             self.updateTable()
         }
     }
@@ -240,22 +237,10 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
             row.group.setBackgroundColor(UIColor.clearColor())
             
             var text = ""
-            if (stop.row == Row.Stop){
-                row.group.setHeight(15.0)
-                // 22
-                var strLength = count(stop.stopName)
-                if (strLength > 26){
-                    var stop = stop.stopName.subStringTo(24)
-                    // Med avstånd
-                    //text = "\(stop) \n Avstånd \(String(stop.distance))m"
-                    text = "\(stop)"
-                }
-                else{
-                    
-                }
-                
-                
-                let font = UIFont(name: "Arial", size: 10.0)
+            if (stop.distance == -1000){
+                row.group.setHeight(30.0)
+                row.label.setHeight(30.0)
+                var font = UIFont(name: "Arial", size: 12.0)
                 
                 // Med avstånd
                 //text = "\(stop.stopName) \n Avstånd \(String(stop.distance))m"
@@ -267,11 +252,38 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                         object: font!,
                         forKey: NSFontAttributeName) as [NSObject : AnyObject])
                 
+                row.label.setTextColor(UIColor.redColor())
+                row.label.setAttributedText(attrString)
+            }
+            else if (stop.row == Row.Stop){
+                row.group.setHeight(30.0)
+                row.label.setHeight(30.0)
+                var font = UIFont(name: "Arial", size: 10.0)
+                // 22
+                var strLength = count(stop.stopName)
+                if (strLength > 26){
+                    var stopname = stop.stopName.subStringTo(24)
+                    // Med avstånd
+                    text = "\(stopname) \n\(String(stop.distance))m"
+                    //text = "\(stop)"
+                }
+                else{
+                    
+                }
+                // Med avstånd
+                text = "\(stop.stopName) \n\(String(stop.distance))m"
+                //text = "\(stop.stopName)"
+                
+                let attrString = NSAttributedString(
+                    string: text,
+                    attributes: NSDictionary(
+                        object: font!,
+                        forKey: NSFontAttributeName) as [NSObject : AnyObject])
+                
                 row.label.setTextColor(UIColor.grayColor())
                 row.label.setAttributedText(attrString)
             }
             else{
-
                 var tempText = ""
                 for (index, rtTime) in enumerate(stop.rtTimes){
                     if (index == 0 && rtTime == 0){
