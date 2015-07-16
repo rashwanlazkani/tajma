@@ -62,7 +62,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if !firstLaunch  {
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "FirstLaunch")
             
-            webView = UIWebView(frame: CGRectMake(0, self.navigationController!.navigationBar.bounds.height - 44, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - 50))
+            webView = UIWebView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height))
             webView.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.tajmahelpappwebsite.rashwanlazkani.se/")!))
             
             btnCloseWebView = UIButton(frame: CGRectMake(view.bounds.width - 100,view.bounds.height - 45, 80, 40))
@@ -76,6 +76,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             view.addSubview(webView)
             view.addSubview(btnCloseWebView)
+
         }
     }
     
