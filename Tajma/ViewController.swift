@@ -76,7 +76,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             view.addSubview(webView)
             view.addSubview(btnCloseWebView)
-
         }
         
         // Rate
