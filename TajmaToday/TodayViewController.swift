@@ -214,7 +214,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             cell.addSubview(separatorView)
         }
-            //Inga avgångar hittades
+        //Inga avgångar hittades
         else if (linesAtStop[indexPath.row].row == Row.NoDepartures){
             stopLabel.text = linesAtStop[indexPath.row].stopName
             
@@ -223,7 +223,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             cell.addSubview(stopLabel)
         }
-            // Linje på hållplats
+        // Linje
         else if (linesAtStop[indexPath.row].row == Row.Line){
             lblSnameDir.text = linesAtStop[indexPath.row].sname
             lblSnameDir.text! += " " + linesAtStop[indexPath.row].direction
@@ -401,6 +401,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 }
             }
             
+            // Sortera lista på distans och sedan efter avgångar
             let sortedList = linesAtStop.sorted {
                 switch ($0.distance,$1.distance) {
                     // if neither “category" is nil and contents are equal,
@@ -415,6 +416,9 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             linesAtStop = sortedList
             
+            // Går igenom och kollar om det är max antal stopp
+            // Om max antal så vill vi dölja dubletter av linjer för hållplatser
+            // Ex: Linje 10 mot Centralstationen ska endast visas på den närmaste hållplatsen så att vi kan visa fler linjer
             var temp = [TodayLabel]()
             if (linesAtStop.count > DeviceService.iPhoneModelSize()){
                 var arr = [String]()
