@@ -78,6 +78,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             view.addSubview(btnCloseWebView)
 
         }
+        
+        // Rate
+        var rate = RateMyApp.sharedInstance
+        rate.appID = "689392780"
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            rate.trackAppUsage()
+        })
+
     }
     
     override func viewDidAppear(animated: Bool) {
