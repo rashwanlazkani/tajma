@@ -9,12 +9,9 @@
 import Foundation
 
 public enum Row {
-    case BlankRow
-    case Button
-    case ButtonAddStop
-    case Info
-    case NoDepartures
     case Stop
-    case Trip
-    case TurnOnLocation
+    case Line
+    case Button
+    case NoDepartures
+    case Info
 }

@@ -143,10 +143,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         // Rensa alla views
         for view in cell.subviews{
             view.removeFromSuperview()
-            /*
-            if (toString(view.dynamicType) != "_UITableViewCellSeparatorView" && toString(view.dynamicType) != "UITableViewCellContentView") {
-            }
-            */
         }
         
         var maxRows = false
@@ -160,9 +156,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         distanceLabel.textAlignment = NSTextAlignment.Left
         distanceLabel.textColor = UIColor.grayColor()
         distanceLabel.font = distanceLabel.font.fontWithSize(14)
-        
-        println(DeviceService.getLabelWidth())
-        
+
         var lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceService.getLabelWidth(), height: 30))
         lblSnameDir.textAlignment = NSTextAlignment.Left
         lblSnameDir.textColor = UIColor.whiteColor()
@@ -183,7 +177,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
     
         // Inget stopp || Inget stopp i närheten
-        if (linesAtStop[indexPath.row].row == Row.Info || linesAtStop[indexPath.row].row == Row.ButtonAddStop){
+        if (linesAtStop[indexPath.row].row == Row.Info || linesAtStop[indexPath.row].row == Row.Button){
             
             for view in cell.subviews{
                 view.removeFromSuperview()
@@ -194,7 +188,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 
                 cell.addSubview(stopLabel)
             }
-            else if (linesAtStop[indexPath.row].row == Row.ButtonAddStop){
+            else if (linesAtStop[indexPath.row].row == Row.Button){
                 let btnMainApp = UIButton(frame: CGRectMake(10,0, cell.bounds.width - 40, 35))
                 btnMainApp.backgroundColor = UIColor.clearColor()
                 btnMainApp.setTitle("Lägg till ny hållplats", forState: UIControlState.Normal)
@@ -230,7 +224,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             cell.addSubview(stopLabel)
         }
             // Linje på hållplats
-        else if (linesAtStop[indexPath.row].row == Row.Trip){
+        else if (linesAtStop[indexPath.row].row == Row.Line){
             lblSnameDir.text = linesAtStop[indexPath.row].sname
             lblSnameDir.text! += " " + linesAtStop[indexPath.row].direction
             
@@ -263,8 +257,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             var separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
             separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
-            
-            //let subString = (lblSnameDir.text! as NSString).containsString("via")
             
             cell.addSubview(separatorView)
             cell.addSubview(lblSnameDir)
@@ -361,7 +353,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             var todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
             linesAtStop.append(todayLabel)
             
-            var todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.ButtonAddStop)
+            var todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Button)
             linesAtStop.append(todayButton)
             
             updateTable()
@@ -401,15 +393,13 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                             }
                         }
                         
-                        var trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Trip)
+                        var trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
                         
                         linesAtStop.append(trip)
                     }
                     
                 }
             }
-            
-            //linesAtStop.sort({$0.snameAndDirection == $1.snameAndDirection})
             
             let sortedList = linesAtStop.sorted {
                 switch ($0.distance,$1.distance) {
