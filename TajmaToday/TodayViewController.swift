@@ -35,7 +35,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         self.locationManager.requestWhenInUseAuthorization()
         if (CLLocationManager.locationServicesEnabled()){
             if CLLocationManager.authorizationStatus() == .Denied {
@@ -432,9 +431,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 var temp = [TodayLabel]()
                 
                 for (index, stop) in enumerate(linesAtStop){
-                    if (index == 13){
-                        var x = 0
-                    }
                     // Om sista raden endast är en hållplats så vill vi inte visa denna
                     if (index == DeviceService.iPhoneModelSize() - 1 && stop.snameAndDirection == ""){
                          break
