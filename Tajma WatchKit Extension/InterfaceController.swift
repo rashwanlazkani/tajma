@@ -64,10 +64,10 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     }
     
     // MARK: - Location
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
-                println("Error: " + error.localizedDescription)
+                print("Error: " + error.localizedDescription)
                 return
             }
             if (placemarks.count > 0){
@@ -75,7 +75,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 self.displayLocationInfo(pm)
             }
             else{
-                println("Error with location data")
+                print("Error with location data")
             }
         })
     }
@@ -94,8 +94,8 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        println("Error: " + error.localizedDescription)
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Error: " + error.localizedDescription)
     }
     
     func getLocationAndUpdateView(){
@@ -106,7 +106,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     func locationOff(){
         linesAtStop = [TodayLabel]()
         
-        var todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
+        let todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
         linesAtStop.append(todayLabel)
         
         locationService = false
@@ -116,16 +116,16 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     func getData(){
         linesAtStop = [TodayLabel]()
         // För att sorteringen ska funka måste alla items i linesAtStop arrayen ha departures
-        var tempArr = [-10, -10]
+        let tempArr = [-10, -10]
         
         // ta data och platta till den med sektioner så att den passar listan
-        var stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
+        let stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
         if (stops.count == 0){
-            var todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
+            let todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
             linesAtStop.append(todayLabel)
             
-            var todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Button)
+            let todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Button)
             linesAtStop.append(todayButton)
             
             updateTable()
@@ -149,8 +149,8 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                     // Loopa igenom linjer på hållplatsen
                     for departure in stop.departures!{
                         var rtTimesArr = [Int]()
-                        departure.rtTimes.sort({$0 < $1})
-                        for (index, rtTime) in enumerate(departure.rtTimes){
+                        departure.rtTimes.sortInPlace({$0 < $1})
+                        for (index, rtTime) in departure.rtTimes.enumerate(){
                             // Hämta endast två tider
                             if (index == 2){
                                 continue
@@ -163,7 +163,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                             }
                         }
                         
-                        var trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
+                        let trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
                         
                         linesAtStop.append(trip)
                     }
@@ -172,12 +172,12 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
             }
             
             // Tom rad för att visa Tajma namnet i början
-            var heading = TodayLabel(stopName: "Tajma", distance: -1000, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
+            let heading = TodayLabel(stopName: "Tajma", distance: -1000, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
             
             linesAtStop.append(heading)
             
             
-            let sortedList = linesAtStop.sorted {
+            let sortedList = linesAtStop.sort {
                 switch ($0.distance,$1.distance) {
                     // if neither “category" is nil and contents are equal,
                 case let (lhs,rhs) where lhs == rhs:
@@ -197,7 +197,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 
                 var temp = [TodayLabel]()
                 
-                for (index, stop) in enumerate(linesAtStop){
+                for (index, stop) in linesAtStop.enumerate(){
                     // Om sista raden endast är en hållplats så vill vi inte visa denna
                     if (index >= watchSize() && stop.snameAndDirection == ""){
                         break
@@ -205,7 +205,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                     if (stop.snameAndDirection == ""){
                         stop.snameAndDirection += String(index)
                     }
-                    if (!contains(arr, stop.snameAndDirection)){
+                    if (!arr.contains(stop.snameAndDirection)){
                         temp.append(stop)
                         arr.append(stop.snameAndDirection)
                     }
@@ -232,7 +232,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     func updateTable(){
         table.setNumberOfRows(linesAtStop.count, withRowType: "Row")
         
-        for (index, stop) in enumerate(linesAtStop){
+        for (index, stop) in linesAtStop.enumerate(){
             let row = table.rowControllerAtIndex(index) as! DataRowController
             row.group.setBackgroundColor(UIColor.clearColor())
             
@@ -262,7 +262,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 row.label.setHeight(30.0)
             
                 font = UIFont(name: "Arial", size: 10.0)!
-                var strLength = count(stop.stopName)
+                var strLength = stop.stopName.characters.count
                 
                 if (strLength > 26){
                     var stopname = stop.stopName.subStringTo(24)
@@ -283,7 +283,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
             // Avgångar
             else{
                 var tempText = ""
-                for (index, rtTime) in enumerate(stop.rtTimes){
+                for (index, rtTime) in stop.rtTimes.enumerate(){
                     if (index == 0 && rtTime == 0){
                         tempText = "Nu"
                     }
@@ -309,7 +309,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 }
                 
                 var snameAndDirection = ""
-                if (count(stop.snameAndDirection) >= 26){
+                if (stop.snameAndDirection.characters.count >= 26){
                     snameAndDirection = stop.snameAndDirection.subStringTo(24) + "..."
                 }
                 else{

@@ -28,7 +28,7 @@ class StopsService{
                 var tempNames = [String]()
                 self.stops = StopWrapper()
                 
-                for (index: String, subJson: JSON) in stops {
+                for (index, subJson): (String, JSON) in stops {
                     let user: AnyObject = subJson["name"].object
                     
                     var id = subJson["id"].string
@@ -42,7 +42,7 @@ class StopsService{
                     
                     
                     // Kollar så att man endast visar en hållplats och inte alla tracks (A,B,C osv...)
-                    if (!contains(tempNames, name!)){
+                    if (!tempNames.contains((name!))){
                         tempNames.insert(name!, atIndex: 0)
                         // För att kolla om hållplatsen redan finns tillagd av användaren
                         // För att hämta rätt koordinater och stopId för att Västtrafiks API innehåller flera hållplatser med samma namn fast annorlunda stopId
@@ -90,7 +90,7 @@ class StopsService{
             else{
                 let stops = json["LocationList"]["StopLocation"]
                 
-                for (index: String, subJson: JSON) in stops {
+                for (index, subJson): (String, JSON) in stops {
                     let user: AnyObject = subJson["name"].object
                     
                     var id = subJson["id"].string
@@ -131,18 +131,18 @@ class StopsService{
     func checkIfUserHasAddedStop(stopName : String) -> Stop{
         var userStops = [Stop]()
         var userStopsArr = [String]()
-        var userStopsFromDB = self.dbService.getStops()
+        let userStopsFromDB = self.dbService.getStops()
         
         var stop = Stop(id: "", name: "", lat: "", long: "", distance: 0, departures: [])
         
         for stop in userStopsFromDB{
-            var stop = Stop(id: stop.id, name: stop.name, lat: stop.lat, long: stop.long, distance: stop.distance, departures: stop.departures)
+            let stop = Stop(id: stop.id, name: stop.name, lat: stop.lat, long: stop.long, distance: stop.distance, departures: stop.departures)
             
             userStops.append(stop)
             userStopsArr.append(stop.name)
         }
         
-        if (contains(userStopsArr, stopName)){
+        if (userStopsArr.contains(stopName)){
             for item in userStops{
                 if (item.name == stopName){
                     stop = Stop(id: item.id, name: item.name, lat: item.lat, long: item.long, distance: 0, departures: nil)

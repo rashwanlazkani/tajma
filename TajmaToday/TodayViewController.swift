@@ -55,7 +55,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        println(DeviceService.iPhoneModelSize())
+        print(DeviceService.iPhoneModelSize())
         
         if (locationService){
             updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
@@ -67,10 +67,10 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     // MARK: - Location
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
-                println("Error: " + error.localizedDescription)
+                print("Error: " + error.localizedDescription)
                 return
             }
             if (placemarks.count > 0){
@@ -78,7 +78,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 self.displayLocationInfo(pm)
             }
             else{
-                println("Error with location data")
+                print("Error with location data")
             }
         })
     }
@@ -97,8 +97,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         }
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        println("Error: " + error.localizedDescription)
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Error: " + error.localizedDescription)
     }
     
     func getLocationAndUpdateView(){
@@ -109,7 +109,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     func locationOff(){
         linesAtStop = [TodayLabel]()
         
-        var todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
+        let todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
         linesAtStop.append(todayLabel)
         
         locationService = false
@@ -117,7 +117,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     // MARK: - Widget Delegate
-    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)!) {
+    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
         self.tableView.reloadData()
         completionHandler(NCUpdateResult.NewData)
     }
@@ -138,7 +138,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
         
         // Rensa alla views
         for view in cell.subviews{
@@ -147,30 +147,30 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         
         var maxRows = false
         
-        var stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
+        let stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
         stopLabel.textAlignment = NSTextAlignment.Left
         stopLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
         stopLabel.font = stopLabel.font.fontWithSize(14)
         
-        var distanceLabel = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 4, 100, 30))
+        let distanceLabel = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 4, 100, 30))
         distanceLabel.textAlignment = NSTextAlignment.Left
         distanceLabel.textColor = UIColor.grayColor()
         distanceLabel.font = distanceLabel.font.fontWithSize(14)
 
-        var lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceService.getLabelWidth(), height: 30))
+        let lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceService.getLabelWidth(), height: 30))
         lblSnameDir.textAlignment = NSTextAlignment.Left
         lblSnameDir.textColor = UIColor.whiteColor()
         lblSnameDir.font = lblSnameDir.font.fontWithSize(14)
         
-        var depLabelOne = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
+        let depLabelOne = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
         depLabelOne.textColor = UIColor.whiteColor()
         depLabelOne.font = depLabelOne.font.fontWithSize(14)
         
-        var depLabelTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 25, 4, 30, 30))
+        let depLabelTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 25, 4, 30, 30))
         depLabelTwo.textColor = UIColor.lightGrayColor()
         depLabelTwo.font = depLabelTwo.font.fontWithSize(14)
         
-        var letterSname = linesAtStop[indexPath.row].sname.toInt()
+        let letterSname = Int(linesAtStop[indexPath.row].sname)
         // Linje med bokstäver
         if (letterSname == nil){
             lblSnameDir.font = lblSnameDir.font.fontWithSize(14)
@@ -209,7 +209,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             cell.addSubview(stopLabel)
             cell.addSubview(distanceLabel)
             
-            var separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
+            let separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
             separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
             
             cell.addSubview(separatorView)
@@ -228,9 +228,9 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             lblSnameDir.text = linesAtStop[indexPath.row].sname
             lblSnameDir.text! += " " + linesAtStop[indexPath.row].direction
             
-            println(lblSnameDir)
+            print(lblSnameDir)
             
-            for (index, rtTime) in enumerate(linesAtStop[indexPath.row].rtTimes){
+            for (index, rtTime) in linesAtStop[indexPath.row].rtTimes.enumerate(){
                 if (index == 0 && rtTime == 0){
                     depLabelOne.text = "Nu"
                 }
@@ -255,7 +255,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 }
             }
             
-            var separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
+            let separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
             separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
             
             cell.addSubview(separatorView)
@@ -281,8 +281,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if (linesAtStop.count == 0){
-            var view = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, tableView.bounds.height));
-            var loadingLabel = UILabel(frame: CGRectMake(0, 4, 200, 15))
+            let view = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, tableView.bounds.height));
+            let loadingLabel = UILabel(frame: CGRectMake(0, 4, 200, 15))
             loadingLabel.textAlignment = NSTextAlignment.Left
             loadingLabel.textColor = UIColor.grayColor()
             loadingLabel.font = loadingLabel.font.fontWithSize(14)
@@ -293,9 +293,9 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             return view
         }
         else if (linesAtStop.count > DeviceService.iPhoneModelSize()){
-             var view = UIView(frame: CGRectMake(0, 120, 300, 36));
+             let view = UIView(frame: CGRectMake(0, 120, 300, 36));
             
-            var maxLabel = UILabel(frame: CGRectMake(8, 10, 300, 36))
+            let maxLabel = UILabel(frame: CGRectMake(8, 10, 300, 36))
             
             // Max antal linjer
             maxLabel.text =  "Max antal linjer. Listar närmaste avgångar"
@@ -307,7 +307,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             return view
         }
         else{
-            var table = UIView(frame: CGRectZero)
+            let table = UIView(frame: CGRectZero)
             tableView.tableFooterView = table
             table.hidden = true
             tableView.tableFooterView?.hidden = true
@@ -327,16 +327,16 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var url = NSURL(fileURLWithPath: "Tajma://home")
-        self.extensionContext?.openURL(url!, completionHandler: nil)
+        self.extensionContext?.openURL(url, completionHandler: nil)
         
         let cell = tableView.cellForRowAtIndexPath(indexPath)
     }
     
     // MARK: - Events
     func openMainApp(sender: UIButton!) {
-        println("Click")
+        print("Click")
         var url = NSURL(fileURLWithPath: "Tajma://home")
-        self.extensionContext?.openURL(url!, completionHandler: nil)
+        self.extensionContext?.openURL(url, completionHandler: nil)
     }
     
     // MARK: - Functions
@@ -344,16 +344,16 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         var isStop = 0
         linesAtStop = [TodayLabel]()
         // För att sorteringen ska funka måste alla items i linesAtStop arrayen ha departures
-        var tempArr = [-10, -10]
+        let tempArr = [-10, -10]
         
         // ta data och platta till den med sektioner så att den passar listan
-        var stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
+        let stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
         if (stops.count == 0){
-            var todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
+            let todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
             linesAtStop.append(todayLabel)
             
-            var todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Button)
+            let todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Button)
             linesAtStop.append(todayButton)
             
             updateTable()
@@ -378,9 +378,9 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                     // Loopa igenom linjer på hållplatsen
                     for departure in stop.departures!{
                         var rtTimesArr = [Int]()
-                        departure.rtTimes.sort({$0 < $1})
+                        departure.rtTimes.sortInPlace({$0 < $1})
                         
-                        for (index, rtTime) in enumerate(departure.rtTimes){
+                        for (index, rtTime) in departure.rtTimes.enumerate(){
                             // Hämta endast två tider
                             if (index == 2){
                                 continue
@@ -393,7 +393,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                             }
                         }
                         
-                        var trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
+                        let trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
                         
                         linesAtStop.append(trip)
                     }
@@ -402,7 +402,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             }
             
             // Sortera lista på distans och sedan efter avgångar
-            let sortedList = linesAtStop.sorted {
+            let sortedList = linesAtStop.sort {
                 switch ($0.distance,$1.distance) {
                     // if neither “category" is nil and contents are equal,
                 case let (lhs,rhs) where lhs == rhs:
@@ -424,7 +424,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                 var arr = [String]()
                 var temp = [TodayLabel]()
                 
-                for (index, stop) in enumerate(linesAtStop){
+                for (index, stop) in linesAtStop.enumerate(){
                     // Om sista raden endast är en hållplats så vill vi inte visa denna
                     if (index == DeviceService.iPhoneModelSize() - 1 && stop.snameAndDirection == ""){
                          break
@@ -432,7 +432,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
                     if (stop.snameAndDirection == ""){
                         stop.snameAndDirection += String(index)
                     }
-                    if (!contains(arr, stop.snameAndDirection)){
+                    if (!arr.contains(stop.snameAndDirection)){
                         temp.append(stop)
                         arr.append(stop.snameAndDirection)
                     }

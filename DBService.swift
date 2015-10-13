@@ -15,7 +15,7 @@ class DBService {
         
         // Hämta Shared URL
         var url = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.tajma.today")!
-        var urlSubString = url.absoluteString!.stringByReplacingOccurrencesOfString("file:///", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        var urlSubString = url.absoluteString.stringByReplacingOccurrencesOfString("file:///", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         // skapa en file manager för att hanera filerna
         let filemgr = NSFileManager.defaultManager()
@@ -50,12 +50,12 @@ class DBService {
         let userStops = db.query("SELECT * FROM stops")
         
         for row in userStops{
-            var stop = Stop(id: row["stopId"]!.asString(), name: row["stopName"]!.asString(), lat: row["lat"]!.asString(), long: row["long"]!.asString(), distance: 0, departures: nil)
+            let stop = Stop(id: row["stopId"]!.asString(), name: row["stopName"]!.asString(), lat: row["lat"]!.asString(), long: row["long"]!.asString(), distance: 0, departures: nil)
             
             stops.append(stop)
         }
         
-        stops.sort({ $0.name < $1.name })
+        stops.sortInPlace({ $0.name < $1.name })
         
         return stops
         
@@ -63,13 +63,13 @@ class DBService {
     
     func getStopsCount() -> Int{
         var stopsCount = db.query("SELECT count(*) FROM Stops")
-        var row = stopsCount[0]
+        let row = stopsCount[0]
         return row["count(*)"]!.asInt()
     }
     
     func getStopsNearLocationCount(lat: String, long: String) -> Int{
         var stopsNearLocation = db.query("SELECT count(*) FROM stops WHERE lat like '\(lat))%' AND long like '\(long))%'")
-        var row = stopsNearLocation[0]
+        let row = stopsNearLocation[0]
         return row["count(*)"]!.asInt()
     }
     
@@ -102,10 +102,10 @@ class DBService {
     
     func getLinesAtStopArr(stopId : String) -> [LineAtStopToday]{
         var lineArr = [LineAtStopToday]()
-        var lines = db.query("SELECT * FROM Lines WHERE stopId = \(stopId)")
+        let lines = db.query("SELECT * FROM Lines WHERE stopId = \(stopId)")
         
         for line in lines{
-            var lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString(), direction: line["direction"]!.asString())
+            let lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString(), direction: line["direction"]!.asString())
             
             lineArr.append(lineAtStop)
         }
@@ -119,7 +119,7 @@ class DBService {
         var tempLinesAtStopTodayArr = [LineAtStopToday]()
         
         for line in userStops{
-            var lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString(), direction: line["direction"]!.asString())
+            let lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString(), direction: line["direction"]!.asString())
             tempLinesAtStopTodayArr.append(lineAtStop)
         }
         
@@ -133,7 +133,7 @@ class DBService {
         
         var lines : String = ""
         var i = 0
-        var lastRow = data.count - 1
+        let lastRow = data.count - 1
         for row in data{
             if (i == 0 && data.count == 1){
                 lines = row["sname"]!.asString()
@@ -160,8 +160,8 @@ class DBService {
         
         // Kolla om hållplatsen redan finns
         var data = db.query("SELECT count(*) FROM Stops WHERE stopId = '\(stop.stopId)'")
-        var row = data[0]
-        var totStops = row["count(*)"]!.asInt()
+        let row = data[0]
+        let totStops = row["count(*)"]!.asInt()
         // Annars lägg till
         if (totStops == 0){
             db.query("INSERT INTO Stops VALUES('\(stop.stopId)','\(stop.stopName)','\(stop.lat)','\(stop.long)')")
@@ -179,8 +179,8 @@ class DBService {
         var queryLines = db.query("SELECT count(*) FROM Lines WHERE stopId = '\(stop.stopId)'")
         
         if (!queryLines.isEmpty){
-            var lines = queryLines[0]
-            var totLines = lines["count(*)"]!.asInt()
+            let lines = queryLines[0]
+            let totLines = lines["count(*)"]!.asInt()
             
             if (totLines == 0){
                 removeStop(stop.stopId)
@@ -190,10 +190,10 @@ class DBService {
     
     func getLines() -> [LineAtStopToday]{
         var lineArr = [LineAtStopToday]()
-        var lines = db.query("SELECT * FROM Lines")
+        let lines = db.query("SELECT * FROM Lines")
         
         for line in lines{
-            var lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString(), direction: line["direction"]!.asString())
+            let lineAtStop = LineAtStopToday(stopId: line["stopId"]!.asString(), track: line["track"]!.asString(), sname: line["sname"]!.asString(), direction: line["direction"]!.asString())
             
             lineArr.append(lineAtStop)
         }

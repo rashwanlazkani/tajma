@@ -37,7 +37,7 @@ public class DepartureService {
             
             var tempDepartures = [Departure]()
             
-            for (index: String, subJson: JSON) in results {
+            for (index, subJson): (String, JSON) in results {
                 var stopId = subJson["stopid"].string!
                 var sname = subJson["sname"].string!
                 var track = subJson["track"].string ?? ""
@@ -64,7 +64,7 @@ public class DepartureService {
                 tempDepartures.append(departure)
             }
             
-            tempDepartures.sort({ $0.sname != $1.sname ? $0.sname < $1.sname : $0.direction < $1.direction})
+            tempDepartures.sortInPlace({ $0.sname != $1.sname ? $0.sname < $1.sname : $0.direction < $1.direction})
             
             var previousSname = ""
             var previousTrack = ""
@@ -100,27 +100,27 @@ public class DepartureService {
         var stops = dbService.getStops()
         var closestStops = [Stop]()
         
-        var getDeparturesGroup = dispatch_group_create()
+        let getDeparturesGroup = dispatch_group_create()
         
         // Hämta x närmaste hållplatser i närheten
         if (stops.count > 0){
             
             for stop in stops {
                 // räkna ut avstånd
-                var stopLat = (stop.lat as NSString).doubleValue
-                var stopLong = (stop.long as NSString).doubleValue
+                let stopLat = (stop.lat as NSString).doubleValue
+                let stopLong = (stop.long as NSString).doubleValue
                 
-                var userLocation = CLLocation(latitude: lat, longitude: long)
-                var stopLocation = CLLocation(latitude: stopLat, longitude: stopLong)
-                var distance = userLocation.distanceFromLocation(stopLocation)
+                let userLocation = CLLocation(latitude: lat, longitude: long)
+                let stopLocation = CLLocation(latitude: stopLat, longitude: stopLong)
+                let distance = userLocation.distanceFromLocation(stopLocation)
                 
-                var roundDistance = roundToFive(distance)
+                let roundDistance = roundToFive(distance)
                 
                 stop.distance = roundDistance
             }
             
             // sortera baserat på avstånd
-            stops.sort({ $0.distance != $1.distance
+            stops.sortInPlace({ $0.distance != $1.distance
                 ? $0.distance < $1.distance
                 : $0.id < $1.id})
             
@@ -135,7 +135,7 @@ public class DepartureService {
             }
             
             for stop in closestStops {
-                var linesAtStop = dbService.getLinesAtStopArr(stop.id)
+                let linesAtStop = dbService.getLinesAtStopArr(stop.id)
                 
                 // hämta departures via Västtrafik api
                 dispatch_group_enter(getDeparturesGroup)

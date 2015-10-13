@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    required init(coder aDecoder: NSCoder)
+    required init?(coder aDecoder: NSCoder)
     {
         super.init(coder: aDecoder)
     }
@@ -79,7 +79,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         // Rate
-        var rate = RateMyApp.sharedInstance
+        let rate = RateMyApp.sharedInstance
         rate.appID = "689392780"
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -111,13 +111,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         navController.backgroundColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1)
           
         // SearchBar
-        var textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
+        let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.whiteColor()
         searchBar.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
         searchBar.tintColor = UIColor(red: 32/255, green: 106/255, blue: 196/255, alpha: 1)
         
-        var textfield:UITextField = searchBar.valueForKey("searchField") as! UITextField
-        var attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
+        let textfield:UITextField = searchBar.valueForKey("searchField") as! UITextField
+        let attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
         textfield.attributedPlaceholder = attributedString
         
         // TableView
@@ -133,9 +133,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.view.addSubview(activityIndicator)
         
         // För att sätta bakgrundfärg och opacitet på placeholdertext för searchBar
-        var txt:UITextField = searchBar.valueForKey("searchField") as! UITextField
+        let txt:UITextField = searchBar.valueForKey("searchField") as! UITextField
         
-        var attR = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)])
+        let attR = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)])
         
         txt.attributedPlaceholder = attR
         
@@ -162,7 +162,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.tableView!.reloadData()
                 }
                 else{
-                    var stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200,
+                    let stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200,
                         departures: nil)
                     
                     if (self.stopWrapper.stops.isEmpty){
@@ -175,7 +175,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         self.tableView!.reloadData()
                     }
                     
-                    println(self.stopWrapper.error)
+                    print(self.stopWrapper.error)
                 }
                 self.locationManager.stopUpdatingLocation()
                 self.segmentedControl.enabled = true
@@ -198,7 +198,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.performSegueWithIdentifier("ShowLinesView", sender: indexPath)
                 }
                 else{
-                    println(self.lineWrapper.error)
+                    print(self.lineWrapper.error)
                 }
             })
             
@@ -248,7 +248,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        if (count(searchBar.text) == 0){
+        if (searchBar.text.characters.count == 0){
             searchBar.resignFirstResponder()
             return
         }
@@ -265,7 +265,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.segmentedControl.setTitle("Sökresultat", forSegmentAtIndex: 0)
                 }
                 else{
-                    println(self.stopWrapper.error)
+                    print(self.stopWrapper.error)
                 }
                 
                 self.tableView!.reloadData()
@@ -280,10 +280,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     // MARK: - Location Manager
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
-                println("Error: " + error.localizedDescription)
+                print("Error: " + error.localizedDescription)
                 self.getNearestStops()
                 return
             }
@@ -292,7 +292,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.displayLocationInfo(pm)
             }
             else{
-                println("Error with location data")
+                print("Error with location data")
             }
         })
     }
@@ -308,13 +308,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.reloadData()
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         // Vi fick ett fel och kunde inte hämta location, visa felmeddelande i app.
-        println("Error: " + error.localizedDescription)
+        print("Error: " + error.localizedDescription)
         
         stopWrapper.stops = [Stop]()
         
-        var stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200, departures: nil)
+        let stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200, departures: nil)
         self.stopWrapper.stops.append(stop)
         self.tableView!.reloadData()
     }
@@ -355,7 +355,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell?.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         
         for view in cell!.subviews{
-            if (toString(view.dynamicType) == "UIImageView") {
+            if (String(view.dynamicType) == "UIImageView") {
                 view.removeFromSuperview()
             }
         }
@@ -370,7 +370,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         var myStops = dbService.getStopsId()
         
-        if (contains(myStops, stopWrapper.stops[indexPath.row].id)){
+        if (myStops.contains(stopWrapper.stops[indexPath.row].id)){
             let imageName = "check-red"
             let image = UIImage(named: imageName)
             let imageView = UIImageView(image: image!)
@@ -436,8 +436,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         if (segue.identifier == "ShowLinesView")
         {
-            var row : Int = sender as! Int
-            var stop = Stop(id: stopWrapper.stops[row].id, name: stopWrapper.stops[row].name, lat: stopWrapper.stops[row].lat, long: stopWrapper.stops[row].long, distance: 0, departures: nil)
+            let row : Int = sender as! Int
+            let stop = Stop(id: stopWrapper.stops[row].id, name: stopWrapper.stops[row].name, lat: stopWrapper.stops[row].lat, long: stopWrapper.stops[row].long, distance: 0, departures: nil)
             
             let lines = segue.destinationViewController as! LinesViewController
             lines.lineWrapper.lines = lineWrapper.lines

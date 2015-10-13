@@ -29,7 +29,7 @@ public class LineService{
                 
                 var tempNames = [String]()
                 
-                for (index: String, subJson: JSON) in results {
+                for (index, subJson): (String, JSON) in results {
                     var name = subJson["name"].string
                     var sname = subJson["sname"].string
                     var direction = subJson["direction"].string
@@ -48,7 +48,7 @@ public class LineService{
                         var lineAndDirection = self.subStringSnameAndDirection(sname!, direction: direction!, addWhereTo: false)
                         
                         // Kollar så att man endast visar en linje + direction per hållplats
-                        if (!contains(tempNames, lineAndDirection)){
+                        if (!tempNames.contains(lineAndDirection)){
                             tempNames.insert(lineAndDirection, atIndex: 0)
 
                             var line = Line(name: name ?? "", sname: sname ?? "", direction: direction ?? "", type: type ?? "", track: track ?? "", fgColor: fgColor ?? "", bgColor: bgColor ?? "", lineAndDirection: lineAndDirection)
@@ -59,7 +59,7 @@ public class LineService{
                     
                 }
                 
-                self.lines.lines.sort({$0.lineAndDirection < $1.lineAndDirection})
+                self.lines.lines.sortInPlace({$0.lineAndDirection < $1.lineAndDirection})
                 onCompletion(self.lines)
  
             }
@@ -90,7 +90,7 @@ public class LineService{
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "HH:mm"
 
-                for (index: String, subJson:JSON) in departureBoard{
+                for (index, subJson): (String, JSON) in departureBoard{
                     serverTimeStr = subJson["servertime"].string!
                 }
                 
@@ -98,7 +98,7 @@ public class LineService{
                 
                 var tempNames = [String]()
                 
-                for (index: String, subJson: JSON) in results {
+                for (index, subJson): (String, JSON) in results {
                     var stopId = subJson["stopId"].string
                     var sname = subJson["sname"].string
                     var direction = subJson["direction"].string
@@ -109,7 +109,7 @@ public class LineService{
                     lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Spårvagn", withString: "")
                     lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("SVAR", withString: "SVART")
                     
-                    if (!contains(tempNames, lineAndDirection)){
+                    if (!tempNames.contains(lineAndDirection)){
                         tempNames.insert(lineAndDirection, atIndex: 0)
                         
                         let serverTime = dateFormatter.dateFromString(serverTimeStr) as NSDate!
@@ -123,7 +123,7 @@ public class LineService{
                     
                 }
                 
-                self.lines.lines.sort({$0.lineAndDirection < $1.lineAndDirection})
+                self.lines.lines.sortInPlace({$0.lineAndDirection < $1.lineAndDirection})
                 onCompletion(self.lines)
                 
             }

@@ -53,13 +53,13 @@ class LinesViewController: UIViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1)
         self.navigationController?.navigationBar.translucent = false
         
-        var title = UILabel(frame: CGRectMake(0, 6, 200, 30))
+        let title = UILabel(frame: CGRectMake(0, 6, 200, 30))
         title.textAlignment = NSTextAlignment.Center
         title.textColor = UIColor.whiteColor()
         title.font = title.font.fontWithSize(17)
         title.text = stop.name
         
-        var navBarTitleView = UIView(frame: CGRect(x: phoneSize.width / 2, y: 0, width: 200, height: 44))
+        let navBarTitleView = UIView(frame: CGRect(x: phoneSize.width / 2, y: 0, width: 200, height: 44))
         navBarTitleView.backgroundColor = UIColor.clearColor()
         self.navigationItem.titleView = navBarTitleView
         
@@ -72,9 +72,9 @@ class LinesViewController: UIViewController {
         var height = 0
         var tag = 0
         
-        self.lineWrapper.lines.sort({$0.sname.toInt() < $1.sname.toInt() ? $0.sname < $1.name : $0.name < $1.name })
+        self.lineWrapper.lines.sortInPlace({Int($0.sname) < Int($1.sname) ? $0.sname < $1.name : $0.name < $1.name })
         
-        for (index, line) in enumerate(lineWrapper.lines){
+        for (index, line) in lineWrapper.lines.enumerate(){
             var checkBox = CheckBox()
             checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
             checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -85,7 +85,7 @@ class LinesViewController: UIViewController {
             var stopLine : StopLine
             var isChecked = false
             
-            if (contains(Global.allaStopp, line.lineAndDirection)){
+            if (Global.allaStopp.contains(line.lineAndDirection)){
                 stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: true)
                 checkBox.isChecked = true
                 
@@ -103,17 +103,17 @@ class LinesViewController: UIViewController {
 
             var fontSize = CGFloat(16)
             var sname = ""
-            var letterSname = line.sname.toInt()
+            var letterSname = Int(line.sname)
             // Bokstväver
             if (line.sname == "16X"){
                 fontSize = CGFloat(12)
                 sname = line.sname
             }
             else if (letterSname == nil){
-                let snameArr = Array(line.sname)
+                let snameArr = Array(line.sname.characters)
                 sname = String(snameArr[0])
             }
-            else if (count(line.sname) > 2){
+            else if (line.sname.characters.count > 2){
                 fontSize = CGFloat(12)
                 sname = line.sname
             }

@@ -51,13 +51,13 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1)
         self.navigationController?.navigationBar.translucent = false
         
-        var title = UILabel(frame: CGRectMake(0, 6, 200, 30))
+        let title = UILabel(frame: CGRectMake(0, 6, 200, 30))
         title.textAlignment = NSTextAlignment.Center
         title.textColor = UIColor.whiteColor()
         title.font = title.font.fontWithSize(17)
         title.text = "Information"
         
-        var navBarTitleView = UIView(frame: CGRect(x: phoneSize.width / 2, y: 0, width: 200, height: 44))
+        let navBarTitleView = UIView(frame: CGRect(x: phoneSize.width / 2, y: 0, width: 200, height: 44))
         navBarTitleView.backgroundColor = UIColor.clearColor()
         self.navigationItem.titleView = navBarTitleView
         
@@ -80,7 +80,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // 3
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
         
         cell.textLabel!.text = items[indexPath.row]
         cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
@@ -157,20 +157,20 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         }
     }
     
-    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
-        switch (result.value) {
-        case MessageComposeResultCancelled.value:
-            println("Message was cancelled")
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+        switch (result.rawValue) {
+        case MessageComposeResultCancelled.rawValue:
+            print("Message was cancelled")
             self.dismissViewControllerAnimated(true, completion: nil)
-        case MessageComposeResultFailed.value:
-            println("Message failed")
+        case MessageComposeResultFailed.rawValue:
+            print("Message failed")
             self.dismissViewControllerAnimated(true, completion: nil)
-        case MessageComposeResultSent.value:
-            println("Message was sent")
+        case MessageComposeResultSent.rawValue:
+            print("Message was sent")
             self.dismissViewControllerAnimated(true, completion: nil)
         default:
             break;
@@ -180,7 +180,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     // MARK: - Functions
     
     func openShare(){
-        var activityItems = ["Vill tipsa om en grym app som jag...", "", "https://itunes.apple.com/se/app/instainfo/id689392780?mt=8"]
+        let activityItems = ["Vill tipsa om en grym app som jag...", "", "https://itunes.apple.com/se/app/instainfo/id689392780?mt=8"]
         
         let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         self.presentViewController(vc, animated: true, completion: nil)
@@ -192,8 +192,8 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     func openFacebook(sender : Info){
         if (sender == Info.Like){
-            var url = "fb://profile/100003120646750"
-            var fbURL = NSURL(string: url)
+            let url = "fb://profile/100003120646750"
+            let fbURL = NSURL(string: url)
             if UIApplication.sharedApplication().canOpenURL(fbURL!)
             {
                 UIApplication.sharedApplication().openURL(fbURL!)
@@ -207,9 +207,9 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     func openMail(sender : Info){
         if (sender == Info.Feedback){
-            var toRecipients = ["Rashwan87@gmail.com"]
-            var subject = "Feedback Tajma app"
-            var body = "<H3>Feedback</h3><p>Jag har en \(UIDevice.currentDevice().modelName)<br> Jag har iOS version \(UIDevice.currentDevice().systemVersion)<br</p><br><br><br>"
+            let toRecipients = ["Rashwan87@gmail.com"]
+            let subject = "Feedback Tajma app"
+            let body = "<H3>Feedback</h3><p>Jag har en \(UIDevice.currentDevice().modelName)<br> Jag har iOS version \(UIDevice.currentDevice().systemVersion)<br</p><br><br><br>"
             
             mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self

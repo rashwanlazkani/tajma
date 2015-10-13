@@ -12,7 +12,7 @@ typealias ServiceResponse = (JSON, NSError?) -> Void
 
 extension Int  {
     var day: (Int, NSCalendarUnit) {
-        return (self, NSCalendarUnit.CalendarUnitDay)
+        return (self, NSCalendarUnit.Day)
     }
 }
 
@@ -33,7 +33,7 @@ class RestApiService: NSObject {
     
     // api/stop/find/{latitude}/{longitude}
     func findStops(userInput: String, onCompletion: (JSON) -> Void){
-        var escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         let route = "http://api.vasttrafik.se/bin/rest.exe/v1/location.name?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&input=\(escapedUserInput)"
 
         makeHTTPGetRequest(route, onCompletion: { json, err in
@@ -50,13 +50,13 @@ class RestApiService: NSObject {
         let formatterTime = NSDateFormatter()
         formatterTime.timeStyle = .ShortStyle //Set style of time
         formatterTime.dateFormat = "HH:mm"
-        var timeString = formatterTime.stringFromDate(date) //Convert to String
+        let timeString = formatterTime.stringFromDate(date) //Convert to String
         
         //Formatter for date
         let formatterDate = NSDateFormatter()
         formatterDate.dateStyle = .ShortStyle //Set style of date
         formatterDate.dateFormat = "yyyy-MM-dd"
-        var dateString = formatterDate.stringFromDate(date) //Convert to String
+        let dateString = formatterDate.stringFromDate(date) //Convert to String
         
         
         let route = "http://api.vasttrafik.se/bin/rest.exe/v1/departureBoard?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&id=\(stopId)&date=\(dateString)&time=\(timeString)"
@@ -93,7 +93,7 @@ class RestApiService: NSObject {
         formatterDate.dateStyle = .ShortStyle //Set style of date
         formatterDate.dateFormat = "yyyy-MM-dd"
         
-        var dateString = formatterDate.stringFromDate(date) //Convert to String
+        let dateString = formatterDate.stringFromDate(date) //Convert to String
         
         let route = "http://api.vasttrafik.se/bin/rest.exe/v1/departureBoard?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&id=\(stopId)&date=\(dateString)"
         
@@ -122,7 +122,7 @@ class RestApiService: NSObject {
         
         // important: NSCalendarOptions(0)
         let futureDate = NSCalendar.currentCalendar()
-            .dateByAddingComponents(components, toDate: date, options: NSCalendarOptions(0))
+            .dateByAddingComponents(components, toDate: date, options: NSCalendarOptions(rawValue: 0))
         return futureDate!
     }
     
