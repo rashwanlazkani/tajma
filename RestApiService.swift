@@ -12,7 +12,7 @@ typealias ServiceResponse = (JSON, NSError?) -> Void
 
 extension Int  {
     var day: (Int, NSCalendarUnit) {
-        return (self, NSCalendarUnit.Day)
+        return (self, NSCalendarUnit.Calendar.union(.Day))
     }
 }
 
@@ -35,7 +35,7 @@ class RestApiService: NSObject {
     func findStops(userInput: String, onCompletion: (JSON) -> Void){
         let escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         let route = "http://api.vasttrafik.se/bin/rest.exe/v1/location.name?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&input=\(escapedUserInput)"
-
+        
         makeHTTPGetRequest(route, onCompletion: { json, err in
             onCompletion(json as JSON)
         })
@@ -86,7 +86,7 @@ class RestApiService: NSObject {
         let formatterTime = NSDateFormatter()
         formatterTime.timeStyle = .ShortStyle //Set style of time
         formatterTime.dateFormat = "HH:mm"
-        var timeString = formatterTime.stringFromDate(date) //Convert to String
+        //let timeString = formatterTime.stringFromDate(date) //Convert to String
         
         //Formatter for date
         let formatterDate = NSDateFormatter()
@@ -117,7 +117,7 @@ class RestApiService: NSObject {
     // private
     func addDays(date: NSDate, additionalDays: Int) -> NSDate {
         // adding $additionalDays
-        var components = NSDateComponents()
+        let components = NSDateComponents()
         components.day = additionalDays
         
         // important: NSCalendarOptions(0)
@@ -133,7 +133,7 @@ class RestApiService: NSObject {
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            let json:JSON = JSON(data: data)
+            let json:JSON = JSON(data: data!)
             onCompletion(json, error)
         })
         task.resume()

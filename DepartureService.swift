@@ -10,13 +10,11 @@ import UIKit
 import CoreLocation
 
 public class DepartureService {
-    
-    var dbService = DBService()
     var stopService = StopsService()
     
     var departures = [Departure]()
     
-    func getDeparturesFromStop(stopId: String, onCompletion: ([Departure]) -> Void) {
+    func getDeparturesFromStop(var stopId: String, onCompletion: ([Departure]) -> Void) {
         RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
             self.departures = []
             
@@ -37,21 +35,21 @@ public class DepartureService {
             
             var tempDepartures = [Departure]()
             
-            for (index, subJson): (String, JSON) in results {
-                var stopId = subJson["stopid"].string!
+            for (key,subJson):(String, JSON) in results {
+                let stopId = subJson["stopid"].string!
                 var sname = subJson["sname"].string!
-                var track = subJson["track"].string ?? ""
-                var direction = subJson["direction"].string!
-                var fgColor = subJson["fgColor"].string!
-                var bgColor = subJson["bgColor"].string!
+                let track = subJson["track"].string ?? ""
+                let direction = subJson["direction"].string!
+                let fgColor = subJson["fgColor"].string!
+                let bgColor = subJson["bgColor"].string!
                 
                 if (sname == "SVAR"){
                     sname = "SVART"
                 }
                 
-                var rtTimeFromServer = subJson["rtTime"].string ?? subJson["time"].string
+                let rtTimeFromServer = subJson["rtTime"].string ?? subJson["time"].string
                 
-                var rtDate = subJson["rtDate"].string ?? subJson["date"].string
+                let rtDate = subJson["rtDate"].string ?? subJson["date"].string
                 
                 var rtTime = [rtDate!  + " " + rtTimeFromServer!]
                 
@@ -97,7 +95,7 @@ public class DepartureService {
     }
     
     func getMyDepartures(lat: Double, long: Double) -> [Stop] {
-        var stops = dbService.getStops()
+        var stops = RealmService.sharedInstance.getStops()
         var closestStops = [Stop]()
         
         let getDeparturesGroup = dispatch_group_create()
@@ -135,12 +133,12 @@ public class DepartureService {
             }
             
             for stop in closestStops {
-                let linesAtStop = dbService.getLinesAtStopArr(stop.id)
+                let linesAtStop = RealmService.sharedInstance.getLinesAtStopArr(stop.id)
                 
                 // hämta departures via Västtrafik api
                 dispatch_group_enter(getDeparturesGroup)
                 getDeparturesFromStop(stop.id, onCompletion: { departures -> Void in
-
+                    
                     stop.departures = [Departure]()
                     
                     for line in linesAtStop {

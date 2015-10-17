@@ -9,7 +9,6 @@
 import Foundation
 
 public class LineService{
-    var dbService = DBService()
     var lines = LineWrapper()
     
     // Cache
@@ -29,14 +28,14 @@ public class LineService{
                 
                 var tempNames = [String]()
                 
-                for (index, subJson): (String, JSON) in results {
-                    var name = subJson["name"].string
-                    var sname = subJson["sname"].string
-                    var direction = subJson["direction"].string
-                    var type = subJson["type"].string
-                    var track = subJson["track"].string
-                    var fgColor = subJson["fgColor"].string
-                    var bgColor = subJson["bgColor"].string
+                for (key,subJson):(String, JSON) in results {
+                    let name = subJson["name"].string
+                    let sname = subJson["sname"].string
+                    let direction = subJson["direction"].string
+                    let type = subJson["type"].string
+                    let track = subJson["track"].string
+                    let fgColor = subJson["fgColor"].string
+                    let bgColor = subJson["bgColor"].string
                     
                     if (sname == nil && direction == nil){
                         self.lines.error = "No stop"
@@ -45,13 +44,13 @@ public class LineService{
                     }
                     else{
                         
-                        var lineAndDirection = self.subStringSnameAndDirection(sname!, direction: direction!, addWhereTo: false)
+                        let lineAndDirection = self.subStringSnameAndDirection(sname!, direction: direction!, addWhereTo: false)
                         
                         // Kollar så att man endast visar en linje + direction per hållplats
                         if (!tempNames.contains(lineAndDirection)){
                             tempNames.insert(lineAndDirection, atIndex: 0)
-
-                            var line = Line(name: name ?? "", sname: sname ?? "", direction: direction ?? "", type: type ?? "", track: track ?? "", fgColor: fgColor ?? "", bgColor: bgColor ?? "", lineAndDirection: lineAndDirection)
+                            
+                            let line = Line(name: name ?? "", sname: sname ?? "", direction: direction ?? "", type: type ?? "", track: track ?? "", fgColor: fgColor ?? "", bgColor: bgColor ?? "", lineAndDirection: lineAndDirection)
                             self.lines.lines.append(line as Line)
                         }
                     }
@@ -61,14 +60,14 @@ public class LineService{
                 
                 self.lines.lines.sortInPlace({$0.lineAndDirection < $1.lineAndDirection})
                 onCompletion(self.lines)
- 
+                
             }
         }
     }
     
     // DB
     func getUserLinesAtStop(stopId: String){
-        dbService.getLinesAtStop(stopId)
+        RealmService.sharedInstance.getLinesAtStop(stopId)
     }
     
     // Live -> WS
@@ -89,8 +88,8 @@ public class LineService{
                 
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "HH:mm"
-
-                for (index, subJson): (String, JSON) in departureBoard{
+                
+                for (key, subJson):(String, JSON) in departureBoard{
                     serverTimeStr = subJson["servertime"].string!
                 }
                 
@@ -98,7 +97,7 @@ public class LineService{
                 
                 var tempNames = [String]()
                 
-                for (index, subJson): (String, JSON) in results {
+                for (key,subJson):(String, JSON) in results {
                     var stopId = subJson["stopId"].string
                     var sname = subJson["sname"].string
                     var direction = subJson["direction"].string
@@ -144,6 +143,6 @@ public class LineService{
         lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("SVAR", withString: "SVART")
         
         return lineAndDirection
-
+        
     }
 }

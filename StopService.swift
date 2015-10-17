@@ -9,7 +9,6 @@
 import Foundation
 
 class StopsService{
-    var dbService = DBService()
     var stops = StopWrapper()
     
     // Cache
@@ -28,7 +27,7 @@ class StopsService{
                 var tempNames = [String]()
                 self.stops = StopWrapper()
                 
-                for (index, subJson): (String, JSON) in stops {
+                for (key,subJson):(String, JSON) in stops {
                     let user: AnyObject = subJson["name"].object
                     
                     var id = subJson["id"].string
@@ -42,7 +41,7 @@ class StopsService{
                     
                     
                     // Kollar så att man endast visar en hållplats och inte alla tracks (A,B,C osv...)
-                    if (!tempNames.contains((name!))){
+                    if (!tempNames.contains(name!)){
                         tempNames.insert(name!, atIndex: 0)
                         // För att kolla om hållplatsen redan finns tillagd av användaren
                         // För att hämta rätt koordinater och stopId för att Västtrafiks API innehåller flera hållplatser med samma namn fast annorlunda stopId
@@ -90,7 +89,7 @@ class StopsService{
             else{
                 let stops = json["LocationList"]["StopLocation"]
                 
-                for (index, subJson): (String, JSON) in stops {
+                for (key,subJson):(String, JSON) in stops {
                     let user: AnyObject = subJson["name"].object
                     
                     var id = subJson["id"].string
@@ -131,7 +130,7 @@ class StopsService{
     func checkIfUserHasAddedStop(stopName : String) -> Stop{
         var userStops = [Stop]()
         var userStopsArr = [String]()
-        let userStopsFromDB = self.dbService.getStops()
+        let userStopsFromDB = RealmService.sharedInstance.getStops()
         
         var stop = Stop(id: "", name: "", lat: "", long: "", distance: 0, departures: [])
         
