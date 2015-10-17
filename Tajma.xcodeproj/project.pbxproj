@@ -29,12 +29,10 @@
 		F80667791B1E5D7900A26B5D /* StopLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */; };
 		F806677A1B1E5D7900A26B5D /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */; };
 		F806677B1B1E5D7900A26B5D /* StopWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */; };
-		F806677C1B1E5D9800A26B5D /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */; };
-		F806677D1B1E5D9800A26B5D /* String-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */; };
 		F806677F1B1E5DC600A26B5D /* DepartureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806677E1B1E5DC600A26B5D /* DepartureService.swift */; };
-		F818619F1B41D52A005DDA3A /* DeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceService.swift */; };
-		F81861A01B41D52A005DDA3A /* DeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceService.swift */; };
-		F81861A11B41D52A005DDA3A /* DeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceService.swift */; };
+		F818619F1B41D52A005DDA3A /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceInfo.swift */; };
+		F81861A01B41D52A005DDA3A /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceInfo.swift */; };
+		F81861A11B41D52A005DDA3A /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceInfo.swift */; };
 		F82CB0331BD256840015D3C5 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F82CB0311BD256840015D3C5 /* Realm.framework */; };
 		F82CB0341BD256840015D3C5 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F82CB0311BD256840015D3C5 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F82CB0351BD256840015D3C5 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F82CB0321BD256840015D3C5 /* RealmSwift.framework */; };
@@ -58,8 +56,6 @@
 		F87257451B3F2D5E006CBDA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87257441B3F2D5E006CBDA8 /* Images.xcassets */; };
 		F87257481B3F2D5E006CBDA8 /* Tajma WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F87257531B3F2DEE006CBDA8 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE671B1B8A0E00D3DAFC /* DBService.swift */; };
-		F87257541B3F2E08006CBDA8 /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */; };
-		F87257551B3F2E08006CBDA8 /* String-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */; };
 		F87257561B3F2E19006CBDA8 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
 		F87257571B3F2E21006CBDA8 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE761B1B903F00D3DAFC /* CheckBox.swift */; };
 		F87257581B3F2E21006CBDA8 /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE701B1B902400D3DAFC /* Departure.swift */; };
@@ -81,8 +77,6 @@
 		F872576A1B3F3198006CBDA8 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
 		F872576C1B3F3391006CBDA8 /* DataRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F872576B1B3F3391006CBDA8 /* DataRowController.swift */; };
 		F87AFE681B1B8A0F00D3DAFC /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE671B1B8A0E00D3DAFC /* DBService.swift */; };
-		F87AFE6D1B1B8FBA00D3DAFC /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */; };
-		F87AFE6E1B1B8FBA00D3DAFC /* String-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */; };
 		F87AFE731B1B902400D3DAFC /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE701B1B902400D3DAFC /* Departure.swift */; };
 		F87AFE741B1B902400D3DAFC /* LineAtStopToday.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */; };
 		F87AFE751B1B902400D3DAFC /* TodayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* TodayLabel.swift */; };
@@ -99,16 +93,16 @@
 		F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
 		F87AFE961B1BB2F100D3DAFC /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */; };
 		F87AFE971B1BB2F100D3DAFC /* StopWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */; };
-		F87B99941B24CF0C0082A541 /* DeviceCheckera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceCheckera.swift */; };
+		F87B99941B24CF0C0082A541 /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceChecker.swift */; };
 		F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */; };
 		F88F545C1B38AB3000F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
 		F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
 		F8B511691B22FA0400388866 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 		F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */; };
-		F8E080FE1B35B06000A96A45 /* DeviceCheckera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceCheckera.swift */; };
+		F8E080FE1B35B06000A96A45 /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceChecker.swift */; };
 		F8E081011B35B1D000A96A45 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E081001B35B1D000A96A45 /* Info.swift */; };
 		F8F6E0AC1B3F410B005CCEBF /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
-		F8F6E0AD1B3F410B005CCEBF /* DeviceCheckera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceCheckera.swift */; };
+		F8F6E0AD1B3F410B005CCEBF /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceChecker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,7 +185,7 @@
 		F80667681B1E5CBA00A26B5D /* TajmaToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TajmaToday.entitlements; sourceTree = "<group>"; };
 		F806676A1B1E5D2200A26B5D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F806677E1B1E5DC600A26B5D /* DepartureService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartureService.swift; sourceTree = "<group>"; };
-		F818619E1B41D52A005DDA3A /* DeviceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceService.swift; sourceTree = "<group>"; };
+		F818619E1B41D52A005DDA3A /* DeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		F82CB0311BD256840015D3C5 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		F82CB0321BD256840015D3C5 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		F843A39D1B1B04C2008F4505 /* Tajma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tajma.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -218,8 +212,6 @@
 		F87257681B3F3161006CBDA8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F872576B1B3F3391006CBDA8 /* DataRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRowController.swift; sourceTree = "<group>"; };
 		F87AFE671B1B8A0E00D3DAFC /* DBService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
-		F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDB.swift; sourceTree = "<group>"; };
-		F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-Extras.swift"; sourceTree = "<group>"; };
 		F87AFE701B1B902400D3DAFC /* Departure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Departure.swift; sourceTree = "<group>"; };
 		F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineAtStopToday.swift; sourceTree = "<group>"; };
 		F87AFE721B1B902400D3DAFC /* TodayLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayLabel.swift; sourceTree = "<group>"; };
@@ -238,7 +230,7 @@
 		F87AFE931B1B930700D3DAFC /* Tajma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tajma.entitlements; sourceTree = "<group>"; };
 		F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineWrapper.swift; sourceTree = "<group>"; };
 		F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWrapper.swift; sourceTree = "<group>"; };
-		F87B99931B24CF0C0082A541 /* DeviceCheckera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceCheckera.swift; sourceTree = "<group>"; };
+		F87B99931B24CF0C0082A541 /* DeviceChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceChecker.swift; sourceTree = "<group>"; };
 		F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateMyApp.swift; sourceTree = "<group>"; };
 		F88F545B1B38AB3000F0D402 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 		F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -282,14 +274,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F806674F1B1D156E00A26B5D /* Extensions */ = {
+		F806674F1B1D156E00A26B5D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				F80667501B1D157C00A26B5D /* UIColor.swift */,
-				F87B99931B24CF0C0082A541 /* DeviceCheckera.swift */,
+				F87B99931B24CF0C0082A541 /* DeviceChecker.swift */,
 				F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */,
+				F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */,
+				F818619E1B41D52A005DDA3A /* DeviceInfo.swift */,
 			);
-			name = Extensions;
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		F80667571B1E5CA100A26B5D /* Frameworks */ = {
@@ -325,7 +319,7 @@
 		F843A3941B1B04C2008F4505 = {
 			isa = PBXGroup;
 			children = (
-				F87AFE661B1B89C100D3DAFC /* Domain */,
+				F87AFE661B1B89C100D3DAFC /* Core */,
 				F843A39F1B1B04C2008F4505 /* Tajma */,
 				F843A3B81B1B04C2008F4505 /* TajmaTests */,
 				F806675A1B1E5CA100A26B5D /* TajmaToday */,
@@ -430,16 +424,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F87AFE661B1B89C100D3DAFC /* Domain */ = {
+		F87AFE661B1B89C100D3DAFC /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				F8E080FF1B35B1C500A96A45 /* Enum */,
-				F806674F1B1D156E00A26B5D /* Extensions */,
-				F87AFE6A1B1B8FA300D3DAFC /* DB */,
+				F806674F1B1D156E00A26B5D /* Helpers */,
 				F87AFE6F1B1B8FE000D3DAFC /* Models */,
 				F87AFE691B1B8F7A00D3DAFC /* Services */,
 			);
-			name = Domain;
+			name = Core;
 			sourceTree = "<group>";
 		};
 		F87AFE691B1B8F7A00D3DAFC /* Services */ = {
@@ -448,21 +441,11 @@
 				F87AFE671B1B8A0E00D3DAFC /* DBService.swift */,
 				F806677E1B1E5DC600A26B5D /* DepartureService.swift */,
 				F87AFE881B1B906400D3DAFC /* LineService.swift */,
-				F818619E1B41D52A005DDA3A /* DeviceService.swift */,
 				F87AFE891B1B906400D3DAFC /* RestApiService.swift */,
 				F87AFE8A1B1B906400D3DAFC /* StopService.swift */,
 				F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */,
 			);
 			name = Services;
-			sourceTree = "<group>";
-		};
-		F87AFE6A1B1B8FA300D3DAFC /* DB */ = {
-			isa = PBXGroup;
-			children = (
-				F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */,
-				F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */,
-			);
-			name = DB;
 			sourceTree = "<group>";
 		};
 		F87AFE6F1B1B8FE000D3DAFC /* Models */ = {
@@ -475,7 +458,6 @@
 				F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */,
 				F87AFE791B1B903F00D3DAFC /* LinesAtStop.swift */,
 				F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */,
-				F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */,
 				F87AFE7C1B1B903F00D3DAFC /* Stop.swift */,
 				F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */,
 				F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */,
@@ -727,10 +709,8 @@
 				F80667761B1E5D7900A26B5D /* LinesAtStop.swift in Sources */,
 				F806677B1B1E5D7900A26B5D /* StopWrapper.swift in Sources */,
 				F80667771B1E5D7900A26B5D /* PhoneSize.swift in Sources */,
-				F806677C1B1E5D9800A26B5D /* SQLiteDB.swift in Sources */,
 				F80667781B1E5D7900A26B5D /* Stop.swift in Sources */,
-				F806677D1B1E5D9800A26B5D /* String-Extras.swift in Sources */,
-				F81861A01B41D52A005DDA3A /* DeviceService.swift in Sources */,
+				F81861A01B41D52A005DDA3A /* DeviceInfo.swift in Sources */,
 				F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */,
 				F8B511691B22FA0400388866 /* UIColor.swift in Sources */,
 				F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */,
@@ -744,7 +724,7 @@
 				F80667741B1E5D7900A26B5D /* Global.swift in Sources */,
 				F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */,
 				F80667721B1E5D7900A26B5D /* TodayLabel.swift in Sources */,
-				F87B99941B24CF0C0082A541 /* DeviceCheckera.swift in Sources */,
+				F87B99941B24CF0C0082A541 /* DeviceChecker.swift in Sources */,
 				F80667751B1E5D7900A26B5D /* Line.swift in Sources */,
 				F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */,
 				F806676B1B1E5D7200A26B5D /* DBService.swift in Sources */,
@@ -760,17 +740,15 @@
 				F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */,
 				F87AFE741B1B902400D3DAFC /* LineAtStopToday.swift in Sources */,
 				F8E081011B35B1D000A96A45 /* Info.swift in Sources */,
-				F8E080FE1B35B06000A96A45 /* DeviceCheckera.swift in Sources */,
-				F818619F1B41D52A005DDA3A /* DeviceService.swift in Sources */,
+				F8E080FE1B35B06000A96A45 /* DeviceChecker.swift in Sources */,
+				F818619F1B41D52A005DDA3A /* DeviceInfo.swift in Sources */,
 				F87AFE681B1B8A0F00D3DAFC /* DBService.swift in Sources */,
 				F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */,
 				F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */,
 				F87AFE7F1B1B903F00D3DAFC /* CheckBox.swift in Sources */,
 				F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */,
-				F87AFE6D1B1B8FBA00D3DAFC /* SQLiteDB.swift in Sources */,
 				F87AFE821B1B903F00D3DAFC /* LinesAtStop.swift in Sources */,
 				F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */,
-				F87AFE6E1B1B8FBA00D3DAFC /* String-Extras.swift in Sources */,
 				F87AFE861B1B903F00D3DAFC /* StopLine.swift in Sources */,
 				F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */,
 				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,
@@ -804,13 +782,11 @@
 				F872576C1B3F3391006CBDA8 /* DataRowController.swift in Sources */,
 				F87257591B3F2E21006CBDA8 /* Global.swift in Sources */,
 				F872575F1B3F2E21006CBDA8 /* StopLine.swift in Sources */,
-				F8F6E0AD1B3F410B005CCEBF /* DeviceCheckera.swift in Sources */,
+				F8F6E0AD1B3F410B005CCEBF /* DeviceChecker.swift in Sources */,
 				F872575E1B3F2E21006CBDA8 /* PhoneSize.swift in Sources */,
 				F87257641B3F2E2D006CBDA8 /* RestApiService.swift in Sources */,
-				F81861A11B41D52A005DDA3A /* DeviceService.swift in Sources */,
-				F87257541B3F2E08006CBDA8 /* SQLiteDB.swift in Sources */,
+				F81861A11B41D52A005DDA3A /* DeviceInfo.swift in Sources */,
 				F87257601B3F2E21006CBDA8 /* StopWrapper.swift in Sources */,
-				F87257551B3F2E08006CBDA8 /* String-Extras.swift in Sources */,
 				F87257661B3F2E2D006CBDA8 /* SwiftyJSONService.swift in Sources */,
 				F87257651B3F2E2D006CBDA8 /* StopService.swift in Sources */,
 				F87257571B3F2E21006CBDA8 /* CheckBox.swift in Sources */,

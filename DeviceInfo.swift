@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DeviceService {
+class DeviceInfo {
     static func iPhoneModelSize() -> Int{
         switch UIDevice.currentDevice().modelName {
         case "iPhone 4", "iPhone 4S" :
