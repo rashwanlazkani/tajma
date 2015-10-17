@@ -71,7 +71,9 @@ class LinesViewController: UIViewController {
         var height = 0
         var tag = 0
         
-        self.lineWrapper.lines.sortInPlace({Int($0.sname) < Int($1.sname) ? $0.sname < $1.name : $0.name < $1.name })
+        //self.lineWrapper.lines.sortInPlace({Int($0.sname) < Int($1.sname) ? $0.sname < $1.name : $0.name < $1.name })
+        self.lineWrapper.lines.sortInPlace({Int($0.sname) < Int($1.sname)})
+        
         
         for (index, line) in lineWrapper.lines.enumerate(){
             var checkBox = CheckBox()
@@ -99,7 +101,7 @@ class LinesViewController: UIViewController {
             Global.linesAtStop.append(stopLine)
             
             var view = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 44))
-
+            
             var fontSize = CGFloat(16)
             var sname = ""
             var letterSname = Int(line.sname)
@@ -156,7 +158,7 @@ class LinesViewController: UIViewController {
             
             scrollView.addSubview(view)
             scrollView.addSubview(separatorView)
-
+            
             height += 44
             tag++
             
@@ -176,8 +178,9 @@ class LinesViewController: UIViewController {
                     scrollView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
                 }
             }
-
+            
         }
+            
         
         var separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
         separatorView.backgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
@@ -191,6 +194,5 @@ class LinesViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
+
 }
