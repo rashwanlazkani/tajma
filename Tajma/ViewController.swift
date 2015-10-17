@@ -246,16 +246,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        if (searchBar.text.characters.count == 0){
+        if (searchBar.text!.characters.count == 0){
             searchBar.resignFirstResponder()
             return
         }
-        var stop = StopsService()
+        let stop = StopsService()
         
         activityIndicator.startAnimating()
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
         
-        stop.getStopsByInput(searchBar.text, onCompletion: { json -> Void in
+        stop.getStopsByInput(searchBar.text!, onCompletion: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.stopWrapper = json
                 if (self.stopWrapper.stops.count > 0){
@@ -279,14 +279,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     // MARK: - Location Manager
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
+        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
-                print("Error: " + error.localizedDescription)
+                print("Error: " + error!.localizedDescription)
                 self.getNearestStops()
                 return
             }
-            if (placemarks.count > 0){
-                let pm = placemarks[0] as! CLPlacemark
+            if (placemarks!.count > 0){
+                let pm = placemarks![0]
                 self.displayLocationInfo(pm)
             }
             else{
@@ -299,8 +299,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Vi har en location, behöver inte titta mer
         self.locationManager.stopUpdatingLocation()
         
-        lat = String(stringInterpolationSegment: placemark.location.coordinate.latitude)
-        long = String(stringInterpolationSegment: placemark.location.coordinate.longitude)
+        lat = String(stringInterpolationSegment: placemark.location!.coordinate.latitude)
+        long = String(stringInterpolationSegment: placemark.location!.coordinate.longitude)
         
         getNearestStops()
         tableView.reloadData()
@@ -329,12 +329,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
         if(indexPath.row % 2 == 0){
-            cell!.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+            cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         } else{
-            cell!.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+            cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         }
         
         
@@ -350,9 +350,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        cell?.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+        cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         
-        for view in cell!.subviews{
+        for view in cell.subviews{
             if (String(view.dynamicType) == "UIImageView") {
                 view.removeFromSuperview()
             }
@@ -360,10 +360,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // Kunde inte ladda närmaste stopp
         if (stopWrapper.stops[indexPath.row].id == "0" && stopWrapper.stops[indexPath.row].distance == -200){
-            cell!.textLabel!.text = stopWrapper.stops[indexPath.row].name
-            cell!.accessoryType = UITableViewCellAccessoryType.None
+            cell.textLabel!.text = stopWrapper.stops[indexPath.row].name
+            cell.accessoryType = UITableViewCellAccessoryType.None
             
-            return cell!
+            return cell
         }
         
         var myStops = RealmService.sharedInstance.getStopsId()
@@ -374,14 +374,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let imageView = UIImageView(image: image!)
             imageView.frame = CGRect(x: phoneSize.width - 70, y: 12, width: Int(imageView.image?.size.width ?? 16), height: Int(imageView.image?.size.height ?? 16))
             
-            cell!.addSubview(imageView)
+            cell.addSubview(imageView)
             
         }
     
-        cell!.textLabel!.text = stopWrapper.stops[indexPath.row].name
-        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell.textLabel!.text = stopWrapper.stops[indexPath.row].name
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
-        return cell!
+        return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
