@@ -14,7 +14,6 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     var lat  = ""
     var long = ""
-    var dbService = DBService()
     var departureService = DepartureService()
     var lineService = LineService()
     var linesAtStop = [TodayLabel]()
@@ -55,7 +54,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        print(DeviceService.iPhoneModelSize())
+        print(DeviceHelper.iPhoneModelSize())
         
         if (locationService){
             updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
@@ -129,8 +128,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Om mer än maxlängd
-        if (linesAtStop.count > DeviceService.iPhoneModelSize()){
-            return DeviceService.iPhoneModelSize()
+        if (linesAtStop.count > DeviceHelper.iPhoneModelSize()){
+            return DeviceHelper.iPhoneModelSize()
         }
         else{
             return linesAtStop.count
@@ -157,7 +156,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
         distanceLabel.textColor = UIColor.grayColor()
         distanceLabel.font = distanceLabel.font.fontWithSize(14)
 
-        let lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceService.getLabelWidth(), height: 30))
+        let lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceHelper.getLabelWidth(), height: 30))
         lblSnameDir.textAlignment = NSTextAlignment.Left
         lblSnameDir.textColor = UIColor.whiteColor()
         lblSnameDir.font = lblSnameDir.font.fontWithSize(14)
@@ -264,11 +263,11 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             cell.addSubview(depLabelTwo)
         }
         
-        if (linesAtStop.count < DeviceService.iPhoneModelSize()){
+        if (linesAtStop.count < DeviceHelper.iPhoneModelSize()){
             self.preferredContentSize = CGSizeMake(0, CGFloat(linesAtStop.count * 36))
         }
         else{
-            self.preferredContentSize = CGSizeMake(0, CGFloat(DeviceService.iPhoneModelSize() * 36 + 5))
+            self.preferredContentSize = CGSizeMake(0, CGFloat(DeviceHelper.iPhoneModelSize() * 36 + 5))
         }
         
         
@@ -292,7 +291,7 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             
             return view
         }
-        else if (linesAtStop.count > DeviceService.iPhoneModelSize()){
+        else if (linesAtStop.count > DeviceHelper.iPhoneModelSize()){
              let view = UIView(frame: CGRectMake(0, 120, 300, 36));
             
             let maxLabel = UILabel(frame: CGRectMake(8, 10, 300, 36))
@@ -420,13 +419,13 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
             // Om max antal så vill vi dölja dubletter av linjer för hållplatser
             // Ex: Linje 10 mot Centralstationen ska endast visas på den närmaste hållplatsen så att vi kan visa fler linjer
             var temp = [TodayLabel]()
-            if (linesAtStop.count > DeviceService.iPhoneModelSize()){
+            if (linesAtStop.count > DeviceHelper.iPhoneModelSize()){
                 var arr = [String]()
                 var temp = [TodayLabel]()
                 
                 for (index, stop) in linesAtStop.enumerate(){
                     // Om sista raden endast är en hållplats så vill vi inte visa denna
-                    if (index == DeviceService.iPhoneModelSize() - 1 && stop.snameAndDirection == ""){
+                    if (index == DeviceHelper.iPhoneModelSize() - 1 && stop.snameAndDirection == ""){
                          break
                     }
                     if (stop.snameAndDirection == ""){

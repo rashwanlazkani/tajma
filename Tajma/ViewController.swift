@@ -18,7 +18,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var webView = UIWebView()
     var btnCloseWebView  = UIButton()
     
-    let dbService = DBService()
     let lineService = LineService()
     var stopService = StopsService()
     var lineWrapper = LineWrapper()
@@ -42,7 +41,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dbService.addTablesIfNotExists()
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -218,7 +216,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             searchBar.resignFirstResponder()
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
-            stopWrapper.stops = dbService.getStops()
+            stopWrapper.stops = RealmService.sharedInstance.getStops()
         }
         
         tableView.reloadData()
@@ -229,10 +227,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (parent != nil) {
             if (segmentedControl.selectedSegmentIndex == 1){
                 var tempStops : [Stop]
-                tempStops = dbService.getStops()
+                tempStops = RealmService.sharedInstance.getStops()
                 
                 if (tempStops.count != stopWrapper.stops.count){
-                    stopWrapper.stops = dbService.getStops()
+                    stopWrapper.stops = RealmService.sharedInstance.getStops()
                     tableView.reloadData()
                 }
             }
@@ -368,7 +366,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return cell!
         }
         
-        var myStops = dbService.getStopsId()
+        var myStops = RealmService.sharedInstance.getStopsId()
         
         if (myStops.contains(stopWrapper.stops[indexPath.row].id)){
             let imageName = "check-red"

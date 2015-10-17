@@ -16,7 +16,6 @@ class LinesViewController: UIViewController {
     var lineWrapper = LineWrapper()
     var stop : Stop!
     var currentLinesAndDirections = [String]()
-    let dbService = DBService()
     let phoneSize = PhoneSize()
     var checkBoxService = CheckBox()
     
@@ -136,7 +135,7 @@ class LinesViewController: UIViewController {
             snameLabel.font = snameLabel.font.fontWithSize(fontSize)
             
             // DirectionLabel
-            var directionLabel = UILabel(frame: CGRectMake(0, 8, DeviceService.getLabelWidth(), 30))
+            var directionLabel = UILabel(frame: CGRectMake(0, 8, DeviceHelper.getLabelWidth(), 30))
             directionLabel.textAlignment = NSTextAlignment.Left
             directionLabel.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
             directionLabel.text = "\t     \(line.direction)"

@@ -13,7 +13,6 @@ import Foundation
 class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     
     @IBOutlet weak var table: WKInterfaceTable!
-    var dbService = DBService()
     var linesAtStop = [TodayLabel]()
     var updateDataTimer = NSTimer()
     var lat  = ""

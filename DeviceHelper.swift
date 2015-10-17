@@ -1,5 +1,5 @@
 //
-//  MiscService.swift
+//  DeviceHelper.swift
 //  Tajma
 //
 //  Created by Rashwan Lazkani on 2015-06-29.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DeviceInfo {
+class DeviceHelper {
     static func iPhoneModelSize() -> Int{
         switch UIDevice.currentDevice().modelName {
         case "iPhone 4", "iPhone 4S" :
@@ -25,7 +25,7 @@ class DeviceInfo {
     }
     
     static func getLabelWidth() -> CGFloat{
-        switch DeviceService.iPhoneModelSize() {
+        switch DeviceHelper.iPhoneModelSize() {
             // 5
         case 10 :
             return 200.0
