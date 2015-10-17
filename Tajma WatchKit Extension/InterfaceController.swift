@@ -64,14 +64,14 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     
     // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
+        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
-                print("Error: " + error.localizedDescription)
+                print("Error: " + error!.localizedDescription)
                 return
             }
-            if (placemarks.count > 0){
-                let pm = placemarks[0] as! CLPlacemark
-                self.displayLocationInfo(pm)
+            if (placemarks!.count > 0){
+                let pm = placemarks?[0]
+                self.displayLocationInfo(pm!)
             }
             else{
                 print("Error with location data")
@@ -82,8 +82,8 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     func displayLocationInfo (placemark : CLPlacemark){
         // Vi har en location, behöver inte titta mer
         self.locationManager.stopUpdatingLocation()
-        lat = String(stringInterpolationSegment: placemark.location.coordinate.latitude)
-        long = String(stringInterpolationSegment: placemark.location.coordinate.longitude)
+        lat = String(stringInterpolationSegment: placemark.location!.coordinate.latitude)
+        long = String(stringInterpolationSegment: placemark.location!.coordinate.longitude)
         
         if (firstRun || timerUpdate){
             getData()
@@ -246,11 +246,13 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 
                 text = "\(stop.stopName)"
                 
+                let attributes = NSDictionary(
+                    object: font,
+                    forKey: NSFontAttributeName)
+                
                 let attrString = NSAttributedString(
                     string: text,
-                    attributes: NSDictionary(
-                        object: font,
-                        forKey: NSFontAttributeName) as [NSObject : AnyObject])
+                    attributes: attributes as! [String : AnyObject])
                 
                 row.label.setTextColor(UIColor.redColor())
                 row.label.setAttributedText(attrString)
@@ -264,17 +266,19 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 var strLength = stop.stopName.characters.count
                 
                 if (strLength > 26){
-                    var stopname = stop.stopName.subStringTo(24)
+                    var stopname = (stop.stopName as NSString).substringToIndex(24)
                     text = "\(stopname) \n\(String(stop.distance))m"
                 }
                 
                 text = "\(stop.stopName) \n\(String(stop.distance))m"
                 
+                let attributes = NSDictionary(
+                    object: font,
+                    forKey: NSFontAttributeName)
+                
                 let attrString = NSAttributedString(
                     string: text,
-                    attributes: NSDictionary(
-                        object: font,
-                        forKey: NSFontAttributeName) as [NSObject : AnyObject])
+                    attributes: attributes as! [String : AnyObject])
                 
                 row.label.setTextColor(UIColor.grayColor())
                 row.label.setAttributedText(attrString)
@@ -309,7 +313,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 
                 var snameAndDirection = ""
                 if (stop.snameAndDirection.characters.count >= 26){
-                    snameAndDirection = stop.snameAndDirection.subStringTo(24) + "..."
+                    snameAndDirection = (stop.snameAndDirection as NSString).substringToIndex(24) + "..."
                 }
                 else{
                     snameAndDirection = stop.snameAndDirection
@@ -318,11 +322,13 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 text = "\(snameAndDirection) \n\(tempText)"
                 let font = UIFont(name: "Arial", size: 8.0)
                 
+                let attributes = NSDictionary(
+                    object: font!,
+                    forKey: NSFontAttributeName)
+                
                 let attrString = NSAttributedString(
                     string: text,
-                    attributes: NSDictionary(
-                        object: font!,
-                        forKey: NSFontAttributeName) as [NSObject : AnyObject])
+                    attributes: attributes as! [String : AnyObject])
                 
                 row.label.setAttributedText(attrString)
                 row.group.setHeight(30.0)
