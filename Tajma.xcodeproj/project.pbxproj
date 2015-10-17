@@ -95,16 +95,13 @@
 		F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
 		F87AFE961B1BB2F100D3DAFC /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */; };
 		F87AFE971B1BB2F100D3DAFC /* StopWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */; };
-		F87B99941B24CF0C0082A541 /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceChecker.swift */; };
 		F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */; };
 		F88F545C1B38AB3000F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
 		F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
 		F8B511691B22FA0400388866 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 		F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */; };
-		F8E080FE1B35B06000A96A45 /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceChecker.swift */; };
 		F8E081011B35B1D000A96A45 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E081001B35B1D000A96A45 /* Info.swift */; };
 		F8F6E0AC1B3F410B005CCEBF /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
-		F8F6E0AD1B3F410B005CCEBF /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceChecker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -232,7 +229,6 @@
 		F87AFE931B1B930700D3DAFC /* Tajma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tajma.entitlements; sourceTree = "<group>"; };
 		F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineWrapper.swift; sourceTree = "<group>"; };
 		F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWrapper.swift; sourceTree = "<group>"; };
-		F87B99931B24CF0C0082A541 /* DeviceChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceChecker.swift; sourceTree = "<group>"; };
 		F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateMyApp.swift; sourceTree = "<group>"; };
 		F88F545B1B38AB3000F0D402 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 		F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -282,7 +278,6 @@
 			isa = PBXGroup;
 			children = (
 				F80667501B1D157C00A26B5D /* UIColor.swift */,
-				F87B99931B24CF0C0082A541 /* DeviceChecker.swift */,
 				F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */,
 				F87AFE7B1B1B903F00D3DAFC /* PhoneSize.swift */,
 				F818619E1B41D52A005DDA3A /* DeviceHelper.swift */,
@@ -729,7 +724,6 @@
 				F80667741B1E5D7900A26B5D /* Global.swift in Sources */,
 				F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */,
 				F80667721B1E5D7900A26B5D /* TodayLabel.swift in Sources */,
-				F87B99941B24CF0C0082A541 /* DeviceChecker.swift in Sources */,
 				F80667751B1E5D7900A26B5D /* Line.swift in Sources */,
 				F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */,
 				F806677F1B1E5DC600A26B5D /* DepartureService.swift in Sources */,
@@ -744,7 +738,6 @@
 				F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */,
 				F87AFE741B1B902400D3DAFC /* LineAtStopToday.swift in Sources */,
 				F8E081011B35B1D000A96A45 /* Info.swift in Sources */,
-				F8E080FE1B35B06000A96A45 /* DeviceChecker.swift in Sources */,
 				F818619F1B41D52A005DDA3A /* DeviceHelper.swift in Sources */,
 				F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */,
 				F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */,
@@ -786,7 +779,6 @@
 				F872576C1B3F3391006CBDA8 /* DataRowController.swift in Sources */,
 				F87257591B3F2E21006CBDA8 /* Global.swift in Sources */,
 				F872575F1B3F2E21006CBDA8 /* StopLine.swift in Sources */,
-				F8F6E0AD1B3F410B005CCEBF /* DeviceChecker.swift in Sources */,
 				F872575E1B3F2E21006CBDA8 /* PhoneSize.swift in Sources */,
 				F87257641B3F2E2D006CBDA8 /* RestApiService.swift in Sources */,
 				F81861A11B41D52A005DDA3A /* DeviceHelper.swift in Sources */,
