@@ -12,7 +12,6 @@
 		F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806675D1B1E5CA100A26B5D /* TodayViewController.swift */; };
 		F80667601B1E5CA100A26B5D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */; };
 		F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F80667561B1E5CA100A26B5D /* TajmaToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F80667691B1E5CDD00A26B5D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */; };
 		F806676B1B1E5D7200A26B5D /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE671B1B8A0E00D3DAFC /* DBService.swift */; };
 		F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
 		F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
@@ -36,6 +35,14 @@
 		F818619F1B41D52A005DDA3A /* DeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceService.swift */; };
 		F81861A01B41D52A005DDA3A /* DeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceService.swift */; };
 		F81861A11B41D52A005DDA3A /* DeviceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceService.swift */; };
+		F82CB0331BD256840015D3C5 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F82CB0311BD256840015D3C5 /* Realm.framework */; };
+		F82CB0341BD256840015D3C5 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F82CB0311BD256840015D3C5 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F82CB0351BD256840015D3C5 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F82CB0321BD256840015D3C5 /* RealmSwift.framework */; };
+		F82CB0361BD256840015D3C5 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F82CB0321BD256840015D3C5 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F82CB0381BD256A00015D3C5 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F82CB0311BD256840015D3C5 /* Realm.framework */; };
+		F82CB0391BD256A00015D3C5 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F82CB0311BD256840015D3C5 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F82CB03A1BD256A00015D3C5 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F82CB0321BD256840015D3C5 /* RealmSwift.framework */; };
+		F82CB03B1BD256A00015D3C5 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F82CB0321BD256840015D3C5 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A21B1B04C2008F4505 /* AppDelegate.swift */; };
 		F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */; };
 		F843A3A81B1B04C2008F4505 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A71B1B04C2008F4505 /* ViewController.swift */; };
@@ -50,7 +57,6 @@
 		F87257431B3F2D5E006CBDA8 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F87257411B3F2D5E006CBDA8 /* Interface.storyboard */; };
 		F87257451B3F2D5E006CBDA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87257441B3F2D5E006CBDA8 /* Images.xcassets */; };
 		F87257481B3F2D5E006CBDA8 /* Tajma WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F87257501B3F2DB0006CBDA8 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */; };
 		F87257531B3F2DEE006CBDA8 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE671B1B8A0E00D3DAFC /* DBService.swift */; };
 		F87257541B3F2E08006CBDA8 /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6B1B1B8FBA00D3DAFC /* SQLiteDB.swift */; };
 		F87257551B3F2E08006CBDA8 /* String-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE6C1B1B8FBA00D3DAFC /* String-Extras.swift */; };
@@ -91,7 +97,6 @@
 		F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
 		F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
 		F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
-		F87AFE921B1B911600D3DAFC /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */; };
 		F87AFE961B1BB2F100D3DAFC /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */; };
 		F87AFE971B1BB2F100D3DAFC /* StopWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */; };
 		F87B99941B24CF0C0082A541 /* DeviceCheckera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87B99931B24CF0C0082A541 /* DeviceCheckera.swift */; };
@@ -150,6 +155,30 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F82CB0371BD256840015D3C5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F82CB0361BD256840015D3C5 /* RealmSwift.framework in Embed Frameworks */,
+				F82CB0341BD256840015D3C5 /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F82CB03C1BD256A00015D3C5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F82CB03B1BD256A00015D3C5 /* RealmSwift.framework in Embed Frameworks */,
+				F82CB0391BD256A00015D3C5 /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -163,6 +192,8 @@
 		F806676A1B1E5D2200A26B5D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F806677E1B1E5DC600A26B5D /* DepartureService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartureService.swift; sourceTree = "<group>"; };
 		F818619E1B41D52A005DDA3A /* DeviceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceService.swift; sourceTree = "<group>"; };
+		F82CB0311BD256840015D3C5 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		F82CB0321BD256840015D3C5 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		F843A39D1B1B04C2008F4505 /* Tajma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tajma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F843A3A11B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F843A3A21B1B04C2008F4505 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -204,7 +235,6 @@
 		F87AFE8A1B1B906400D3DAFC /* StopService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopService.swift; sourceTree = "<group>"; };
 		F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSONService.swift; sourceTree = "<group>"; };
 		F87AFE901B1B90AB00D3DAFC /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		F87AFE931B1B930700D3DAFC /* Tajma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tajma.entitlements; sourceTree = "<group>"; };
 		F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineWrapper.swift; sourceTree = "<group>"; };
 		F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWrapper.swift; sourceTree = "<group>"; };
@@ -220,7 +250,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F80667691B1E5CDD00A26B5D /* libsqlite3.0.dylib in Frameworks */,
 				F80667591B1E5CA100A26B5D /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,7 +258,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F87AFE921B1B911600D3DAFC /* libsqlite3.0.dylib in Frameworks */,
+				F82CB0331BD256840015D3C5 /* Realm.framework in Frameworks */,
+				F82CB0351BD256840015D3C5 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,7 +274,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F87257501B3F2DB0006CBDA8 /* libsqlite3.0.dylib in Frameworks */,
+				F82CB03A1BD256A00015D3C5 /* RealmSwift.framework in Frameworks */,
+				F82CB0381BD256A00015D3C5 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,8 +295,9 @@
 		F80667571B1E5CA100A26B5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F87AFE911B1B911600D3DAFC /* libsqlite3.0.dylib */,
 				F80667581B1E5CA100A26B5D /* NotificationCenter.framework */,
+				F82CB0311BD256840015D3C5 /* Realm.framework */,
+				F82CB0321BD256840015D3C5 /* RealmSwift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -489,6 +521,8 @@
 				F843A39A1B1B04C2008F4505 /* Frameworks */,
 				F843A39B1B1B04C2008F4505 /* Resources */,
 				F80667671B1E5CA100A26B5D /* Embed App Extensions */,
+				F82CB0301BD256410015D3C5 /* ShellScript */,
+				F82CB0371BD256840015D3C5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -526,6 +560,7 @@
 				F872572C1B3F2D5D006CBDA8 /* Sources */,
 				F872572D1B3F2D5D006CBDA8 /* Frameworks */,
 				F872572E1B3F2D5D006CBDA8 /* Resources */,
+				F82CB03C1BD256A00015D3C5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -667,6 +702,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F82CB0301BD256410015D3C5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F80667521B1E5CA100A26B5D /* Sources */ = {
@@ -956,6 +1007,10 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Tajma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -971,6 +1026,10 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Tajma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1019,6 +1078,10 @@
 				CODE_SIGN_ENTITLEMENTS = "Tajma WatchKit Extension/Tajma WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1038,6 +1101,10 @@
 				CODE_SIGN_ENTITLEMENTS = "Tajma WatchKit Extension/Tajma WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Tajma WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "${TARGET_NAME}";
