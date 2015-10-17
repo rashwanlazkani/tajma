@@ -10,7 +10,7 @@ import UIKit
 import NotificationCenter
 import CoreLocation
 
-class TodayTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, NCWidgetProviding, CLLocationManagerDelegate {
+class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLocationManagerDelegate {
     
     var lat  = ""
     var long = ""
@@ -67,14 +67,14 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     
     // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: { (placemarks, error) -> Void in
+        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
-                print("Error: " + error.localizedDescription)
+                print("Error: " + error!.localizedDescription)
                 return
             }
-            if (placemarks.count > 0){
-                let pm = placemarks[0] as! CLPlacemark
-                self.displayLocationInfo(pm)
+            if (placemarks!.count > 0){
+                let pm = placemarks?[0]
+                self.displayLocationInfo(pm!)
             }
             else{
                 print("Error with location data")
@@ -85,8 +85,8 @@ class TodayTableViewController: UITableViewController, UITableViewDelegate, UITa
     func displayLocationInfo (placemark : CLPlacemark){
         // Vi har en location, behöver inte titta mer
         self.locationManager.stopUpdatingLocation()
-        lat = String(stringInterpolationSegment: placemark.location.coordinate.latitude)
-        long = String(stringInterpolationSegment: placemark.location.coordinate.longitude)
+        lat = String(stringInterpolationSegment: placemark.location!.coordinate.latitude)
+        long = String(stringInterpolationSegment: placemark.location!.coordinate.longitude)
         
         if (firstRun || timerUpdate){
             getData()
