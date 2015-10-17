@@ -7,21 +7,28 @@
 //
 
 import Foundation
+import RealmSwift
 
-public class Stop {
-    public var id: String
-    public var name: String
-    public var lat: String
-    public var long: String
-    public var distance: Int
-    public var departures: [Departure]?
+public class Stop: Object {
+    dynamic var id: String = ""
+    dynamic var name: String = ""
+    dynamic var lat: String = ""
+    dynamic var long: String = ""
+    dynamic var distance: Int = 0
+    dynamic var departures = [Departure]?()
     
-    public init(id: String, name: String, lat: String, long: String, distance: Int, departures: [Departure]?) {
+    dynamic init(id: String, name: String, lat: String, long: String, distance: Int, departures: [Departure]?) {
         self.id = id
         self.name = name
         self.lat = lat
         self.long = long
         self.distance = distance
         self.departures = departures
+        
+        super.init()
+    }
+    
+    required public init() {
+        fatalError("init() has not been implemented")
     }
 }

@@ -7,17 +7,24 @@
 //
 
 import Foundation
+import RealmSwift
 
-public class LineAtStopToday {
-    public var stopId: String
-    public var track: String
-    public var sname: String
-    public var direction: String
+public class LineAtStopToday: Object {
+    dynamic var stopId: String = ""
+    dynamic var track: String = ""
+    dynamic var sname: String = ""
+    dynamic var direction: String = ""
     
-    public init(stopId: String, track:String, sname: String, direction: String) {
+    dynamic init(stopId: String, track:String, sname: String, direction: String) {
         self.stopId = stopId
         self.track = track
         self.sname = sname
         self.direction = direction
+        
+        super.init()
+    }
+    
+    required public init() {
+        fatalError("init() has not been implemented")
     }
 }

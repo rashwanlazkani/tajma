@@ -7,15 +7,22 @@
 //
 
 import Foundation
+import RealmSwift
 
-public class LinesAtStop{
-    public var stopId: String
-    public var lineAndDirection: String
-    public var departure: String
+public class LinesAtStop: Object{
+    dynamic var stopId: String = ""
+    dynamic var lineAndDirection: String = ""
+    dynamic var departure: String = ""
     
-    public init(stopId: String, lineAndDirection:String, departure: String) {
+    dynamic init(stopId: String, lineAndDirection:String, departure: String) {
         self.stopId = stopId
         self.lineAndDirection = lineAndDirection
         self.departure = departure
+        
+        super.init()
+    }
+    
+    required public init() {
+        fatalError("init() has not been implemented")
     }
 }

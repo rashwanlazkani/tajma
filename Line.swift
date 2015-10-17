@@ -7,18 +7,19 @@
 //
 
 import Foundation
+import RealmSwift
 
-public class Line {
-    public var name: String
-    public var sname: String
-    public var direction: String
-    public var type: String
-    public var track: String
-    public var fgColor: String
-    public var bgColor: String
-    public var lineAndDirection: String
+public class Line: Object {
+    dynamic var name: String = ""
+    dynamic var sname: String = ""
+    dynamic var direction: String = ""
+    dynamic var type: String = ""
+    dynamic var track: String = ""
+    dynamic var fgColor: String = ""
+    dynamic var bgColor: String = ""
+    dynamic var lineAndDirection: String = ""
     
-    public init(name : String, sname: String, direction: String, type: String, track: String, fgColor: String, bgColor: String, lineAndDirection: String) {
+    dynamic init(name : String, sname: String, direction: String, type: String, track: String, fgColor: String, bgColor: String, lineAndDirection: String) {
         self.name = name
         self.sname = sname
         self.direction = direction
@@ -27,5 +28,11 @@ public class Line {
         self.fgColor = fgColor
         self.bgColor = bgColor
         self.lineAndDirection = lineAndDirection
+        
+        super.init()
+    }
+    
+    required public init() {
+        fatalError("init() has not been implemented")
     }
 }

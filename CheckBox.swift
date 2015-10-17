@@ -13,8 +13,6 @@ class CheckBox: UIButton {
     let checkedImage = UIImage(named: "check-box-red") as UIImage!
     let uncheckedImage = UIImage(named: "unchecked-box") as UIImage!
     
-    let dbService = DBService()
-    
     // bool properties
     var isChecked : Bool = false{
         // varje gång isChecked ändras anropas didSet
@@ -42,13 +40,13 @@ class CheckBox: UIButton {
         
         //var linesView: LinesViewController()
         
-        
         if (isChecked == true){
             for stopline in Global.linesAtStop{
                 if (stopline.tag == sender.tag){
                     stopline.isChecked = false
                     isChecked = false
-                    dbService.addLinesToStop(stopline)
+                    RealmService.sharedInstance.addLinesToStop(stopline)
+                    
                     return
                 }
             }
@@ -58,11 +56,11 @@ class CheckBox: UIButton {
                 if (stopline.tag == sender.tag){
                     stopline.isChecked = true
                     isChecked = true
-                    dbService.addLinesToStop(stopline)
+                    RealmService.sharedInstance.addLinesToStop(stopline)
                     return
                 }
             }
         }
     }
-
+    
 }

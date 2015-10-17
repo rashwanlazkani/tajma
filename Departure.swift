@@ -7,17 +7,18 @@
 //
 
 import Foundation
+import RealmSwift
 
-public class Departure {
-    public var stopId: String
-    public var sname: String
-    public var track: String
-    public var direction: String
-    public var fgColor: String
-    public var bgColor: String
-    public var rtTimes: [Int]
+public class Departure: Object {
+    dynamic var stopId: String = ""
+    dynamic var sname: String = ""
+    dynamic var track: String = ""
+    dynamic var direction: String = ""
+    dynamic var fgColor: String = ""
+    dynamic var bgColor: String = ""
+    dynamic var rtTimes = [Int]()
     
-    public init(stopId: String, sname: String, track: String, direction: String, fgColor: String, bgColor: String, rtTimes:[Int]) {
+    dynamic init(stopId: String, sname: String, track: String, direction: String, fgColor: String, bgColor: String, rtTimes:[Int]) {
         self.stopId = stopId
         self.sname = sname
         self.track = track
@@ -25,5 +26,11 @@ public class Departure {
         self.fgColor = fgColor
         self.bgColor = bgColor
         self.rtTimes = rtTimes
+        
+        super.init()
+    }
+    
+    required public init() {
+        fatalError("init() has not been implemented")
     }
 }
