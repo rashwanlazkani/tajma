@@ -50,7 +50,19 @@ public class LineService{
                         if (!tempNames.contains(lineAndDirection)){
                             tempNames.insert(lineAndDirection, atIndex: 0)
                             
-                            let line = Line(name: name ?? "", sname: sname ?? "", direction: direction ?? "", type: type ?? "", track: track ?? "", fgColor: fgColor ?? "", bgColor: bgColor ?? "", lineAndDirection: lineAndDirection)
+                            // init!
+                            //let line = Line(name: name ?? "", sname: sname ?? "", direction: direction ?? "", type: type ?? "", track: track ?? "", fgColor: fgColor ?? "", bgColor: bgColor ?? "", lineAndDirection: lineAndDirection)
+                            
+                            let line = Line()
+                            line.name = name ?? ""
+                            line.sname = sname ?? ""
+                            line.direction = direction ?? ""
+                            line.type = type ?? ""
+                            line.track = track ?? ""
+                            line.fgColor = fgColor ?? ""
+                            line.bgColor = bgColor ?? ""
+                            line.lineAndDirection = lineAndDirection ?? ""
+                            
                             self.lines.lines.append(line as Line)
                         }
                     }
