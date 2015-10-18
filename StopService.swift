@@ -10,6 +10,7 @@ import Foundation
 
 class StopsService{
     var stops = StopWrapper()
+    let userStopsFromDB = RealmService.sharedInstance.getStops()
     
     // Cache
     func getNearestStops(lat: String, long: String, onCompletion: (StopWrapper) -> Void){
@@ -179,7 +180,6 @@ class StopsService{
     func checkIfUserHasAddedStop(stopName : String) -> Stop{
         var userStops = [Stop]()
         var userStopsArr = [String]()
-        let userStopsFromDB = RealmService.sharedInstance.getStops()
         
         // init
         //var stop = Stop(id: "", name: "", lat: "", long: "", distance: 0, departures: [])
