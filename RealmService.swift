@@ -17,10 +17,10 @@ class RealmService {
     
     func getStopsId() -> [String]{
         var ids = [String]()
-        let userStops = realm.objects(Stop)
+        let userStops = realm.objects(StopLine)
         
         for row in userStops{
-            ids.append(row.id)
+            ids.append(row.stopId)
         }
         return ids
     }
@@ -28,16 +28,16 @@ class RealmService {
     func getStops() -> [Stop]{
         var stops = [Stop]()
         
-        let userStops = realm.objects(Stop)
+        let userStops = realm.objects(StopLine)
         
         for row in userStops{
             let stop = Stop()
-            stop.id = row.id
-            stop.name = row.name
+            stop.id = row.stopId
+            stop.name = row.stopName
             stop.lat = row.lat
             stop.long = row.long
-            stop.distance = row.distance
-            stop.departures = row.departures
+            stop.distance = 0//row.distance
+            stop.departures = [Departure]()//row.departures
             
             stops.append(stop)
         }
@@ -49,20 +49,19 @@ class RealmService {
     }
     
     func getStopsCount() -> Int{
-        let lines = realm.objects(Line)
-        return Int(lines.count)
+        return Int(realm.objects(StopLine).count)
     }
 
     func getStopsNearLocationCount(lat: String, long: String) -> Int{
-        let stopsNearLocation = realm.objects(Stop).filter("lat BEGINSWITH = '\(lat)' AND long BEGINSWITH = '\(long)")
+        let stopsNearLocation = realm.objects(StopLine).filter("lat BEGINSWITH = '\(lat)' AND long BEGINSWITH = '\(long)")
         return stopsNearLocation.count
     }
     
     func getStopName(stopId: String) -> String{
-        let stop = realm.objects(Stop).filter("id = '\(stopId)'")
+        let stop = realm.objects(StopLine).filter("id = '\(stopId)'")
         
         for s in stop{
-            return s.name
+            return s.stopName
         }
         return "Ingen hållplats hittades"
     }
@@ -128,9 +127,13 @@ class RealmService {
     
     func addLinesToStop(stop: StopLine){
         let s = realm.objects(StopLine).filter("stopId = '\(stop.stopId)'")
-        realm.delete(s)
+        if (!s.isEmpty){
+            try! realm.write({ () -> Void in
+                self.realm.delete(s)
+            })
+        }
         
-        if(realm.objects(Stop).filter("id = '\(stop.stopId)'").count == 0){
+        if(realm.objects(StopLine).filter("stopId = '\(stop.stopId)'").count == 0){
             let s = StopLine()
             s.stopId = stop.stopId
             s.stopName = stop.stopName
