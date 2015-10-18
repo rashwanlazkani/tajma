@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-public class Departure: Object {
+public class Departure {
     dynamic var stopId: String = ""
     dynamic var sname: String = ""
     dynamic var track: String = ""

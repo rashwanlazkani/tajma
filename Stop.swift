@@ -9,13 +9,13 @@
 import Foundation
 import RealmSwift
 
-public class Stop: Object {
+public class Stop {
     dynamic var id: String = ""
     dynamic var name: String = ""
     dynamic var lat: String = ""
     dynamic var long: String = ""
     dynamic var distance: Int = 0
-    dynamic var departures = [Departure]?()
+    var departures = [Departure]?()
     
 //    dynamic init(id: String, name: String, lat: String, long: String, distance: Int, departures: [Departure]?) {
 //        self.id = id

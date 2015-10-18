@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-public class LinesAtStop: Object{
+public class LinesAtStop{
     dynamic var stopId: String = ""
     dynamic var lineAndDirection: String = ""
     dynamic var departure: String = ""

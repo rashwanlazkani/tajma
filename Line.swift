@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-public class Line: Object {
+public class Line {
     dynamic var name: String = ""
     dynamic var sname: String = ""
     dynamic var direction: String = ""

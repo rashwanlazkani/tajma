@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-public class TodayLabel: Object {
+public class TodayLabel {
     dynamic var stopName: String = ""
     dynamic var distance: Int = 0
     dynamic var sname: String = ""
