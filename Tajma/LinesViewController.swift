@@ -83,17 +83,49 @@ class LinesViewController: UIViewController {
             checkBox.frame = CGRectMake(50, 50, 1000, 44)
             checkBox.center = CGPoint(x: scrollView.bounds.width - 25, y: 44 / 2.0)
             
-            var stopLine : StopLine
+            // init!
+            //var stopLine : StopLine
+            var stopLine = StopLine()
+            
+            
             var isChecked = false
             
             if (Global.allaStopp.contains(line.lineAndDirection)){
-                stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: true)
+                //init!
+                //stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: true)
+                
+                stopLine.stopId = stop.id
+                stopLine.stopName = stop.name
+                stopLine.lat = stop.lat
+                stopLine.long = stop.long
+                stopLine.sname = line.sname
+                stopLine.tag = checkBox.tag
+                stopLine.type = line.type
+                stopLine.track = line.track
+                stopLine.direction = line.direction
+                stopLine.lineAndDirection = line.lineAndDirection
+                stopLine.isChecked = true
+                
                 checkBox.isChecked = true
                 
                 isChecked = true
             }
             else{
-                stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: false)
+                // init!
+                //stopLine = StopLine(stopId: stop.id, stopName: stop.name, lat: stop.lat, long: stop.long, sname: line.sname, tag: checkBox.tag, type: line.type, track: line.track, direction: line.direction, lineAndDirection: line.lineAndDirection, isChecked: false)
+                
+                stopLine.stopId = stop.id
+                stopLine.stopName = stop.name
+                stopLine.lat = stop.lat
+                stopLine.long = stop.long
+                stopLine.sname = line.sname
+                stopLine.tag = checkBox.tag
+                stopLine.type = line.type
+                stopLine.track = line.track
+                stopLine.direction = line.direction
+                stopLine.lineAndDirection = line.lineAndDirection
+                stopLine.isChecked = false
+                
                 
                 isChecked = false
             }

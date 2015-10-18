@@ -14,15 +14,15 @@ public class LinesAtStop: Object{
     dynamic var lineAndDirection: String = ""
     dynamic var departure: String = ""
     
-    dynamic init(stopId: String, lineAndDirection:String, departure: String) {
-        self.stopId = stopId
-        self.lineAndDirection = lineAndDirection
-        self.departure = departure
-        
-        super.init()
-    }
-    
-    required public init() {
-        fatalError("init() has not been implemented")
-    }
+//    dynamic init(stopId: String, lineAndDirection:String, departure: String) {
+//        self.stopId = stopId
+//        self.lineAndDirection = lineAndDirection
+//        self.departure = departure
+//        
+//        super.init()
+//    }
+//    
+//    required public init() {
+//        fatalError("init() has not been implemented")
+//    }
 }

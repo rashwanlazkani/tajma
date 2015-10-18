@@ -108,7 +108,20 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     func locationOff(){
         linesAtStop = [TodayLabel]()
         
-        let todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
+        // init!
+        //let todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
+        
+        var todayLabel = TodayLabel()
+        todayLabel.stopName = "Du måste slå på lokaliseringen för TajmApp."
+        todayLabel.distance = 0
+        todayLabel.sname = ""
+        todayLabel.direction = ""
+        todayLabel.snameAndDirection = ""
+        todayLabel.fgColor = ""
+        todayLabel.bgColor = ""
+        todayLabel.rtTimes = []
+        todayLabel.row = Row.Info
+        
         linesAtStop.append(todayLabel)
         
         locationService = false
@@ -349,10 +362,36 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         let stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
         if (stops.count == 0){
-            let todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
+            // init!
+            //let todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
+            
+            var todayLabel = TodayLabel()
+            todayLabel.stopName = "Ingen vald hållplats i närheten"
+            todayLabel.distance = 0
+            todayLabel.sname = ""
+            todayLabel.direction = ""
+            todayLabel.snameAndDirection = ""
+            todayLabel.fgColor = ""
+            todayLabel.bgColor = ""
+            todayLabel.rtTimes = []
+            todayLabel.row = Row.Info
+            
             linesAtStop.append(todayLabel)
             
-            let todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Button)
+            // init!
+            //let todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Button)
+            
+            var todayButton = TodayLabel()
+            todayLabel.stopName = "Lägg till ny hållplats"
+            todayLabel.distance = 0
+            todayLabel.sname = ""
+            todayLabel.direction = ""
+            todayLabel.snameAndDirection = ""
+            todayLabel.fgColor = ""
+            todayLabel.bgColor = ""
+            todayLabel.rtTimes = []
+            todayLabel.row = Row.Button
+            
             linesAtStop.append(todayButton)
             
             updateTable()
@@ -364,13 +403,39 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             // "Inga avgångar hittades" har en fiktiv distans på 1000000 för att hamna under hållplatsen
             // Sista raden har också en fiktiv distans på 1000001 för att hamna sist för att göra plats för "Gå till appen" knappen
             for stop in stops{
-                var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
+                // init!
+                //var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
+                
+                var todayLabel = TodayLabel()
+                todayLabel.stopName = stop.name
+                todayLabel.distance = stop.distance
+                todayLabel.sname = ""
+                todayLabel.direction = ""
+                todayLabel.snameAndDirection = ""
+                todayLabel.fgColor = ""
+                todayLabel.bgColor = ""
+                todayLabel.rtTimes = tempArr
+                todayLabel.row = Row.Stop
+                
                 
                 isStop++
                 linesAtStop.append(todayLabel)
                 
                 if (stop.departures?.count == 0){
-                    todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.NoDepartures)
+                    // init!
+                    //todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.NoDepartures)
+                    
+                    var todayLabel = TodayLabel()
+                    todayLabel.stopName = "Inga avgångar hittades"
+                    todayLabel.distance = stop.distance
+                    todayLabel.sname = ""
+                    todayLabel.direction = ""
+                    todayLabel.snameAndDirection = ""
+                    todayLabel.fgColor = ""
+                    todayLabel.bgColor = ""
+                    todayLabel.rtTimes = tempArr
+                    todayLabel.row = Row.NoDepartures
+                    
                     linesAtStop.append(todayLabel)
                 }
                 else{
@@ -392,7 +457,20 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                             }
                         }
                         
-                        let trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
+                        // init!
+                        //let trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
+                        
+                        var trip = TodayLabel()
+                        todayLabel.stopName = stop.name
+                        todayLabel.distance = stop.distance
+                        todayLabel.sname = departure.sname
+                        todayLabel.direction = departure.direction
+                        todayLabel.snameAndDirection = departure.sname + " " + departure.direction
+                        todayLabel.fgColor = departure.fgColor
+                        todayLabel.bgColor = departure.bgColor
+                        todayLabel.rtTimes = rtTimesArr
+                        todayLabel.row = Row.Line
+                        
                         
                         linesAtStop.append(trip)
                     }

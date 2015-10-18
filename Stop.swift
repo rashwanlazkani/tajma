@@ -17,18 +17,18 @@ public class Stop: Object {
     dynamic var distance: Int = 0
     dynamic var departures = [Departure]?()
     
-    dynamic init(id: String, name: String, lat: String, long: String, distance: Int, departures: [Departure]?) {
-        self.id = id
-        self.name = name
-        self.lat = lat
-        self.long = long
-        self.distance = distance
-        self.departures = departures
-        
-        super.init()
-    }
-    
-    required public init() {
-        fatalError("init() has not been implemented")
-    }
+//    dynamic init(id: String, name: String, lat: String, long: String, distance: Int, departures: [Departure]?) {
+//        self.id = id
+//        self.name = name
+//        self.lat = lat
+//        self.long = long
+//        self.distance = distance
+//        self.departures = departures
+//        
+//        super.init()
+//    }
+//    
+//    required public init() {
+//        fatalError("init() has not been implemented")
+//    }
 }

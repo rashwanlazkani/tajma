@@ -48,11 +48,31 @@ class StopsService{
                         var existingStop = self.checkIfUserHasAddedStop(name!)
                         
                         if (!existingStop.name.isEmpty){
-                            var stop = Stop(id: existingStop.id, name: existingStop.name, lat: existingStop.lat, long: existingStop.long, distance: 0, departures: nil)
+                            // init!
+                            //var stop = Stop(id: existingStop.id, name: existingStop.name, lat: existingStop.lat, long: existingStop.long, distance: 0, departures: nil)
+                            
+                            var stop = Stop()
+                            stop.id = existingStop.id
+                            stop.name = existingStop.name
+                            stop.lat = existingStop.lat
+                            stop.long = existingStop.long
+                            stop.distance = 0
+                            stop.departures = nil
+                            
                             self.stops.stops.append(stop as Stop)
                         }
                         else{
-                            var stop = Stop(id: id!, name: name!, lat: lat!, long: long!, distance: 0, departures: nil)
+                            // init!
+                            //var stop = Stop(id: id!, name: name!, lat: lat!, long: long!, distance: 0, departures: nil)
+                            
+                            var stop = Stop()
+                            stop.id = id!
+                            stop.name = name!
+                            stop.lat = lat!
+                            stop.long = long!
+                            stop.distance = 0
+                            stop.departures = nil
+                            
                             self.stops.stops.append(stop as Stop)
                         }
                         
@@ -98,7 +118,16 @@ class StopsService{
                     var long = subJson["lon"].string
                     
                     if (name == nil){
-                        var stop = Stop(id: "", name: "Inget stopp hittades", lat: "", long: "", distance: 0, departures: nil)
+                        //var stop = Stop(id: "", name: "Inget stopp hittades", lat: "", long: "", distance: 0, departures: nil)
+                        
+                        var stop = Stop()
+                        stop.id = ""
+                        stop.name = "Inget stopp hittades"
+                        stop.lat = ""
+                        stop.long = ""
+                        stop.distance = 0
+                        stop.departures = nil
+                        
                         self.stops.stops.append(stop as Stop)
                         break
                     }
@@ -111,11 +140,31 @@ class StopsService{
                     var existingStop = self.checkIfUserHasAddedStop(name!)
                     
                     if (!existingStop.name.isEmpty){
-                        var stop = Stop(id: existingStop.id, name: existingStop.name, lat: existingStop.lat, long: existingStop.long, distance: 0, departures: nil)
+                        // init!
+                        //var stop = Stop(id: existingStop.id, name: existingStop.name, lat: existingStop.lat, long: existingStop.long, distance: 0, departures: nil)
+                        
+                        var stop = Stop()
+                        stop.id = existingStop.id
+                        stop.name = existingStop.name
+                        stop.lat = existingStop.lat
+                        stop.long = existingStop.long
+                        stop.distance = 0
+                        stop.departures = nil
+                        
                         self.stops.stops.append(stop as Stop)
                     }
                     else{
-                        var stop = Stop(id: id!, name: name!, lat: lat!, long: long!, distance: 0, departures: nil)
+                        // init!
+                        //var stop = Stop(id: id!, name: name!, lat: lat!, long: long!, distance: 0, departures: nil)
+                        
+                        var stop = Stop()
+                        stop.id = id!
+                        stop.name = name!
+                        stop.lat = lat!
+                        stop.long = long!
+                        stop.distance = 0
+                        stop.departures = nil
+                        
                         self.stops.stops.append(stop as Stop)
                     }
                 }
@@ -132,10 +181,28 @@ class StopsService{
         var userStopsArr = [String]()
         let userStopsFromDB = RealmService.sharedInstance.getStops()
         
-        var stop = Stop(id: "", name: "", lat: "", long: "", distance: 0, departures: [])
+        // init
+        //var stop = Stop(id: "", name: "", lat: "", long: "", distance: 0, departures: [])
+        
+        var stop = Stop()
+        stop.id = ""
+        stop.name = ""
+        stop.lat = ""
+        stop.long = ""
+        stop.distance = 0
+        stop.departures = []
         
         for stop in userStopsFromDB{
-            let stop = Stop(id: stop.id, name: stop.name, lat: stop.lat, long: stop.long, distance: stop.distance, departures: stop.departures)
+            // init
+            //let stop = Stop(id: stop.id, name: stop.name, lat: stop.lat, long: stop.long, distance: stop.distance, departures: stop.departures)
+            
+            var s = Stop()
+            s.id = stop.id
+            s.name = stop.name
+            s.lat = stop.lat
+            s.long = stop.long
+            s.distance = stop.distance
+            s.departures = stop.departures
             
             userStops.append(stop)
             userStopsArr.append(stop.name)
@@ -144,7 +211,15 @@ class StopsService{
         if (userStopsArr.contains(stopName)){
             for item in userStops{
                 if (item.name == stopName){
-                    stop = Stop(id: item.id, name: item.name, lat: item.lat, long: item.long, distance: 0, departures: nil)
+                    // init!
+                    //stop = Stop(id: item.id, name: item.name, lat: item.lat, long: item.long, distance: 0, departures: nil)
+                
+                    stop.id = item.id
+                    stop.name = item.name
+                    stop.lat = item.lat
+                    stop.long = item.long
+                    stop.distance = 0
+                    stop.departures = nil
                 }
             }
             

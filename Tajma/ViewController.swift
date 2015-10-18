@@ -160,8 +160,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.tableView!.reloadData()
                 }
                 else{
-                    let stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200,
-                        departures: nil)
+                    // init
+                    //let stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200, departures: nil)
+                    
+                    let stop = Stop()
+                    stop.id = "0"
+                    stop.name = "Fel vid hämtning. Hämta igen."
+                    stop.lat = "0"
+                    stop.long = "0"
+                    stop.distance = -200
+                    stop.departures = nil
                     
                     if (self.stopWrapper.stops.isEmpty){
                         self.stopWrapper.stops.append(stop)
@@ -312,7 +320,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         stopWrapper.stops = [Stop]()
         
-        let stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200, departures: nil)
+        // init
+        //let stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200, departures: nil)
+        
+        let stop = Stop()
+        stop.id = "0"
+        stop.name = "Fel vid hämtning. Hämta igen."
+        stop.lat = "0"
+        stop.long = "0"
+        stop.distance = -200
+        stop.departures = nil
+        
         self.stopWrapper.stops.append(stop)
         self.tableView!.reloadData()
     }
@@ -435,7 +453,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (segue.identifier == "ShowLinesView")
         {
             let row : Int = sender as! Int
-            let stop = Stop(id: stopWrapper.stops[row].id, name: stopWrapper.stops[row].name, lat: stopWrapper.stops[row].lat, long: stopWrapper.stops[row].long, distance: 0, departures: nil)
+            //let stop = Stop(id: stopWrapper.stops[row].id, name: stopWrapper.stops[row].name, lat: stopWrapper.stops[row].lat, long: stopWrapper.stops[row].long, distance: 0, departures: nil)
+            
+            let stop = Stop()
+            stop.id = stopWrapper.stops[row].id
+            stop.name = stopWrapper.stops[row].name
+            stop.lat = stopWrapper.stops[row].lat
+            stop.long = stopWrapper.stops[row].long
+            stop.distance = -200
+            stop.departures = nil
             
             let lines = segue.destinationViewController as! LinesViewController
             lines.lineWrapper.lines = lineWrapper.lines

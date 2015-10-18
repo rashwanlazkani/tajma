@@ -128,7 +128,14 @@ public class LineService{
                         
                         let interval = String(stringInterpolationSegment: departureTime.timeIntervalSinceDate(departureTime))
                         
-                        var line = LinesAtStop(stopId: stopId!, lineAndDirection: lineAndDirection, departure: interval)
+                        // init!
+                        //var line = LinesAtStop(stopId: stopId!, lineAndDirection: lineAndDirection, departure: interval)
+                        
+                        var line = LinesAtStop()
+                        line.stopId = stopId!
+                        line.lineAndDirection = lineAndDirection
+                        line.departure = interval
+                        
                         self.lines.departures.append(line)
                     }
                     

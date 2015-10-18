@@ -14,4 +14,5 @@ public enum Row {
     case Button
     case NoDepartures
     case Info
+    case empty
 }
