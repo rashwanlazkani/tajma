@@ -58,7 +58,18 @@ public class DepartureService {
                 
                 let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverTime) / 60) - 1
                 
-                var departure = Departure(stopId: stopId, sname: sname, track: track, direction: direction, fgColor: fgColor, bgColor: bgColor, rtTimes: [intervalBetweenDepartures])
+                // init!
+                //var departure = Departure(stopId: stopId, sname: sname, track: track, direction: direction, fgColor: fgColor, bgColor: bgColor, rtTimes: [intervalBetweenDepartures])
+                
+                var departure = Departure()
+                departure.stopId = stopId
+                departure.sname = sname
+                departure.track = track
+                departure.direction = direction
+                departure.fgColor = fgColor
+                departure.bgColor = bgColor
+                departure.rtTimes = [intervalBetweenDepartures]
+                
                 tempDepartures.append(departure)
             }
             
@@ -69,14 +80,27 @@ public class DepartureService {
             var previousDirection = ""
             for row in tempDepartures {
                 var existingStop = self.stopService.checkIfUserHasAddedStop(stopId)
-                var departure : Departure
+                
+                //init!
+                //var departure : Departure
+                var departure = Departure()
                 
                 if (previousSname == row.sname && previousTrack == row.track && previousDirection == row.direction) {
                     departure = self.departures[self.departures.count - 1]
                     departure.rtTimes.append(row.rtTimes[0])
                 }
                 else {
-                    departure = Departure(stopId: row.stopId, sname: row.sname, track: row.track, direction: row.direction, fgColor: row.fgColor, bgColor: row.bgColor, rtTimes: row.rtTimes)
+                    // init!
+                    //departure = Departure(stopId: row.stopId, sname: row.sname, track: row.track, direction: row.direction, fgColor: row.fgColor, bgColor: row.bgColor, rtTimes: row.rtTimes)
+                    
+                    departure.stopId = row.stopId
+                    departure.sname = row.sname
+                    departure.track = row.track
+                    departure.direction = row.direction
+                    departure.fgColor = row.fgColor
+                    departure.bgColor = row.bgColor
+                    departure.rtTimes = row.rtTimes
+                    
                     self.departures.append(departure)
                 }
                 

@@ -18,19 +18,19 @@ public class Departure: Object {
     dynamic var bgColor: String = ""
     dynamic var rtTimes = [Int]()
     
-    dynamic init(stopId: String, sname: String, track: String, direction: String, fgColor: String, bgColor: String, rtTimes:[Int]) {
-        self.stopId = stopId
-        self.sname = sname
-        self.track = track
-        self.direction = direction
-        self.fgColor = fgColor
-        self.bgColor = bgColor
-        self.rtTimes = rtTimes
-        
-        super.init()
-    }
-    
-    required public init() {
-        fatalError("init() has not been implemented")
-    }
+//    dynamic init(stopId: String, sname: String, track: String, direction: String, fgColor: String, bgColor: String, rtTimes:[Int]) {
+//        self.stopId = stopId
+//        self.sname = sname
+//        self.track = track
+//        self.direction = direction
+//        self.fgColor = fgColor
+//        self.bgColor = bgColor
+//        self.rtTimes = rtTimes
+//        
+//        super.init()
+//    }
+//    
+//    required public init() {
+//        fatalError("init() has not been implemented")
+//    }
 }
