@@ -17,7 +17,7 @@ class RealmService {
     
     func getStopsId() -> [String]{
         var ids = [String]()
-        let userStops = realm.objects(StopLine)
+        let userStops = realm.objects(RealmObject)
         
         for row in userStops{
             ids.append(row.stopId)
@@ -28,7 +28,7 @@ class RealmService {
     func getStops() -> [Stop]{
         var stops = [Stop]()
         
-        let userStops = realm.objects(StopLine)
+        let userStops = realm.objects(RealmObject)
         
         for row in userStops{
             let stop = Stop()
@@ -49,16 +49,16 @@ class RealmService {
     }
     
     func getStopsCount() -> Int{
-        return Int(realm.objects(StopLine).count)
+        return Int(realm.objects(RealmObject).count)
     }
 
     func getStopsNearLocationCount(lat: String, long: String) -> Int{
-        let stopsNearLocation = realm.objects(StopLine).filter("lat BEGINSWITH = '\(lat)' AND long BEGINSWITH = '\(long)")
+        let stopsNearLocation = realm.objects(RealmObject).filter("lat BEGINSWITH = '\(lat)' AND long BEGINSWITH = '\(long)")
         return stopsNearLocation.count
     }
     
     func getStopName(stopId: String) -> String{
-        let stop = realm.objects(StopLine).filter("id = '\(stopId)'")
+        let stop = realm.objects(RealmObject).filter("id = '\(stopId)'")
         
         for s in stop{
             return s.stopName
@@ -70,7 +70,7 @@ class RealmService {
         Global.linesAtStop = [StopLine]()
         Global.allaStopp = [String]()
         
-        let getRows = realm.objects(StopLine).filter("stopId = '\(stopId)'")
+        let getRows = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
         
         for row in getRows{
             let stopline = StopLine()
@@ -94,7 +94,7 @@ class RealmService {
     
     func getLinesAtStopArr(stopId : String) -> [LineAtStopToday]{
         var lineArr = [LineAtStopToday]()
-        let lines = realm.objects(StopLine).filter("stopId = '\(stopId)'")
+        let lines = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
         
         for line in lines{
             let lineAtStop = LineAtStopToday()
@@ -109,7 +109,7 @@ class RealmService {
     }
     
     func getLinesAtStopToday(stopId: String) -> [LineAtStopToday]{
-        let userStops = realm.objects(StopLine).filter("stopId = '\(stopId)'")
+        let userStops = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
         
         var tempLinesAtStopTodayArr = [LineAtStopToday]()
         
@@ -126,31 +126,17 @@ class RealmService {
     }
     
     func addLinesToStop(stop: StopLine){
-        let s = realm.objects(StopLine).filter("stopId = '\(stop.stopId)'")
+        let s = realm.objects(RealmObject).filter("stopId = '\(stop.stopId)'")
         if (!s.isEmpty){
             try! realm.write({ () -> Void in
                 self.realm.delete(s)
             })
         }
         
-        if(realm.objects(StopLine).filter("stopId = '\(stop.stopId)'").count == 0){
-            let s = StopLine()
-            s.stopId = stop.stopId
-            s.stopName = stop.stopName
-            s.lat = stop.lat
-            s.long = stop.long
-            
-            do{
-                try! realm.write({ () -> Void in
-                    self.realm.add(s)
-                })
-            }
-        }
-
         for stopline in Global.linesAtStop
         {
             if (stopline.isChecked == true && stopline.stopId == stop.stopId){
-                let line = StopLine()
+                let line = RealmObject()
                 line.stopId = stopline.stopId
                 line.stopName = stopline.stopName
                 line.lat = stopline.lat
@@ -163,22 +149,16 @@ class RealmService {
                 
                 do{
                     try! realm.write({ () -> Void in
-                        self.realm.add(s)
+                        self.realm.add(line)
                     })
                 }
             }
-        }
-        
-        let lines = realm.objects(StopLine).filter("stopId = '\(stop.stopId)'")
-
-        if(lines.count == 0){
-            realm.delete(lines)
         }
     }
     
     func getLines() -> [LineAtStopToday]{
         var lineArr = [LineAtStopToday]()
-        let lines = realm.objects(StopLine)
+        let lines = realm.objects(RealmObject)
         
         for line in lines{
             let lineAtStop = LineAtStopToday()
