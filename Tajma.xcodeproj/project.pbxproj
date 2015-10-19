@@ -43,16 +43,6 @@
 		F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3C51B1B066B008F4505 /* LinesViewController.swift */; };
 		F8453E831BD5182D00781D00 /* DbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8453E821BD5182D00781D00 /* DbService.swift */; settings = {ASSET_TAGS = (); }; };
 		F8453E841BD5182D00781D00 /* DbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8453E821BD5182D00781D00 /* DbService.swift */; settings = {ASSET_TAGS = (); }; };
-		F871410A1BD55FB700A75E1B /* Tajma WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F871410D1BD55FB800A75E1B /* Tajma WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */; };
-		F87257371B3F2D5E006CBDA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87257361B3F2D5E006CBDA8 /* Images.xcassets */; };
-		F87257431B3F2D5E006CBDA8 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F87257411B3F2D5E006CBDA8 /* Interface.storyboard */; };
-		F87257451B3F2D5E006CBDA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87257441B3F2D5E006CBDA8 /* Images.xcassets */; };
-		F87257641B3F2E2D006CBDA8 /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
-		F87257661B3F2E2D006CBDA8 /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
-		F87257691B3F3198006CBDA8 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E081001B35B1D000A96A45 /* Info.swift */; };
-		F872576A1B3F3198006CBDA8 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
-		F872576C1B3F3391006CBDA8 /* DataRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F872576B1B3F3391006CBDA8 /* DataRowController.swift */; };
 		F87AFE731B1B902400D3DAFC /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE701B1B902400D3DAFC /* Departure.swift */; };
 		F87AFE741B1B902400D3DAFC /* LineAtStopToday.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */; };
 		F87AFE751B1B902400D3DAFC /* TodayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* TodayLabel.swift */; };
@@ -76,8 +66,6 @@
 		F8AE4F9F1BD26FA6005A754D /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9C1BD26FA6005A754D /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8AE4FA01BD26FA6005A754D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9D1BD26FA6005A754D /* RealmSwift.framework */; };
 		F8AE4FA11BD26FA6005A754D /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9D1BD26FA6005A754D /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F8AE4FA31BD26FB3005A754D /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9C1BD26FA6005A754D /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F8AE4FA51BD26FB3005A754D /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9D1BD26FA6005A754D /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8AE4FA91BD26FF0005A754D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9C1BD26FA6005A754D /* Realm.framework */; settings = {ASSET_TAGS = (); }; };
 		F8AE4FAA1BD26FF3005A754D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9D1BD26FA6005A754D /* RealmSwift.framework */; settings = {ASSET_TAGS = (); }; };
 		F8AE4FB01BD448B0005A754D /* RealmObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE4FAF1BD448B0005A754D /* RealmObject.swift */; settings = {ASSET_TAGS = (); }; };
@@ -85,7 +73,6 @@
 		F8B511691B22FA0400388866 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 		F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */; };
 		F8E081011B35B1D000A96A45 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E081001B35B1D000A96A45 /* Info.swift */; };
-		F8F6E0AC1B3F410B005CCEBF /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,13 +89,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = F843A39C1B1B04C2008F4505;
 			remoteInfo = Tajma;
-		};
-		F87141081BD55FB700A75E1B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F843A3951B1B04C2008F4505 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F872572F1B3F2D5D006CBDA8;
-			remoteInfo = "Tajma WatchKit Extension";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -136,36 +116,12 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F82CB03C1BD256A00015D3C5 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				F8AE4FA51BD26FB3005A754D /* RealmSwift.framework in Embed Frameworks */,
-				F8AE4FA31BD26FB3005A754D /* Realm.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F871410E1BD55FB800A75E1B /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				F871410A1BD55FB700A75E1B /* Tajma WatchKit Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F871410F1BD55FB800A75E1B /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				F871410D1BD55FB800A75E1B /* Tajma WatchKit App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,11 +153,9 @@
 		F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TajmaTests.swift; sourceTree = "<group>"; };
 		F843A3C51B1B066B008F4505 /* LinesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesViewController.swift; sourceTree = "<group>"; };
 		F8453E821BD5182D00781D00 /* DbService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DbService.swift; sourceTree = "<group>"; };
-		F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Tajma WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F87257331B3F2D5E006CBDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F87257341B3F2D5E006CBDA8 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		F87257361B3F2D5E006CBDA8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tajma WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F87257401B3F2D5E006CBDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F87257421B3F2D5E006CBDA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		F87257441B3F2D5E006CBDA8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -256,13 +210,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F843A3B21B1B04C2008F4505 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F872572D1B3F2D5D006CBDA8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -333,8 +280,6 @@
 				F843A39D1B1B04C2008F4505 /* Tajma.app */,
 				F843A3B51B1B04C2008F4505 /* TajmaTests.xctest */,
 				F80667561B1E5CA100A26B5D /* TajmaToday.appex */,
-				F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */,
-				F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -534,42 +479,6 @@
 			productReference = F843A3B51B1B04C2008F4505 /* TajmaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F872572F1B3F2D5D006CBDA8 /* Tajma WatchKit Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F872574E1B3F2D5E006CBDA8 /* Build configuration list for PBXNativeTarget "Tajma WatchKit Extension" */;
-			buildPhases = (
-				F872572C1B3F2D5D006CBDA8 /* Sources */,
-				F872572D1B3F2D5D006CBDA8 /* Frameworks */,
-				F872572E1B3F2D5D006CBDA8 /* Resources */,
-				F82CB03C1BD256A00015D3C5 /* Embed Frameworks */,
-				F8AE4FA81BD26FD5005A754D /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Tajma WatchKit Extension";
-			productName = "Tajma WatchKit Extension";
-			productReference = F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
-		};
-		F87257391B3F2D5E006CBDA8 /* Tajma WatchKit App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F872574D1B3F2D5E006CBDA8 /* Build configuration list for PBXNativeTarget "Tajma WatchKit App" */;
-			buildPhases = (
-				F87257381B3F2D5E006CBDA8 /* Resources */,
-				F871410E1BD55FB800A75E1B /* Embed App Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F87141091BD55FB700A75E1B /* PBXTargetDependency */,
-			);
-			name = "Tajma WatchKit App";
-			productName = "Tajma WatchKit App";
-			productReference = F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -603,19 +512,6 @@
 						CreatedOnToolsVersion = 6.3.2;
 						TestTargetID = F843A39C1B1B04C2008F4505;
 					};
-					F872572F1B3F2D5D006CBDA8 = {
-						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = 7XDMTA49ZT;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
-					F87257391B3F2D5E006CBDA8 = {
-						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = 7XDMTA49ZT;
-					};
 				};
 			};
 			buildConfigurationList = F843A3981B1B04C2008F4505 /* Build configuration list for PBXProject "Tajma" */;
@@ -634,8 +530,6 @@
 				F843A39C1B1B04C2008F4505 /* Tajma */,
 				F843A3B41B1B04C2008F4505 /* TajmaTests */,
 				F80667551B1E5CA100A26B5D /* TajmaToday */,
-				F872572F1B3F2D5D006CBDA8 /* Tajma WatchKit Extension */,
-				F87257391B3F2D5E006CBDA8 /* Tajma WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -666,40 +560,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F872572E1B3F2D5D006CBDA8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F87257371B3F2D5E006CBDA8 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F87257381B3F2D5E006CBDA8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F87257431B3F2D5E006CBDA8 /* Interface.storyboard in Resources */,
-				F87257451B3F2D5E006CBDA8 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		F8AE4FA61BD26FBA005A754D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
-		};
-		F8AE4FA81BD26FD5005A754D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -790,19 +654,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F872572C1B3F2D5D006CBDA8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F872576C1B3F3391006CBDA8 /* DataRowController.swift in Sources */,
-				F87257641B3F2E2D006CBDA8 /* RestApiService.swift in Sources */,
-				F87257661B3F2E2D006CBDA8 /* SwiftyJSONService.swift in Sources */,
-				F872576A1B3F3198006CBDA8 /* Row.swift in Sources */,
-				F8F6E0AC1B3F410B005CCEBF /* UIColor.swift in Sources */,
-				F87257691B3F3198006CBDA8 /* Info.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -815,11 +666,6 @@
 			isa = PBXTargetDependency;
 			target = F843A39C1B1B04C2008F4505 /* Tajma */;
 			targetProxy = F843A3B61B1B04C2008F4505 /* PBXContainerItemProxy */;
-		};
-		F87141091BD55FB700A75E1B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F872572F1B3F2D5D006CBDA8 /* Tajma WatchKit Extension */;
-			targetProxy = F87141081BD55FB700A75E1B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1054,103 +900,6 @@
 			};
 			name = Release;
 		};
-		F87257491B3F2D5E006CBDA8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Tajma WatchKit Extension/Tajma WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Tajma WatchKit Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.swift.project.Tajma.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Tajma WatchKit Extension/Bridging-Header.h";
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Debug;
-		};
-		F872574A1B3F2D5E006CBDA8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Tajma WatchKit Extension/Tajma WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = "Tajma WatchKit Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.swift.project.Tajma.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Tajma WatchKit Extension/Bridging-Header.h";
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Release;
-		};
-		F872574B1B3F2D5E006CBDA8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				IBSC_MODULE = Tajma_WatchKit_Extension;
-				INFOPLIST_FILE = "Tajma WatchKit App/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.swift.project.Tajma.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Debug;
-		};
-		F872574C1B3F2D5E006CBDA8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				IBSC_MODULE = Tajma_WatchKit_Extension;
-				INFOPLIST_FILE = "Tajma WatchKit App/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.swift.project.Tajma.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1186,24 +935,6 @@
 			buildConfigurations = (
 				F843A3C31B1B04C2008F4505 /* Debug */,
 				F843A3C41B1B04C2008F4505 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F872574D1B3F2D5E006CBDA8 /* Build configuration list for PBXNativeTarget "Tajma WatchKit App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F872574B1B3F2D5E006CBDA8 /* Debug */,
-				F872574C1B3F2D5E006CBDA8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F872574E1B3F2D5E006CBDA8 /* Build configuration list for PBXNativeTarget "Tajma WatchKit Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F87257491B3F2D5E006CBDA8 /* Debug */,
-				F872574A1B3F2D5E006CBDA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
