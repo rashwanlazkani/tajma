@@ -90,10 +90,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidAppear(animated: Bool) {
         lineWrapper = LineWrapper()
-        
+
         self.navigationController?.navigationBar.layer.zPosition = 1
 
-        navigationController?.navigationBar.barStyle = UIBarStyle.Default
+        navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         navigationController?.navigationBar.tintColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 0)]
         
@@ -101,6 +101,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         tableView.reloadData()
     }
+
  
     // MARK: - Functions
     func initiateViews(){
@@ -109,6 +110,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // NavController
         navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        
+        
+        
+        
         
         // SearchBar
         let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
