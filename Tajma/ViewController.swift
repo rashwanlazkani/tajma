@@ -349,7 +349,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        var cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
         if(indexPath.row % 2 == 0){
             cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
@@ -386,7 +386,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return cell
         }
         
-        var myStops = RealmService.sharedInstance.getStopsId()
+        let myStops = RealmService.sharedInstance.getStopsId()
         
         if (myStops.contains(stopWrapper.stops[indexPath.row].id)){
             let imageName = "check-red"
