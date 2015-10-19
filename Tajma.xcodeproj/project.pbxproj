@@ -46,12 +46,12 @@
 		F8453E831BD5182D00781D00 /* DbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8453E821BD5182D00781D00 /* DbService.swift */; settings = {ASSET_TAGS = (); }; };
 		F8453E841BD5182D00781D00 /* DbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8453E821BD5182D00781D00 /* DbService.swift */; settings = {ASSET_TAGS = (); }; };
 		F8453E851BD5182D00781D00 /* DbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8453E821BD5182D00781D00 /* DbService.swift */; settings = {ASSET_TAGS = (); }; };
+		F871410A1BD55FB700A75E1B /* Tajma WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F871410D1BD55FB800A75E1B /* Tajma WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */; };
 		F87257351B3F2D5E006CBDA8 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87257341B3F2D5E006CBDA8 /* InterfaceController.swift */; };
 		F87257371B3F2D5E006CBDA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87257361B3F2D5E006CBDA8 /* Images.xcassets */; };
-		F872573B1B3F2D5E006CBDA8 /* Tajma WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */; };
 		F87257431B3F2D5E006CBDA8 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F87257411B3F2D5E006CBDA8 /* Interface.storyboard */; };
 		F87257451B3F2D5E006CBDA8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87257441B3F2D5E006CBDA8 /* Images.xcassets */; };
-		F87257481B3F2D5E006CBDA8 /* Tajma WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F87257561B3F2E19006CBDA8 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
 		F87257571B3F2E21006CBDA8 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE761B1B903F00D3DAFC /* CheckBox.swift */; };
 		F87257581B3F2E21006CBDA8 /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE701B1B902400D3DAFC /* Departure.swift */; };
@@ -123,19 +123,19 @@
 			remoteGlobalIDString = F843A39C1B1B04C2008F4505;
 			remoteInfo = Tajma;
 		};
-		F872573C1B3F2D5E006CBDA8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F843A3951B1B04C2008F4505 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F87257391B3F2D5E006CBDA8;
-			remoteInfo = "Tajma WatchKit App";
-		};
-		F87257461B3F2D5E006CBDA8 /* PBXContainerItemProxy */ = {
+		F87141081BD55FB700A75E1B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F843A3951B1B04C2008F4505 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F872572F1B3F2D5D006CBDA8;
 			remoteInfo = "Tajma WatchKit Extension";
+		};
+		F871410B1BD55FB800A75E1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F843A3951B1B04C2008F4505 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F87257391B3F2D5E006CBDA8;
+			remoteInfo = "Tajma WatchKit App";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -147,7 +147,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */,
-				F87257481B3F2D5E006CBDA8 /* Tajma WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -174,6 +173,28 @@
 				F8AE4FA31BD26FB3005A754D /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F871410E1BD55FB800A75E1B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F871410A1BD55FB700A75E1B /* Tajma WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F871410F1BD55FB800A75E1B /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				F871410D1BD55FB800A75E1B /* Tajma WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -510,12 +531,13 @@
 				F80667671B1E5CA100A26B5D /* Embed App Extensions */,
 				F82CB0371BD256840015D3C5 /* Embed Frameworks */,
 				F8AE4FA61BD26FBA005A754D /* ShellScript */,
+				F871410F1BD55FB800A75E1B /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				F80667621B1E5CA100A26B5D /* PBXTargetDependency */,
-				F87257471B3F2D5E006CBDA8 /* PBXTargetDependency */,
+				F871410C1BD55FB800A75E1B /* PBXTargetDependency */,
 			);
 			name = Tajma;
 			productName = Tajma;
@@ -553,27 +575,28 @@
 			buildRules = (
 			);
 			dependencies = (
-				F872573D1B3F2D5E006CBDA8 /* PBXTargetDependency */,
 			);
 			name = "Tajma WatchKit Extension";
 			productName = "Tajma WatchKit Extension";
 			productReference = F87257301B3F2D5D006CBDA8 /* Tajma WatchKit Extension.appex */;
-			productType = "com.apple.product-type.watchkit-extension";
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 		F87257391B3F2D5E006CBDA8 /* Tajma WatchKit App */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F872574D1B3F2D5E006CBDA8 /* Build configuration list for PBXNativeTarget "Tajma WatchKit App" */;
 			buildPhases = (
 				F87257381B3F2D5E006CBDA8 /* Resources */,
+				F871410E1BD55FB800A75E1B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F87141091BD55FB700A75E1B /* PBXTargetDependency */,
 			);
 			name = "Tajma WatchKit App";
 			productName = "Tajma WatchKit App";
 			productReference = F872573A1B3F2D5E006CBDA8 /* Tajma WatchKit App.app */;
-			productType = "com.apple.product-type.application.watchapp";
+			productType = "com.apple.product-type.application.watchapp2";
 		};
 /* End PBXNativeTarget section */
 
@@ -583,7 +606,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Rashwan Lazkani";
 				TargetAttributes = {
 					F80667551B1E5CA100A26B5D = {
@@ -675,7 +698,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F872573B1B3F2D5E006CBDA8 /* Tajma WatchKit App.app in Resources */,
 				F87257371B3F2D5E006CBDA8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -842,15 +864,15 @@
 			target = F843A39C1B1B04C2008F4505 /* Tajma */;
 			targetProxy = F843A3B61B1B04C2008F4505 /* PBXContainerItemProxy */;
 		};
-		F872573D1B3F2D5E006CBDA8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F87257391B3F2D5E006CBDA8 /* Tajma WatchKit App */;
-			targetProxy = F872573C1B3F2D5E006CBDA8 /* PBXContainerItemProxy */;
-		};
-		F87257471B3F2D5E006CBDA8 /* PBXTargetDependency */ = {
+		F87141091BD55FB700A75E1B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F872572F1B3F2D5D006CBDA8 /* Tajma WatchKit Extension */;
-			targetProxy = F87257461B3F2D5E006CBDA8 /* PBXContainerItemProxy */;
+			targetProxy = F87141081BD55FB700A75E1B /* PBXContainerItemProxy */;
+		};
+		F871410C1BD55FB800A75E1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F87257391B3F2D5E006CBDA8 /* Tajma WatchKit App */;
+			targetProxy = F871410B1BD55FB800A75E1B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -898,6 +920,7 @@
 				);
 				INFOPLIST_FILE = TajmaToday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.Tajma.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TajmaToday;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -917,6 +940,7 @@
 				);
 				INFOPLIST_FILE = TajmaToday/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.Tajma.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TajmaToday;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -946,6 +970,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -961,7 +986,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -999,7 +1024,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1019,6 +1044,7 @@
 				);
 				INFOPLIST_FILE = Tajma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
@@ -1038,6 +1064,7 @@
 				);
 				INFOPLIST_FILE = Tajma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
@@ -1058,6 +1085,7 @@
 				);
 				INFOPLIST_FILE = TajmaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tajma.app/Tajma";
 			};
@@ -1073,6 +1101,7 @@
 				);
 				INFOPLIST_FILE = TajmaTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tajma.app/Tajma";
 			};
@@ -1094,10 +1123,14 @@
 				);
 				INFOPLIST_FILE = "Tajma WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swift.project.Tajma.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tajma WatchKit Extension/Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -1113,10 +1146,14 @@
 				);
 				INFOPLIST_FILE = "Tajma WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swift.project.Tajma.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tajma WatchKit Extension/Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -1127,20 +1164,22 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				IBSC_MODULE = Tajma_WatchKit_Extension;
 				INFOPLIST_FILE = "Tajma WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swift.project.Tajma.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -1151,15 +1190,17 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = Tajma_WatchKit_Extension;
 				INFOPLIST_FILE = "Tajma WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swift.project.Tajma.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
