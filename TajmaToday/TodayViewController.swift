@@ -9,11 +9,9 @@
 import UIKit
 import NotificationCenter
 import CoreLocation
+import RealmSwift
 
 class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLocationManagerDelegate {
-    var dbService = DbService()
-    
-    
     var lat  = ""
     var long = ""
     var departureService = DepartureService()
@@ -30,14 +28,14 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     // Behövs då en bugg finns att denna inte alltid öppnas
     // http://stackoverflow.com/questions/24128024/today-extension-has-a-title-but-no-body-ios-8
     override func awakeFromNib() {
-        self.preferredContentSize = CGSize(width: 50, height: 20)
+        self.preferredContentSize = CGSize(width: 50, height: 20)        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dbService.setDefaultDB()
-
+        DbService.setSharedURL()
+        
         self.locationManager.requestWhenInUseAuthorization()
         if (CLLocationManager.locationServicesEnabled()){
             if CLLocationManager.authorizationStatus() == .Denied {
@@ -61,7 +59,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         print(DeviceHelper.iPhoneModelSize())
         
         if (locationService){
-            updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
+            updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(150000, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
         }
     }
     
@@ -465,15 +463,15 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                         //let trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
                         
                         var trip = TodayLabel()
-                        todayLabel.stopName = stop.name
-                        todayLabel.distance = stop.distance
-                        todayLabel.sname = departure.sname
-                        todayLabel.direction = departure.direction
-                        todayLabel.snameAndDirection = departure.sname + " " + departure.direction
-                        todayLabel.fgColor = departure.fgColor
-                        todayLabel.bgColor = departure.bgColor
-                        todayLabel.rtTimes = rtTimesArr
-                        todayLabel.row = Row.Line
+                        trip.stopName = stop.name
+                        trip.distance = stop.distance
+                        trip.sname = departure.sname
+                        trip.direction = departure.direction
+                        trip.snameAndDirection = departure.sname + " " + departure.direction
+                        trip.fgColor = departure.fgColor
+                        trip.bgColor = departure.bgColor
+                        trip.rtTimes = rtTimesArr
+                        trip.row = Row.Line
                         
                         
                         linesAtStop.append(trip)
@@ -481,7 +479,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                     
                 }
             }
-            
+
             // Sortera lista på distans och sedan efter avgångar
             let sortedList = linesAtStop.sort {
                 switch ($0.distance,$1.distance) {
