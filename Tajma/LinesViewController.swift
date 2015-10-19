@@ -22,6 +22,8 @@ class LinesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        DbService.setSharedURL()
+        
         navigationController?.navigationBar.hidden = false
 
         self.scrollView.bounces = true
@@ -86,7 +88,6 @@ class LinesViewController: UIViewController {
             // init!
             //var stopLine : StopLine
             var stopLine = StopLine()
-            
             
             var isChecked = false
             

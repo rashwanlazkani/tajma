@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TajmaToday/TodayViewController.swift"
-            timestampString = "466899483.720379"
+            filePath = "Tajma/ViewController.swift"
+            timestampString = "466950544.127588"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "locationManager(_:didFailWithError:)"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
+            landmarkName = "searchBarSearchButtonClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DepartureService.swift"
-            timestampString = "466894290.0787"
+            filePath = "TajmaToday/TodayViewController.swift"
+            timestampString = "466964208.507623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "getMyDepartures(_:long:)"
+            startingLineNumber = "520"
+            endingLineNumber = "520"
+            landmarkName = "getData()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TajmaToday/TodayViewController.swift"
+            timestampString = "466963464.797468"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "441"
+            endingLineNumber = "441"
+            landmarkName = "getData()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

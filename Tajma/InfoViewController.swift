@@ -22,6 +22,8 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        DbService.setSharedURL()
+        
         self.navigationController?.navigationBar.layer.zPosition = 1
         
         initiateViews()

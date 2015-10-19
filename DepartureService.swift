@@ -142,9 +142,7 @@ public class DepartureService {
             }
             
             // sortera baserat på avstånd
-            stops.sortInPlace({ $0.distance != $1.distance
-                ? $0.distance < $1.distance
-                : $0.id < $1.id})
+            //stops.sortInPlace({ $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
             
             // hämta upp till 5 st stops inom 300 meter eller upp till 2 stops i övriga fall
             for stop in stops {
