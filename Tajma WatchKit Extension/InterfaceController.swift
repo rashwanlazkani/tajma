@@ -12,6 +12,8 @@ import Foundation
 
 class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     
+    var dbService = DbService()
+    
     @IBOutlet weak var table: WKInterfaceTable!
     var linesAtStop = [TodayLabel]()
     var updateDataTimer = NSTimer()
@@ -32,6 +34,8 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        
+        dbService.setDefaultDB()
         
         self.locationManager.requestWhenInUseAuthorization()
         if (CLLocationManager.locationServicesEnabled()){

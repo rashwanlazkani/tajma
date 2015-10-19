@@ -26,9 +26,15 @@ class RealmService {
     }
     
     func getStops() -> [Stop]{
+        
+//        let sortProperties = [SortDescriptor(property: "dateStart", ascending: true), SortDescriptor(property: "timeStart", ascending: true)]
+//        allShowsByDate = Realm().objects(MyObjectType).sorted(sortProperties)
+        
         var stops = [Stop]()
         
         let userStops = realm.objects(RealmObject)
+        
+        print(userStops.count)
         
         for row in userStops{
             let stop = Stop()

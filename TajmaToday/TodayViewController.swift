@@ -11,6 +11,8 @@ import NotificationCenter
 import CoreLocation
 
 class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLocationManagerDelegate {
+    var dbService = DbService()
+    
     
     var lat  = ""
     var long = ""
@@ -33,6 +35,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dbService.setDefaultDB()
 
         self.locationManager.requestWhenInUseAuthorization()
         if (CLLocationManager.locationServicesEnabled()){
