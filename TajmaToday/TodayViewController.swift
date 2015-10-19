@@ -56,8 +56,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        print(DeviceHelper.iPhoneModelSize())
-        
         if (locationService){
             updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(150000, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
         }
@@ -242,8 +240,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             lblSnameDir.text = linesAtStop[indexPath.row].sname
             lblSnameDir.text! += " " + linesAtStop[indexPath.row].direction
             
-            print(lblSnameDir)
-            
             for (index, rtTime) in linesAtStop[indexPath.row].rtTimes.enumerate(){
                 if (index == 0 && rtTime == 0){
                     depLabelOne.text = "Nu"
@@ -348,7 +344,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     
     // MARK: - Events
     func openMainApp(sender: UIButton!) {
-        print("Click")
         let url = NSURL(fileURLWithPath: "Tajma://home")
         self.extensionContext?.openURL(url, completionHandler: nil)
     }

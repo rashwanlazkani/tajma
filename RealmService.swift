@@ -30,15 +30,10 @@ class RealmService {
         let realm = try! Realm()
 //        let sortProperties = [SortDescriptor(property: "dateStart", ascending: true), SortDescriptor(property: "timeStart", ascending: true)]
 //        allShowsByDate = Realm().objects(MyObjectType).sorted(sortProperties)
-        
-        print("GetStops")
-        print(Realm.Configuration.defaultConfiguration.path!)
-        
+
         var stops = [Stop]()
         var tempStopsName = [String]()
         let userStops = realm.objects(RealmObject)
-        
-        print(userStops.count)
         
         for row in userStops{
             if(tempStopsName.contains(row.stopName)){
@@ -130,9 +125,6 @@ class RealmService {
     func getLinesAtStopToday(stopId: String) -> [LineAtStopToday]{
         let realm = try! Realm()
         
-        print("getLinesAtStopToday")
-        print(Realm.Configuration.defaultConfiguration.path!)
-        
         let userStops = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
         
         var tempLinesAtStopTodayArr = [LineAtStopToday]()
@@ -151,9 +143,7 @@ class RealmService {
     
     func addLinesToStop(stop: StopLine){
         let realm = try! Realm()
-        print("AddLines")
-        print(Realm.Configuration.defaultConfiguration.path!)
-        
+
         let s = realm.objects(RealmObject).filter("stopId = '\(stop.stopId)'")
         if (!s.isEmpty){
             try! realm.write({ () -> Void in
