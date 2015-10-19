@@ -1,5 +1,5 @@
 //
-//  DbService.swift
+//  File.swift
 //  Tajma
 //
 //  Created by Rashwan Lazkani on 2015-10-19.
@@ -10,7 +10,10 @@ import Foundation
 import RealmSwift
 
 class DbService {
-    func setDefaultDB(){
+    static func setSharedURL(){
+        
+        print(Realm.Configuration.defaultConfiguration.path!)
+        
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.tajma.today")!
         let realmPath = directory.URLByAppendingPathComponent("default.realm")
         
@@ -19,5 +22,6 @@ class DbService {
         Realm.Configuration.defaultConfiguration.path = urlSubString
         
         print(Realm.Configuration.defaultConfiguration.path!)
+
     }
 }
