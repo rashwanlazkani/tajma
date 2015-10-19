@@ -230,15 +230,15 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                         //let trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
                         
                         var trip = TodayLabel()
-                        todayLabel.stopName = stop.name
-                        todayLabel.distance = stop.distance
-                        todayLabel.sname = departure.sname
-                        todayLabel.direction = departure.direction
-                        todayLabel.snameAndDirection = departure.sname + " " + departure.direction
-                        todayLabel.fgColor = departure.fgColor
-                        todayLabel.bgColor = departure.bgColor
-                        todayLabel.rtTimes = rtTimesArr
-                        todayLabel.row = Row.Line
+                        trip.stopName = stop.name
+                        trip.distance = stop.distance
+                        trip.sname = departure.sname
+                        trip.direction = departure.direction
+                        trip.snameAndDirection = departure.sname + " " + departure.direction
+                        trip.fgColor = departure.fgColor
+                        trip.bgColor = departure.bgColor
+                        trip.rtTimes = rtTimesArr
+                        trip.row = Row.Line
                         
                         linesAtStop.append(trip)
                     }
