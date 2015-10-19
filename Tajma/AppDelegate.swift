@@ -15,21 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
-        print(Realm.Configuration.defaultConfiguration.path!)
-        
-        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.tajma.today")!
-        let realmPath = directory.URLByAppendingPathComponent("default.realm")
-        
-        let urlSubString = realmPath.absoluteString.stringByReplacingOccurrencesOfString("file://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        
-        Realm.Configuration.defaultConfiguration.path = urlSubString
-        
-        print(Realm.Configuration.defaultConfiguration.path!)
-        
         return true
     }
     
