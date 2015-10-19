@@ -108,8 +108,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.view.backgroundColor = UIColor.whiteColor()
         
         // NavController
-        navController.backgroundColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1)
-          
+        navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        
         // SearchBar
         let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.whiteColor()
@@ -142,9 +142,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // SegmentedControl
         segmentedControl.layer.masksToBounds = true
         segmentedControl.layer.cornerRadius = 6
-        segmentedControl.layer.borderColor = UIColor(red: 45/255, green: 137/255, blue: 239/255, alpha: 1).CGColor
+        segmentedControl.layer.borderColor = UIColor.whiteColor().CGColor
         segmentedControl.layer.borderWidth = 1.0
-        segmentedControl.backgroundColor = UIColor(red: 32/255, green: 106/255, blue: 196/255, alpha: 1)
+        segmentedControl.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
     }
     
     func closeWebView(sender: UIButton!){
