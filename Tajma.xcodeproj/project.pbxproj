@@ -95,9 +95,7 @@
 		F8AE4F9F1BD26FA6005A754D /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9C1BD26FA6005A754D /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8AE4FA01BD26FA6005A754D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9D1BD26FA6005A754D /* RealmSwift.framework */; };
 		F8AE4FA11BD26FA6005A754D /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9D1BD26FA6005A754D /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F8AE4FA21BD26FB3005A754D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9C1BD26FA6005A754D /* Realm.framework */; };
 		F8AE4FA31BD26FB3005A754D /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9C1BD26FA6005A754D /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F8AE4FA41BD26FB3005A754D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9D1BD26FA6005A754D /* RealmSwift.framework */; };
 		F8AE4FA51BD26FB3005A754D /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9D1BD26FA6005A754D /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F8AE4FA91BD26FF0005A754D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9C1BD26FA6005A754D /* Realm.framework */; settings = {ASSET_TAGS = (); }; };
 		F8AE4FAA1BD26FF3005A754D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8AE4F9D1BD26FA6005A754D /* RealmSwift.framework */; settings = {ASSET_TAGS = (); }; };
@@ -274,8 +272,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8AE4FA41BD26FB3005A754D /* RealmSwift.framework in Frameworks */,
-				F8AE4FA21BD26FB3005A754D /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
