@@ -18,7 +18,7 @@ public class LineService{
             
             var error = json["LocationList"]
             if (error["error"] == "R0007"){
-                var error = NSError(domain: "FEL", code: 1000, userInfo: nil)
+                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
                 self.lines.error = error.domain
                 
                 onCompletion(self.lines)
@@ -28,7 +28,7 @@ public class LineService{
                 
                 var tempNames = [String]()
                 
-                for (key,subJson):(String, JSON) in results {
+                for (_,subJson):(String, JSON) in results {
                     let name = subJson["name"].string
                     let sname = subJson["sname"].string
                     let direction = subJson["direction"].string
@@ -89,31 +89,31 @@ public class LineService{
             
             var error = json["LocationList"]
             if (error["error"] == "R0007"){
-                var error = NSError(domain: "FEL", code: 1000, userInfo: nil)
+                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
                 self.lines.error = error.domain
                 
                 onCompletion(self.lines)
             }
             else{
-                let departureBoard = json["DepartureBoard"]
-                var serverTimeStr = ""
+                //let departureBoard = json["DepartureBoard"]
+                //var serverTimeStr = ""
                 
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "HH:mm"
                 
-                for (key, subJson):(String, JSON) in departureBoard{
-                    serverTimeStr = subJson["servertime"].string!
-                }
+//                for (_, subJson):(String, JSON) in departureBoard{
+//                    serverTimeStr = subJson["servertime"].string!
+//                }
                 
                 let results = json["DepartureBoard"]["Departure"]
                 
                 var tempNames = [String]()
                 
-                for (key,subJson):(String, JSON) in results {
-                    var stopId = subJson["stopId"].string
-                    var sname = subJson["sname"].string
-                    var direction = subJson["direction"].string
-                    var departure = subJson["rtTime"].string
+                for (_,subJson):(String, JSON) in results {
+                    let stopId = subJson["stopId"].string
+                    let sname = subJson["sname"].string
+                    let direction = subJson["direction"].string
+                    let departure = subJson["rtTime"].string
                     
                     var lineAndDirection = sname! + " " + direction!
                     lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Buss", withString: "")
@@ -123,7 +123,7 @@ public class LineService{
                     if (!tempNames.contains(lineAndDirection)){
                         tempNames.insert(lineAndDirection, atIndex: 0)
                         
-                        let serverTime = dateFormatter.dateFromString(serverTimeStr) as NSDate!
+                        //let serverTime = dateFormatter.dateFromString(serverTimeStr) as NSDate!
                         let departureTime = dateFormatter.dateFromString(departure!) as NSDate!
                         
                         let interval = String(stringInterpolationSegment: departureTime.timeIntervalSinceDate(departureTime))
@@ -131,7 +131,7 @@ public class LineService{
                         // init!
                         //var line = LinesAtStop(stopId: stopId!, lineAndDirection: lineAndDirection, departure: interval)
                         
-                        var line = LinesAtStop()
+                        let line = LinesAtStop()
                         line.stopId = stopId!
                         line.lineAndDirection = lineAndDirection
                         line.departure = interval

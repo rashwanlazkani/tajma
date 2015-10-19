@@ -14,7 +14,7 @@ public class DepartureService {
     
     var departures = [Departure]()
     
-    func getDeparturesFromStop(var stopId: String, onCompletion: ([Departure]) -> Void) {
+    func getDeparturesFromStop(stopId: String, onCompletion: ([Departure]) -> Void) {
         RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
             self.departures = []
             
@@ -35,7 +35,7 @@ public class DepartureService {
             
             var tempDepartures = [Departure]()
             
-            for (key,subJson):(String, JSON) in results {
+            for (_,subJson):(String, JSON) in results {
                 let stopId = subJson["stopid"].string!
                 var sname = subJson["sname"].string!
                 let track = subJson["track"].string ?? ""
@@ -61,7 +61,7 @@ public class DepartureService {
                 // init!
                 //var departure = Departure(stopId: stopId, sname: sname, track: track, direction: direction, fgColor: fgColor, bgColor: bgColor, rtTimes: [intervalBetweenDepartures])
                 
-                var departure = Departure()
+                let departure = Departure()
                 departure.stopId = stopId
                 departure.sname = sname
                 departure.track = track
@@ -79,7 +79,7 @@ public class DepartureService {
             var previousTrack = ""
             var previousDirection = ""
             for row in tempDepartures {
-                var existingStop = self.stopService.checkIfUserHasAddedStop(stopId)
+                //var existingStop = self.stopService.checkIfUserHasAddedStop(stopId)
                 
                 //init!
                 //var departure : Departure
@@ -119,7 +119,7 @@ public class DepartureService {
     }
     
     func getMyDepartures(lat: Double, long: Double) -> [Stop] {
-        var stops = RealmService.sharedInstance.getStops()
+        let stops = RealmService.sharedInstance.getStops()
         var closestStops = [Stop]()
         
         let getDeparturesGroup = dispatch_group_create()

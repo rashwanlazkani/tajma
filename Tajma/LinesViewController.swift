@@ -78,7 +78,7 @@ class LinesViewController: UIViewController {
         
         
         for (index, line) in lineWrapper.lines.enumerate(){
-            var checkBox = CheckBox()
+            let checkBox = CheckBox()
             checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
             checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
             checkBox.tag = tag
@@ -87,7 +87,7 @@ class LinesViewController: UIViewController {
             
             // init!
             //var stopLine : StopLine
-            var stopLine = StopLine()
+            let stopLine = StopLine()
             
             var isChecked = false
             
@@ -133,11 +133,11 @@ class LinesViewController: UIViewController {
             
             Global.linesAtStop.append(stopLine)
             
-            var view = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 44))
+            let view = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 44))
             
             var fontSize = CGFloat(16)
             var sname = ""
-            var letterSname = Int(line.sname)
+            let letterSname = Int(line.sname)
             // Bokstväver
             if (line.sname == "16X"){
                 fontSize = CGFloat(12)
@@ -156,28 +156,28 @@ class LinesViewController: UIViewController {
             }
             
             // SnameView
-            var snameView = UIView()
+            let snameView = UIView()
             snameView.frame = CGRectMake(30, 30, 30, 30)
             snameView.layer.cornerRadius = 5
             snameView.center = CGPoint(x: 25, y: 23)
             snameView.backgroundColor = UIColor(rgba: line.fgColor)
             
             // SnameLabel
-            var snameLabel = UILabel(frame: CGRectMake(0, 0, 30, 30))
+            let snameLabel = UILabel(frame: CGRectMake(0, 0, 30, 30))
             snameLabel.textAlignment = NSTextAlignment.Center
             snameLabel.text = sname ?? line.sname
             snameLabel.textColor = UIColor(rgba: line.bgColor)
             snameLabel.font = snameLabel.font.fontWithSize(fontSize)
             
             // DirectionLabel
-            var directionLabel = UILabel(frame: CGRectMake(0, 8, DeviceHelper.getLabelWidth(), 30))
+            let directionLabel = UILabel(frame: CGRectMake(0, 8, DeviceHelper.getLabelWidth(), 30))
             directionLabel.textAlignment = NSTextAlignment.Left
             directionLabel.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
             directionLabel.text = "\t     \(line.direction)"
             directionLabel.font = directionLabel.font.fontWithSize(16)
             
             // SepartorView
-            var separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
+            let separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
             separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.5)
             
             if (isChecked){
@@ -215,7 +215,7 @@ class LinesViewController: UIViewController {
         }
             
         
-        var separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
+        let separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
         separatorView.backgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
         
         self.view.addSubview(separatorView)

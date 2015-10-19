@@ -17,7 +17,7 @@ class StopsService{
         RestApiService.sharedInstance.getNearestStops(lat, long: long) { json in
             var error = json["LocationList"]
             if (error["error"] == "R0007"){
-                var error = NSError(domain: "FEL", code: 1000, userInfo: nil)
+                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
                 self.stops.error = error.domain
                 
                 onCompletion(self.stops)
@@ -28,13 +28,13 @@ class StopsService{
                 var tempNames = [String]()
                 self.stops = StopWrapper()
                 
-                for (key,subJson):(String, JSON) in stops {
-                    let user: AnyObject = subJson["name"].object
+                for (_,subJson):(String, JSON) in stops {
+                    //let user: AnyObject = subJson["name"].object
                     
-                    var id = subJson["id"].string
+                    let id = subJson["id"].string
                     var name = subJson["name"].string
-                    var lat = subJson["lat"].string
-                    var long = subJson["lon"].string
+                    let lat = subJson["lat"].string
+                    let long = subJson["lon"].string
                     
                     if let dotRange = name!.rangeOfString(",") {
                         name!.removeRange(dotRange.startIndex..<name!.endIndex)
@@ -46,13 +46,13 @@ class StopsService{
                         tempNames.insert(name!, atIndex: 0)
                         // För att kolla om hållplatsen redan finns tillagd av användaren
                         // För att hämta rätt koordinater och stopId för att Västtrafiks API innehåller flera hållplatser med samma namn fast annorlunda stopId
-                        var existingStop = self.checkIfUserHasAddedStop(name!)
+                        let existingStop = self.checkIfUserHasAddedStop(name!)
                         
                         if (!existingStop.name.isEmpty){
                             // init!
                             //var stop = Stop(id: existingStop.id, name: existingStop.name, lat: existingStop.lat, long: existingStop.long, distance: 0, departures: nil)
                             
-                            var stop = Stop()
+                            let stop = Stop()
                             stop.id = existingStop.id
                             stop.name = existingStop.name
                             stop.lat = existingStop.lat
@@ -66,7 +66,7 @@ class StopsService{
                             // init!
                             //var stop = Stop(id: id!, name: name!, lat: lat!, long: long!, distance: 0, departures: nil)
                             
-                            var stop = Stop()
+                            let stop = Stop()
                             stop.id = id!
                             stop.name = name!
                             stop.lat = lat!
@@ -99,7 +99,7 @@ class StopsService{
             
             var error = json["LocationList"]
             if (error["error"] == "R0007"){
-                var error = NSError(domain: "FEL", code: 1000, userInfo: nil)
+                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
                 self.stops.error = error.domain
                 
                 onCompletion(self.stops)
@@ -110,18 +110,18 @@ class StopsService{
             else{
                 let stops = json["LocationList"]["StopLocation"]
                 
-                for (key,subJson):(String, JSON) in stops {
-                    let user: AnyObject = subJson["name"].object
+                for (_,subJson):(String, JSON) in stops {
+                    //let user: AnyObject = subJson["name"].object
                     
-                    var id = subJson["id"].string
+                    let id = subJson["id"].string
                     var name = subJson["name"].string
-                    var lat = subJson["lat"].string
-                    var long = subJson["lon"].string
+                    let lat = subJson["lat"].string
+                    let long = subJson["lon"].string
                     
                     if (name == nil){
                         //var stop = Stop(id: "", name: "Inget stopp hittades", lat: "", long: "", distance: 0, departures: nil)
                         
-                        var stop = Stop()
+                        let stop = Stop()
                         stop.id = ""
                         stop.name = "Inget stopp hittades"
                         stop.lat = ""
@@ -138,13 +138,13 @@ class StopsService{
                         name!.removeRange(dotRange.startIndex..<name!.endIndex)
                     }
                     
-                    var existingStop = self.checkIfUserHasAddedStop(name!)
+                    let existingStop = self.checkIfUserHasAddedStop(name!)
                     
                     if (!existingStop.name.isEmpty){
                         // init!
                         //var stop = Stop(id: existingStop.id, name: existingStop.name, lat: existingStop.lat, long: existingStop.long, distance: 0, departures: nil)
                         
-                        var stop = Stop()
+                        let stop = Stop()
                         stop.id = existingStop.id
                         stop.name = existingStop.name
                         stop.lat = existingStop.lat
@@ -158,7 +158,7 @@ class StopsService{
                         // init!
                         //var stop = Stop(id: id!, name: name!, lat: lat!, long: long!, distance: 0, departures: nil)
                         
-                        var stop = Stop()
+                        let stop = Stop()
                         stop.id = id!
                         stop.name = name!
                         stop.lat = lat!
@@ -184,7 +184,7 @@ class StopsService{
         // init
         //var stop = Stop(id: "", name: "", lat: "", long: "", distance: 0, departures: [])
         
-        var stop = Stop()
+        let stop = Stop()
         stop.id = ""
         stop.name = ""
         stop.lat = ""
@@ -196,7 +196,7 @@ class StopsService{
             // init
             //let stop = Stop(id: stop.id, name: stop.name, lat: stop.lat, long: stop.long, distance: stop.distance, departures: stop.departures)
             
-            var s = Stop()
+            let s = Stop()
             s.id = stop.id
             s.name = stop.name
             s.lat = stop.lat

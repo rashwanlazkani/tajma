@@ -108,7 +108,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
         // init!
         //let todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
         
-        var todayLabel = TodayLabel()
+        let todayLabel = TodayLabel()
         todayLabel.stopName = "Du måste slå på lokaliseringen för TajmApp."
         todayLabel.distance = 0
         todayLabel.sname = ""
@@ -137,7 +137,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
             // init!
             //let todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
             
-            var todayLabel = TodayLabel()
+            let todayLabel = TodayLabel()
             todayLabel.stopName = "Ingen vald hållplats i närheten"
             todayLabel.distance = 0
             todayLabel.sname = ""
@@ -153,7 +153,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
             // init!
             //let todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Button)
             
-            var todayButton = TodayLabel()
+            let todayButton = TodayLabel()
             todayLabel.stopName = "Lägg till ny hållplats"
             todayLabel.distance = 0
             todayLabel.sname = ""
@@ -178,7 +178,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 // init!
                 //var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
                 
-                var todayLabel = TodayLabel()
+                let todayLabel = TodayLabel()
                 todayLabel.stopName = stop.name
                 todayLabel.distance = stop.distance
                 todayLabel.sname = ""
@@ -195,7 +195,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                     // init!
                     //todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.NoDepartures)
                     
-                    var todayLabel = TodayLabel()
+                    let todayLabel = TodayLabel()
                     todayLabel.stopName = "Inga avgångar hittades"
                     todayLabel.distance = stop.distance
                     todayLabel.sname = ""
@@ -229,7 +229,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                         // init!
                         //let trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
                         
-                        var trip = TodayLabel()
+                        let trip = TodayLabel()
                         trip.stopName = stop.name
                         trip.distance = stop.distance
                         trip.sname = departure.sname
@@ -250,7 +250,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
             // init
             //let heading = TodayLabel(stopName: "Tajma", distance: -1000, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
             
-            var heading = TodayLabel()
+            let heading = TodayLabel()
             heading.stopName = "Tajma"
             heading.distance = -1000
             heading.sname = ""
@@ -278,7 +278,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
             
             linesAtStop = sortedList
             
-            var temp = [TodayLabel]()
+            //var temp = [TodayLabel]()
             if (linesAtStop.count > watchSize()){
                 var arr = [String]()
                 
@@ -340,7 +340,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 
                 let attrString = NSAttributedString(
                     string: text,
-                    attributes: attributes as! [String : AnyObject])
+                    attributes: attributes as? [String : AnyObject])
                 
                 row.label.setTextColor(UIColor.redColor())
                 row.label.setAttributedText(attrString)
@@ -351,11 +351,10 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 row.label.setHeight(30.0)
             
                 font = UIFont(name: "Arial", size: 10.0)!
-                var strLength = stop.stopName.characters.count
+                let strLength = stop.stopName.characters.count
                 
                 if (strLength > 26){
-                    var stopname = (stop.stopName as NSString).substringToIndex(24)
-                    text = "\(stopname) \n\(String(stop.distance))m"
+                    text = "\((stop.stopName as NSString).substringToIndex(24)) \n\(String(stop.distance))m"
                 }
                 
                 text = "\(stop.stopName) \n\(String(stop.distance))m"
@@ -366,7 +365,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 
                 let attrString = NSAttributedString(
                     string: text,
-                    attributes: attributes as! [String : AnyObject])
+                    attributes: attributes as? [String : AnyObject])
                 
                 row.label.setTextColor(UIColor.grayColor())
                 row.label.setAttributedText(attrString)
@@ -416,7 +415,7 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 
                 let attrString = NSAttributedString(
                     string: text,
-                    attributes: attributes as! [String : AnyObject])
+                    attributes: attributes as? [String : AnyObject])
                 
                 row.label.setAttributedText(attrString)
                 row.group.setHeight(30.0)

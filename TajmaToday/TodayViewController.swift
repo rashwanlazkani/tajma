@@ -113,7 +113,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         // init!
         //let todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
         
-        var todayLabel = TodayLabel()
+        let todayLabel = TodayLabel()
         todayLabel.stopName = "Du måste slå på lokaliseringen för TajmApp."
         todayLabel.distance = 0
         todayLabel.sname = ""
@@ -159,7 +159,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             view.removeFromSuperview()
         }
         
-        var maxRows = false
+        //var maxRows = false
         
         let stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
         stopLabel.textAlignment = NSTextAlignment.Left
@@ -340,16 +340,16 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var url = NSURL(fileURLWithPath: "Tajma://home")
+        let url = NSURL(fileURLWithPath: "Tajma://home")
         self.extensionContext?.openURL(url, completionHandler: nil)
         
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        //let cell = tableView.cellForRowAtIndexPath(indexPath)
     }
     
     // MARK: - Events
     func openMainApp(sender: UIButton!) {
         print("Click")
-        var url = NSURL(fileURLWithPath: "Tajma://home")
+        let url = NSURL(fileURLWithPath: "Tajma://home")
         self.extensionContext?.openURL(url, completionHandler: nil)
     }
     
@@ -367,7 +367,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             // init!
             //let todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
             
-            var todayLabel = TodayLabel()
+            let todayLabel = TodayLabel()
             todayLabel.stopName = "Ingen vald hållplats i närheten"
             todayLabel.distance = 0
             todayLabel.sname = ""
@@ -383,7 +383,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             // init!
             //let todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Button)
             
-            var todayButton = TodayLabel()
+            let todayButton = TodayLabel()
             todayLabel.stopName = "Lägg till ny hållplats"
             todayLabel.distance = 0
             todayLabel.sname = ""
@@ -408,7 +408,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                 // init!
                 //var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
                 
-                var todayLabel = TodayLabel()
+                let todayLabel = TodayLabel()
                 todayLabel.stopName = stop.name
                 todayLabel.distance = stop.distance
                 todayLabel.sname = ""
@@ -427,7 +427,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                     // init!
                     //todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.NoDepartures)
                     
-                    var todayLabel = TodayLabel()
+                    let todayLabel = TodayLabel()
                     todayLabel.stopName = "Inga avgångar hittades"
                     todayLabel.distance = stop.distance
                     todayLabel.sname = ""
@@ -462,7 +462,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                         // init!
                         //let trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
                         
-                        var trip = TodayLabel()
+                        let trip = TodayLabel()
                         trip.stopName = stop.name
                         trip.distance = stop.distance
                         trip.sname = departure.sname
@@ -498,7 +498,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             // Går igenom och kollar om det är max antal stopp
             // Om max antal så vill vi dölja dubletter av linjer för hållplatser
             // Ex: Linje 10 mot Centralstationen ska endast visas på den närmaste hållplatsen så att vi kan visa fler linjer
-            var temp = [TodayLabel]()
+            
+            //var temp = [TodayLabel]()
             if (linesAtStop.count > DeviceHelper.iPhoneModelSize()){
                 var arr = [String]()
                 var temp = [TodayLabel]()
