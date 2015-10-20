@@ -261,10 +261,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-//        if (searchBar.text!.characters.count == 0){
-//            searchBar.resignFirstResponder()
-//            return
-//        }
+        segmentedControl.selectedSegmentIndex = 0
+        
         let stop = StopsService()
         
         activityIndicator.startAnimating()
