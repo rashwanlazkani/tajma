@@ -57,7 +57,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         super.viewWillAppear(animated)
         
         if (locationService){
-            updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(150000, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
+            updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
         }
     }
     
