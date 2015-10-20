@@ -227,7 +227,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func segmentedControl_Changed(sender: UISegmentedControl) {
         if (segmentedControl.selectedSegmentIndex == 0){
             self.locationManager.startUpdatingLocation()
-            getNearestStops()
             self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
             searchBar.resignFirstResponder()
         }
