@@ -228,7 +228,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (segmentedControl.selectedSegmentIndex == 0){
             self.locationManager.startUpdatingLocation()
             self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
-            searchBar.resignFirstResponder()
+            //searchBar.resignFirstResponder()
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
             stopWrapper.stops = RealmService.sharedInstance.getStops()
@@ -261,10 +261,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        if (searchBar.text!.characters.count == 0){
-            searchBar.resignFirstResponder()
-            return
-        }
+//        if (searchBar.text!.characters.count == 0){
+//            searchBar.resignFirstResponder()
+//            return
+//        }
         let stop = StopsService()
         
         activityIndicator.startAnimating()
@@ -274,7 +274,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             dispatch_async(dispatch_get_main_queue(),{
                 self.stopWrapper = json
                 if (self.stopWrapper.stops.count > 0){
-                    self.searchBar!.text = ""
+                    //self.searchBar!.text = ""
                     self.segmentedControl.setTitle("Sökresultat", forSegmentAtIndex: 0)
                 }
                 else{
@@ -288,7 +288,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             })
         })
         
-        searchBar.resignFirstResponder()
+        //searchBar.resignFirstResponder()
         
     }
 
@@ -412,6 +412,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         searchBar.resignFirstResponder()
+        self.searchBar!.text = ""
         // Hämta om närmaste stopp
         if (stopWrapper.stops[indexPath.row].id == "0" && stopWrapper.stops[indexPath.row].distance == -200){
             getNearestStops()
