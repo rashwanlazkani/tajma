@@ -44,6 +44,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         DbService.setSharedURL()
         
+        getNearestStops()
+        
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
@@ -110,7 +112,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // NavController
         navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        
         
         
         
@@ -297,7 +298,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
                 print("Error: " + error!.localizedDescription)
-                self.getNearestStops()
+                //self.getNearestStops()
                 return
             }
             if (placemarks!.count > 0){

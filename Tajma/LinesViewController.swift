@@ -54,10 +54,10 @@ class LinesViewController: UIViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         self.navigationController?.navigationBar.translucent = false
         
-        let title = UILabel(frame: CGRectMake(0, 6, 200, 30))
+        let title = UILabel(frame: CGRectMake(0, 7, 200, 30))
         title.textAlignment = NSTextAlignment.Center
         title.textColor = UIColor.whiteColor()
-        title.font = title.font.fontWithSize(17)
+        title.font = title.font.fontWithSize(19)
         title.text = stop.name
         
         let navBarTitleView = UIView(frame: CGRect(x: phoneSize.width / 2, y: 0, width: 200, height: 44))
