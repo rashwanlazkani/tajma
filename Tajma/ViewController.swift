@@ -148,9 +148,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // SegmentedControl
         segmentedControl.layer.masksToBounds = true
         segmentedControl.layer.cornerRadius = 6
-        segmentedControl.layer.borderColor = UIColor.whiteColor().CGColor
-        segmentedControl.layer.borderWidth = 1.0
-        segmentedControl.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        segmentedControl.layer.borderWidth = 1
+        segmentedControl.layer.borderColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1).CGColor
+        segmentedControl.backgroundColor = UIColor(red: 210/255, green: 43/255, blue: 69/255, alpha: 0.75)
     }
     
     func closeWebView(sender: UIButton!){
