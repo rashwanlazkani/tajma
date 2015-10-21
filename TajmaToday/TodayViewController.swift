@@ -21,8 +21,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     var updateDataTimer = NSTimer()
     var timerUpdate = false
     var firstRun = true
-    var locationService = false
     var stops = [Stop]()
+    
     let locationManager = CLLocationManager()
     
     // Behövs då en bugg finns att denna inte alltid öppnas
@@ -33,8 +33,9 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         DbService.setSharedURL()
+        
+        self.preferredContentSize = CGSize(width: 50, height: 20)
         
         self.locationManager.requestWhenInUseAuthorization()
         if (CLLocationManager.locationServicesEnabled()){
@@ -43,10 +44,10 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                 return
             }
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
+            //locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.requestLocation()
             
-            locationService = true
+            //locationService = true
         }
         else{
             locationOff()
@@ -55,10 +56,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if (locationService){
-            updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
-        }
+        updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -67,42 +65,22 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     
     // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: { (placemarks, error) -> Void in
-            if (error != nil){
-                print("Error: " + error!.localizedDescription)
-                return
-            }
-            if (placemarks!.count > 0){
-                let pm = placemarks?[0]
-                self.displayLocationInfo(pm!)
-            }
-            else{
-                print("Error with location data")
-            }
-        })
-    }
-    
-    func displayLocationInfo (placemark : CLPlacemark){
-        // Vi har en location, behöver inte titta mer
-        self.locationManager.stopUpdatingLocation()
-        lat = String(stringInterpolationSegment: placemark.location!.coordinate.latitude)
-        long = String(stringInterpolationSegment: placemark.location!.coordinate.longitude)
-        
-        if (firstRun || timerUpdate){
-            getData()
+        if let location = locations.first{
+            lat = String(location.coordinate.latitude)
+            long = String(location.coordinate.longitude)
             
-            firstRun = false
-            timerUpdate = false
+            getData()
         }
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print("Error: " + error.localizedDescription)
+        print("Failed to find user´s location: \(error.localizedDescription)")
     }
+    
     
     func getLocationAndUpdateView(){
         timerUpdate = true
-        locationManager.startUpdatingLocation()
+        locationManager.requestLocation()
     }
     
     func locationOff(){
@@ -124,7 +102,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         linesAtStop.append(todayLabel)
         
-        locationService = false
         updateTable()
     }
     
