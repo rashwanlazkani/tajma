@@ -9,6 +9,7 @@
 import UIKit
 import NotificationCenter
 import CoreLocation
+import Realm
 import RealmSwift
 
 class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLocationManagerDelegate {
@@ -28,13 +29,18 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     // Behövs då en bugg finns att denna inte alltid öppnas
     // http://stackoverflow.com/questions/24128024/today-extension-has-a-title-but-no-body-ios-8
     override func awakeFromNib() {
-        DbService.setSharedURL()
         self.preferredContentSize = CGSize(width: 50, height: 20)        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        DbService.setSharedURL()
+        
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.tajma.today")!
+        let realmPath = directory.URLByAppendingPathComponent("db.realm").path
+        let config = RLMRealmConfiguration.defaultConfiguration()
+        config.path = realmPath
+        RLMRealmConfiguration.setDefaultConfiguration(config)
+        
         
         self.preferredContentSize = CGSize(width: 50, height: 20)
         

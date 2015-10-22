@@ -24,8 +24,6 @@ class RealmService {
     }
     
     func getStops() -> [Stop]{
-        
-        DbService.setSharedURL()
         let realm = try! Realm()
 //        let sortProperties = [SortDescriptor(property: "dateStart", ascending: true), SortDescriptor(property: "timeStart", ascending: true)]
 //        allShowsByDate = Realm().objects(MyObjectType).sorted(sortProperties)

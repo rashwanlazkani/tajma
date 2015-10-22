@@ -42,8 +42,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DbService.setSharedURL()
-        
         getNearestStops()
         
         self.locationManager.delegate = self
