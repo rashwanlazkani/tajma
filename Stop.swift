@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 public class Stop {
     dynamic var id: String = ""

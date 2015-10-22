@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 public class LinesAtStop{
     dynamic var stopId: String = ""
