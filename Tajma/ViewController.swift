@@ -25,6 +25,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let phoneSize = PhoneSize()
         
     let locationManager = CLLocationManager()
+    
     var activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
     
     var lat : String = ""
@@ -42,13 +43,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getNearestStops()
-        
-        self.locationManager.delegate = self
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingLocation()
-        
+        locationManager.delegate = self
+        locationManager.requestLocation()
+
         searchBar!.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
@@ -283,43 +280,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 UIApplication.sharedApplication().endIgnoringInteractionEvents()
             })
         })
-        
-        //searchBar.resignFirstResponder()
-        
     }
 
-    // MARK: - Location Manager
+    // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: { (placemarks, error) -> Void in
-            if (error != nil){
-                print("Error: " + error!.localizedDescription)
-                //self.getNearestStops()
-                return
-            }
-            if (placemarks!.count > 0){
-                let pm = placemarks![0]
-                self.displayLocationInfo(pm)
-            }
-            else{
-                print("Error with location data")
-            }
-        })
-    }
-    
-    func displayLocationInfo (placemark : CLPlacemark){
-        // Vi har en location, behöver inte titta mer
-        self.locationManager.stopUpdatingLocation()
-        
-        lat = String(stringInterpolationSegment: placemark.location!.coordinate.latitude)
-        long = String(stringInterpolationSegment: placemark.location!.coordinate.longitude)
-        
-        getNearestStops()
-        tableView.reloadData()
+        if let location = locations.first{
+            lat = String(location.coordinate.latitude)
+            long = String(location.coordinate.longitude)
+            
+            getNearestStops()
+        }
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        // Vi fick ett fel och kunde inte hämta location, visa felmeddelande i app.
-        print("Error: " + error.localizedDescription)
+        print("Failed to find user´s location: \(error.localizedDescription)")
         
         stopWrapper.stops = [Stop]()
         
@@ -337,7 +311,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.stopWrapper.stops.append(stop)
         self.tableView!.reloadData()
     }
-    
+
     // MARK: - TableView
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
