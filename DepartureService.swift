@@ -150,7 +150,7 @@ public class DepartureService {
                     closestStops.append(stop)
                 }
                 else{
-                    break
+                    continue
                 }
             }
             
