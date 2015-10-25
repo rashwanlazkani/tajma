@@ -13,6 +13,7 @@ import RealmSwift
 
 class RealmService {
     func getStopsId() -> [String]{
+        setDefaultRealmConfiguration()
         let realm = try! Realm()
         var ids = [String]()
         let userStops = realm.objects(RealmObject)
@@ -24,6 +25,7 @@ class RealmService {
     }
     
     func getStops() -> [Stop]{
+        setDefaultRealmConfiguration()
         let realm = try! Realm()
 //        let sortProperties = [SortDescriptor(property: "dateStart", ascending: true), SortDescriptor(property: "timeStart", ascending: true)]
 //        allShowsByDate = Realm().objects(MyObjectType).sorted(sortProperties)
@@ -55,17 +57,20 @@ class RealmService {
     }
     
     func getStopsCount() -> Int{
+        setDefaultRealmConfiguration()
         let realm = try! Realm()
         return Int(realm.objects(RealmObject).count)
     }
 
     func getStopsNearLocationCount(lat: String, long: String) -> Int{
+        setDefaultRealmConfiguration()
         let realm = try! Realm()
         let stopsNearLocation = realm.objects(RealmObject).filter("lat BEGINSWITH = '\(lat)' AND long BEGINSWITH = '\(long)")
         return stopsNearLocation.count
     }
     
     func getStopName(stopId: String) -> String{
+        setDefaultRealmConfiguration()
         let realm = try! Realm()
         let stop = realm.objects(RealmObject).filter("id = '\(stopId)'")
         
@@ -76,6 +81,7 @@ class RealmService {
     }
     
     func getLinesAtStop(stopId : String) -> [String]{
+        setDefaultRealmConfiguration()
         let realm = try! Realm()
         Global.linesAtStop = [StopLine]()
         Global.allaStopp = [String]()
@@ -103,6 +109,7 @@ class RealmService {
     }
     
     func getLinesAtStopArr(stopId : String) -> [LineAtStopToday]{
+        setDefaultRealmConfiguration()
         let realm = try! Realm()
         var lineArr = [LineAtStopToday]()
         let lines = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
@@ -120,6 +127,7 @@ class RealmService {
     }
     
     func getLinesAtStopToday(stopId: String) -> [LineAtStopToday]{
+        setDefaultRealmConfiguration()
         let realm = try! Realm()
         
         let userStops = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
@@ -139,6 +147,8 @@ class RealmService {
     }
     
     func addLinesToStop(stop: StopLine){
+        setDefaultRealmConfiguration()
+        
         let realm = try! Realm()
 
         let s = realm.objects(RealmObject).filter("stopId = '\(stop.stopId)'")
@@ -172,6 +182,7 @@ class RealmService {
     }
     
     func getLines() -> [LineAtStopToday]{
+        setDefaultRealmConfiguration()
         let realm = try! Realm()
         var lineArr = [LineAtStopToday]()
         let lines = realm.objects(RealmObject)
@@ -187,6 +198,19 @@ class RealmService {
         }
         
         return lineArr
+    }
+    
+    func setDefaultRealmConfiguration() {
+        print(Realm.Configuration.defaultConfiguration)
+        
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.tajma.today")!
+        let realmPath = directory.URLByAppendingPathComponent("default.realm")
+        let urlSubString = realmPath.absoluteString.stringByReplacingOccurrencesOfString("file://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        Realm.Configuration.defaultConfiguration.path = urlSubString
+
+        
+        print(Realm.Configuration.defaultConfiguration.path!)
+
     }
     
     // Så att vi endast kan köra en instans av Storage åt gången
