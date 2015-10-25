@@ -19,7 +19,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     var lineService = LineService()
     var linesAtStop = [TodayLabel]()
     var departures = [Departure]()
-    var updateDataTimer = NSTimer()
+    var timer = NSTimer()
     var timerUpdate = false
     var firstRun = true
     var stops = [Stop]()
@@ -33,15 +33,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.tajma.today")!
-        let realmPath = directory.URLByAppendingPathComponent("db.realm").path
-        let config = RLMRealmConfiguration.defaultConfiguration()
-        config.path = realmPath
-        RLMRealmConfiguration.setDefaultConfiguration(config)
-        
-        
         self.preferredContentSize = CGSize(width: 50, height: 20)
         
         self.locationManager.requestWhenInUseAuthorization()
@@ -62,12 +53,14 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func viewDidAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        updateDataTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
     }
     
     override func viewDidDisappear(animated: Bool) {
-        updateDataTimer.invalidate()
+        timer.invalidate()
     }
     
     // MARK: - Location
