@@ -12,7 +12,7 @@ import CoreLocation
 import Realm
 import RealmSwift
 
-class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLocationManagerDelegate {
+class TodayTableViewController: UITableViewController, CLLocationManagerDelegate {
     var lat  = ""
     var long = ""
     var departureService = DepartureService()
@@ -20,19 +20,11 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     var linesAtStop = [TodayLabel]()
     var departures = [Departure]()
     var timer = NSTimer()
-    var timerUpdate = false
-    var firstRun = true
     var stops = [Stop]()
-    
     let locationManager = CLLocationManager()
     
-    // Behövs då en bugg finns att denna inte alltid öppnas
-    // http://stackoverflow.com/questions/24128024/today-extension-has-a-title-but-no-body-ios-8
-    override func awakeFromNib() {
-        self.preferredContentSize = CGSize(width: 50, height: 20)        
-    }
-    
     override func viewDidLoad() {
+        print("viewDidLoad")
         self.preferredContentSize = CGSize(width: 50, height: 20)
         
         self.locationManager.requestWhenInUseAuthorization()
@@ -42,10 +34,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                 return
             }
             locationManager.delegate = self
-            //locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.requestLocation()
-            
-            //locationService = true
         }
         else{
             locationOff()
@@ -53,13 +42,18 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func viewDidAppear(animated: Bool) {
+        print("viewDidAppear")
     }
     
     override func viewWillAppear(animated: Bool) {
-        timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocationAndUpdateView"), userInfo: nil, repeats: true)
+        print("viewWillAppear")
+        locationManager.requestLocation()
+        timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
     }
     
     override func viewDidDisappear(animated: Bool) {
+        print("viewDidDisappear")
+        locationManager.stopUpdatingLocation()
         timer.invalidate()
     }
     
@@ -68,8 +62,16 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         if let location = locations.first{
             lat = String(location.coordinate.latitude)
             long = String(location.coordinate.longitude)
-            
             getData()
+        }
+        else{
+            let todayLabel = TodayLabel()
+            todayLabel.stopName = "Kunde inte faställa position, försöker igen..."
+            todayLabel.row = Row.Info
+            
+            linesAtStop.append(todayLabel)
+            locationManager.requestLocation()
+            self.tableView.reloadData()
         }
     }
     
@@ -77,37 +79,21 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         print("Failed to find user´s location: \(error.localizedDescription)")
     }
     
-    
-    func getLocationAndUpdateView(){
-        timerUpdate = true
-        locationManager.requestLocation()
-    }
-    
     func locationOff(){
-        linesAtStop = [TodayLabel]()
-        
-        // init!
-        //let todayLabel = TodayLabel(stopName: "Du måste slå på lokaliseringen för TajmApp.", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: [], row: Row.Info)
-        
         let todayLabel = TodayLabel()
         todayLabel.stopName = "Du måste slå på lokaliseringen för TajmApp."
-        todayLabel.distance = 0
-        todayLabel.sname = ""
-        todayLabel.direction = ""
-        todayLabel.snameAndDirection = ""
-        todayLabel.fgColor = ""
-        todayLabel.bgColor = ""
-        todayLabel.rtTimes = []
         todayLabel.row = Row.Info
-        
         linesAtStop.append(todayLabel)
         
-        updateTable()
+        self.tableView.reloadData()
+    }
+    
+    func getLocation(){
+        locationManager.requestLocation()
     }
     
     // MARK: - Widget Delegate
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
-        self.tableView.reloadData()
         completionHandler(NCUpdateResult.NewData)
     }
     
@@ -117,7 +103,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Om mer än maxlängd
         if (linesAtStop.count > DeviceHelper.iPhoneModelSize()){
             return DeviceHelper.iPhoneModelSize()
         }
@@ -134,9 +119,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             view.removeFromSuperview()
         }
         
-        //var maxRows = false
-        
-        let stopLabel = UILabel(frame: CGRectMake(8, 4, 330, 30))
+        let stopLabel = UILabel(frame: CGRectMake(8, 4, DeviceHelper.getLabelWidth(), 30))
         stopLabel.textAlignment = NSTextAlignment.Left
         stopLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
         stopLabel.font = stopLabel.font.fontWithSize(14)
@@ -178,7 +161,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                 cell.addSubview(stopLabel)
             }
             else if (linesAtStop[indexPath.row].row == Row.Button){
-                let btnMainApp = UIButton(frame: CGRectMake(10,0, cell.bounds.width - 40, 35))
+                let btnMainApp = UIButton(frame: CGRectMake(10,cell.bounds.height / 2, cell.bounds.width - 40, 35))
                 btnMainApp.backgroundColor = UIColor.clearColor()
                 btnMainApp.setTitle("Lägg till ny hållplats", forState: UIControlState.Normal)
                 btnMainApp.addTarget(self, action: "openMainApp:", forControlEvents: .TouchUpInside)
@@ -267,6 +250,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        print("viewForFooterInSection")
         if (linesAtStop.count == 0){
             let view = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, tableView.bounds.height));
             let loadingLabel = UILabel(frame: CGRectMake(0, 4, 200, 15))
@@ -276,11 +260,11 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             loadingLabel.text = "Laddar hållplatser..."
             
             view.addSubview(loadingLabel)
-            
+
             return view
         }
         else if (linesAtStop.count > DeviceHelper.iPhoneModelSize()){
-             let view = UIView(frame: CGRectMake(0, 120, 300, 36));
+            let view = UIView(frame: CGRectMake(0, 120, 300, 36));
             
             let maxLabel = UILabel(frame: CGRectMake(8, 10, 300, 36))
             
@@ -315,8 +299,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let url = NSURL(fileURLWithPath: "Tajma://home")
         self.extensionContext?.openURL(url, completionHandler: nil)
-        
-        //let cell = tableView.cellForRowAtIndexPath(indexPath)
     }
     
     // MARK: - Events
@@ -327,7 +309,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     
     // MARK: - Functions
     func getData(){
-        var isStop = 0
+        print("getData")
         linesAtStop = [TodayLabel]()
         // För att sorteringen ska funka måste alla items i linesAtStop arrayen ha departures
         let tempArr = [-10, -10]
@@ -336,39 +318,18 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         let stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
         if (stops.count == 0){
-            // init!
-            //let todayLabel = TodayLabel(stopName: "Ingen vald hållplats i närheten :(", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Info)
-            
             let todayLabel = TodayLabel()
             todayLabel.stopName = "Ingen vald hållplats i närheten"
-            todayLabel.distance = 0
-            todayLabel.sname = ""
-            todayLabel.direction = ""
-            todayLabel.snameAndDirection = ""
-            todayLabel.fgColor = ""
-            todayLabel.bgColor = ""
-            todayLabel.rtTimes = []
             todayLabel.row = Row.Info
-            
-            linesAtStop.append(todayLabel)
-            
-            // init!
-            //let todayButton = TodayLabel(stopName: "Lägg till ny hållplats", distance: 0, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Button)
             
             let todayButton = TodayLabel()
             todayLabel.stopName = "Lägg till ny hållplats"
-            todayLabel.distance = 0
-            todayLabel.sname = ""
-            todayLabel.direction = ""
-            todayLabel.snameAndDirection = ""
-            todayLabel.fgColor = ""
-            todayLabel.bgColor = ""
-            todayLabel.rtTimes = []
             todayLabel.row = Row.Button
             
+            linesAtStop.append(todayLabel)
             linesAtStop.append(todayButton)
             
-            updateTable()
+            self.tableView.reloadData()
         }
         else{
             // Koden nedan loopar igenom alla stopp
@@ -377,36 +338,18 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             // "Inga avgångar hittades" har en fiktiv distans på 1000000 för att hamna under hållplatsen
             // Sista raden har också en fiktiv distans på 1000001 för att hamna sist för att göra plats för "Gå till appen" knappen
             for stop in stops{
-                // init!
-                //var todayLabel = TodayLabel(stopName: stop.name, distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.Stop)
-                
                 let todayLabel = TodayLabel()
                 todayLabel.stopName = stop.name
                 todayLabel.distance = stop.distance
-                todayLabel.sname = ""
-                todayLabel.direction = ""
-                todayLabel.snameAndDirection = ""
-                todayLabel.fgColor = ""
-                todayLabel.bgColor = ""
                 todayLabel.rtTimes = tempArr
                 todayLabel.row = Row.Stop
                 
-                
-                isStop++
                 linesAtStop.append(todayLabel)
                 
                 if (stop.departures?.count == 0){
-                    // init!
-                    //todayLabel = TodayLabel(stopName: "Inga avgångar hittades.", distance: stop.distance, sname: "", direction: "", snameAndDirection: "", fgColor: "", bgColor: "", rtTimes: tempArr, row: Row.NoDepartures)
-                    
                     let todayLabel = TodayLabel()
                     todayLabel.stopName = "Inga avgångar hittades"
                     todayLabel.distance = stop.distance
-                    todayLabel.sname = ""
-                    todayLabel.direction = ""
-                    todayLabel.snameAndDirection = ""
-                    todayLabel.fgColor = ""
-                    todayLabel.bgColor = ""
                     todayLabel.rtTimes = tempArr
                     todayLabel.row = Row.NoDepartures
                     
@@ -430,10 +373,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                                 rtTimesArr.append(rtTime)
                             }
                         }
-                        
-                        // init!
-                        //let trip = TodayLabel(stopName: stop.name, distance: stop.distance, sname: departure.sname, direction: departure.direction, snameAndDirection: departure.sname + " " + departure.direction, fgColor: departure.fgColor, bgColor: departure.bgColor, rtTimes: rtTimesArr, row: Row.Line)
-                        
                         let trip = TodayLabel()
                         trip.stopName = stop.name
                         trip.distance = stop.distance
@@ -444,7 +383,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                         trip.bgColor = departure.bgColor
                         trip.rtTimes = rtTimesArr
                         trip.row = Row.Line
-                        
                         
                         linesAtStop.append(trip)
                     }
@@ -470,8 +408,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             // Går igenom och kollar om det är max antal stopp
             // Om max antal så vill vi dölja dubletter av linjer för hållplatser
             // Ex: Linje 10 mot Centralstationen ska endast visas på den närmaste hållplatsen så att vi kan visa fler linjer
-            
-            //var temp = [TodayLabel]()
             if (linesAtStop.count > DeviceHelper.iPhoneModelSize()){
                 var arr = [String]()
                 var temp = [TodayLabel]()
@@ -493,13 +429,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                 linesAtStop = temp
             }
 
-            self.updateTable()
+            self.tableView.reloadData()
         }
-    }
-    
-    func updateTable(){
-        self.tableView.backgroundColor = UIColor.clearColor()
-        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
