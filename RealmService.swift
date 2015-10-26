@@ -26,7 +26,13 @@ class RealmService {
     
     func getStops() -> [Stop]{
         setDefaultRealmConfiguration()
+        
         let realm = try! Realm()
+        
+        
+        
+        //print(realm.configuration.path!)
+        
 //        let sortProperties = [SortDescriptor(property: "dateStart", ascending: true), SortDescriptor(property: "timeStart", ascending: true)]
 //        allShowsByDate = Realm().objects(MyObjectType).sorted(sortProperties)
 
@@ -150,6 +156,8 @@ class RealmService {
         setDefaultRealmConfiguration()
         
         let realm = try! Realm()
+        
+        //print(realm.configuration.path!)
 
         let s = realm.objects(RealmObject).filter("stopId = '\(stop.stopId)'")
         if (!s.isEmpty){
@@ -201,16 +209,10 @@ class RealmService {
     }
     
     func setDefaultRealmConfiguration() {
-        print(Realm.Configuration.defaultConfiguration)
-        
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.tajma.today")!
         let realmPath = directory.URLByAppendingPathComponent("default.realm")
         let urlSubString = realmPath.absoluteString.stringByReplacingOccurrencesOfString("file://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         Realm.Configuration.defaultConfiguration.path = urlSubString
-
-        
-        print(Realm.Configuration.defaultConfiguration.path!)
-
     }
     
     // Så att vi endast kan köra en instans av Storage åt gången
