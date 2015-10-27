@@ -20,10 +20,14 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     var linesAtStop = [TodayLabel]()
     var departures = [Departure]()
     var timer = NSTimer()
+    var timerIntervall = NSTimer()
+    var counter = 0
     var stops = [Stop]()
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         print("viewDidLoad")
         self.preferredContentSize = CGSize(width: 50, height: 20)
         
@@ -42,27 +46,57 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         print("viewDidAppear")
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         print("viewWillAppear")
+        
+        counter = 0
+        
         locationManager.requestLocation()
         timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
+        timerIntervall = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countUp"), userInfo: nil, repeats: true)
     }
     
     override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
         print("viewDidDisappear")
         locationManager.stopUpdatingLocation()
         timer.invalidate()
+        timerIntervall.invalidate()
+        
+        
+        for view in self.tableView.subviews{
+            print(view)
+        }
+        
+        
+        
+        let todayLabel = TodayLabel()
+        todayLabel.stopName = "Laddar X"
+        todayLabel.row = Row.Info
+        linesAtStop.append(todayLabel)
+        
+        self.tableView.reloadData()
     }
     
     // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first{
-            lat = String(location.coordinate.latitude)
-            long = String(location.coordinate.longitude)
-            getData()
+            if (lat == String(location.coordinate.latitude) || long == String(location.coordinate.longitude) && counter > 15){
+                counter = 0
+                getData()
+                
+                print("Counting func")
+            }
+            else{
+                lat = String(location.coordinate.latitude)
+                long = String(location.coordinate.longitude)
+                getData()
+            }
         }
         else{
             let todayLabel = TodayLabel()
@@ -90,6 +124,10 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     func getLocation(){
         locationManager.requestLocation()
+    }
+    
+    func countUp(){
+        counter += 1
     }
     
     // MARK: - Widget Delegate
