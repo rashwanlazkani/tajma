@@ -444,7 +444,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let lines = segue.destinationViewController as! LinesViewController
             lines.lineWrapper.lines = lineWrapper.lines
             lines.stop = stop
-            lineService.getUserLinesAtStop(stop.id)
+            RealmService.sharedInstance.getLinesAtStop(stop.id)
             
             self.activityIndicator.stopAnimating()
             UIApplication.sharedApplication().endIgnoringInteractionEvents()

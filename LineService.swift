@@ -9,23 +9,21 @@
 import Foundation
 
 public class LineService{
-    var lines = LineWrapper()
+    var lineWrapper = LineWrapper()
     
-    // Cache
     func getAllLinesAtStop(stopId: String, onCompletion: (LineWrapper) -> Void){
         RestApiService.sharedInstance.findAllLinesOnStop(stopId) { json in
-            self.lines.lines = []
+            self.lineWrapper.lines = []
             
             var error = json["LocationList"]
             if (error["error"] == "R0007"){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
-                self.lines.error = error.domain
+                self.lineWrapper.error = error.domain
                 
-                onCompletion(self.lines)
+                onCompletion(self.lineWrapper)
             }
             else{
                 let results = json["DepartureBoard"]["Departure"]
-                
                 var tempNames = [String]()
                 
                 for (_,subJson):(String, JSON) in results {
@@ -38,20 +36,14 @@ public class LineService{
                     let bgColor = subJson["bgColor"].string
                     
                     if (sname == nil && direction == nil){
-                        self.lines.error = "No stop"
+                        self.lineWrapper.error = "No stop"
                         break
-                        
                     }
                     else{
                         
-                        let lineAndDirection = self.subStringSnameAndDirection(sname!, direction: direction!, addWhereTo: false)
-                        
-                        // Kollar så att man endast visar en linje + direction per hållplats
+                        let lineAndDirection = self.subStringSnameAndDirection(sname!, direction: direction!)
                         if (!tempNames.contains(lineAndDirection)){
                             tempNames.insert(lineAndDirection, atIndex: 0)
-                            
-                            // init!
-                            //let line = Line(name: name ?? "", sname: sname ?? "", direction: direction ?? "", type: type ?? "", track: track ?? "", fgColor: fgColor ?? "", bgColor: bgColor ?? "", lineAndDirection: lineAndDirection)
                             
                             let line = Line()
                             line.name = name ?? ""
@@ -63,50 +55,32 @@ public class LineService{
                             line.bgColor = bgColor ?? ""
                             line.lineAndDirection = lineAndDirection ?? ""
                             
-                            self.lines.lines.append(line as Line)
+                            self.lineWrapper.lines.append(line as Line)
                         }
                     }
-                    
-                    
                 }
-                
-                self.lines.lines.sortInPlace({$0.lineAndDirection < $1.lineAndDirection})
-                onCompletion(self.lines)
-                
+                self.lineWrapper.lines.sortInPlace({$0.lineAndDirection < $1.lineAndDirection})
+                onCompletion(self.lineWrapper)
             }
         }
     }
     
-    // DB
-    func getUserLinesAtStop(stopId: String){
-        RealmService.sharedInstance.getLinesAtStop(stopId)
-    }
-    
-    // Live -> WS
     func getDeparturesAtStop(stopId: String, onCompletion: (LineWrapper) -> Void){
         RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
-            self.lines.departures = []
+            self.lineWrapper.departures = []
             
             var error = json["LocationList"]
             if (error["error"] == "R0007"){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
-                self.lines.error = error.domain
+                self.lineWrapper.error = error.domain
                 
-                onCompletion(self.lines)
+                onCompletion(self.lineWrapper)
             }
             else{
-                //let departureBoard = json["DepartureBoard"]
-                //var serverTimeStr = ""
-                
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "HH:mm"
-                
-//                for (_, subJson):(String, JSON) in departureBoard{
-//                    serverTimeStr = subJson["servertime"].string!
-//                }
-                
+
                 let results = json["DepartureBoard"]["Departure"]
-                
                 var tempNames = [String]()
                 
                 for (_,subJson):(String, JSON) in results {
@@ -115,53 +89,36 @@ public class LineService{
                     let direction = subJson["direction"].string
                     let departure = subJson["rtTime"].string
                     
-                    var lineAndDirection = sname! + " " + direction!
-                    lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Buss", withString: "")
-                    lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Spårvagn", withString: "")
-                    lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("SVAR", withString: "SVART")
+                    let lineAndDirection = self.subStringSnameAndDirection(sname!, direction: direction!)
                     
                     if (!tempNames.contains(lineAndDirection)){
                         tempNames.insert(lineAndDirection, atIndex: 0)
-                        
-                        //let serverTime = dateFormatter.dateFromString(serverTimeStr) as NSDate!
+                    
                         let departureTime = dateFormatter.dateFromString(departure!) as NSDate!
-                        
                         let interval = String(stringInterpolationSegment: departureTime.timeIntervalSinceDate(departureTime))
-                        
-                        // init!
-                        //var line = LinesAtStop(stopId: stopId!, lineAndDirection: lineAndDirection, departure: interval)
                         
                         let line = LinesAtStop()
                         line.stopId = stopId!
                         line.lineAndDirection = lineAndDirection
                         line.departure = interval
                         
-                        self.lines.departures.append(line)
+                        self.lineWrapper.departures.append(line)
                     }
-                    
                 }
                 
-                self.lines.lines.sortInPlace({$0.lineAndDirection < $1.lineAndDirection})
-                onCompletion(self.lines)
-                
+                self.lineWrapper.lines.sortInPlace({$0.lineAndDirection < $1.lineAndDirection})
+                onCompletion(self.lineWrapper)
             }
         }
     }
     
-    func subStringSnameAndDirection(sname: String, direction: String, addWhereTo: Bool) -> String{
+    func subStringSnameAndDirection(sname: String, direction: String) -> String{
         var lineAndDirection : String
-        if (addWhereTo){
-            lineAndDirection = sname + " mot " + direction
-        }
-        else{
-            lineAndDirection = sname + " " + direction
-        }
-        
+        lineAndDirection = sname + " " + direction
         lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Buss", withString: "")
         lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Spårvagn", withString: "")
         lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("SVAR", withString: "SVART")
         
         return lineAndDirection
-        
     }
 }

@@ -44,8 +44,6 @@
 		F843A3B01B1B04C2008F4505 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */; };
 		F843A3BC1B1B04C2008F4505 /* TajmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */; };
 		F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3C51B1B066B008F4505 /* LinesViewController.swift */; };
-		F8453E831BD5182D00781D00 /* DbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8453E821BD5182D00781D00 /* DbService.swift */; };
-		F8453E841BD5182D00781D00 /* DbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8453E821BD5182D00781D00 /* DbService.swift */; };
 		F87AFE731B1B902400D3DAFC /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE701B1B902400D3DAFC /* Departure.swift */; };
 		F87AFE741B1B902400D3DAFC /* LineAtStopToday.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE711B1B902400D3DAFC /* LineAtStopToday.swift */; };
 		F87AFE751B1B902400D3DAFC /* TodayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* TodayLabel.swift */; };
@@ -148,7 +146,6 @@
 		F843A3BA1B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TajmaTests.swift; sourceTree = "<group>"; };
 		F843A3C51B1B066B008F4505 /* LinesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesViewController.swift; sourceTree = "<group>"; };
-		F8453E821BD5182D00781D00 /* DbService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DbService.swift; sourceTree = "<group>"; };
 		F87257331B3F2D5E006CBDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F87257341B3F2D5E006CBDA8 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		F87257361B3F2D5E006CBDA8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -396,7 +393,6 @@
 				F87AFE891B1B906400D3DAFC /* RestApiService.swift */,
 				F87AFE8A1B1B906400D3DAFC /* StopService.swift */,
 				F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */,
-				F8453E821BD5182D00781D00 /* DbService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -735,7 +731,6 @@
 				F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */,
 				F80667701B1E5D7900A26B5D /* Departure.swift in Sources */,
 				F80667791B1E5D7900A26B5D /* StopLine.swift in Sources */,
-				F8453E841BD5182D00781D00 /* DbService.swift in Sources */,
 				F80667731B1E5D7900A26B5D /* CheckBox.swift in Sources */,
 				F80667711B1E5D7900A26B5D /* LineAtStopToday.swift in Sources */,
 				F806677A1B1E5D7900A26B5D /* LineWrapper.swift in Sources */,
@@ -760,7 +755,6 @@
 				F87AFE741B1B902400D3DAFC /* LineAtStopToday.swift in Sources */,
 				F8E081011B35B1D000A96A45 /* Info.swift in Sources */,
 				F818619F1B41D52A005DDA3A /* DeviceHelper.swift in Sources */,
-				F8453E831BD5182D00781D00 /* DbService.swift in Sources */,
 				F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */,
 				F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */,
 				F87AFE7F1B1B903F00D3DAFC /* CheckBox.swift in Sources */,
