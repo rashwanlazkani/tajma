@@ -11,7 +11,6 @@ import CoreLocation
 
 public class DepartureService {
     var stopService = StopsService()
-    
     var departures = [Departure]()
     
     func getDeparturesFromStop(stopId: String, onCompletion: ([Departure]) -> Void) {

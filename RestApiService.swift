@@ -17,61 +17,49 @@ extension Int  {
 }
 
 class RestApiService: NSObject {
-    
-    // Singleton
     static let sharedInstance = RestApiService()
     
-    // api/stop/nearest/{latitude}/{longitude}
     func getNearestStops(lat: String, long: String, onCompletion: (JSON) -> Void){
-        let route = "https://api.vasttrafik.se/bin/rest.exe/v1/location.nearbystops?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000"
+        let url = "\(Constant.VTurl)location.nearbystops?authKey=\(Constant.VTauth)&format=json&originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000"
         
-        makeHTTPGetRequest(route, onCompletion: { json, err in
+        makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
         })
-        
     }
     
-    // api/stop/find/{latitude}/{longitude}
     func findStops(userInput: String, onCompletion: (JSON) -> Void){
         let escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-        let route = "https://api.vasttrafik.se/bin/rest.exe/v1/location.name?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&input=\(escapedUserInput)"
+        let url = "\(Constant.VTurl)location.name?authKey=\(Constant.VTauth)&format=json&input=\(escapedUserInput)"
         
-        makeHTTPGetRequest(route, onCompletion: { json, err in
+        makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
         })
         
     }
     
-    // skall ersättas med lokalt anrop
     func findLinesOnStopAtTime (stopId: String, onCompletion: (JSON) -> Void){
-        
-        let date = NSDate() //Get current date
-        //Formatter for time
+        let date = NSDate()
         let formatterTime = NSDateFormatter()
-        formatterTime.timeStyle = .ShortStyle //Set style of time
+        formatterTime.timeStyle = .ShortStyle
         formatterTime.dateFormat = "HH:mm"
-        let timeString = formatterTime.stringFromDate(date) //Convert to String
+        let timeString = formatterTime.stringFromDate(date)
         
-        //Formatter for date
         let formatterDate = NSDateFormatter()
-        formatterDate.dateStyle = .ShortStyle //Set style of date
+        formatterDate.dateStyle = .ShortStyle
         formatterDate.dateFormat = "yyyy-MM-dd"
-        let dateString = formatterDate.stringFromDate(date) //Convert to String
+        let dateString = formatterDate.stringFromDate(date)
+    
+        let url = "\(Constant.VTurl)departureBoard?authKey=\(Constant.VTauth)&format=json&id=\(stopId)&date=\(dateString)&time=\(timeString)"
         
-        
-        let route = "https://api.vasttrafik.se/bin/rest.exe/v1/departureBoard?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&id=\(stopId)&date=\(dateString)&time=\(timeString)"
-        
-        makeHTTPGetRequest(route, onCompletion: { json, err in
+        makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
         })
         
     }
     
-    // api/route/find/{stopId}
     func findAllLinesOnStop (stopId: String, onCompletion: (JSON) -> Void){
-        var date = NSDate() //Get current date
+        var date = NSDate()
         
-        // Get current day
         let dateFormattera = NSDateFormatter()
         dateFormattera.dateFormat = "EEEE"
         let dayOfWeekString = dateFormattera.stringFromDate(date)
@@ -82,54 +70,43 @@ class RestApiService: NSObject {
             date = addDays(date, additionalDays: 1)
         }
         
-        //Formatter for time
         let formatterTime = NSDateFormatter()
         formatterTime.timeStyle = .ShortStyle //Set style of time
         formatterTime.dateFormat = "HH:mm"
-        //let timeString = formatterTime.stringFromDate(date) //Convert to String
-        
-        //Formatter for date
+
         let formatterDate = NSDateFormatter()
         formatterDate.dateStyle = .ShortStyle //Set style of date
         formatterDate.dateFormat = "yyyy-MM-dd"
         
         let dateString = formatterDate.stringFromDate(date) //Convert to String
         
-        let route = "http://api.vasttrafik.se/bin/rest.exe/v1/departureBoard?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&id=\(stopId)&date=\(dateString)"
+        let url = "\(Constant.VTurl)departureBoard?authKey=\(Constant.VTauth)&format=json&id=\(stopId)&date=\(dateString)"
         
-        makeHTTPGetRequest(route, onCompletion: { json, err in
+        makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
         })
         
     }
     
-    // api/stoptime/departures/{stopId}/{tripId}/
-    
-    // skall ersättas med lokalt anrop
     func getDeparturesAtStop (stopId: String, onCompletion: (JSON) -> Void){
-        let route = "https://api.vasttrafik.se/bin/rest.exe/v1/departureBoard?authKey=1172d818-c330-435c-897c-9830750341c0&format=json&id=\(stopId)&timeSpan=120&maxDeparturesPerLine=2"
+        let url = "\(Constant.VTurl)departureBoard?authKey=\(Constant.VTauth)&format=json&id=\(stopId)&timeSpan=120&maxDeparturesPerLine=2"
         
-        makeHTTPGetRequest(route, onCompletion: { json, err in
+        makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
         })
     }
     
-    // private
-    func addDays(date: NSDate, additionalDays: Int) -> NSDate {
-        // adding $additionalDays
+    private func addDays(date: NSDate, additionalDays: Int) -> NSDate {
         let components = NSDateComponents()
         components.day = additionalDays
         
-        // important: NSCalendarOptions(0)
         let futureDate = NSCalendar.currentCalendar()
             .dateByAddingComponents(components, toDate: date, options: NSCalendarOptions(rawValue: 0))
         return futureDate!
     }
     
-    // private
-    func makeHTTPGetRequest(path: String, onCompletion: ServiceResponse) {
+    private func makeHTTPGetRequest(path: String, onCompletion: ServiceResponse) {
         let request = NSMutableURLRequest(URL: NSURL(string: path)!)
-        
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
