@@ -18,7 +18,7 @@ public class TodayLabel {
     dynamic var fgColor: String = ""
     dynamic var bgColor: String = ""
     dynamic var rtTimes = [Int]()
-    public var row: Row = Row.empty
+    public var row: Row = Row.Empty
     
 //    init(stopName : String, distance: Int, sname: String, direction: String, snameAndDirection: String, fgColor: String, bgColor: String, rtTimes: [Int], row: Row) {
 //        self.stopName = stopName
