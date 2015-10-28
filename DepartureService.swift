@@ -26,12 +26,11 @@ public class DepartureService {
             let serverDateStr = String(stringInterpolationSegment: json["DepartureBoard"]["serverdate"])
             let serverTimeStr = String(stringInterpolationSegment: json["DepartureBoard"]["servertime"])
             let serverDate = serverDateStr + " " + serverTimeStr
-            
+
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
             
             let results = json["DepartureBoard"]["Departure"]
-            
             var tempDepartures = [Departure]()
             
             for (_,subJson):(String, JSON) in results {
@@ -47,18 +46,13 @@ public class DepartureService {
                 }
                 
                 let rtTimeFromServer = subJson["rtTime"].string ?? subJson["time"].string
-                
                 let rtDate = subJson["rtDate"].string ?? subJson["date"].string
-                
                 var rtTime = [rtDate!  + " " + rtTimeFromServer!]
                 
                 let serverTime = dateFormatter.dateFromString(serverDate) as NSDate!
                 let departureTime = dateFormatter.dateFromString(rtTime[0]) as NSDate!
                 
                 let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverTime) / 60) - 1
-                
-                // init!
-                //var departure = Departure(stopId: stopId, sname: sname, track: track, direction: direction, fgColor: fgColor, bgColor: bgColor, rtTimes: [intervalBetweenDepartures])
                 
                 let departure = Departure()
                 departure.stopId = stopId
@@ -78,10 +72,6 @@ public class DepartureService {
             var previousTrack = ""
             var previousDirection = ""
             for row in tempDepartures {
-                //var existingStop = self.stopService.checkIfUserHasAddedStop(stopId)
-                
-                //init!
-                //var departure : Departure
                 var departure = Departure()
                 
                 if (previousSname == row.sname && previousTrack == row.track && previousDirection == row.direction) {
@@ -89,9 +79,6 @@ public class DepartureService {
                     departure.rtTimes.append(row.rtTimes[0])
                 }
                 else {
-                    // init!
-                    //departure = Departure(stopId: row.stopId, sname: row.sname, track: row.track, direction: row.direction, fgColor: row.fgColor, bgColor: row.bgColor, rtTimes: row.rtTimes)
-                    
                     departure.stopId = row.stopId
                     departure.sname = row.sname
                     departure.track = row.track
@@ -103,7 +90,6 @@ public class DepartureService {
                     self.departures.append(departure)
                 }
                 
-                
                 previousSname = row.sname
                 previousTrack = row.track
                 previousDirection = row.direction
@@ -113,30 +99,21 @@ public class DepartureService {
         }
     }
     
-    func roundToFive(x : Double) -> Int {
-        return 5 * Int(round(x / 5.0))
-    }
-    
     func getMyDepartures(lat: Double, long: Double) -> [Stop] {
         let stops = RealmService.sharedInstance.getStops()
         var closestStops = [Stop]()
         
         let getDeparturesGroup = dispatch_group_create()
-        
-        // Hämta x närmaste hållplatser i närheten
         if (stops.count > 0){
-            
             for stop in stops {
                 // räkna ut avstånd
                 let stopLat = (stop.lat as NSString).doubleValue
                 let stopLong = (stop.long as NSString).doubleValue
-                
                 let userLocation = CLLocation(latitude: lat, longitude: long)
                 let stopLocation = CLLocation(latitude: stopLat, longitude: stopLong)
                 let distance = userLocation.distanceFromLocation(stopLocation)
                 
                 let roundDistance = roundToFive(distance)
-                
                 stop.distance = roundDistance
             }
             
@@ -149,7 +126,7 @@ public class DepartureService {
                     closestStops.append(stop)
                 }
                 else{
-                    continue
+                    break
                 }
             }
             
@@ -175,11 +152,14 @@ public class DepartureService {
                     dispatch_group_leave(getDeparturesGroup)
                 })
             }
-            
             // vänta tills alla departures är hämtade
             dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
         }
         
         return closestStops
+    }
+    
+    func roundToFive(x : Double) -> Int {
+        return 5 * Int(round(x / 5.0))
     }
 }
