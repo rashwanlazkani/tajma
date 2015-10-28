@@ -152,7 +152,7 @@ class RealmService {
         return tempLinesAtStopTodayArr
     }
     
-    func addLinesToStop(stop: StopLine){
+    func updateLinesToStop(stop: StopLine){
         setDefaultRealmConfiguration()
         
         let realm = try! Realm()

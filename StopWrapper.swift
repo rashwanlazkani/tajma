@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-import Foundation
-
 public class StopWrapper {
     public var stops : [Stop] = []
     public var error : String = ""

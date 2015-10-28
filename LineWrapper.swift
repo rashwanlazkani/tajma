@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-import Foundation
-
 public class LineWrapper {
     public var lines : [Line] = []
     public var departures : [LinesAtStop] = []

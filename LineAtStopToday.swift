@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-import Foundation
 import RealmSwift
 
 public class LineAtStopToday {
@@ -14,17 +13,4 @@ public class LineAtStopToday {
     dynamic var track: String = ""
     dynamic var sname: String = ""
     dynamic var direction: String = ""
-    
-//    dynamic init(stopId: String, track:String, sname: String, direction: String) {
-//        self.stopId = stopId
-//        self.track = track
-//        self.sname = sname
-//        self.direction = direction
-//        
-//        super.init()
-//    }
-//    
-//    required public init() {
-//        fatalError("init() has not been implemented")
-//    }
 }

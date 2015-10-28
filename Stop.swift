@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-import Foundation
+import RealmSwift
 
 public class Stop {
     dynamic var id: String = ""
@@ -15,19 +15,4 @@ public class Stop {
     dynamic var long: String = ""
     dynamic var distance: Int = 0
     var departures = [Departure]?()
-    
-//    dynamic init(id: String, name: String, lat: String, long: String, distance: Int, departures: [Departure]?) {
-//        self.id = id
-//        self.name = name
-//        self.lat = lat
-//        self.long = long
-//        self.distance = distance
-//        self.departures = departures
-//        
-//        super.init()
-//    }
-//    
-//    required public init() {
-//        fatalError("init() has not been implemented")
-//    }
 }
