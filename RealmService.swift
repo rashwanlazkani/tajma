@@ -28,19 +28,13 @@ class RealmService {
         setDefaultRealmConfiguration()
         
         let realm = try! Realm()
-        
-        
-        
-        //print(realm.configuration.path!)
-        
-//        let sortProperties = [SortDescriptor(property: "dateStart", ascending: true), SortDescriptor(property: "timeStart", ascending: true)]
-//        allShowsByDate = Realm().objects(MyObjectType).sorted(sortProperties)
 
         var stops = [Stop]()
         var tempStopsName = [String]()
         let userStops = realm.objects(RealmObject)
         
         for row in userStops{
+            // För att hämta unika hållplatsnamn
             if(tempStopsName.contains(row.stopName)){
                 continue
             }
@@ -50,8 +44,8 @@ class RealmService {
             stop.name = row.stopName
             stop.lat = row.lat
             stop.long = row.long
-            stop.distance = 0//row.distance
-            stop.departures = [Departure]()//row.departures
+            stop.distance = 0
+            stop.departures = [Departure]()
             
             stops.append(stop)
         }
@@ -95,21 +89,7 @@ class RealmService {
         let getRows = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
         
         for row in getRows{
-            let stopline = StopLine()
-            stopline.stopId = row.stopId
-            stopline.stopName = row.stopName
-            stopline.lat = row.lat
-            stopline.long = row.long
-            stopline.sname = row.sname
-            stopline.tag = row.tag
-            stopline.type = row.type
-            stopline.track = row.track
-            stopline.direction = row.direction
-            stopline.lineAndDirection = row.lineAndDirection
-            stopline.isChecked = row.isChecked
-            
             Global.allaStopp.append(row.lineAndDirection)
-            
         }
         return Global.allaStopp
     }
@@ -157,8 +137,6 @@ class RealmService {
         
         let realm = try! Realm()
         
-        //print(realm.configuration.path!)
-
         let s = realm.objects(RealmObject).filter("stopId = '\(stop.stopId)'")
         if (!s.isEmpty){
             try! realm.write({ () -> Void in
@@ -215,7 +193,6 @@ class RealmService {
         Realm.Configuration.defaultConfiguration.path = urlSubString
     }
     
-    // Så att vi endast kan köra en instans av Storage åt gången
     class var sharedInstance: RealmService {
         struct Static {
             static let instance = RealmService()
