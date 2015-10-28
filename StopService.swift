@@ -12,7 +12,6 @@ class StopsService{
     var stops = StopWrapper()
     let userStopsFromDB = RealmService.sharedInstance.getStops()
     
-    // Cache
     func getNearestStops(lat: String, long: String, onCompletion: (StopWrapper) -> Void){
         RestApiService.sharedInstance.getNearestStops(lat, long: long) { json in
             var error = json["LocationList"]
@@ -29,71 +28,34 @@ class StopsService{
                 self.stops = StopWrapper()
                 
                 for (_,subJson):(String, JSON) in stops {
-                    //let user: AnyObject = subJson["name"].object
-                    
                     let id = subJson["id"].string
-                    var name = subJson["name"].string
+                    let name = subJson["name"].string
                     let lat = subJson["lat"].string
                     let long = subJson["lon"].string
-                    
-                    if let dotRange = name!.rangeOfString(",") {
-                        name!.removeRange(dotRange.startIndex..<name!.endIndex)
-                    }
-                    
                     
                     // Kollar så att man endast visar en hållplats och inte alla tracks (A,B,C osv...)
                     if (!tempNames.contains(name!)){
                         tempNames.insert(name!, atIndex: 0)
                         // För att kolla om hållplatsen redan finns tillagd av användaren
                         // För att hämta rätt koordinater och stopId för att Västtrafiks API innehåller flera hållplatser med samma namn fast annorlunda stopId
-                        let existingStop = self.checkIfUserHasAddedStop(name!)
                         
-                        if (!existingStop.name.isEmpty){
-                            // init!
-                            //var stop = Stop(id: existingStop.id, name: existingStop.name, lat: existingStop.lat, long: existingStop.long, distance: 0, departures: nil)
-                            
-                            let stop = Stop()
-                            stop.id = existingStop.id
-                            stop.name = existingStop.name
-                            stop.lat = existingStop.lat
-                            stop.long = existingStop.long
-                            stop.distance = 0
-                            stop.departures = nil
-                            
-                            self.stops.stops.append(stop as Stop)
-                        }
-                        else{
-                            // init!
-                            //var stop = Stop(id: id!, name: name!, lat: lat!, long: long!, distance: 0, departures: nil)
-                            
-                            let stop = Stop()
-                            stop.id = id!
-                            stop.name = name!
-                            stop.lat = lat!
-                            stop.long = long!
-                            stop.distance = 0
-                            stop.departures = nil
-                            
-                            self.stops.stops.append(stop as Stop)
-                        }
+                        let stop = Stop()
+                        stop.id = id!
+                        stop.name = name!
+                        stop.lat = lat!
+                        stop.long = long!
+                        self.checkIfUserHasAddedStop(name!, vtStop: stop)
                         
                         if (self.stops.stops.count == 10){
                             break
                         }
                     }
-                    else{
-                        
-                    }
                 }
-                
                 onCompletion(self.stops)
-                
             }
-            
         }
     }
     
-    // Cache
     func getStopsByInput(name : String, onCompletion: (StopWrapper) -> Void){
         RestApiService.sharedInstance.findStops(name) { json in
             
@@ -103,87 +65,39 @@ class StopsService{
                 self.stops.error = error.domain
                 
                 onCompletion(self.stops)
-                //self.getStops(name) { stops in
-                //    onCompletion(stops)
-                //}
             }
             else{
                 let stops = json["LocationList"]["StopLocation"]
                 
                 for (_,subJson):(String, JSON) in stops {
-                    //let user: AnyObject = subJson["name"].object
-                    
                     let id = subJson["id"].string
-                    var name = subJson["name"].string
+                    let name = subJson["name"].string
                     let lat = subJson["lat"].string
                     let long = subJson["lon"].string
                     
                     if (name == nil){
-                        //var stop = Stop(id: "", name: "Inget stopp hittades", lat: "", long: "", distance: 0, departures: nil)
-                        
                         let stop = Stop()
-                        stop.id = ""
                         stop.name = "Inget stopp hittades"
-                        stop.lat = ""
-                        stop.long = ""
-                        stop.distance = 0
-                        stop.departures = nil
-                        
                         self.stops.stops.append(stop as Stop)
                         break
                     }
                     
-                    // Resultatet kommer "Olskrokstorget, Göteborg", vi vill ta bort kommatecknet
-                    if let dotRange = name!.rangeOfString(",") {
-                        name!.removeRange(dotRange.startIndex..<name!.endIndex)
-                    }
-                    
-                    let existingStop = self.checkIfUserHasAddedStop(name!)
-                    
-                    if (!existingStop.name.isEmpty){
-                        // init!
-                        //var stop = Stop(id: existingStop.id, name: existingStop.name, lat: existingStop.lat, long: existingStop.long, distance: 0, departures: nil)
-                        
-                        let stop = Stop()
-                        stop.id = existingStop.id
-                        stop.name = existingStop.name
-                        stop.lat = existingStop.lat
-                        stop.long = existingStop.long
-                        stop.distance = 0
-                        stop.departures = nil
-                        
-                        self.stops.stops.append(stop as Stop)
-                    }
-                    else{
-                        // init!
-                        //var stop = Stop(id: id!, name: name!, lat: lat!, long: long!, distance: 0, departures: nil)
-                        
-                        let stop = Stop()
-                        stop.id = id!
-                        stop.name = name!
-                        stop.lat = lat!
-                        stop.long = long!
-                        stop.distance = 0
-                        stop.departures = nil
-                        
-                        self.stops.stops.append(stop as Stop)
-                    }
+                    let stop = Stop()
+                    stop.id = id!
+                    stop.name = name!
+                    stop.lat = lat!
+                    stop.long = long!
+                    self.checkIfUserHasAddedStop(name!, vtStop: stop)
                 }
-                
                 onCompletion(self.stops)
-                
             }
-            
         }
     }
     
-    func checkIfUserHasAddedStop(stopName : String) -> Stop{
+    func checkIfUserHasAddedStop(stopName : String, vtStop: Stop){
         var userStops = [Stop]()
         var userStopsArr = [String]()
-        
-        // init
-        //var stop = Stop(id: "", name: "", lat: "", long: "", distance: 0, departures: [])
-        
+
         let stop = Stop()
         stop.id = ""
         stop.name = ""
@@ -193,9 +107,6 @@ class StopsService{
         stop.departures = []
         
         for stop in userStopsFromDB{
-            // init
-            //let stop = Stop(id: stop.id, name: stop.name, lat: stop.lat, long: stop.long, distance: stop.distance, departures: stop.departures)
-            
             let s = Stop()
             s.id = stop.id
             s.name = stop.name
@@ -211,9 +122,6 @@ class StopsService{
         if (userStopsArr.contains(stopName)){
             for item in userStops{
                 if (item.name == stopName){
-                    // init!
-                    //stop = Stop(id: item.id, name: item.name, lat: item.lat, long: item.long, distance: 0, departures: nil)
-                
                     stop.id = item.id
                     stop.name = item.name
                     stop.lat = item.lat
@@ -222,10 +130,27 @@ class StopsService{
                     stop.departures = nil
                 }
             }
-            
         }
         
-        return stop
+        if (!stop.name.isEmpty){
+            print(stop.id)
+            let existingStop = Stop()
+            existingStop.id = stop.id
+            existingStop.name = stop.name
+            existingStop.lat = stop.lat
+            existingStop.long = stop.long
+            self.stops.stops.append(existingStop as Stop)
+        }
+        else{
+            print(stop.id)
+            let newStop = Stop()
+            newStop.id = vtStop.id
+            newStop.name = vtStop.name
+            newStop.lat = vtStop.lat
+            newStop.long = vtStop.long
+            self.stops.stops.append(newStop as Stop)
+        }
+
     }
     
 }
