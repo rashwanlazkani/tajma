@@ -46,6 +46,7 @@ class RealmService {
             stop.long = row.long
             stop.distance = 0
             stop.departures = [Departure]()
+            stop.isChecked = true
             
             stops.append(stop)
         }
@@ -157,6 +158,7 @@ class RealmService {
                 line.lineAndDirection = stopline.lineAndDirection
                 line.type = stopline.type
                 line.track = stopline.track
+                line.isChecked = true
                 
                 do{
                     try! realm.write({ () -> Void in

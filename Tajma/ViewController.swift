@@ -28,6 +28,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var lat : String = ""
     var long : String = ""
     
+    override func viewDidAppear(animated: Bool) {
+        initiateViews()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -179,6 +183,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     // MARK: - Events
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        // För att uppdatera listan över tillagda stopp när man kommer från linesViewn
+        if (segmentedControl.selectedSegmentIndex == 1){
+            stopWrapper.stops = RealmService.sharedInstance.getStops()
+        }
+        tableView.reloadData()
+    }
+    
     @IBAction func segmentedControl_Changed(sender: UISegmentedControl) {
         if (segmentedControl.selectedSegmentIndex == 0){
             self.locationManager.startUpdatingLocation()
@@ -191,37 +203,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.reloadData()
     }
     
-    override func didMoveToParentViewController(parent: UIViewController?) {
-        // För att uppdatera listan över tillagda stopp när man kommer från linesViewn
-        if (parent != nil) {
-            if (segmentedControl.selectedSegmentIndex == 1){
-                stopWrapper.stops = RealmService.sharedInstance.getStops()
-            }
-            tableView.reloadData()
-        }
-        else{
-            self.navigationController?.navigationBar.layer.zPosition = -1
-        }
-    }
-    
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        searchBar.enablesReturnKeyAutomatically = false
-    }
-    
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         segmentedControl.selectedSegmentIndex = 0
-        
-        let stop = StopsService()
-        
         activityIndicator.startAnimating()
+        
         // Låser vyn
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-        
-        stop.getStopsByInput(searchBar.text!, onCompletion: { json -> Void in
+        stopService.getStopsByInput(searchBar.text!, onCompletion: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.stopWrapper = json
                 if (self.stopWrapper.stops.count > 0){
-                    //self.searchBar!.text = ""
                     self.segmentedControl.setTitle("Sökresultat", forSegmentAtIndex: 0)
                 }
                 else{
@@ -258,10 +249,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     // MARK: - TableView
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return stopWrapper.stops.count
@@ -270,6 +257,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell.textLabel!.text = stopWrapper.stops[indexPath.row].name
+        
+        if (stopWrapper.stops[indexPath.row].status == Status.Error){
+            cell.accessoryType = UITableViewCellAccessoryType.None
+            
+            return cell
+        }
         
         if(indexPath.row % 2 == 0){
             cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
@@ -277,8 +273,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         }
         
-        
-        // Sätta bakgrunden på tableView
+        // Sätter bakgrunden på tableView för att inte visa tomma rader
         if (indexPath.row == stopWrapper.stops.count - 1){
             tableView.tableFooterView = UIView(frame: CGRectZero)
             
@@ -290,35 +285,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        
+        // Rensar all checkboxar
         for view in cell.subviews{
             if (String(view.dynamicType) == "UIImageView") {
                 view.removeFromSuperview()
             }
         }
         
-        // Kunde inte ladda närmaste stopp
-        if (stopWrapper.stops[indexPath.row].id == "0" && stopWrapper.stops[indexPath.row].status == Status.Error){
-            cell.textLabel!.text = stopWrapper.stops[indexPath.row].name
-            cell.accessoryType = UITableViewCellAccessoryType.None
-            
-            return cell
-        }
-        
-        let myStops = RealmService.sharedInstance.getStopsId()
-        if (myStops.contains(stopWrapper.stops[indexPath.row].id)){
+        if (stopService.checkIfUserHasAddedStop(stopWrapper.stops[indexPath.row]).isChecked){
             let imageName = "check-red"
             let image = UIImage(named: imageName)
             let imageView = UIImageView(image: image!)
             imageView.frame = CGRect(x: phoneSize.width - 70, y: 12, width: Int(imageView.image?.size.width ?? 16), height: Int(imageView.image?.size.height ?? 16))
-            
             cell.addSubview(imageView)
-            
         }
-    
-        cell.textLabel!.text = stopWrapper.stops[indexPath.row].name
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         return cell
     }
@@ -327,45 +307,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         searchBar.resignFirstResponder()
         self.searchBar!.text = ""
-        // Hämta om närmaste stopp
-        if (stopWrapper.stops[indexPath.row].id == "0" && stopWrapper.stops[indexPath.row].status == Status.Error){
+        if (stopWrapper.stops[indexPath.row].status == Status.Error){
             getNearestStops()
         }
-        // Hämta linjer på stopp
         else{
             getLinesAtStop(stopWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
-        }
-    }
-    
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell,
-        forRowAtIndexPath indexPath: NSIndexPath)
-    {
-        // Remove seperator inset
-        if cell.respondsToSelector("setSeparatorInset:") {
-            cell.separatorInset = UIEdgeInsetsZero
-        }
-        
-        // Prevent the cell from inheriting the Table View's margin settings
-        if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
-            cell.preservesSuperviewLayoutMargins = false
-        }
-        
-        // Explictly set your cell's layout margins
-        if cell.respondsToSelector("setLayoutMargins:") {
-            cell.layoutMargins = UIEdgeInsetsZero
-        }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        // Force your tableview margins (this may be a bad idea)
-        if self.tableView.respondsToSelector("setSeparatorInset:") {
-            self.tableView.separatorInset = UIEdgeInsetsZero
-        }
-        
-        if self.tableView.respondsToSelector("setLayoutMargins:") {
-            self.tableView.layoutMargins = UIEdgeInsetsZero
         }
     }
     
@@ -374,15 +320,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         if (segue.identifier == "ShowLinesView")
         {
+            UIApplication.sharedApplication().beginIgnoringInteractionEvents()
             let row : Int = sender as! Int
-            
             let stop = Stop()
             stop.id = stopWrapper.stops[row].id
             stop.name = stopWrapper.stops[row].name
             stop.lat = stopWrapper.stops[row].lat
             stop.long = stopWrapper.stops[row].long
-            stop.status = Status.Error
-            stop.departures = nil
             
             let lines = segue.destinationViewController as! LinesViewController
             lines.lineWrapper.lines = lineWrapper.lines
