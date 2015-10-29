@@ -43,8 +43,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager.delegate = self
-        locationManager.requestLocation()
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
 
         searchBar!.delegate = self
         tableView.delegate = self
@@ -156,6 +160,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func getNearestStops() {
         self.activityIndicator.startAnimating()
         self.segmentedControl.enabled = false
+        locationManager.stopUpdatingLocation()
         stopService.getNearestStops(lat, long: long, onCompletion: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.stopWrapper = json
@@ -284,12 +289,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first{
-            lat = String(location.coordinate.latitude)
-            long = String(location.coordinate.longitude)
-            
-            getNearestStops()
-        }
+        let location:CLLocationCoordinate2D = manager.location!.coordinate
+        print("locations = \(location.latitude) \(location.longitude)")
+        lat = String(location.latitude)
+        long = String(location.longitude)
+        
+        getNearestStops()
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
