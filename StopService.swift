@@ -59,6 +59,7 @@ class StopsService{
     
     func getStopsByInput(name : String, onCompletion: (StopWrapper) -> Void){
         RestApiService.sharedInstance.findStops(name) { json in
+            self.stopWrapper = StopWrapper()
             var error = json["LocationList"]
             if (error["error"] == "R0007"){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
@@ -82,12 +83,12 @@ class StopsService{
                         break
                     }
                     
-                    var stop = Stop()
+                    let stop = Stop()
                     stop.id = id!
                     stop.name = name!
                     stop.lat = lat!
                     stop.long = long!
-                    stop = self.checkIfUserHasAddedStop(stop)
+                    stop.isChecked = self.checkIfUserHasAddedStop(stop).isChecked
                     self.stopWrapper.stops.append(stop)
                 }
                 onCompletion(self.stopWrapper)

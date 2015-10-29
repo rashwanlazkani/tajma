@@ -182,11 +182,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         })
     }
     
+    func addIsChecked(){
+        for stop in stopWrapper.stops{
+            stop.isChecked = stopService.checkIfUserHasAddedStop(stop).isChecked
+        }
+    }
+    
     // MARK: - Events
     override func didMoveToParentViewController(parent: UIViewController?) {
         // För att uppdatera listan över tillagda stopp när man kommer från linesViewn
         if (segmentedControl.selectedSegmentIndex == 1){
             stopWrapper.stops = RealmService.sharedInstance.getStops()
+        }
+        else{
+            addIsChecked()
         }
         tableView.reloadData()
     }
@@ -292,7 +301,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        if (stopService.checkIfUserHasAddedStop(stopWrapper.stops[indexPath.row]).isChecked){
+        if (stopWrapper.stops[indexPath.row].isChecked){
             let imageName = "check-red"
             let image = UIImage(named: imageName)
             let imageView = UIImageView(image: image!)
