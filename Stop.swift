@@ -15,4 +15,5 @@ public class Stop {
     dynamic var long: String = ""
     dynamic var distance: Int = 0
     var departures = [Departure]?()
+    var status = Status.OK
 }

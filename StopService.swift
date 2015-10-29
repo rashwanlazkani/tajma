@@ -133,7 +133,6 @@ class StopsService{
         }
         
         if (!stop.name.isEmpty){
-            print(stop.id)
             let existingStop = Stop()
             existingStop.id = stop.id
             existingStop.name = stop.name
@@ -142,7 +141,6 @@ class StopsService{
             self.stops.stops.append(existingStop as Stop)
         }
         else{
-            print(stop.id)
             let newStop = Stop()
             newStop.id = vtStop.id
             newStop.name = vtStop.name
@@ -150,7 +148,5 @@ class StopsService{
             newStop.long = vtStop.long
             self.stops.stops.append(newStop as Stop)
         }
-
     }
-    
 }

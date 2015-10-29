@@ -15,30 +15,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    var webView = UIWebView()
-    var btnCloseWebView  = UIButton()
-    
     let lineService = LineService()
     var stopService = StopsService()
     var lineWrapper = LineWrapper()
     var stopWrapper = StopWrapper()
     let phoneSize = PhoneSize()
-        
+    
+    var webView = UIWebView()
+    var btnCloseWebView  = UIButton()
     let locationManager = CLLocationManager()
-    
     var activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
-    
     var lat : String = ""
     var long : String = ""
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    required init?(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,16 +37,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
+        
+        self.title = "Bakåt"
 
         searchBar!.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         
+        checkForFirstTimeLaunch()
         initiateViews()
-        
-        self.title = "Bakåt"
-        
-        // Förstagångsguide som öppnas första gången appen öppnas
+        setRateSettings()
+    }
+ 
+    // MARK: - Functions
+    func checkForFirstTimeLaunch(){
         let firstLaunch = NSUserDefaults.standardUserDefaults().boolForKey("FirstLaunch")
         if !firstLaunch  {
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "FirstLaunch")
@@ -78,59 +70,36 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             view.addSubview(webView)
             view.addSubview(btnCloseWebView)
         }
-        
-        // Rate
-        let rate = RateMyApp.sharedInstance
-        rate.appID = "689392780"
-        
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            rate.trackAppUsage()
-        })
-
     }
     
-    override func viewDidAppear(animated: Bool) {
-        lineWrapper = LineWrapper()
+    func closeWebView(sender: UIButton!){
+        btnCloseWebView.removeFromSuperview()
+        webView.removeFromSuperview()
+    }
+    
+    func initiateViews(){
+        self.view.backgroundColor = UIColor.whiteColor()
 
+        navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        
         self.navigationController?.navigationBar.layer.zPosition = 1
-
         navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         navigationController?.navigationBar.tintColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 0)]
-        
         navigationController?.navigationBar.hidden = true
         
-        tableView.reloadData()
-    }
-
- 
-    // MARK: - Functions
-    func initiateViews(){
-        
-        self.view.backgroundColor = UIColor.whiteColor()
-        
-        // NavController
-        navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        
-        
-        
-        
-        // SearchBar
         let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.whiteColor()
         searchBar.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
         searchBar.tintColor = UIColor(red: 32/255, green: 106/255, blue: 196/255, alpha: 1)
-        
         let textfield:UITextField = searchBar.valueForKey("searchField") as! UITextField
         let attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
         textfield.attributedPlaceholder = attributedString
         
-        // TableView
         tableView.separatorColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 1)
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
         
-        // Activity indicator
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
@@ -139,12 +108,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // För att sätta bakgrundfärg och opacitet på placeholdertext för searchBar
         let txt:UITextField = searchBar.valueForKey("searchField") as! UITextField
+        let attr = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)])
+        txt.attributedPlaceholder = attr
         
-        let attR = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)])
-        
-        txt.attributedPlaceholder = attR
-        
-        // SegmentedControl
         segmentedControl.layer.masksToBounds = true
         segmentedControl.layer.cornerRadius = 6
         segmentedControl.layer.borderWidth = 1
@@ -152,15 +118,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         segmentedControl.backgroundColor = UIColor(red: 210/255, green: 43/255, blue: 69/255, alpha: 0.75)
     }
     
-    func closeWebView(sender: UIButton!){
-        btnCloseWebView.removeFromSuperview()
-        webView.removeFromSuperview()
+    func setRateSettings(){
+        let rate = RateMyApp.sharedInstance
+        rate.appID = "689392780"
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            rate.trackAppUsage()
+        })
     }
     
     func getNearestStops() {
         self.activityIndicator.startAnimating()
         self.segmentedControl.enabled = false
-        locationManager.stopUpdatingLocation()
         stopService.getNearestStops(lat, long: long, onCompletion: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.stopWrapper = json
@@ -168,23 +137,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.tableView!.reloadData()
                 }
                 else{
-                    // init
-                    //let stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200, departures: nil)
-                    
                     let stop = Stop()
-                    stop.id = "0"
                     stop.name = "Fel vid hämtning. Hämta igen."
-                    stop.lat = "0"
-                    stop.long = "0"
-                    stop.distance = -200
-                    stop.departures = nil
+                    stop.status = Status.Error
                     
-                    if (self.stopWrapper.stops.isEmpty){
-                        self.stopWrapper.stops.append(stop)
-                        self.tableView!.reloadData()
-                    }
-                    // Om true, så har vi gått från att försöka ladda om vid fel till att försöka hämta igen men fel igen
-                    else if (self.stopWrapper.stops[0].id != "0" && self.stopWrapper.stops[0].distance != -200){
+                    if (self.stopWrapper.stops.isEmpty || self.stopWrapper.stops[0].status == Status.Error){
                         self.stopWrapper.stops.append(stop)
                         self.tableView!.reloadData()
                     }
@@ -200,10 +157,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func getLinesAtStop(stopId : String, indexPath : Int){
-        
         activityIndicator.startAnimating()
+        // Låser vyn
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-        
         lineService.getAllLinesAtStop(stopId, onCompletion: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.lineWrapper = json
@@ -215,7 +171,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     print(self.lineWrapper.error)
                 }
             })
-            
             dispatch_async(dispatch_get_main_queue(),{
                 self.activityIndicator.stopAnimating()
                 UIApplication.sharedApplication().endIgnoringInteractionEvents()
@@ -228,28 +183,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (segmentedControl.selectedSegmentIndex == 0){
             self.locationManager.startUpdatingLocation()
             self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
-            //searchBar.resignFirstResponder()
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
             stopWrapper.stops = RealmService.sharedInstance.getStops()
         }
-        
+        searchBar.resignFirstResponder()
         tableView.reloadData()
     }
     
     override func didMoveToParentViewController(parent: UIViewController?) {
-        // För att uppdatera listan över tillagda stopp
+        // För att uppdatera listan över tillagda stopp när man kommer från linesViewn
         if (parent != nil) {
             if (segmentedControl.selectedSegmentIndex == 1){
-                var tempStops : [Stop]
-                tempStops = RealmService.sharedInstance.getStops()
-                
-                if (tempStops.count != stopWrapper.stops.count){
-                    stopWrapper.stops = RealmService.sharedInstance.getStops()
-                    tableView.reloadData()
-                }
+                stopWrapper.stops = RealmService.sharedInstance.getStops()
             }
-            
+            tableView.reloadData()
         }
         else{
             self.navigationController?.navigationBar.layer.zPosition = -1
@@ -266,6 +214,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let stop = StopsService()
         
         activityIndicator.startAnimating()
+        // Låser vyn
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
         
         stop.getStopsByInput(searchBar.text!, onCompletion: { json -> Void in
@@ -278,9 +227,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 else{
                     print(self.stopWrapper.error)
                 }
-                
+                searchBar.resignFirstResponder()
                 self.tableView!.reloadData()
-                
                 self.activityIndicator.stopAnimating()
                 UIApplication.sharedApplication().endIgnoringInteractionEvents()
             })
@@ -290,10 +238,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location:CLLocationCoordinate2D = manager.location!.coordinate
-        print("locations = \(location.latitude) \(location.longitude)")
         lat = String(location.latitude)
         long = String(location.longitude)
-        
+        locationManager.stopUpdatingLocation()
         getNearestStops()
     }
     
@@ -302,16 +249,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         stopWrapper.stops = [Stop]()
         
-        // init
-        //let stop = Stop(id: "0", name: "Fel vid hämtning. Hämta igen.", lat: "0", long: "0", distance: -200, departures: nil)
-        
         let stop = Stop()
-        stop.id = "0"
         stop.name = "Fel vid hämtning. Hämta igen."
-        stop.lat = "0"
-        stop.long = "0"
-        stop.distance = -200
-        stop.departures = nil
+        stop.status = Status.Error
         
         self.stopWrapper.stops.append(stop)
         self.tableView!.reloadData()
@@ -359,7 +299,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         // Kunde inte ladda närmaste stopp
-        if (stopWrapper.stops[indexPath.row].id == "0" && stopWrapper.stops[indexPath.row].distance == -200){
+        if (stopWrapper.stops[indexPath.row].id == "0" && stopWrapper.stops[indexPath.row].status == Status.Error){
             cell.textLabel!.text = stopWrapper.stops[indexPath.row].name
             cell.accessoryType = UITableViewCellAccessoryType.None
             
@@ -367,7 +307,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         let myStops = RealmService.sharedInstance.getStopsId()
-        
         if (myStops.contains(stopWrapper.stops[indexPath.row].id)){
             let imageName = "check-red"
             let image = UIImage(named: imageName)
@@ -389,7 +328,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         searchBar.resignFirstResponder()
         self.searchBar!.text = ""
         // Hämta om närmaste stopp
-        if (stopWrapper.stops[indexPath.row].id == "0" && stopWrapper.stops[indexPath.row].distance == -200){
+        if (stopWrapper.stops[indexPath.row].id == "0" && stopWrapper.stops[indexPath.row].status == Status.Error){
             getNearestStops()
         }
         // Hämta linjer på stopp
@@ -436,14 +375,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (segue.identifier == "ShowLinesView")
         {
             let row : Int = sender as! Int
-            //let stop = Stop(id: stopWrapper.stops[row].id, name: stopWrapper.stops[row].name, lat: stopWrapper.stops[row].lat, long: stopWrapper.stops[row].long, distance: 0, departures: nil)
             
             let stop = Stop()
             stop.id = stopWrapper.stops[row].id
             stop.name = stopWrapper.stops[row].name
             stop.lat = stopWrapper.stops[row].lat
             stop.long = stopWrapper.stops[row].long
-            stop.distance = -200
+            stop.status = Status.Error
             stop.departures = nil
             
             let lines = segue.destinationViewController as! LinesViewController

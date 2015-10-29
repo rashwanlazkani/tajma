@@ -32,6 +32,8 @@
 		F806677A1B1E5D7900A26B5D /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE941B1BB2F100D3DAFC /* LineWrapper.swift */; };
 		F806677B1B1E5D7900A26B5D /* StopWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */; };
 		F806677F1B1E5DC600A26B5D /* DepartureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806677E1B1E5DC600A26B5D /* DepartureService.swift */; };
+		F807230C1BE290BA00749E76 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807230B1BE290BA00749E76 /* Status.swift */; };
+		F807230D1BE2917E00749E76 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807230B1BE290BA00749E76 /* Status.swift */; };
 		F818619F1B41D52A005DDA3A /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceHelper.swift */; };
 		F81861A01B41D52A005DDA3A /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceHelper.swift */; };
 		F82CB0841BD25B2C0015D3C5 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* RealmService.swift */; };
@@ -132,6 +134,7 @@
 		F80667681B1E5CBA00A26B5D /* TajmaToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TajmaToday.entitlements; sourceTree = "<group>"; };
 		F806676A1B1E5D2200A26B5D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F806677E1B1E5DC600A26B5D /* DepartureService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartureService.swift; sourceTree = "<group>"; };
+		F807230B1BE290BA00749E76 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		F818619E1B41D52A005DDA3A /* DeviceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
 		F82CB0831BD25B2C0015D3C5 /* RealmService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		F843A39D1B1B04C2008F4505 /* Tajma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tajma.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -421,6 +424,7 @@
 			children = (
 				F8E081001B35B1D000A96A45 /* Info.swift */,
 				F88F545B1B38AB3000F0D402 /* Row.swift */,
+				F807230B1BE290BA00749E76 /* Status.swift */,
 			);
 			name = Enum;
 			sourceTree = "<group>";
@@ -719,6 +723,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F80667761B1E5D7900A26B5D /* LinesAtStop.swift in Sources */,
+				F807230D1BE2917E00749E76 /* Status.swift in Sources */,
 				F806677B1B1E5D7900A26B5D /* StopWrapper.swift in Sources */,
 				F80667771B1E5D7900A26B5D /* PhoneSize.swift in Sources */,
 				F80667781B1E5D7900A26B5D /* Stop.swift in Sources */,
@@ -760,6 +765,7 @@
 				F87AFE7F1B1B903F00D3DAFC /* CheckBox.swift in Sources */,
 				F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */,
 				F87AFE821B1B903F00D3DAFC /* LinesAtStop.swift in Sources */,
+				F807230C1BE290BA00749E76 /* Status.swift in Sources */,
 				F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */,
 				F87AFE861B1B903F00D3DAFC /* StopLine.swift in Sources */,
 				F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */,
