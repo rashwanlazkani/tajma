@@ -45,7 +45,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     func initiateViews(){
         
         // NavController
-        navigationController?.navigationBar.hidden = false
+        self.navigationController?.navigationBar.hidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
@@ -65,11 +65,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // 1
-        return 1
     }
     
     // MARK: - TableView
@@ -125,38 +120,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         }
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell,
-        forRowAtIndexPath indexPath: NSIndexPath)
-    {
-        // Remove seperator inset
-        if cell.respondsToSelector("setSeparatorInset:") {
-            cell.separatorInset = UIEdgeInsetsZero
-        }
-        
-        // Prevent the cell from inheriting the Table View's margin settings
-        if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
-            cell.preservesSuperviewLayoutMargins = false
-        }
-        
-        // Explictly set your cell's layout margins
-        if cell.respondsToSelector("setLayoutMargins:") {
-            cell.layoutMargins = UIEdgeInsetsZero
-        }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        // Force your tableview margins (this may be a bad idea)
-        if self.tableView.respondsToSelector("setSeparatorInset:") {
-            self.tableView.separatorInset = UIEdgeInsetsZero
-        }
-        
-        if self.tableView.respondsToSelector("setLayoutMargins:") {
-            self.tableView.layoutMargins = UIEdgeInsetsZero
-        }
-    }
-    
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -178,7 +141,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
 
     // MARK: - Functions
-    
     func openShare(){
         let activityItems = ["Vill tipsa om en grym app som jag...", "", "https://itunes.apple.com/se/app/instainfo/id689392780?mt=8"]
         
@@ -192,7 +154,8 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     func openFacebook(sender : Info){
         if (sender == Info.Like){
-            let url = "fb://profile/100003120646750"
+            let fbId = "100003120646750"
+            let url = "fb://profile/\(fbId)"
             let fbURL = NSURL(string: url)
             if UIApplication.sharedApplication().canOpenURL(fbURL!)
             {
@@ -200,7 +163,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
                 
             } else {
                 //redirect to safari because the user doesn't have FaceBook
-                UIApplication.sharedApplication().openURL(NSURL(string: "http://facebook/")!)
+                UIApplication.sharedApplication().openURL(NSURL(string: "http://facebook.com/profile/\(fbId)")!)
             }
         }
     }
@@ -224,7 +187,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     func openHelp(){
         let webV:UIWebView = UIWebView(frame: CGRectMake(0, self.navigationController!.navigationBar.bounds.height - 44, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - 65))
         webV.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.tajmahelpappwebsite.rashwanlazkani.se/")!))
-        //webV.delegate = self;
         self.view.addSubview(webV)
     }
 }
