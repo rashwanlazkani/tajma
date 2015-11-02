@@ -171,15 +171,24 @@
         <scene sceneID="EMT-ub-K2k">
             <objects>
                 <viewController id="JpN-E7-M05" userLabel="LinesView Controller" customClass="LinesViewController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="6qH-6I-e4g"/>
-                        <viewControllerLayoutGuide type="bottom" id="oLQ-Vy-aZC"/>
-                    </layoutGuides>
-                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="SqA-E1-eEe">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hzx-BC-dvA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <animations/>
-                    </scrollView>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="RsR-GN-oy6">
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RsR-GN-oy6" id="WKP-h9-Ly1">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
                     <navigationItem key="navigationItem" id="aeP-xd-OHh">
                         <barButtonItem key="backBarButtonItem" systemItem="trash" id="tWo-rp-9P6">
                             <color key="tintColor" red="0.72549019609999998" green="0.23154237329999999" blue="0.17218144730000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -188,7 +197,7 @@
                     <connections>
                         <outlet property="navController" destination="aeP-xd-OHh" id="sdT-3U-hs1"/>
                         <outlet property="navItem" destination="aeP-xd-OHh" id="ttg-aw-tNb"/>
-                        <outlet property="scrollView" destination="SqA-E1-eEe" id="4h1-KX-rOf"/>
+                        <outlet property="tableView" destination="Hzx-BC-dvA" id="DBs-oD-eqk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mf-87-y9r" userLabel="First Responder" sceneMemberID="firstResponder"/>

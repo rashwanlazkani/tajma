@@ -8,21 +8,27 @@
 
 import UIKit
 
-class LinesViewController: UIViewController {
+class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var navController: UINavigationItem!
     @IBOutlet weak var navItem: UINavigationItem!
-    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet weak var tableView: UITableView!
     
     var lineWrapper = LineWrapper()
     var stop : Stop!
     var currentLinesAndDirections = [String]()
     let phoneSize = PhoneSize()
+    var isChecked = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         initiateViews()
-        drawLinesTableView()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.tableView.reloadData()
+        })
     }
     
     override func willMoveToParentViewController(parent: UIViewController?) {
@@ -32,12 +38,8 @@ class LinesViewController: UIViewController {
             self.navigationController?.navigationBar.layer.zPosition = -1
         }
     }
-    
-    // MARK: - Functions
+
     func initiateViews(){
-        self.scrollView.bounces = true
-        self.scrollView.alwaysBounceVertical = true
-        
         self.navigationController?.navigationBar.hidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -55,113 +57,83 @@ class LinesViewController: UIViewController {
         self.navigationItem.titleView = titleView
         titleView.addSubview(title)
         
-        scrollView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+        tableView.separatorColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 1)
+        tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+        tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return lineWrapper.lines.count
     }
     
-    func drawLinesTableView(){
-        var height = 0
-        var tag = 0
-        self.lineWrapper.lines.sortInPlace({Int($0.sname) < Int($1.sname)})
+    func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
-        for (index, line) in lineWrapper.lines.enumerate(){
-            let checkBox = CheckBox()
-            checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
-            checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
-            checkBox.tag = tag
-            checkBox.frame = CGRectMake(50, 50, 1000, 44)
-            checkBox.center = CGPoint(x: scrollView.bounds.width - 25, y: 44 / 2.0)
-            
-            let stopLine = StopLine()
-            stopLine.stopId = stop.id
-            stopLine.stopName = stop.name
-            stopLine.lat = stop.lat
-            stopLine.long = stop.long
-            stopLine.sname = line.sname
-            stopLine.tag = checkBox.tag
-            stopLine.type = line.type
-            stopLine.track = line.track
-            stopLine.direction = line.direction
-            stopLine.lineAndDirection = line.lineAndDirection
-            
-            if (Global.allaStopp.contains(line.lineAndDirection)){
-                stopLine.isChecked = true
-                checkBox.isChecked = true
+//        for view in cell.subviews {
+//            view.removeFromSuperview()
+//        }
+        
+        let checkBox = CheckBox()
+        checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
+        checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+        checkBox.tag = indexPath.row
+        checkBox.frame = CGRectMake(50, 50, 1000, 44)
+        checkBox.center = CGPoint(x: tableView.bounds.width - 25, y: 44 / 2.0)
+        
+        var fontSize = CGFloat(16)
+        
+        var sname = ""
+        if ((Int(lineWrapper.lines[indexPath.row].sname.substringToIndex(lineWrapper.lines[indexPath.row].sname.startIndex.advancedBy(1)))) == nil){
+            let snameArr = Array(lineWrapper.lines[indexPath.row].sname.characters)
+            sname = String(snameArr[0])
+        }
+        else if (lineWrapper.lines[indexPath.row].sname.characters.count > 2){
+            fontSize = CGFloat(12)
+            sname = lineWrapper.lines[indexPath.row].sname
+        }
+        else{
+            sname = lineWrapper.lines[indexPath.row].sname
+        }
+        
+        let snameView = UIView()
+        snameView.frame = CGRectMake(30, 30, 30, 30)
+        snameView.layer.cornerRadius = 5
+        snameView.center = CGPoint(x: 25, y: 23)
+        snameView.backgroundColor = UIColor(rgba: lineWrapper.lines[indexPath.row].fgColor)
+        
+        let snameLabel = UILabel(frame: CGRectMake(0, 0, 30, 30))
+        snameLabel.textAlignment = NSTextAlignment.Center
+        snameLabel.text = sname ?? lineWrapper.lines[indexPath.row].sname
+        snameLabel.textColor = UIColor(rgba: lineWrapper.lines[indexPath.row].bgColor)
+        snameLabel.font = snameLabel.font.fontWithSize(fontSize)
+        
+        let directionLabel = UILabel(frame: CGRectMake(0, 8, DeviceHelper.getLabelWidth(), 30))
+        directionLabel.textAlignment = NSTextAlignment.Left
+        directionLabel.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+        directionLabel.text = "\t     \(lineWrapper.lines[indexPath.row].direction)"
+        directionLabel.font = directionLabel.font.fontWithSize(16)
+        
+        snameView.addSubview(snameLabel)
+        cell.addSubview(checkBox)
+        cell.addSubview(snameView)
+        cell.addSubview(directionLabel)
+        
+        // Sätter bakgrunden på tableView för att dölja tomma linjer
+        if (indexPath.row == lineWrapper.lines.count - 1){
+            if (indexPath.row % 2 == 0){
+                cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
             }
             else{
-                stopLine.isChecked = false
-            }
-            
-            Global.linesAtStop.append(stopLine)
-            
-            let view = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 44))
-            var fontSize = CGFloat(16)
-            
-            var sname = ""
-            if ((Int(line.sname.substringToIndex(line.sname.startIndex.advancedBy(1)))) == nil){
-                let snameArr = Array(line.sname.characters)
-                sname = String(snameArr[0])
-            }
-            else if (line.sname.characters.count > 2){
-                fontSize = CGFloat(12)
-                sname = line.sname
-            }
-            else{
-                sname = line.sname
-            }
-            
-            let snameView = UIView()
-            snameView.frame = CGRectMake(30, 30, 30, 30)
-            snameView.layer.cornerRadius = 5
-            snameView.center = CGPoint(x: 25, y: 23)
-            snameView.backgroundColor = UIColor(rgba: line.fgColor)
-            
-            let snameLabel = UILabel(frame: CGRectMake(0, 0, 30, 30))
-            snameLabel.textAlignment = NSTextAlignment.Center
-            snameLabel.text = sname ?? line.sname
-            snameLabel.textColor = UIColor(rgba: line.bgColor)
-            snameLabel.font = snameLabel.font.fontWithSize(fontSize)
-            
-            let directionLabel = UILabel(frame: CGRectMake(0, 8, DeviceHelper.getLabelWidth(), 30))
-            directionLabel.textAlignment = NSTextAlignment.Left
-            directionLabel.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-            directionLabel.text = "\t     \(line.direction)"
-            directionLabel.font = directionLabel.font.fontWithSize(16)
-            
-            let separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
-            separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.5)
-            
-            view.addSubview(checkBox)
-            view.addSubview(snameView)
-            view.addSubview(directionLabel)
-            snameView.addSubview(snameLabel)
-            scrollView.addSubview(view)
-            scrollView.addSubview(separatorView)
-            
-            height += 44
-            tag++
-            
-            if(index % 2 == 0){
-                view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-            } else{
-                view.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-            }
-            
-            // Sätter bakgrunden på tableView för att dölja tomma linjer
-            if (index == lineWrapper.lines.count - 1){
-                if (index % 2 == 0){
-                    scrollView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-                }
-                else{
-                    scrollView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-                }
+                cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
             }
         }
         
-        let separatorView = UIView(frame: CGRect(x: 0, y: height, width: Int(scrollView.frame.size.width), height: 1))
-        separatorView.backgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
-        
-        self.view.addSubview(separatorView)
-        scrollView.contentSize = CGSize(width: phoneSize.width, height: height)
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
     }
 
     override func didReceiveMemoryWarning() {
