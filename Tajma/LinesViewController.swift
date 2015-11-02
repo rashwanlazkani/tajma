@@ -57,7 +57,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.navigationItem.titleView = titleView
         titleView.addSubview(title)
         
-        tableView.separatorColor = UIColor(red: 206/255, green: 204/255, blue: 199/255, alpha: 1)
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
     }
@@ -71,9 +70,12 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     {
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
-//        for view in cell.subviews {
-//            view.removeFromSuperview()
-//        }
+        for view in cell.subviews {
+            print(view)
+            if(view.isKindOfClass(UILabel) || view.isKindOfClass(CheckBox)){
+                view.removeFromSuperview()
+            }
+        }
         
         let checkBox = CheckBox()
         checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
@@ -120,15 +122,15 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.addSubview(snameView)
         cell.addSubview(directionLabel)
         
-        // Sätter bakgrunden på tableView för att dölja tomma linjer
-        if (indexPath.row == lineWrapper.lines.count - 1){
-            if (indexPath.row % 2 == 0){
-                cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-            }
-            else{
-                cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-            }
-        }
+//        // Sätter bakgrunden på tableView för att dölja tomma linjer
+//        if (indexPath.row == lineWrapper.lines.count - 1){
+//            if (indexPath.row % 2 == 0){
+//                cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+//            }
+//            else{
+//                cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+//            }
+//        }
         
         return cell
     }
