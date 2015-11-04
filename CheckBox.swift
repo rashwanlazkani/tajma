@@ -16,7 +16,7 @@ class CheckBox: UIButton {
         didSet{
             if (isChecked == true){
                 self.setImage(checkedImage, forState: .Normal)
-                self.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+                self.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 0.5)
                 self.sendSubviewToBack(self)
             }
             else{
@@ -32,12 +32,13 @@ class CheckBox: UIButton {
     
     func buttonClicked(sender : UIButton){
         isChecked = !isChecked
-        for stopline in Global.linesAtStop{
-            if (stopline.tag == sender.tag){
-                stopline.isChecked = isChecked
-                RealmService.sharedInstance.updateLinesToStop(stopline)
+        for stopLine in Global.linesAtStop{
+            if (stopLine.tag == sender.tag){
+                stopLine.isChecked = isChecked
+                RealmService.sharedInstance.updateLinesToStop(stopLine)
                 return
             }
+            
         }
     }
     

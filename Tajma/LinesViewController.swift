@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet weak var navController: UINavigationItem!
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
@@ -19,19 +19,15 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     let phoneSize = PhoneSize()
     var isChecked = false
     
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
-        
         tableView.delegate = self
         tableView.dataSource = self
-        
         initiateViews()
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.tableView.reloadData()
-        })
+        tableView.reloadData()
     }
     
-    override func willMoveToParentViewController(parent: UIViewController?) {
+    override func willMoveToParentViewController(parent: UIViewController?){
         super.willMoveToParentViewController(parent)
         if parent == nil {
             self.navigationController?.navigationBar.translucent = true
@@ -61,13 +57,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return lineWrapper.lines.count
     }
     
-    func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
+    func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
         for view in cell.subviews {
@@ -76,16 +70,34 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
                 view.removeFromSuperview()
             }
         }
-        
+
         let checkBox = CheckBox()
         checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
         checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
         checkBox.tag = indexPath.row
         checkBox.frame = CGRectMake(50, 50, 1000, 44)
         checkBox.center = CGPoint(x: tableView.bounds.width - 25, y: 44 / 2.0)
+        checkBox.tag = indexPath.row
+        
+        let stopLine = StopLine()
+        stopLine.stopId = stop.id
+        stopLine.stopName = stop.name
+        stopLine.lat = stop.lat
+        stopLine.long = stop.long
+        stopLine.sname = lineWrapper.lines[indexPath.row].sname
+        stopLine.tag = checkBox.tag
+        stopLine.type = lineWrapper.lines[indexPath.row].type
+        stopLine.track = lineWrapper.lines[indexPath.row].track
+        stopLine.direction = lineWrapper.lines[indexPath.row].direction
+        stopLine.lineAndDirection = lineWrapper.lines[indexPath.row].lineAndDirection
+        
+        if (Global.allaStopp.contains(lineWrapper.lines[indexPath.row].lineAndDirection)){
+            stopLine.isChecked = true
+            checkBox.isChecked = true
+        }
+        Global.linesAtStop.append(stopLine)
         
         var fontSize = CGFloat(16)
-        
         var sname = ""
         if ((Int(lineWrapper.lines[indexPath.row].sname.substringToIndex(lineWrapper.lines[indexPath.row].sname.startIndex.advancedBy(1)))) == nil){
             let snameArr = Array(lineWrapper.lines[indexPath.row].sname.characters)
@@ -121,21 +133,16 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.addSubview(checkBox)
         cell.addSubview(snameView)
         cell.addSubview(directionLabel)
-        
-//        // Sätter bakgrunden på tableView för att dölja tomma linjer
-//        if (indexPath.row == lineWrapper.lines.count - 1){
-//            if (indexPath.row % 2 == 0){
-//                cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-//            }
-//            else{
-//                cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-//            }
-//        }
+
+        if (indexPath.row == lineWrapper.lines.count - 1){
+            tableView.tableFooterView = UIView(frame: CGRectZero)
+        }
         
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+        print(indexPath.row)
     }
 
     override func didReceiveMemoryWarning() {
