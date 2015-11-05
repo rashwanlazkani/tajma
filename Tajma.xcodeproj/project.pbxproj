@@ -20,7 +20,7 @@
 		F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
 		F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
 		F80667701B1E5D7900A26B5D /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE701B1B902400D3DAFC /* Departure.swift */; };
-		F80667721B1E5D7900A26B5D /* TodayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* TodayLabel.swift */; };
+		F80667721B1E5D7900A26B5D /* TodayRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* TodayRow.swift */; };
 		F80667731B1E5D7900A26B5D /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE761B1B903F00D3DAFC /* Checkbox.swift */; };
 		F80667741B1E5D7900A26B5D /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE771B1B903F00D3DAFC /* Global.swift */; };
 		F80667751B1E5D7900A26B5D /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
@@ -45,7 +45,7 @@
 		F843A3BC1B1B04C2008F4505 /* TajmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */; };
 		F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3C51B1B066B008F4505 /* LinesViewController.swift */; };
 		F87AFE731B1B902400D3DAFC /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE701B1B902400D3DAFC /* Departure.swift */; };
-		F87AFE751B1B902400D3DAFC /* TodayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* TodayLabel.swift */; };
+		F87AFE751B1B902400D3DAFC /* TodayRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* TodayRow.swift */; };
 		F87AFE7F1B1B903F00D3DAFC /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE761B1B903F00D3DAFC /* Checkbox.swift */; };
 		F87AFE801B1B903F00D3DAFC /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE771B1B903F00D3DAFC /* Global.swift */; };
 		F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
@@ -155,7 +155,7 @@
 		F87257681B3F3161006CBDA8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F872576B1B3F3391006CBDA8 /* DataRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRowController.swift; sourceTree = "<group>"; };
 		F87AFE701B1B902400D3DAFC /* Departure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Departure.swift; sourceTree = "<group>"; };
-		F87AFE721B1B902400D3DAFC /* TodayLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayLabel.swift; sourceTree = "<group>"; };
+		F87AFE721B1B902400D3DAFC /* TodayRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayRow.swift; sourceTree = "<group>"; };
 		F87AFE761B1B903F00D3DAFC /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		F87AFE771B1B903F00D3DAFC /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		F87AFE781B1B903F00D3DAFC /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
@@ -223,8 +223,6 @@
 		F806674F1B1D156E00A26B5D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				F80667501B1D157C00A26B5D /* UIColor.swift */,
-				F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */,
 				F818619E1B41D52A005DDA3A /* DeviceHelper.swift */,
 				F8D853C81BE12F2C00E2C1E2 /* Constants.swift */,
 			);
@@ -375,6 +373,7 @@
 				F8CFC4F51BEBC24300301E59 /* Components */,
 				F8E080FF1B35B1C500A96A45 /* Enums */,
 				F806674F1B1D156E00A26B5D /* Helpers */,
+				F8CFC4F61BEBD27800301E59 /* Libs */,
 				F87AFE6F1B1B8FE000D3DAFC /* Models */,
 				F87AFE691B1B8F7A00D3DAFC /* Services */,
 			);
@@ -389,7 +388,6 @@
 				F82CB0831BD25B2C0015D3C5 /* RealmService.swift */,
 				F87AFE891B1B906400D3DAFC /* RestApiService.swift */,
 				F87AFE8A1B1B906400D3DAFC /* StopService.swift */,
-				F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -406,7 +404,7 @@
 				F87AFE7C1B1B903F00D3DAFC /* Stop.swift */,
 				F87AFE7D1B1B903F00D3DAFC /* StopLine.swift */,
 				F87AFE951B1BB2F100D3DAFC /* StopWrapper.swift */,
-				F87AFE721B1B902400D3DAFC /* TodayLabel.swift */,
+				F87AFE721B1B902400D3DAFC /* TodayRow.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -417,6 +415,16 @@
 				F87AFE761B1B903F00D3DAFC /* Checkbox.swift */,
 			);
 			name = Components;
+			sourceTree = "<group>";
+		};
+		F8CFC4F61BEBD27800301E59 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */,
+				F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */,
+				F80667501B1D157C00A26B5D /* UIColor.swift */,
+			);
+			name = Libs;
 			sourceTree = "<group>";
 		};
 		F8E080FF1B35B1C500A96A45 /* Enums */ = {
@@ -740,7 +748,7 @@
 				F8D853CA1BE132F000E2C1E2 /* Constants.swift in Sources */,
 				F80667741B1E5D7900A26B5D /* Global.swift in Sources */,
 				F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */,
-				F80667721B1E5D7900A26B5D /* TodayLabel.swift in Sources */,
+				F80667721B1E5D7900A26B5D /* TodayRow.swift in Sources */,
 				F80667751B1E5D7900A26B5D /* Line.swift in Sources */,
 				F8AE4FB11BD448B0005A754D /* RealmObject.swift in Sources */,
 				F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */,
@@ -768,7 +776,7 @@
 				F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */,
 				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,
 				F80667511B1D157C00A26B5D /* UIColor.swift in Sources */,
-				F87AFE751B1B902400D3DAFC /* TodayLabel.swift in Sources */,
+				F87AFE751B1B902400D3DAFC /* TodayRow.swift in Sources */,
 				F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */,
 				F87AFE801B1B903F00D3DAFC /* Global.swift in Sources */,
 				F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */,

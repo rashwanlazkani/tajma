@@ -17,7 +17,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     var long = ""
     var departureService = DepartureService()
     var lineService = LineService()
-    var linesAtStop = [TodayLabel]()
+    var linesAtStop = [TodayRow]()
     var departures = [Departure]()
     var timer = NSTimer()
     var timerIntervall = NSTimer()
@@ -75,7 +75,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         
         
         
-        let todayLabel = TodayLabel()
+        let todayLabel = TodayRow()
         todayLabel.stopName = "Laddar X"
         todayLabel.row = Row.Info
         linesAtStop.append(todayLabel)
@@ -99,7 +99,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             }
         }
         else{
-            let todayLabel = TodayLabel()
+            let todayLabel = TodayRow()
             todayLabel.stopName = "Kunde inte faställa position, försöker igen..."
             todayLabel.row = Row.Info
             
@@ -114,7 +114,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     func locationOff(){
-        let todayLabel = TodayLabel()
+        let todayLabel = TodayRow()
         todayLabel.stopName = "Du måste slå på lokaliseringen för TajmApp."
         todayLabel.row = Row.Info
         linesAtStop.append(todayLabel)
@@ -348,7 +348,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     // MARK: - Functions
     func getData(){
         print("getData")
-        linesAtStop = [TodayLabel]()
+        linesAtStop = [TodayRow]()
         // För att sorteringen ska funka måste alla items i linesAtStop arrayen ha departures
         let tempArr = [-10, -10]
         
@@ -356,11 +356,11 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         let stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
         if (stops.count == 0){
-            let todayLabel = TodayLabel()
+            let todayLabel = TodayRow()
             todayLabel.stopName = "Ingen vald hållplats i närheten"
             todayLabel.row = Row.Info
             
-            let todayButton = TodayLabel()
+            let todayButton = TodayRow()
             todayLabel.stopName = "Lägg till ny hållplats"
             todayLabel.row = Row.Button
             
@@ -376,7 +376,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             // "Inga avgångar hittades" har en fiktiv distans på 1000000 för att hamna under hållplatsen
             // Sista raden har också en fiktiv distans på 1000001 för att hamna sist för att göra plats för "Gå till appen" knappen
             for stop in stops{
-                let todayLabel = TodayLabel()
+                let todayLabel = TodayRow()
                 todayLabel.stopName = stop.name
                 todayLabel.distance = stop.distance
                 todayLabel.rtTimes = tempArr
@@ -385,7 +385,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
                 linesAtStop.append(todayLabel)
                 
                 if (stop.departures?.count == 0){
-                    let todayLabel = TodayLabel()
+                    let todayLabel = TodayRow()
                     todayLabel.stopName = "Inga avgångar hittades"
                     todayLabel.distance = stop.distance
                     todayLabel.rtTimes = tempArr
@@ -411,7 +411,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
                                 rtTimesArr.append(rtTime)
                             }
                         }
-                        let trip = TodayLabel()
+                        let trip = TodayRow()
                         trip.stopName = stop.name
                         trip.distance = stop.distance
                         trip.sname = departure.sname
@@ -448,7 +448,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             // Ex: Linje 10 mot Centralstationen ska endast visas på den närmaste hållplatsen så att vi kan visa fler linjer
             if (linesAtStop.count > DeviceHelper.iPhoneModelSize()){
                 var arr = [String]()
-                var temp = [TodayLabel]()
+                var temp = [TodayRow]()
                 
                 for (index, stop) in linesAtStop.enumerate(){
                     // Om sista raden endast är en hållplats så vill vi inte visa denna

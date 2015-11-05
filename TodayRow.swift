@@ -8,7 +8,7 @@
 
 import RealmSwift
 
-public class TodayLabel {
+public class TodayRow {
     dynamic var stopName: String = ""
     dynamic var distance: Int = 0
     dynamic var sname: String = ""
