@@ -64,8 +64,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
-        for view in cell.subviews {
-            print(view)
+        for view in cell.subviews{
             if(view.isKindOfClass(UILabel) || view.isKindOfClass(CheckBox)){
                 view.removeFromSuperview()
             }

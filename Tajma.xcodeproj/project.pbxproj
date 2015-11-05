@@ -379,6 +379,7 @@
 		F87AFE661B1B89C100D3DAFC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F8CFC4F51BEBC24300301E59 /* Components */,
 				F8E080FF1B35B1C500A96A45 /* Enum */,
 				F806674F1B1D156E00A26B5D /* Helpers */,
 				F87AFE6F1B1B8FE000D3DAFC /* Models */,
@@ -403,7 +404,6 @@
 		F87AFE6F1B1B8FE000D3DAFC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F87AFE761B1B903F00D3DAFC /* CheckBox.swift */,
 				F87AFE701B1B902400D3DAFC /* Departure.swift */,
 				F87AFE771B1B903F00D3DAFC /* Global.swift */,
 				F87AFE781B1B903F00D3DAFC /* Line.swift */,
@@ -417,6 +417,14 @@
 				F87AFE721B1B902400D3DAFC /* TodayLabel.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		F8CFC4F51BEBC24300301E59 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F87AFE761B1B903F00D3DAFC /* CheckBox.swift */,
+			);
+			name = Components;
 			sourceTree = "<group>";
 		};
 		F8E080FF1B35B1C500A96A45 /* Enum */ = {

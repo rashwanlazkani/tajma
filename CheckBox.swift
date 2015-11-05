@@ -36,6 +36,7 @@ class CheckBox: UIButton {
             if (stopLine.tag == sender.tag){
                 stopLine.isChecked = isChecked
                 RealmService.sharedInstance.updateLinesToStop(stopLine)
+                Global.allaStopp = RealmService.sharedInstance.getLinesAtStop(stopLine.stopId)
                 return
             }
             
