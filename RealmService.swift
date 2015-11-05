@@ -133,39 +133,34 @@ class RealmService {
         return tempLinesAtStopTodayArr
     }
     
-    func updateLinesToStop(stop: StopLine){
+    func updateLinesToStop(stopLine: StopLine){
         setDefaultRealmConfiguration()
-        
         let realm = try! Realm()
         
-        let s = realm.objects(RealmObject).filter("stopId = '\(stop.stopId)'")
-        if (!s.isEmpty){
-            try! realm.write({ () -> Void in
-                realm.delete(s)
-            })
-        }
-        
-        for stopline in Global.linesAtStop
-        {
-            if (stopline.isChecked == true && stopline.stopId == stop.stopId){
-                let line = RealmObject()
-                line.stopId = stopline.stopId
-                line.stopName = stopline.stopName
-                line.lat = stopline.lat
-                line.long = stopline.long
-                line.sname = stopline.sname
-                line.direction = stopline.direction
-                line.lineAndDirection = stopline.lineAndDirection
-                line.type = stopline.type
-                line.track = stopline.track
-                line.isChecked = true
-                
-                do{
-                    try! realm.write({ () -> Void in
-                        realm.add(line)
-                    })
-                }
+        if(stopLine.isChecked){
+            let realmObject = RealmObject()
+            realmObject.stopId = stopLine.stopId
+            realmObject.stopName = stopLine.stopName
+            realmObject.lat = stopLine.lat
+            realmObject.long = stopLine.long
+            realmObject.sname = stopLine.sname
+            realmObject.tag = stopLine.tag
+            realmObject.type = stopLine.type
+            realmObject.track = stopLine.track
+            realmObject.direction = stopLine.direction
+            realmObject.lineAndDirection = stopLine.lineAndDirection
+            realmObject.isChecked = stopLine.isChecked
+            do{
+                try! realm.write({ () -> Void in
+                    realm.add(realmObject)
+                })
             }
+        }
+        else{
+            let realmObject = realm.objects(RealmObject).filter("stopId = '\(stopLine.stopId)' AND lineAndDirection = '\(stopLine.lineAndDirection)'").first
+            try! realm.write({ () -> Void in
+                realm.delete(realmObject!)
+            })
         }
     }
     
