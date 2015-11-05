@@ -8,5 +8,5 @@
 
 public struct Global {
     static var linesAtStop = [StopLine]()
-    static var allaStopp = [String]()
+    static var addedLinesAtStop = [String]()
 }

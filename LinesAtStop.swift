@@ -10,6 +10,9 @@ import RealmSwift
 
 public class LinesAtStop{
     dynamic var stopId: String = ""
+    dynamic var track: String = ""
+    dynamic var sname: String = ""
+    dynamic var direction: String = ""
     dynamic var lineAndDirection: String = ""
     dynamic var departure: String = ""
 }

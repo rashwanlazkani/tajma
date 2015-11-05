@@ -9,6 +9,18 @@
 import UIKit
 
 class DeviceHelper {
+    private let screenSize: CGRect = UIScreen.mainScreen().bounds
+    var screenHeight: Int {
+        get {
+            return Int(screenSize.height)
+        }
+    }
+    var screenWidth: Int {
+        get {
+            return Int(screenSize.width)
+        }
+    }
+    
     static func iPhoneModelSize() -> Int{
         switch UIDevice.currentDevice().modelName {
         case "iPhone 4", "iPhone 4S" :
@@ -77,5 +89,4 @@ extension UIDevice {
             default:                                        return identifier
         }
     }
-    
 }

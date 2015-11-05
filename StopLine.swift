@@ -8,7 +8,7 @@
 
 import RealmSwift
 
-public class StopLine: Object {
+public class StopLine {
     dynamic var stopId: String = ""
     dynamic var stopName: String = ""
     dynamic var lat: String = ""

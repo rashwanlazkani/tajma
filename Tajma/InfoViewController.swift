@@ -15,7 +15,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     var mail: MFMailComposeViewController!
     var  items = [String]()
     
-    var phoneSize = PhoneSize()
+    var deviceHelper = DeviceHelper()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -57,7 +57,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         title.font = title.font.fontWithSize(17)
         title.text = "Information"
         
-        let navBarTitleView = UIView(frame: CGRect(x: phoneSize.width / 2, y: 0, width: 200, height: 44))
+        let navBarTitleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
         navBarTitleView.backgroundColor = UIColor.clearColor()
         self.navigationItem.titleView = navBarTitleView
         

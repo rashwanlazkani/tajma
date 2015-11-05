@@ -20,7 +20,7 @@ class RestApiService: NSObject {
     static let sharedInstance = RestApiService()
     
     func getNearestStops(lat: String, long: String, onCompletion: (JSON) -> Void){
-        let url = "\(Constant.VTurl)location.nearbystops?authKey=\(Constant.VTauth)&format=json&originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000"
+        let url = "\(Constants.VTurl)location.nearbystops?authKey=\(Constants.VTauth)&format=json&originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000"
         
         makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
@@ -29,7 +29,7 @@ class RestApiService: NSObject {
     
     func findStops(userInput: String, onCompletion: (JSON) -> Void){
         let escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-        let url = "\(Constant.VTurl)location.name?authKey=\(Constant.VTauth)&format=json&input=\(escapedUserInput)"
+        let url = "\(Constants.VTurl)location.name?authKey=\(Constants.VTauth)&format=json&input=\(escapedUserInput)"
         
         makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
@@ -49,7 +49,7 @@ class RestApiService: NSObject {
         formatterDate.dateFormat = "yyyy-MM-dd"
         let dateString = formatterDate.stringFromDate(date)
     
-        let url = "\(Constant.VTurl)departureBoard?authKey=\(Constant.VTauth)&format=json&id=\(stopId)&date=\(dateString)&time=\(timeString)"
+        let url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&date=\(dateString)&time=\(timeString)"
         
         makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
@@ -80,7 +80,7 @@ class RestApiService: NSObject {
         
         let dateString = formatterDate.stringFromDate(date) //Convert to String
         
-        let url = "\(Constant.VTurl)departureBoard?authKey=\(Constant.VTauth)&format=json&id=\(stopId)&date=\(dateString)"
+        let url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&date=\(dateString)"
         
         makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
@@ -89,7 +89,7 @@ class RestApiService: NSObject {
     }
     
     func getDeparturesAtStop (stopId: String, onCompletion: (JSON) -> Void){
-        let url = "\(Constant.VTurl)departureBoard?authKey=\(Constant.VTauth)&format=json&id=\(stopId)&timeSpan=120&maxDeparturesPerLine=2"
+        let url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&timeSpan=120&maxDeparturesPerLine=2"
         
         makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)

@@ -85,24 +85,24 @@ class RealmService {
         setDefaultRealmConfiguration()
         let realm = try! Realm()
         Global.linesAtStop = [StopLine]()
-        Global.allaStopp = [String]()
+        Global.addedLinesAtStop = [String]()
         
         let getRows = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
         
         for row in getRows{
-            Global.allaStopp.append(row.lineAndDirection)
+            Global.addedLinesAtStop.append(row.lineAndDirection)
         }
-        return Global.allaStopp
+        return Global.addedLinesAtStop
     }
     
-    func getLinesAtStopArr(stopId : String) -> [LineAtStopToday]{
+    func getLinesAtStopArr(stopId : String) -> [LinesAtStop]{
         setDefaultRealmConfiguration()
         let realm = try! Realm()
-        var lineArr = [LineAtStopToday]()
+        var lineArr = [LinesAtStop]()
         let lines = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
         
         for line in lines{
-            let lineAtStop = LineAtStopToday()
+            let lineAtStop = LinesAtStop()
             lineAtStop.stopId = line.stopId
             lineAtStop.track = line.track
             lineAtStop.sname = line.sname
@@ -113,16 +113,16 @@ class RealmService {
         return lineArr
     }
     
-    func getLinesAtStopToday(stopId: String) -> [LineAtStopToday]{
+    func getLinesAtStopToday(stopId: String) -> [LinesAtStop]{
         setDefaultRealmConfiguration()
         let realm = try! Realm()
         
         let userStops = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
         
-        var tempLinesAtStopTodayArr = [LineAtStopToday]()
+        var tempLinesAtStopTodayArr = [LinesAtStop]()
         
         for line in userStops{
-            let lineAtStop = LineAtStopToday()
+            let lineAtStop = LinesAtStop()
             lineAtStop.stopId = line.stopId
             lineAtStop.track = line.track
             lineAtStop.sname = line.sname
@@ -169,14 +169,14 @@ class RealmService {
         }
     }
     
-    func getLines() -> [LineAtStopToday]{
+    func getLines() -> [LinesAtStop]{
         setDefaultRealmConfiguration()
         let realm = try! Realm()
-        var lineArr = [LineAtStopToday]()
+        var lineArr = [LinesAtStop]()
         let lines = realm.objects(RealmObject)
         
         for line in lines{
-            let lineAtStop = LineAtStopToday()
+            let lineAtStop = LinesAtStop()
             lineAtStop.stopId = line.stopId
             lineAtStop.track = line.track
             lineAtStop.sname = line.sname

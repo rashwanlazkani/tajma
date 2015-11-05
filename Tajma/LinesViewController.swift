@@ -16,7 +16,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     var lineWrapper = LineWrapper()
     var stop : Stop!
     var currentLinesAndDirections = [String]()
-    let phoneSize = PhoneSize()
+    let deviceHelper = DeviceHelper()
     var isChecked = false
     
     override func viewDidLoad(){
@@ -48,7 +48,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         title.font = title.font.fontWithSize(19)
         title.text = stop.name.componentsSeparatedByString(",").first
         
-        let titleView = UIView(frame: CGRect(x: phoneSize.width / 2, y: 0, width: 200, height: 44))
+        let titleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
         titleView.backgroundColor = UIColor.clearColor()
         self.navigationItem.titleView = titleView
         titleView.addSubview(title)
@@ -65,12 +65,12 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
         for view in cell.subviews{
-            if(view.isKindOfClass(UILabel) || view.isKindOfClass(CheckBox)){
+            if(view.isKindOfClass(UILabel) || view.isKindOfClass(Checkbox)){
                 view.removeFromSuperview()
             }
         }
 
-        let checkBox = CheckBox()
+        let checkBox = Checkbox()
         checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
         checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
         checkBox.tag = indexPath.row
@@ -90,7 +90,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         stopLine.direction = lineWrapper.lines[indexPath.row].direction
         stopLine.lineAndDirection = lineWrapper.lines[indexPath.row].lineAndDirection
         
-        if (Global.allaStopp.contains(lineWrapper.lines[indexPath.row].lineAndDirection)){
+        if (Global.addedLinesAtStop.contains(lineWrapper.lines[indexPath.row].lineAndDirection)){
             stopLine.isChecked = true
             checkBox.isChecked = true
         }

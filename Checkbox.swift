@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CheckBox: UIButton {
+class Checkbox: UIButton {
     let checkedImage = UIImage(named: "check-box-red") as UIImage!
     let uncheckedImage = UIImage(named: "unchecked-box") as UIImage!
     
@@ -31,12 +31,13 @@ class CheckBox: UIButton {
     }
     
     func buttonClicked(sender : UIButton){
+        print(Global.linesAtStop.count)
         isChecked = !isChecked
         for stopLine in Global.linesAtStop{
             if (stopLine.tag == sender.tag){
                 stopLine.isChecked = isChecked
                 RealmService.sharedInstance.updateLinesToStop(stopLine)
-                Global.allaStopp = RealmService.sharedInstance.getLinesAtStop(stopLine.stopId)
+                Global.addedLinesAtStop = RealmService.sharedInstance.getLinesAtStop(stopLine.stopId)
                 return
             }
             
