@@ -13,7 +13,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
     
-    var lineWrapper = LineWrapper()
+    var lines = [Line]
     var stop : Stop!
     var currentLinesAndDirections = [String]()
     let deviceHelper = DeviceHelper()

@@ -4,12 +4,15 @@ PODS:
   - Realm/Headers (0.96.2)
   - RealmSwift (0.96.2):
     - Realm (= 0.96.2)
+  - SINQ (0.5.0)
 
 DEPENDENCIES:
   - RealmSwift
+  - SINQ
 
 SPEC CHECKSUMS:
   Realm: 3ce8448151c571e90b85002d984d7f93f54fc8a3
   RealmSwift: 485599fe54e35461c4a0daa7d01d8fbf11424873
+  SINQ: 259eb63d0b860d76fe9d063650f7b88d4d7d19dd
 
 COCOAPODS: 0.39.0

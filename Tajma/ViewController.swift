@@ -17,9 +17,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     let lineService = LineService()
     var stopService = StopsService()
-    var lineWrapper = LineWrapper()
-    var stopWrapper = StopWrapper()
     let deviceHelper = DeviceHelper()
+    var stops = [Stop]()
     
     var webView = UIWebView()
     var btnCloseWebView  = UIButton()
@@ -133,28 +132,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func getNearestStops() {
         self.activityIndicator.startAnimating()
         self.segmentedControl.enabled = false
-        stopService.getNearestStops(lat, long: long, onCompletion: { json -> Void in
+        stopService.getNearestStops(lat, long: long, onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
-                self.stopWrapper = json
-                if (self.stopWrapper.stops.count > 0){
+                self.stops = json
+                if (self.stops.count > 0){
                     self.tableView!.reloadData()
                 }
                 else{
                     let stop = Stop()
-                    stop.name = "Fel vid hämtning. Hämta igen."
-                    stop.status = Status.Error
-                    
-                    if (self.stopWrapper.stops.isEmpty || self.stopWrapper.stops[0].status == Status.Error){
-                        self.stopWrapper.stops.append(stop)
+                    stop.name = "Inga hållplatser i närheten. Försök igen."
+                    if (self.stops.isEmpty){
+                        self.stops.append(stop)
                         self.tableView!.reloadData()
                     }
-                    
-                    print(self.stopWrapper.error)
                 }
                 self.locationManager.stopUpdatingLocation()
                 self.segmentedControl.enabled = true
                 self.activityIndicator.stopAnimating()
             })
+            }, onError:{ error -> Void in
+                
         })
         
     }
@@ -163,9 +160,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         activityIndicator.startAnimating()
         // Låser vyn
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-        lineService.getAllLinesAtStop(stopId, onCompletion: { json -> Void in
+        lineService.getAllLinesAtStop(stopId, onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
-                self.lineWrapper = json
+                self.stops. = json
                 if (self.lineWrapper.lines.count > 0){
                     
                     self.performSegueWithIdentifier("ShowLinesView", sender: indexPath)
@@ -178,9 +175,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.activityIndicator.stopAnimating()
                 UIApplication.sharedApplication().endIgnoringInteractionEvents()
             })
+            }, onError:{ error -> Void in
+                
         })
+        
     }
-    
+
     func addIsChecked(){
         for stop in stopWrapper.stops{
             stop.isChecked = stopService.checkIfUserHasAddedStop(stop).isChecked

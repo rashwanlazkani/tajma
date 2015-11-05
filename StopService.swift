@@ -6,103 +6,66 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-import Foundation
+import CoreLocation
+import SINQ
 
 class StopsService{
-    var stopWrapper = StopWrapper()
     let checkedStops = RealmService.sharedInstance.getStops()
     
-    func getNearestStops(lat: String, long: String, onCompletion: (StopWrapper) -> Void){
+    func getNearestStops(lat: String, long: String, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.getNearestStops(lat, long: long) { json in
             var error = json["LocationList"]
-            if (error["error"] == "R0007"){
+            if (String(error["error"]) == Constants.VTerrorCode){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
-                self.stopWrapper.error = error.domain
-                
-                onCompletion(self.stopWrapper)
+                onError(error)
+                return
             }
             else{
-                let stops = json["LocationList"]["StopLocation"]
-                
-                var tempNames = [String]()
-                self.stopWrapper = StopWrapper()
-                
-                for (_,subJson):(String, JSON) in stops {
-                    let id = subJson["id"].string
-                    let name = subJson["name"].string
-                    let lat = subJson["lat"].string
-                    let long = subJson["lon"].string
-                    
-                    // Kollar så att man endast visar en hållplats och inte alla tracks (A,B,C osv...)
-                    if (!tempNames.contains(name!)){
-                        tempNames.insert(name!, atIndex: 0)
-                        // För att kolla om hållplatsen redan finns tillagd av användaren
-                        // För att hämta rätt koordinater och stopId för att Västtrafiks API innehåller flera hållplatser med samma namn fast annorlunda stopId
-                        
-                        var stop = Stop()
-                        stop.id = id!
-                        stop.name = name!
-                        stop.lat = lat!
-                        stop.long = long!
-                        stop = self.checkIfUserHasAddedStop(stop)
-                        self.stopWrapper.stops.append(stop)
-                        
-                        if (self.stopWrapper.stops.count == 10){
-                            break
-                        }
-                    }
-                }
-                onCompletion(self.stopWrapper)
+                let jsonStops = json["LocationList"]["StopLocation"]
+                let stops = self.mapToStop(jsonStops)
+                onSuccess(from(stops).distinct{$0.0.id == $0.1.id}.toArray())
             }
         }
     }
     
-    func getStopsByInput(name : String, onCompletion: (StopWrapper) -> Void){
+    func getStopsByInput(name : String, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.findStops(name) { json in
-            self.stopWrapper = StopWrapper()
             var error = json["LocationList"]
-            if (error["error"] == "R0007"){
+            if (String(error["error"]) == Constants.VTerrorCode){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
-                self.stopWrapper.error = error.domain
-                
-                onCompletion(self.stopWrapper)
+                onError(error)
+                return
             }
             else{
-                let stops = json["LocationList"]["StopLocation"]
-                
-                for (_,subJson):(String, JSON) in stops {
-                    let id = subJson["id"].string
-                    let name = subJson["name"].string
-                    let lat = subJson["lat"].string
-                    let long = subJson["lon"].string
-                    
-                    if (name == nil){
-                        let stop = Stop()
-                        stop.name = "Inget stopp hittades"
-                        self.stopWrapper.stops.append(stop as Stop)
-                        break
-                    }
-                    
-                    let stop = Stop()
-                    stop.id = id!
-                    stop.name = name!
-                    stop.lat = lat!
-                    stop.long = long!
-                    stop.isChecked = self.checkIfUserHasAddedStop(stop).isChecked
-                    self.stopWrapper.stops.append(stop)
-                }
-                onCompletion(self.stopWrapper)
+                let jsonStops = json["LocationList"]["StopLocation"]
+                onSuccess(self.mapToStop(jsonStops))
             }
         }
     }
     
-    func checkIfUserHasAddedStop(stop: Stop) -> Stop{
-        if (RealmService.sharedInstance.getStopsId().contains(stop.id)){
-            stop.isChecked = true
+    func calculateDistance(stop: Stop, lat: Double, long: Double) -> Int{
+        let userLocation = CLLocation(latitude: lat, longitude: long)
+        let stopLocation = CLLocation(latitude: (stop.lat as NSString).doubleValue, longitude: (stop.long as NSString).doubleValue)
+        let distance = userLocation.distanceFromLocation(stopLocation)
+        
+        return roundToFive(distance)
+    }
+    
+    private func mapToStop(json: JSON) -> [Stop]{
+        var stops = [Stop]()
+        
+        for (_,subJson):(String, JSON) in json {
+            let stop = Stop()
+            stop.id = subJson["id"].string!
+            stop.name = subJson["name"].string!
+            stop.lat = subJson["lat"].string!
+            stop.long = subJson["lon"].string!
+            stops.append(stop)
         }
-        else {
-            stop.isChecked = false
-        }
-        return stop
+        return stops
+    }
+    
+    private func roundToFive(x : Double) -> Int {
+        return 5 * Int(round(x / 5.0))
     }
 }

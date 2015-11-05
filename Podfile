@@ -6,6 +6,7 @@ use_frameworks!
 
 target 'Tajma' do
 pod 'RealmSwift'
+pod 'SINQ'
 end
 
 target 'TajmaTests' do
@@ -14,4 +15,5 @@ end
 
 target 'TajmaToday' do
 pod 'RealmSwift'
+pod 'SINQ'
 end

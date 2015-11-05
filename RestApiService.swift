@@ -34,7 +34,6 @@ class RestApiService: NSObject {
         makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
         })
-        
     }
     
     func findLinesOnStopAtTime (stopId: String, onCompletion: (JSON) -> Void){
@@ -54,7 +53,6 @@ class RestApiService: NSObject {
         makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
         })
-        
     }
     
     func findAllLinesOnStop (stopId: String, onCompletion: (JSON) -> Void){
@@ -85,7 +83,6 @@ class RestApiService: NSObject {
         makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
         })
-        
     }
     
     func getDeparturesAtStop (stopId: String, onCompletion: (JSON) -> Void){

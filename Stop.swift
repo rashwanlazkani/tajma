@@ -8,13 +8,19 @@
 
 import RealmSwift
 
-public class Stop {
-    dynamic var id: String = ""
-    dynamic var name: String = ""
-    dynamic var lat: String = ""
-    dynamic var long: String = ""
-    dynamic var distance: Int = 0
-    dynamic var isChecked : Bool = false
-    var departures = [Departure]?()
-    var status = Status.OK
+public class Stop: Object {
+    var id = ""
+    var name = ""
+    var lat = ""
+    var long = ""
+    var distance = 0
+    var line = [Line]()
+    
+    override public static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    override public static func ignoredProperties() -> [String] {
+        return ["distance"]
+    }
 }

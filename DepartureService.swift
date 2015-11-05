@@ -8,158 +8,104 @@
 
 import UIKit
 import CoreLocation
+import SINQ
 
 public class DepartureService {
     var stopService = StopsService()
-    var departures = [Departure]()
     
-    func getDeparturesFromStop(stopId: String, onCompletion: ([Departure]) -> Void) {
+    func getDeparturesFromStop(stopId: String, onSuccess: ([Line]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
-            self.departures = []
-            
             var error = json["DepartureBoard"]
-            if (error["error"] == "No journeys found") {
-                onCompletion(self.departures)
+            if (String(error["error"]) == Constants.VTerrorCode){
+                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
+                onError(error)
                 return
             }
             
-            let serverDateStr = String(stringInterpolationSegment: json["DepartureBoard"]["serverdate"])
-            let serverTimeStr = String(stringInterpolationSegment: json["DepartureBoard"]["servertime"])
-            let serverDate = serverDateStr + " " + serverTimeStr
-
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let serverDate = dateFormatter.dateFromString(self.serverDateTime(json)) as NSDate!
+            let jsonDepartures = json["DepartureBoard"]["Departure"]
             
-            let results = json["DepartureBoard"]["Departure"]
-            var tempDepartures = [Departure]()
-            
-            for (_,subJson):(String, JSON) in results {
-                let stopId = subJson["stopid"].string!
-                var sname = subJson["sname"].string!
-                let track = subJson["track"].string ?? ""
-                let direction = subJson["direction"].string!
-                let fgColor = subJson["fgColor"].string!
-                let bgColor = subJson["bgColor"].string!
+            var lines = [Line]()
+            for (_,subJson):(String, JSON) in jsonDepartures {
+                var line = Line()
+                line.sname = self.trimSname(subJson["sname"].string!)
+                line.track = subJson["track"].string ?? ""
+                line.direction = subJson["direction"].string!
+                line.fgColor = subJson["fgColor"].string!
+                line.bgColor = subJson["bgColor"].string!
+                line.lineAndDirection = "\(line.sname) \(line.direction)"
                 
-                if (sname == "SVAR"){
-                    sname = "SVART"
+                if (from(lines).any{$0.lineAndDirection == line.lineAndDirection}){
+                    line = from(lines).single({$0.lineAndDirection == line.lineAndDirection})
                 }
+                else{
+                    lines.append(line)
+                }
+
+                let time = subJson["rtTime"].string ?? subJson["time"].string
+                let date = subJson["rtDate"].string ?? subJson["date"].string
+                let dateTime = "\(date!) \(time!)"
                 
-                let rtTimeFromServer = subJson["rtTime"].string ?? subJson["time"].string
-                let rtDate = subJson["rtDate"].string ?? subJson["date"].string
-                var rtTime = [rtDate!  + " " + rtTimeFromServer!]
-                
-                let serverTime = dateFormatter.dateFromString(serverDate) as NSDate!
-                let departureTime = dateFormatter.dateFromString(rtTime[0]) as NSDate!
-                
-                let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverTime) / 60) - 1
+                let departureTime = dateFormatter.dateFromString(dateTime) as NSDate!
+                let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverDate) / 60) - 1
                 
                 let departure = Departure()
-                departure.stopId = stopId
-                departure.sname = sname
-                departure.track = track
-                departure.direction = direction
-                departure.fgColor = fgColor
-                departure.bgColor = bgColor
-                departure.rtTimes = [intervalBetweenDepartures]
-                
-                tempDepartures.append(departure)
+                departure.times = [intervalBetweenDepartures]
+                line.departures.append(departure)
             }
-            
-            tempDepartures.sortInPlace({ $0.sname != $1.sname ? $0.sname < $1.sname : $0.direction < $1.direction})
-            
-            var previousSname = ""
-            var previousTrack = ""
-            var previousDirection = ""
-            for row in tempDepartures {
-                var departure = Departure()
-                
-                if (previousSname == row.sname && previousTrack == row.track && previousDirection == row.direction) {
-                    departure = self.departures[self.departures.count - 1]
-                    departure.rtTimes.append(row.rtTimes[0])
-                }
-                else {
-                    departure.stopId = row.stopId
-                    departure.sname = row.sname
-                    departure.track = row.track
-                    departure.direction = row.direction
-                    departure.fgColor = row.fgColor
-                    departure.bgColor = row.bgColor
-                    departure.rtTimes = row.rtTimes
-                    
-                    self.departures.append(departure)
-                }
-                
-                previousSname = row.sname
-                previousTrack = row.track
-                previousDirection = row.direction
-            }
-            
-            onCompletion(self.departures)
+            lines.sortInPlace({ $0.lineAndDirection != $1.lineAndDirection})
+            onSuccess(lines)
         }
     }
     
     func getMyDepartures(lat: Double, long: Double) -> [Stop] {
-        let stops = RealmService.sharedInstance.getStops()
-        var closestStops = [Stop]()
-        
-        let getDeparturesGroup = dispatch_group_create()
-        if (stops.count > 0){
-            for stop in stops {
-                // räkna ut avstånd
-                let stopLat = (stop.lat as NSString).doubleValue
-                let stopLong = (stop.long as NSString).doubleValue
-                let userLocation = CLLocation(latitude: lat, longitude: long)
-                let stopLocation = CLLocation(latitude: stopLat, longitude: stopLong)
-                let distance = userLocation.distanceFromLocation(stopLocation)
-                
-                let roundDistance = roundToFive(distance)
-                stop.distance = roundDistance
-            }
-            
-            // sortera baserat på avstånd
-            //stops.sortInPlace({ $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
-            
-            // hämta upp till 5 st stops inom 300 meter eller upp till 2 stops i övriga fall
-            for stop in stops {
-                if (closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000){
-                    closestStops.append(stop)
-                }
-                else{
-                    break
-                }
-            }
-            
-            for stop in closestStops {
-                let linesAtStop = RealmService.sharedInstance.getLinesAtStopArr(stop.id)
-                
-                // hämta departures via Västtrafik api
-                dispatch_group_enter(getDeparturesGroup)
-                getDeparturesFromStop(stop.id, onCompletion: { departures -> Void in
-                    
-                    stop.departures = [Departure]()
-                    
-                    for line in linesAtStop {
-                        for departure in departures{
-                            if (departure.sname != line.sname || departure.track != line.track || departure.direction != line.direction) {
-                                continue
-                            }
-                            else{
-                                stop.departures?.append(departure)
-                            }
-                        }
-                    }
-                    dispatch_group_leave(getDeparturesGroup)
-                })
-            }
-            // vänta tills alla departures är hämtade
-            dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
+        var stops = RealmService.sharedInstance.getStops()
+        if (stops.isEmpty){
+            return [Stop]()
         }
         
+        let getDeparturesGroup = dispatch_group_create()
+        
+        from(stops).each({
+            $0.distance = self.stopService.calculateDistance($0, lat: lat, long: long)
+        })
+        stops.sortInPlace({ $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
+        
+        var closestStops = [Stop]()
+        for stop in stops {
+            if (closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000){
+                closestStops.append(stop)
+            }
+            else{
+                break
+            }
+        }
+        
+        for stop in closestStops {
+            let linesAtStop = RealmService.sharedInstance.getLinesAtStopArr(stop.id)
+            dispatch_group_enter(getDeparturesGroup)
+            getDeparturesFromStop(stop.id, onSuccess: { lines -> Void in
+                stop.line = lines
+                dispatch_group_leave(getDeparturesGroup)
+                }, onError: { error -> Void in
+                    print(error)
+                    return
+            })
+        }
+        dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
         return closestStops
     }
     
-    func roundToFive(x : Double) -> Int {
-        return 5 * Int(round(x / 5.0))
+    private func trimSname(sname: String) -> String{
+       return sname.stringByReplacingOccurrencesOfString("SVAR", withString: "SVART")
+    }
+    
+    private func serverDateTime(json: JSON) -> String{
+        let serverDateStr = String(stringInterpolationSegment: json["DepartureBoard"]["serverdate"])
+        let serverTimeStr = String(stringInterpolationSegment: json["DepartureBoard"]["servertime"])
+        
+        return ("\(serverDateStr) \(serverTimeStr)")
     }
 }

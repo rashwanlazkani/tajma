@@ -86,8 +86,10 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Tajma/Realm.framework"
   install_framework "Pods-Tajma/RealmSwift.framework"
+  install_framework "Pods-Tajma/SINQ.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Tajma/Realm.framework"
   install_framework "Pods-Tajma/RealmSwift.framework"
+  install_framework "Pods-Tajma/SINQ.framework"
 fi

@@ -8,13 +8,23 @@
 
 import RealmSwift
 
-public class Line {
-    dynamic var name: String = ""
-    dynamic var sname: String = ""
-    dynamic var direction: String = ""
-    dynamic var type: String = ""
-    dynamic var track: String = ""
-    dynamic var fgColor: String = ""
-    dynamic var bgColor: String = ""
-    dynamic var lineAndDirection: String = ""
+public class Line: Object {
+    var stop = Stop()
+    var lineAndDirection = ""
+    var name = ""
+    var sname = ""
+    var direction = ""
+    var type = ""
+    var track = ""
+    var fgColor = ""
+    var bgColor = ""
+    var departures = [Departure]()
+    
+    override public static func primaryKey() -> String? {
+        return "lineAndDirection"
+    }
+    
+    override public static func ignoredProperties() -> [String] {
+        return ["departures"]
+    }
 }

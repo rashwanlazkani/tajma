@@ -11,4 +11,5 @@ import Foundation
 struct Constants{
     static let VTurl = "https://api.vasttrafik.se/bin/rest.exe/v1/"
     static let VTauth = "1172d818-c330-435c-897c-9830750341c0"
+    static let VTerrorCode = "R0007"
 }
