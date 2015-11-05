@@ -9,56 +9,42 @@
 import UIKit
 import NotificationCenter
 import CoreLocation
-import Realm
-import RealmSwift
 
 class TodayTableViewController: UITableViewController, CLLocationManagerDelegate {
-    var lat  = ""
-    var long = ""
     var departureService = DepartureService()
     var lineService = LineService()
-    var linesAtStop = [TodayRow]()
+    var addedLinesAtStop = [TodayRow]()
     var departures = [Departure]()
     var timer = NSTimer()
-    var timerIntervall = NSTimer()
-    var counter = 0
     var stops = [Stop]()
     let locationManager = CLLocationManager()
     
+    var lat  = ""
+    var long = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         print("viewDidLoad")
-        self.preferredContentSize = CGSize(width: 50, height: 20)
+        //self.preferredContentSize = CGSize(width: 50, height: 20)
         
         self.locationManager.requestWhenInUseAuthorization()
-        if (CLLocationManager.locationServicesEnabled()){
-            if CLLocationManager.authorizationStatus() == .Denied {
-                locationOff()
-                return
-            }
+        if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.requestLocation()
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
         }
         else{
             locationOff()
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewDidAppear")
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
         
-        counter = 0
-        
-        locationManager.requestLocation()
+        locationManager.startUpdatingLocation()
         timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
-        timerIntervall = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("countUp"), userInfo: nil, repeats: true)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -66,68 +52,37 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         print("viewDidDisappear")
         locationManager.stopUpdatingLocation()
         timer.invalidate()
-        timerIntervall.invalidate()
-        
-        
-        for view in self.tableView.subviews{
-            print(view)
-        }
-        
-        
-        
-        let todayLabel = TodayRow()
-        todayLabel.stopName = "Laddar X"
-        todayLabel.row = Row.Info
-        linesAtStop.append(todayLabel)
-        
-        self.tableView.reloadData()
     }
     
     // MARK: - Location
+    func getLocation(){
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationOff(){
+        let todayRow = TodayRow()
+        todayRow.stopName = "Du måste slå på lokaliseringen för Tajma."
+        todayRow.row = Row.Info
+        addedLinesAtStop.append(todayRow)
+        self.tableView.reloadData()
+    }
+    
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first{
-            if (lat == String(location.coordinate.latitude) || long == String(location.coordinate.longitude) && counter > 15){
-                counter = 0
-                getData()
-                
-                print("Counting func")
-            }
-            else{
-                lat = String(location.coordinate.latitude)
-                long = String(location.coordinate.longitude)
-                getData()
-            }
-        }
-        else{
-            let todayLabel = TodayRow()
-            todayLabel.stopName = "Kunde inte faställa position, försöker igen..."
-            todayLabel.row = Row.Info
-            
-            linesAtStop.append(todayLabel)
-            locationManager.requestLocation()
-            self.tableView.reloadData()
-        }
+        let location:CLLocationCoordinate2D = manager.location!.coordinate
+        lat = String(location.latitude)
+        long = String(location.longitude)
+        //locationManager.stopUpdatingLocation()
+        getData()
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("Failed to find user´s location: \(error.localizedDescription)")
-    }
-    
-    func locationOff(){
         let todayLabel = TodayRow()
-        todayLabel.stopName = "Du måste slå på lokaliseringen för TajmApp."
+        todayLabel.stopName = "Kunde inte faställa position, försöker igen..."
         todayLabel.row = Row.Info
-        linesAtStop.append(todayLabel)
-        
-        self.tableView.reloadData()
-    }
-    
-    func getLocation(){
+        addedLinesAtStop.append(todayLabel)
         locationManager.requestLocation()
-    }
-    
-    func countUp(){
-        counter += 1
+        self.tableView.reloadData()
     }
     
     // MARK: - Widget Delegate
@@ -136,69 +91,47 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     // MARK: - Table view data source
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (linesAtStop.count > DeviceHelper.iPhoneModelSize()){
+        if (addedLinesAtStop.count > DeviceHelper.iPhoneModelSize()){
             return DeviceHelper.iPhoneModelSize()
         }
         else{
-            return linesAtStop.count
+            return addedLinesAtStop.count
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
         
-        // Rensa alla views
         for view in cell.subviews{
             view.removeFromSuperview()
         }
         
-        let stopLabel = UILabel(frame: CGRectMake(8, 4, DeviceHelper.getLabelWidth(), 30))
-        stopLabel.textAlignment = NSTextAlignment.Left
-        stopLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
-        stopLabel.font = stopLabel.font.fontWithSize(14)
-        
-        let distanceLabel = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 4, 100, 30))
-        distanceLabel.textAlignment = NSTextAlignment.Left
-        distanceLabel.textColor = UIColor.grayColor()
-        distanceLabel.font = distanceLabel.font.fontWithSize(14)
+        let mainLabel = UILabel(frame: CGRectMake(8, 4, DeviceHelper.getLabelWidth(), 30))
+        mainLabel.font = mainLabel.font.fontWithSize(14)
+        let rightOne = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 4, 100, 30))
+        rightOne.font = rightOne.font.fontWithSize(14)
+        var rightTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
+        rightTwo.font = rightTwo.font.fontWithSize(14)
 
-        let lblSnameDir = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceHelper.getLabelWidth(), height: 30))
-        lblSnameDir.textAlignment = NSTextAlignment.Left
-        lblSnameDir.textColor = UIColor.whiteColor()
-        lblSnameDir.font = lblSnameDir.font.fontWithSize(14)
-        
-        let depLabelOne = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
-        depLabelOne.textColor = UIColor.whiteColor()
-        depLabelOne.font = depLabelOne.font.fontWithSize(14)
-        
-        let depLabelTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 25, 4, 30, 30))
-        depLabelTwo.textColor = UIColor.lightGrayColor()
-        depLabelTwo.font = depLabelTwo.font.fontWithSize(14)
-        
-        let letterSname = Int(linesAtStop[indexPath.row].sname)
+        let letterSname = Int(addedLinesAtStop[indexPath.row].sname)
         // Linje med bokstäver
         if (letterSname == nil){
-            lblSnameDir.font = lblSnameDir.font.fontWithSize(14)
+            mainLabel.textColor = UIColor.whiteColor()
         }
-    
+        
         // Inget stopp || Inget stopp i närheten
-        if (linesAtStop[indexPath.row].row == Row.Info || linesAtStop[indexPath.row].row == Row.Button){
-            
+        if (addedLinesAtStop[indexPath.row].row == Row.Info || addedLinesAtStop[indexPath.row].row == Row.Button){
+            mainLabel.textColor = UIColor.grayColor()
             for view in cell.subviews{
                 view.removeFromSuperview()
             }
             
-            if (linesAtStop[indexPath.row].row == Row.Info){
-                stopLabel.text = linesAtStop[indexPath.row].stopName
-                
-                cell.addSubview(stopLabel)
+            if (addedLinesAtStop[indexPath.row].row == Row.Info){
+                mainLabel.text = addedLinesAtStop[indexPath.row].stopName
+                cell.addSubview(mainLabel)
             }
-            else if (linesAtStop[indexPath.row].row == Row.Button){
+            else if (addedLinesAtStop[indexPath.row].row == Row.Button){
                 let btnMainApp = UIButton(frame: CGRectMake(10,cell.bounds.height / 2, cell.bounds.width - 40, 35))
                 btnMainApp.backgroundColor = UIColor.clearColor()
                 btnMainApp.setTitle("Lägg till ny hållplats", forState: UIControlState.Normal)
@@ -207,58 +140,66 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
                 btnMainApp.titleLabel?.textAlignment = NSTextAlignment.Left
                 btnMainApp.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
                 btnMainApp.layer.cornerRadius = 5
-                
                 cell.addSubview(btnMainApp)
             }
         }
-            // En hållplats (rubrik)
-        else if (linesAtStop[indexPath.row].row == Row.Stop){
-            stopLabel.text = linesAtStop[indexPath.row].stopName
-            distanceLabel.text = String(linesAtStop[indexPath.row].distance) + " m"
-            
-            cell.addSubview(stopLabel)
-            cell.addSubview(distanceLabel)
+        // En hållplats (rubrik)
+        else if (addedLinesAtStop[indexPath.row].row == Row.Stop){
+            mainLabel.textColor = UIColor.grayColor()
+            mainLabel.text = addedLinesAtStop[indexPath.row].stopName
+            rightTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 55, 30))
+            rightTwo.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
+            rightTwo.font = rightTwo.font.fontWithSize(14)
+            rightTwo.text = String(addedLinesAtStop[indexPath.row].distance) + " m"
+            rightTwo.textAlignment = .Right;
+            cell.addSubview(mainLabel)
+            cell.addSubview(rightTwo)
             
             let separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
             separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
-            
             cell.addSubview(separatorView)
         }
-        //Inga avgångar hittades
-        else if (linesAtStop[indexPath.row].row == Row.NoDepartures){
-            stopLabel.text = linesAtStop[indexPath.row].stopName
-            
-            stopLabel.font = UIFont.italicSystemFontOfSize(12)
-            stopLabel.textColor = UIColor.whiteColor()
-            
-            cell.addSubview(stopLabel)
+        else if (addedLinesAtStop[indexPath.row].row == Row.NoDepartures){
+            mainLabel.textColor = UIColor.whiteColor()
+            mainLabel.font = UIFont.italicSystemFontOfSize(12)
+            mainLabel.text = addedLinesAtStop[indexPath.row].stopName
+            cell.addSubview(mainLabel)
         }
         // Linje
-        else if (linesAtStop[indexPath.row].row == Row.Line){
-            lblSnameDir.text = linesAtStop[indexPath.row].sname
-            lblSnameDir.text! += " " + linesAtStop[indexPath.row].direction
+        else if (addedLinesAtStop[indexPath.row].row == Row.Line){
+            rightOne.frame = CGRectMake(tableView.bounds.width - 70, 4, 30, 30)
+            rightOne.textColor = UIColor.whiteColor()
+            rightOne.font = rightOne.font.fontWithSize(14)
+            rightOne.textAlignment = .Right;
+            rightTwo.frame = CGRectMake(tableView.bounds.width - 30, 4, 25, 30)
+            rightTwo.textColor = UIColor.lightGrayColor()
+            rightTwo.font = rightTwo.font.fontWithSize(14)
+            rightTwo.textAlignment = .Right;
+            mainLabel.textColor = UIColor.whiteColor()
+            mainLabel.text = addedLinesAtStop[indexPath.row].sname
+            mainLabel.text! += " " + addedLinesAtStop[indexPath.row].direction
             
-            for (index, rtTime) in linesAtStop[indexPath.row].rtTimes.enumerate(){
+            for (index, rtTime) in addedLinesAtStop[indexPath.row].rtTimes.enumerate(){
                 if (index == 0 && rtTime == 0){
-                    depLabelOne.text = "Nu"
+                    rightOne.text = "Nu"
                 }
                 else if (index == 1 && rtTime == 0){
-                    depLabelTwo.text = "Nu"
+                    rightTwo.text = "Nu"
                 }
                 else if (index == 0){
                     if (rtTime < 0){
-                        depLabelOne.text = "0"
+                        rightOne.text = "0"
                     }
                     else{
-                        depLabelOne.text = String(rtTime)
+                        rightOne.text = String(rtTime)
                     }
                 }
                 else if (index == 1){
                     if (rtTime < 0){
-                        depLabelTwo.text = "0"
+                        rightTwo.text = "0"
                     }
                     else{
-                        depLabelTwo.text = String(rtTime)
+                        rightTwo.text = String(rtTime)
                     }
                 }
             }
@@ -267,13 +208,13 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
             
             cell.addSubview(separatorView)
-            cell.addSubview(lblSnameDir)
-            cell.addSubview(depLabelOne)
-            cell.addSubview(depLabelTwo)
+            cell.addSubview(mainLabel)
+            cell.addSubview(rightOne)
+            cell.addSubview(rightTwo)
         }
         
-        if (linesAtStop.count < DeviceHelper.iPhoneModelSize()){
-            self.preferredContentSize = CGSizeMake(0, CGFloat(linesAtStop.count * 36))
+        if (addedLinesAtStop.count < DeviceHelper.iPhoneModelSize()){
+            self.preferredContentSize = CGSizeMake(0, CGFloat(addedLinesAtStop.count * 36))
         }
         else{
             self.preferredContentSize = CGSizeMake(0, CGFloat(DeviceHelper.iPhoneModelSize() * 36 + 5))
@@ -283,36 +224,29 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         return cell
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.layer.backgroundColor = UIColor.clearColor().CGColor
-    }
+//    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//        cell.layer.backgroundColor = UIColor.clearColor().CGColor
+//    }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         print("viewForFooterInSection")
-        if (linesAtStop.count == 0){
+        if (addedLinesAtStop.count == 0){
             let view = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, tableView.bounds.height));
             let loadingLabel = UILabel(frame: CGRectMake(0, 4, 200, 15))
             loadingLabel.textAlignment = NSTextAlignment.Left
             loadingLabel.textColor = UIColor.grayColor()
             loadingLabel.font = loadingLabel.font.fontWithSize(14)
             loadingLabel.text = "Laddar hållplatser..."
-            
             view.addSubview(loadingLabel)
-
             return view
         }
-        else if (linesAtStop.count > DeviceHelper.iPhoneModelSize()){
+        else if (addedLinesAtStop.count > DeviceHelper.iPhoneModelSize()){
             let view = UIView(frame: CGRectMake(0, 120, 300, 36));
-            
             let maxLabel = UILabel(frame: CGRectMake(8, 10, 300, 36))
-            
-            // Max antal linjer
             maxLabel.text =  "Max antal linjer. Listar närmaste avgångar"
             maxLabel.font = UIFont.italicSystemFontOfSize(12)
             maxLabel.textColor = UIColor.whiteColor()
-                
             view.addSubview(maxLabel)
-            
             return view
         }
         else{
@@ -321,7 +255,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             table.hidden = true
             tableView.tableFooterView?.hidden = true
             self.tableView.backgroundColor = UIColor.clearColor()
-            
             return table
         }
     }
@@ -335,8 +268,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let url = NSURL(fileURLWithPath: "Tajma://home")
-        self.extensionContext?.openURL(url, completionHandler: nil)
+        openMainApp(nil)
     }
     
     // MARK: - Events
@@ -347,89 +279,70 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Functions
     func getData(){
-        print("getData")
-        linesAtStop = [TodayRow]()
-        // För att sorteringen ska funka måste alla items i linesAtStop arrayen ha departures
-        let tempArr = [-10, -10]
+        addedLinesAtStop = [TodayRow]()
         
         // ta data och platta till den med sektioner så att den passar listan
         let stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
-        if (stops.count == 0){
-            let todayLabel = TodayRow()
-            todayLabel.stopName = "Ingen vald hållplats i närheten"
-            todayLabel.row = Row.Info
+        if (stops.isEmpty){
+            let todayRow = TodayRow()
+            todayRow.stopName = "Ingen vald hållplats i närheten."
+            todayRow.row = Row.Info
+            addedLinesAtStop.append(todayRow)
             
             let todayButton = TodayRow()
-            todayLabel.stopName = "Lägg till ny hållplats"
-            todayLabel.row = Row.Button
-            
-            linesAtStop.append(todayLabel)
-            linesAtStop.append(todayButton)
+            todayButton.stopName = "Lägg till ny hållplats."
+            todayButton.row = Row.Button
+            addedLinesAtStop.append(todayButton)
             
             self.tableView.reloadData()
         }
         else{
-            // Koden nedan loopar igenom alla stopp
-            // Alla stopp lagras i linesAtStop arrayen
-            // linesAtStop sorteras sedan efter distans > rtTimes
-            // "Inga avgångar hittades" har en fiktiv distans på 1000000 för att hamna under hållplatsen
-            // Sista raden har också en fiktiv distans på 1000001 för att hamna sist för att göra plats för "Gå till appen" knappen
             for stop in stops{
-                let todayLabel = TodayRow()
-                todayLabel.stopName = stop.name
-                todayLabel.distance = stop.distance
-                todayLabel.rtTimes = tempArr
-                todayLabel.row = Row.Stop
-                
-                linesAtStop.append(todayLabel)
+                let todayRow = TodayRow()
+                todayRow.stopName = stop.name
+                todayRow.distance = stop.distance
+                todayRow.rtTimes = [-10, -10]
+                todayRow.row = Row.Stop
+                addedLinesAtStop.append(todayRow)
                 
                 if (stop.departures?.count == 0){
-                    let todayLabel = TodayRow()
-                    todayLabel.stopName = "Inga avgångar hittades"
-                    todayLabel.distance = stop.distance
-                    todayLabel.rtTimes = tempArr
-                    todayLabel.row = Row.NoDepartures
-                    
-                    linesAtStop.append(todayLabel)
+                    let todayRow = TodayRow()
+                    todayRow.stopName = "Inga avgångar hittades."
+                    todayRow.distance = stop.distance
+                    todayRow.rtTimes = [-10, -10]
+                    todayRow.row = Row.NoDepartures
+                    addedLinesAtStop.append(todayRow)
                 }
                 else{
-                    // Loopa igenom linjer på hållplatsen
                     for departure in stop.departures!{
-                        var rtTimesArr = [Int]()
+                        var rtArr = [Int]()
                         departure.rtTimes.sortInPlace({$0 < $1})
                         
                         for (index, rtTime) in departure.rtTimes.enumerate(){
-                            // Hämta endast två tider
-                            if (index == 2){
+                            if(index == 2){
                                 continue
                             }
-                            if rtTime == 0{
-                                rtTimesArr.append(0)
-                            }
-                            else{
-                                rtTimesArr.append(rtTime)
-                            }
+                            rtArr.append(rtTime)
                         }
+                        
                         let trip = TodayRow()
                         trip.stopName = stop.name
                         trip.distance = stop.distance
                         trip.sname = departure.sname
                         trip.direction = departure.direction
-                        trip.snameAndDirection = departure.sname + " " + departure.direction
+                        trip.snameAndDirection = "\(departure.sname) \(departure.direction)"
                         trip.fgColor = departure.fgColor
                         trip.bgColor = departure.bgColor
-                        trip.rtTimes = rtTimesArr
+                        trip.rtTimes = rtArr
                         trip.row = Row.Line
-                        
-                        linesAtStop.append(trip)
+                        addedLinesAtStop.append(trip)
                     }
-                    
                 }
             }
 
             // Sortera lista på distans och sedan efter avgångar
-            let sortedList = linesAtStop.sort {
+            let sortedList = addedLinesAtStop.sort {
                 switch ($0.distance,$1.distance) {
                     // if neither “category" is nil and contents are equal,
                 case let (lhs,rhs) where lhs == rhs:
@@ -440,17 +353,16 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
                     return lhs < rhs
                 }
             }
-            
-            linesAtStop = sortedList
+            addedLinesAtStop = sortedList
             
             // Går igenom och kollar om det är max antal stopp
             // Om max antal så vill vi dölja dubletter av linjer för hållplatser
             // Ex: Linje 10 mot Centralstationen ska endast visas på den närmaste hållplatsen så att vi kan visa fler linjer
-            if (linesAtStop.count > DeviceHelper.iPhoneModelSize()){
+            if (addedLinesAtStop.count > DeviceHelper.iPhoneModelSize()){
                 var arr = [String]()
                 var temp = [TodayRow]()
                 
-                for (index, stop) in linesAtStop.enumerate(){
+                for (index, stop) in addedLinesAtStop.enumerate(){
                     // Om sista raden endast är en hållplats så vill vi inte visa denna
                     if (index == DeviceHelper.iPhoneModelSize() - 1 && stop.snameAndDirection == ""){
                          break
@@ -463,10 +375,8 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
                         arr.append(stop.snameAndDirection)
                     }
                 }
-                
-                linesAtStop = temp
+                addedLinesAtStop = temp
             }
-
             self.tableView.reloadData()
         }
     }
