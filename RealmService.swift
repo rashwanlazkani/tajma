@@ -12,175 +12,48 @@ import Foundation
 import RealmSwift
 
 class RealmService {
-    func getStopsId() -> [String]{
-        setDefaultRealmConfiguration()
-        let realm = try! Realm()
-        var ids = [String]()
-        let userStops = realm.objects(RealmObject)
-        
-        for row in userStops{
-            ids.append(row.stopId)
-        }
-        return ids
-    }
-    
     func getStops() -> [Stop]{
         setDefaultRealmConfiguration()
-        
         let realm = try! Realm()
-
-        var stops = [Stop]()
-        var tempStopsName = [String]()
-        let userStops = realm.objects(RealmObject)
         
-        for row in userStops{
-            // För att hämta unika hållplatsnamn
-            if(tempStopsName.contains(row.stopName)){
-                continue
-            }
-            tempStopsName.append(row.stopName)
-            let stop = Stop()
-            stop.id = row.stopId
-            stop.name = row.stopName
-            stop.lat = row.lat
-            stop.long = row.long
-            stop.distance = 0
-            stop.departures = [Departure]()
-            stop.isChecked = true
-            
-            stops.append(stop)
-        }
-        
+        var stops = realm.objects(Stop).map({$0})
         stops.sortInPlace({ $0.name < $1.name })
         
         return stops
-        
-    }
-    
-    func getStopsCount() -> Int{
-        setDefaultRealmConfiguration()
-        let realm = try! Realm()
-        return Int(realm.objects(RealmObject).count)
     }
 
-    func getStopsNearLocationCount(lat: String, long: String) -> Int{
+    func getLinesAtStop(stopId : String) -> [Line]{
         setDefaultRealmConfiguration()
         let realm = try! Realm()
-        let stopsNearLocation = realm.objects(RealmObject).filter("lat BEGINSWITH = '\(lat)' AND long BEGINSWITH = '\(long)")
-        return stopsNearLocation.count
+        
+        return realm.objects(Line).filter("stopId = '\(stopId)'").map({$0})
     }
     
-    func getStopName(stopId: String) -> String{
-        setDefaultRealmConfiguration()
-        let realm = try! Realm()
-        let stop = realm.objects(RealmObject).filter("id = '\(stopId)'")
-        
-        for s in stop{
-            return s.stopName
-        }
-        return "Ingen hållplats hittades"
-    }
-    
-    func getLinesAtStop(stopId : String) -> [String]{
-        setDefaultRealmConfiguration()
-        let realm = try! Realm()
-        Global.linesAtStop = [StopLine]()
-        Global.addedLinesAtStop = [String]()
-        
-        let getRows = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
-        
-        for row in getRows{
-            Global.addedLinesAtStop.append(row.lineAndDirection)
-        }
-        return Global.addedLinesAtStop
-    }
-    
-    func getLinesAtStopArr(stopId : String) -> [LinesAtStop]{
-        setDefaultRealmConfiguration()
-        let realm = try! Realm()
-        var lineArr = [LinesAtStop]()
-        let lines = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
-        
-        for line in lines{
-            let lineAtStop = LinesAtStop()
-            lineAtStop.stopId = line.stopId
-            lineAtStop.track = line.track
-            lineAtStop.sname = line.sname
-            lineAtStop.direction = line.direction
-
-            lineArr.append(lineAtStop)
-        }
-        return lineArr
-    }
-    
-    func getLinesAtStopToday(stopId: String) -> [LinesAtStop]{
+    func addObject(line: Line){
         setDefaultRealmConfiguration()
         let realm = try! Realm()
         
-        let userStops = realm.objects(RealmObject).filter("stopId = '\(stopId)'")
-        
-        var tempLinesAtStopTodayArr = [LinesAtStop]()
-        
-        for line in userStops{
-            let lineAtStop = LinesAtStop()
-            lineAtStop.stopId = line.stopId
-            lineAtStop.track = line.track
-            lineAtStop.sname = line.sname
-            lineAtStop.direction = line.direction
-            
-            tempLinesAtStopTodayArr.append(lineAtStop)
-        }
-        return tempLinesAtStopTodayArr
-    }
-    
-    func updateLinesToStop(stopLine: StopLine){
-        setDefaultRealmConfiguration()
-        let realm = try! Realm()
-        
-        if(stopLine.isChecked){
-            let realmObject = RealmObject()
-            realmObject.stopId = stopLine.stopId
-            realmObject.stopName = stopLine.stopName
-            realmObject.lat = stopLine.lat
-            realmObject.long = stopLine.long
-            realmObject.sname = stopLine.sname
-            realmObject.tag = stopLine.tag
-            realmObject.type = stopLine.type
-            realmObject.track = stopLine.track
-            realmObject.direction = stopLine.direction
-            realmObject.lineAndDirection = stopLine.lineAndDirection
-            realmObject.isChecked = stopLine.isChecked
-            do{
-                try! realm.write({ () -> Void in
-                    realm.add(realmObject)
-                })
+        let stop = realm.objects(Stop).filter("stopId = '\(line.stop.id)").map({$0})
+        try! realm.write({ () -> Void in
+            if(stop.isEmpty){
+                realm.add(line.stop)
             }
-        }
-        else{
-            let realmObject = realm.objects(RealmObject).filter("stopId = '\(stopLine.stopId)' AND lineAndDirection = '\(stopLine.lineAndDirection)'").first
-            try! realm.write({ () -> Void in
-                realm.delete(realmObject!)
-            })
-        }
+            realm.add(line)
+        })
     }
     
-    func getLines() -> [LinesAtStop]{
+    func removeObject(line: Line){
         setDefaultRealmConfiguration()
         let realm = try! Realm()
-        var lineArr = [LinesAtStop]()
-        let lines = realm.objects(RealmObject)
-        
-        for line in lines{
-            let lineAtStop = LinesAtStop()
-            lineAtStop.stopId = line.stopId
-            lineAtStop.track = line.track
-            lineAtStop.sname = line.sname
-            lineAtStop.direction = line.direction
 
-            lineArr.append(lineAtStop)
-        }
-        
-        return lineArr
+        let stop = realm.objects(Stop).filter("stopId = '\(line.stop.id)").map({$0})
+        try! realm.write({ () -> Void in
+            realm.delete(line)
+            
+            if((stop.first?.lines.isEmpty) != nil){
+                realm.delete(stop)
+            }
+        })
     }
     
     func setDefaultRealmConfiguration() {

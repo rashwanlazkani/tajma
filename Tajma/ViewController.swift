@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import SINQ
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
     @IBOutlet var navController: UIView!
@@ -151,50 +152,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.activityIndicator.stopAnimating()
             })
             }, onError:{ error -> Void in
-                
+                self.displayError(error)
         })
-        
     }
     
-    func getLinesAtStop(stopId : String, indexPath : Int){
-        activityIndicator.startAnimating()
-        // Låser vyn
-        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-        lineService.getAllLinesAtStop(stopId, onSuccess: { json -> Void in
-            dispatch_async(dispatch_get_main_queue(),{
-                self.stops. = json
-                if (self.lineWrapper.lines.count > 0){
-                    
-                    self.performSegueWithIdentifier("ShowLinesView", sender: indexPath)
-                }
-                else{
-                    print(self.lineWrapper.error)
-                }
-            })
-            dispatch_async(dispatch_get_main_queue(),{
-                self.activityIndicator.stopAnimating()
-                UIApplication.sharedApplication().endIgnoringInteractionEvents()
-            })
-            }, onError:{ error -> Void in
-                
-        })
-        
-    }
-
-    func addIsChecked(){
-        for stop in stopWrapper.stops{
-            stop.isChecked = stopService.checkIfUserHasAddedStop(stop).isChecked
-        }
+    func displayError(error: NSError){
+        let alert = UIAlertController(title: "Alert", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     // MARK: - Events
     override func didMoveToParentViewController(parent: UIViewController?) {
         // För att uppdatera listan över tillagda stopp när man kommer från linesViewn
         if (segmentedControl.selectedSegmentIndex == 1){
-            stopWrapper.stops = RealmService.sharedInstance.getStops()
+            stops = RealmService.sharedInstance.getStops()
         }
         else{
-            addIsChecked()
+            getNearestStops()
         }
         tableView.reloadData()
     }
@@ -205,7 +180,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
-            stopWrapper.stops = RealmService.sharedInstance.getStops()
+            stops = RealmService.sharedInstance.getStops()
         }
         searchBar.resignFirstResponder()
         tableView.reloadData()
@@ -217,20 +192,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // Låser vyn
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-        stopService.getStopsByInput(searchBar.text!, onCompletion: { json -> Void in
+        stopService.getStopsByInput(searchBar.text!, onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
-                self.stopWrapper = json
-                if (self.stopWrapper.stops.count > 0){
+                self.stops = json
+                if (self.stops.count > 0){
                     self.segmentedControl.setTitle("Sökresultat", forSegmentAtIndex: 0)
-                }
-                else{
-                    print(self.stopWrapper.error)
                 }
                 searchBar.resignFirstResponder()
                 self.tableView!.reloadData()
                 self.activityIndicator.stopAnimating()
                 UIApplication.sharedApplication().endIgnoringInteractionEvents()
             })
+        }, onError:{ error -> Void in
+            print(error)
+            self.displayError(error)
         })
     }
 
@@ -246,35 +221,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("Failed to find user´s location: \(error.localizedDescription)")
         
-        stopWrapper.stops = [Stop]()
-        
+        stops = [Stop]()
+    
         let stop = Stop()
         stop.name = "Fel vid hämtning. Hämta igen."
-        stop.status = Status.Error
+        stops.append(stop)
         
-        self.stopWrapper.stops.append(stop)
         self.tableView!.reloadData()
     }
 
     // MARK: - TableView
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return stopWrapper.stops.count
+        return stops.count
     }
     
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
+        let currentStop = from(stops).elementAt(indexPath.row)
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        cell.textLabel!.text = stopWrapper.stops[indexPath.row].name
-        
-        if (stopWrapper.stops[indexPath.row].status == Status.Error){
-            cell.accessoryType = UITableViewCellAccessoryType.None
-            
-            return cell
-        }
-        
+        cell.textLabel!.text = stops[indexPath.row].name
+
         if(indexPath.row % 2 == 0){
             cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         } else{
@@ -282,7 +251,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         // Sätter bakgrunden på tableView för att inte visa tomma rader
-        if (indexPath.row == stopWrapper.stops.count - 1){
+        if (indexPath.row == stops.count - 1){
             tableView.tableFooterView = UIView(frame: CGRectZero)
             
             if (indexPath.row % 2 == 0){
@@ -300,7 +269,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        if (stopWrapper.stops[indexPath.row].isChecked){
+        if (from(currentStop.lines).any()){
             let imageName = "check-red"
             let image = UIImage(named: imageName)
             let imageView = UIImageView(image: image!)
@@ -315,12 +284,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         searchBar.resignFirstResponder()
         self.searchBar!.text = ""
-        if (stopWrapper.stops[indexPath.row].status == Status.Error){
-            getNearestStops()
-        }
-        else{
-            getLinesAtStop(stopWrapper.stops[indexPath.row].id, indexPath: indexPath.row)
-        }
+        self.performSegueWithIdentifier("ShowLinesView", sender: stops[indexPath.row])
     }
     
     // MARK: - Segue
@@ -329,20 +293,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (segue.identifier == "ShowLinesView")
         {
             UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-            let row : Int = sender as! Int
-            let stop = Stop()
-            stop.id = stopWrapper.stops[row].id
-            stop.name = stopWrapper.stops[row].name
-            stop.lat = stopWrapper.stops[row].lat
-            stop.long = stopWrapper.stops[row].long
-            
+
             let lines = segue.destinationViewController as! LinesViewController
-            lines.lineWrapper.lines = lineWrapper.lines
-            lines.stop = stop
-            RealmService.sharedInstance.getLinesAtStop(stop.id)
+            lines.stop = sender as! Stop
             
-            self.activityIndicator.stopAnimating()
             UIApplication.sharedApplication().endIgnoringInteractionEvents()
+            self.activityIndicator.stopAnimating()
         }
     }
 

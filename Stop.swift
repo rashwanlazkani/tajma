@@ -14,7 +14,7 @@ public class Stop: Object {
     var lat = ""
     var long = ""
     var distance = 0
-    var line = [Line]()
+    var lines = [Line]()
     
     override public static func primaryKey() -> String? {
         return "id"

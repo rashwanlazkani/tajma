@@ -60,12 +60,7 @@ public class DepartureService {
         }
     }
     
-    func getMyDepartures(lat: Double, long: Double) -> [Stop] {
-        var stops = RealmService.sharedInstance.getStops()
-        if (stops.isEmpty){
-            return [Stop]()
-        }
-        
+    func getMyDepartures(var stops: [Stop], lat: Double, long: Double) -> [Stop] {
         let getDeparturesGroup = dispatch_group_create()
         
         from(stops).each({
@@ -83,17 +78,6 @@ public class DepartureService {
             }
         }
         
-        for stop in closestStops {
-            let linesAtStop = RealmService.sharedInstance.getLinesAtStopArr(stop.id)
-            dispatch_group_enter(getDeparturesGroup)
-            getDeparturesFromStop(stop.id, onSuccess: { lines -> Void in
-                stop.line = lines
-                dispatch_group_leave(getDeparturesGroup)
-                }, onError: { error -> Void in
-                    print(error)
-                    return
-            })
-        }
         dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
         return closestStops
     }

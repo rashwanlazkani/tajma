@@ -11,10 +11,9 @@ import NotificationCenter
 import CoreLocation
 
 class TodayTableViewController: UITableViewController, CLLocationManagerDelegate {
+    @IBOutlet weak var errorLabel: UILabel!
     var departureService = DepartureService()
     var lineService = LineService()
-    var addedLinesAtStop = [TodayRow]()
-    var departures = [Departure]()
     var timer = NSTimer()
     var stops = [Stop]()
     let locationManager = CLLocationManager()
@@ -24,6 +23,8 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        stops = RealmService.sharedInstance.getStops()
 
         print("viewDidLoad")
         //self.preferredContentSize = CGSize(width: 50, height: 20)
@@ -60,11 +61,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     func locationOff(){
-        let todayRow = TodayRow()
-        todayRow.stopName = "Du måste slå på lokaliseringen för Tajma."
-        todayRow.row = Row.Info
-        addedLinesAtStop.append(todayRow)
-        self.tableView.reloadData()
+        displayError("Du måste slå på lokaliseringen för Tajma.")
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -77,12 +74,14 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("Failed to find user´s location: \(error.localizedDescription)")
-        let todayLabel = TodayRow()
-        todayLabel.stopName = "Kunde inte faställa position, försöker igen..."
-        todayLabel.row = Row.Info
-        addedLinesAtStop.append(todayLabel)
+        displayError("Kunde inte faställa position, försöker igen...")
         locationManager.requestLocation()
         self.tableView.reloadData()
+    }
+    
+    func displayError(error: String){
+        errorLabel.text = error
+        tableView.hidden = true
     }
     
     // MARK: - Widget Delegate

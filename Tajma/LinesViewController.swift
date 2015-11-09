@@ -7,17 +7,18 @@
 //
 
 import UIKit
+import SINQ
 
 class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet weak var navController: UINavigationItem!
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
     
-    var lines = [Line]
+    var lines = [Line]()
     var stop : Stop!
-    var currentLinesAndDirections = [String]()
     let deviceHelper = DeviceHelper()
-    var isChecked = false
+    let lineService = LineService()
+    var activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -56,12 +57,35 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
     }
+    
+    func getLinesAtStop(stopId : String, indexPath : Int){
+        activityIndicator.startAnimating()
+        // Låser vyn
+        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+        lineService.getAllLinesAtStop(stopId, onSuccess: { json -> Void in
+            dispatch_async(dispatch_get_main_queue(),{
+                self.lines = json
+                if (self.lines.count > 0){
+                    
+                    self.performSegueWithIdentifier("ShowLinesView", sender: indexPath)
+                }
+            })
+            dispatch_async(dispatch_get_main_queue(),{
+                self.activityIndicator.stopAnimating()
+                UIApplication.sharedApplication().endIgnoringInteractionEvents()
+            })
+            }, onError:{ error -> Void in
+                print(error)
+        })
+        
+    }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return lineWrapper.lines.count
+        return lines.count
     }
     
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+        let currentLine = from(lines).elementAt(indexPath.row)
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
         for view in cell.subviews{
@@ -78,54 +102,36 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         checkBox.center = CGPoint(x: tableView.bounds.width - 25, y: 44 / 2.0)
         checkBox.tag = indexPath.row
         
-        let stopLine = StopLine()
-        stopLine.stopId = stop.id
-        stopLine.stopName = stop.name
-        stopLine.lat = stop.lat
-        stopLine.long = stop.long
-        stopLine.sname = lineWrapper.lines[indexPath.row].sname
-        stopLine.tag = checkBox.tag
-        stopLine.type = lineWrapper.lines[indexPath.row].type
-        stopLine.track = lineWrapper.lines[indexPath.row].track
-        stopLine.direction = lineWrapper.lines[indexPath.row].direction
-        stopLine.lineAndDirection = lineWrapper.lines[indexPath.row].lineAndDirection
-        
-        if (Global.addedLinesAtStop.contains(lineWrapper.lines[indexPath.row].lineAndDirection)){
-            stopLine.isChecked = true
-            checkBox.isChecked = true
-        }
-        Global.linesAtStop.append(stopLine)
-        
         var fontSize = CGFloat(16)
         var sname = ""
-        if ((Int(lineWrapper.lines[indexPath.row].sname.substringToIndex(lineWrapper.lines[indexPath.row].sname.startIndex.advancedBy(1)))) == nil){
-            let snameArr = Array(lineWrapper.lines[indexPath.row].sname.characters)
+        if ((Int(stop.lines[indexPath.row].sname.substringToIndex(stop.lines[indexPath.row].sname.startIndex.advancedBy(1)))) == nil){
+            let snameArr = Array(stop.lines[indexPath.row].sname.characters)
             sname = String(snameArr[0])
         }
-        else if (lineWrapper.lines[indexPath.row].sname.characters.count > 2){
+        else if (stop.lines[indexPath.row].sname.characters.count > 2){
             fontSize = CGFloat(12)
-            sname = lineWrapper.lines[indexPath.row].sname
+            sname = stop.lines[indexPath.row].sname
         }
         else{
-            sname = lineWrapper.lines[indexPath.row].sname
+            sname = stop.lines[indexPath.row].sname
         }
         
         let snameView = UIView()
         snameView.frame = CGRectMake(30, 30, 30, 30)
         snameView.layer.cornerRadius = 5
         snameView.center = CGPoint(x: 25, y: 23)
-        snameView.backgroundColor = UIColor(rgba: lineWrapper.lines[indexPath.row].fgColor)
+        snameView.backgroundColor = UIColor(rgba: stop.lines[indexPath.row].fgColor)
         
         let snameLabel = UILabel(frame: CGRectMake(0, 0, 30, 30))
         snameLabel.textAlignment = NSTextAlignment.Center
-        snameLabel.text = sname ?? lineWrapper.lines[indexPath.row].sname
-        snameLabel.textColor = UIColor(rgba: lineWrapper.lines[indexPath.row].bgColor)
+        snameLabel.text = sname ?? stop.lines[indexPath.row].sname
+        snameLabel.textColor = UIColor(rgba: stop.lines[indexPath.row].bgColor)
         snameLabel.font = snameLabel.font.fontWithSize(fontSize)
         
         let directionLabel = UILabel(frame: CGRectMake(0, 8, DeviceHelper.getLabelWidth(), 30))
         directionLabel.textAlignment = NSTextAlignment.Left
         directionLabel.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        directionLabel.text = "\t     \(lineWrapper.lines[indexPath.row].direction)"
+        directionLabel.text = "\t     \(stop.lines[indexPath.row].direction)"
         directionLabel.font = directionLabel.font.fontWithSize(16)
         
         snameView.addSubview(snameLabel)
@@ -133,7 +139,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.addSubview(snameView)
         cell.addSubview(directionLabel)
 
-        if (indexPath.row == lineWrapper.lines.count - 1){
+        if (indexPath.row == stop.lines.count - 1){
             tableView.tableFooterView = UIView(frame: CGRectZero)
         }
         
@@ -142,6 +148,16 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         print(indexPath.row)
+        let currentLine = from(lines).elementAt(indexPath.row)
+        currentLine.stop = stop
+        if (from(stop.lines).any({$0.lineAndDirection == currentLine.lineAndDirection})){
+            RealmService.sharedInstance.removeObject(stop.lines[indexPath.row])
+            stop.lines.removeAtIndex(indexPath.row)
+        }
+        else{
+            RealmService.sharedInstance.addObject(stop.lines[indexPath.row])
+            stop.lines.append(currentLine)
+        }
     }
 
     override func didReceiveMemoryWarning() {

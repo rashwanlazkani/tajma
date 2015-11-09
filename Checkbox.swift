@@ -31,17 +31,16 @@ class Checkbox: UIButton {
     }
     
     func buttonClicked(sender : UIButton){
-        print(Global.linesAtStop.count)
-        isChecked = !isChecked
-        for stopLine in Global.linesAtStop{
-            if (stopLine.tag == sender.tag){
-                stopLine.isChecked = isChecked
-                RealmService.sharedInstance.updateLinesToStop(stopLine)
-                Global.addedLinesAtStop = RealmService.sharedInstance.getLinesAtStop(stopLine.stopId)
-                return
-            }
-            
-        }
+//        isChecked = !isChecked
+//        for stopLine in Global.linesAtStop{
+//            if (stopLine.tag == sender.tag){
+//                stopLine.isChecked = isChecked
+//                RealmService.sharedInstance.updateLinesToStop(stopLine)
+//                Global.addedLinesAtStop = RealmService.sharedInstance.getLinesAtStop(stopLine.stopId)
+//                return
+//            }
+//            
+//        }
     }
     
 }
