@@ -29,7 +29,7 @@ class RealmService {
         return realm.objects(Line).filter("stopId = '\(stopId)'").map({$0})
     }
     
-    func addObject(line: Line){
+    func addLine(line: Line) -> Stop{
         setDefaultRealmConfiguration()
         let realm = try! Realm()
         
@@ -41,9 +41,10 @@ class RealmService {
 
             realm.add(line)
         })
+        return stop.first!
     }
     
-    func removeObject(line: Line){
+    func removeLine(line: Line) -> Stop{
         setDefaultRealmConfiguration()
         let realm = try! Realm()
 
@@ -55,6 +56,7 @@ class RealmService {
                 realm.delete(stop)
             }
         })
+        return stop.first!
     }
     
     func setDefaultRealmConfiguration() {

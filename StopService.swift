@@ -23,7 +23,7 @@ class StopsService{
             else{
                 let jsonStops = json["LocationList"]["StopLocation"]
                 let stops = self.mapToStop(jsonStops)
-                onSuccess(from(stops).distinct{$0.0.id == $0.1.id}.toArray())
+                onSuccess(from(stops).distinct{$0.0.name == $0.1.name}.toArray())
             }
         }
     }

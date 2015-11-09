@@ -23,7 +23,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        getLinesAtStop(stop.id)
+        updateLines(stop.id)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -61,13 +61,14 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
     }
     
-    func getLinesAtStop(stopId : String){
+    func updateLines(stopId : String){
         activityIndicator.startAnimating()
         // Låser vyn
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
         lineService.getAllLinesAtStop(stopId, onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.lines = json
+                print(self.lines.count)
             })
             dispatch_async(dispatch_get_main_queue(),{
                 self.activityIndicator.stopAnimating()
@@ -76,7 +77,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             }, onError:{ error -> Void in
                 print(error)
         })
-        
+        self.tableView.reloadData()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -103,34 +104,34 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         var fontSize = CGFloat(16)
         var sname = ""
-        if ((Int(stop.lines[indexPath.row].sname.substringToIndex(stop.lines[indexPath.row].sname.startIndex.advancedBy(1)))) == nil){
-            let snameArr = Array(stop.lines[indexPath.row].sname.characters)
+        if ((Int(currentLine.sname.substringToIndex(currentLine.sname.startIndex.advancedBy(1)))) == nil){
+            let snameArr = Array(currentLine.sname.characters)
             sname = String(snameArr[0])
         }
-        else if (stop.lines[indexPath.row].sname.characters.count > 2){
+        else if (currentLine.sname.characters.count > 2){
             fontSize = CGFloat(12)
-            sname = stop.lines[indexPath.row].sname
+            sname = currentLine.sname
         }
         else{
-            sname = stop.lines[indexPath.row].sname
+            sname = currentLine.sname
         }
         
         let snameView = UIView()
         snameView.frame = CGRectMake(30, 30, 30, 30)
         snameView.layer.cornerRadius = 5
         snameView.center = CGPoint(x: 25, y: 23)
-        snameView.backgroundColor = UIColor(rgba: stop.lines[indexPath.row].fgColor)
+        snameView.backgroundColor = UIColor(rgba: currentLine.fgColor)
         
         let snameLabel = UILabel(frame: CGRectMake(0, 0, 30, 30))
         snameLabel.textAlignment = NSTextAlignment.Center
-        snameLabel.text = sname ?? stop.lines[indexPath.row].sname
-        snameLabel.textColor = UIColor(rgba: stop.lines[indexPath.row].bgColor)
+        snameLabel.text = sname ?? currentLine.sname
+        snameLabel.textColor = UIColor(rgba: currentLine.bgColor)
         snameLabel.font = snameLabel.font.fontWithSize(fontSize)
         
         let directionLabel = UILabel(frame: CGRectMake(0, 8, DeviceHelper.getLabelWidth(), 30))
         directionLabel.textAlignment = NSTextAlignment.Left
         directionLabel.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        directionLabel.text = "\t     \(stop.lines[indexPath.row].direction)"
+        directionLabel.text = "\t     \(currentLine.direction)"
         directionLabel.font = directionLabel.font.fontWithSize(16)
         
         snameView.addSubview(snameLabel)
@@ -145,17 +146,17 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath){
         print(indexPath.row)
         let currentLine = from(lines).elementAt(indexPath.row)
         currentLine.stop = stop
         if (from(stop.lines).any({$0.lineAndDirection == currentLine.lineAndDirection})){
-            RealmService.sharedInstance.removeObject(stop.lines[indexPath.row])
+            RealmService.sharedInstance.removeLine(stop.lines[indexPath.row])
         }
         else{
-            RealmService.sharedInstance.addObject(stop.lines[indexPath.row])
+            RealmService.sharedInstance.addLine(stop.lines[indexPath.row])
         }
-        getLinesAtStop(stop.id)
+        updateLines(stop.id)
     }
     
     override func didReceiveMemoryWarning() {

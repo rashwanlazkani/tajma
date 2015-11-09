@@ -140,24 +140,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.tableView!.reloadData()
                 }
                 else{
-                    let stop = Stop()
-                    stop.name = "Inga hållplatser i närheten. Försök igen."
-                    if (self.stops.isEmpty){
-                        self.stops.append(stop)
-                        self.tableView!.reloadData()
-                    }
+                    self.displayError("Inga hållplatser i närheten. Försök igen.")
                 }
                 self.locationManager.stopUpdatingLocation()
                 self.segmentedControl.enabled = true
                 self.activityIndicator.stopAnimating()
             })
             }, onError:{ error -> Void in
-                self.displayError(error)
+                self.displayError(error.localizedDescription)
         })
     }
     
-    func displayError(error: NSError){
-        let alert = UIAlertController(title: "Alert", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+    func displayError(error: String){
+        let alert = UIAlertController(title: "Alert", message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
@@ -205,7 +200,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             })
         }, onError:{ error -> Void in
             print(error)
-            self.displayError(error)
+            self.displayError(error.localizedDescription)
         })
     }
 
@@ -220,14 +215,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("Failed to find user´s location: \(error.localizedDescription)")
-        
-        stops = [Stop]()
-    
-        let stop = Stop()
-        stop.name = "Fel vid hämtning. Hämta igen."
-        stops.append(stop)
-        
-        self.tableView!.reloadData()
+        displayError(error.localizedDescription)
     }
 
     // MARK: - TableView

@@ -31,6 +31,7 @@ class Checkbox: UIButton {
     }
     
     func buttonClicked(sender : UIButton){
+        print("clicked")
 //        isChecked = !isChecked
 //        for stopLine in Global.linesAtStop{
 //            if (stopLine.tag == sender.tag){
