@@ -9,7 +9,7 @@
 import RealmSwift
 
 public class Line: Object {
-    var stop = Stop()
+    var stop = Stop?()
     var lineAndDirection = ""
     var name = ""
     var sname = ""
@@ -18,7 +18,7 @@ public class Line: Object {
     var track = ""
     var fgColor = ""
     var bgColor = ""
-    var departures = [Departure]()
+    var departures = Departure()
     
     override public static func primaryKey() -> String? {
         return "lineAndDirection"

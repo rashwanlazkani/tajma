@@ -51,9 +51,9 @@ public class DepartureService {
                 let departureTime = dateFormatter.dateFromString(dateTime) as NSDate!
                 let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverDate) / 60) - 1
                 
-                let departure = Departure()
-                departure.times = [intervalBetweenDepartures]
-                line.departures.append(departure)
+//                let departure = Departure()
+//                departure.times = [intervalBetweenDepartures]
+//                line.departures.times.append(departure)
             }
             lines.sortInPlace({ $0.lineAndDirection != $1.lineAndDirection})
             onSuccess(lines)
@@ -67,6 +67,7 @@ public class DepartureService {
             $0.distance = self.stopService.calculateDistance($0, lat: lat, long: long)
         })
         stops.sortInPlace({ $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
+
         
         var closestStops = [Stop]()
         for stop in stops {

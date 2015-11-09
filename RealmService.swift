@@ -33,11 +33,12 @@ class RealmService {
         setDefaultRealmConfiguration()
         let realm = try! Realm()
         
-        let stop = realm.objects(Stop).filter("stopId = '\(line.stop.id)").map({$0})
+        let stop = realm.objects(Stop).filter("stopId = '\(line.stop)").map({$0})
         try! realm.write({ () -> Void in
             if(stop.isEmpty){
-                realm.add(line.stop)
+                realm.add(line.stop!)
             }
+
             realm.add(line)
         })
     }
@@ -46,7 +47,7 @@ class RealmService {
         setDefaultRealmConfiguration()
         let realm = try! Realm()
 
-        let stop = realm.objects(Stop).filter("stopId = '\(line.stop.id)").map({$0})
+        let stop = realm.objects(Stop).filter("stopId = '\(line.stop!.id)").map({$0})
         try! realm.write({ () -> Void in
             realm.delete(line)
             

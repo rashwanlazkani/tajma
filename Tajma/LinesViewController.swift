@@ -22,6 +22,9 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        
+        getLinesAtStop(stop.id)
+        
         tableView.delegate = self
         tableView.dataSource = self
         initiateViews()
@@ -35,7 +38,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.navigationController?.navigationBar.layer.zPosition = -1
         }
     }
-
+    
     func initiateViews(){
         self.navigationController?.navigationBar.hidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
@@ -58,17 +61,13 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
     }
     
-    func getLinesAtStop(stopId : String, indexPath : Int){
+    func getLinesAtStop(stopId : String){
         activityIndicator.startAnimating()
         // Låser vyn
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
         lineService.getAllLinesAtStop(stopId, onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.lines = json
-                if (self.lines.count > 0){
-                    
-                    self.performSegueWithIdentifier("ShowLinesView", sender: indexPath)
-                }
             })
             dispatch_async(dispatch_get_main_queue(),{
                 self.activityIndicator.stopAnimating()
@@ -79,7 +78,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         })
         
     }
-
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return lines.count
     }
@@ -93,7 +92,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
                 view.removeFromSuperview()
             }
         }
-
+        
         let checkBox = Checkbox()
         checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
         checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -138,7 +137,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.addSubview(checkBox)
         cell.addSubview(snameView)
         cell.addSubview(directionLabel)
-
+        
         if (indexPath.row == stop.lines.count - 1){
             tableView.tableFooterView = UIView(frame: CGRectZero)
         }
@@ -152,17 +151,16 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         currentLine.stop = stop
         if (from(stop.lines).any({$0.lineAndDirection == currentLine.lineAndDirection})){
             RealmService.sharedInstance.removeObject(stop.lines[indexPath.row])
-            stop.lines.removeAtIndex(indexPath.row)
         }
         else{
             RealmService.sharedInstance.addObject(stop.lines[indexPath.row])
-            stop.lines.append(currentLine)
         }
+        getLinesAtStop(stop.id)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }

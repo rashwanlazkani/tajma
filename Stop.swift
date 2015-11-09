@@ -14,7 +14,9 @@ public class Stop: Object {
     var lat = ""
     var long = ""
     var distance = 0
-    var lines = [Line]()
+    var lines : [Line] {
+        return linkingObjects(Line.self, forProperty: "stop")
+    }
     
     override public static func primaryKey() -> String? {
         return "id"
