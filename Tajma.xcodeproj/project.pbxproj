@@ -31,7 +31,7 @@
 		F82CB0851BD25B2C0015D3C5 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* RealmService.swift */; };
 		F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A21B1B04C2008F4505 /* AppDelegate.swift */; };
 		F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */; };
-		F843A3A81B1B04C2008F4505 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A71B1B04C2008F4505 /* ViewController.swift */; };
+		F843A3A81B1B04C2008F4505 /* StopsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A71B1B04C2008F4505 /* StopsController.swift */; };
 		F843A3AB1B1B04C2008F4505 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F843A3A91B1B04C2008F4505 /* Main.storyboard */; };
 		F843A3AD1B1B04C2008F4505 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F843A3AC1B1B04C2008F4505 /* Images.xcassets */; };
 		F843A3B01B1B04C2008F4505 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */; };
@@ -121,7 +121,7 @@
 		F843A3A11B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F843A3A21B1B04C2008F4505 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F843A3A51B1B04C2008F4505 /* Tajma.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tajma.xcdatamodel; sourceTree = "<group>"; };
-		F843A3A71B1B04C2008F4505 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F843A3A71B1B04C2008F4505 /* StopsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopsController.swift; sourceTree = "<group>"; };
 		F843A3AA1B1B04C2008F4505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F843A3AC1B1B04C2008F4505 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F843A3AF1B1B04C2008F4505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -266,7 +266,7 @@
 			children = (
 				F87AFE931B1B930700D3DAFC /* Tajma.entitlements */,
 				F843A3A21B1B04C2008F4505 /* AppDelegate.swift */,
-				F843A3A71B1B04C2008F4505 /* ViewController.swift */,
+				F843A3A71B1B04C2008F4505 /* StopsController.swift */,
 				F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */,
 				F843A3C51B1B066B008F4505 /* LinesViewController.swift */,
 				F843A3A91B1B04C2008F4505 /* Main.storyboard */,
@@ -712,7 +712,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F843A3A81B1B04C2008F4505 /* ViewController.swift in Sources */,
+				F843A3A81B1B04C2008F4505 /* StopsController.swift in Sources */,
 				F8D853C91BE12F2C00E2C1E2 /* Constants.swift in Sources */,
 				F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */,
 				F8E081011B35B1D000A96A45 /* Info.swift in Sources */,

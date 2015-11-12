@@ -16,10 +16,6 @@ public class Stop: Object {
     dynamic var distance = 0
     var lines = [Line]()
     
-    override public static func primaryKey() -> String? {
-        return "id"
-    }
-    
     override public static func ignoredProperties() -> [String] {
         return ["distance", "lines"]
     }

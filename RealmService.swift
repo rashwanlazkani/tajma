@@ -27,11 +27,16 @@ class RealmService {
         setDefaultRealmConfiguration()
         let realm = try! Realm()
         
-        let objects = realm.objects(Line).filter("stop.id = '\(stopId)'")
         var lines = [Line]()
+        let l = realm.objects(Line).filter("stop.id = '\(stopId)'")
+        if(l.count == 0){
+            return lines
+        }
+        
+        let objects = realm.objects(Line).filter("stop.id = '\(stopId)'")
+        
         for object in objects{
             let line = Line()
-            
             line.stop = object.stop
             line.lineAndDirection = object.lineAndDirection
             line.name = object.name
@@ -46,40 +51,54 @@ class RealmService {
         return lines
     }
     
-    func addLine(line: Line) -> Void{
+    func addLine(line: Line, stop: Stop) -> Void{
+        setDefaultRealmConfiguration()
+        let realm = try! Realm()
+    
+        
+    }
+    
+    func updateLine(line: Line, stopId: String) -> Void{
         setDefaultRealmConfiguration()
         let realm = try! Realm()
         
-        let stops = realm.objects(Stop).filter("id = '\(line.stop!.id)'")
-        try! realm.write({ () -> Void in
-            if(stops.count == 0){
-                realm.add(line.stop!)
+        let lines = realm.objects(Line).filter("stop.id = '\(stopId)'")
+        if (from(lines).any({$0.id == line.id})){
+            do{
+                try! realm.write({ () -> Void in
+                    let l = realm.objects(Line).filter("id == '\(line.id)'").first
+                    l!.stop = self.getStop(stopId)
+                    realm.delete(l!)
+                    
+                    let lines = realm.objects(Line).filter("stop.id = '\(stopId)'")
+                    if(lines.count == 0){
+                        let s = realm.objects(Stop).filter("id = '\(stopId)'")
+                        realm.delete(s)
+                    }
+                })
             }
-            realm.add(line)
-        })
+        }
+        else{
+            do{
+                try! realm.write({ () -> Void in
+                    line.stop = self.getStop(stopId)
+                    realm.add(line)
+                })
+            }
+        }
     }
     
-    func removeLine(line: Line) -> Void{
-        setDefaultRealmConfiguration()
+    func getStop(stopId: String) -> Stop? {
         let realm = try! Realm()
-
-        let lines = realm.objects(Line).filter("stop.id = '\(line.stop!.id)'")
-        try! realm.write({ () -> Void in
-            let l = realm.objects(Line).filter("lineAndDirection = '\(line.lineAndDirection)'")
-            realm.delete(l)
-        })
-//        if(lines.count == 0){
-//            try! realm.write({ () -> Void in
-//                let s = realm.objects(Stop).filter("id = '\(line.stop!.id)'")
-//                realm.delete(s)
-//            })
-//        }
+        
+        return realm.objects(Stop).filter("id = '\(stopId)'").first
     }
     
     func setDefaultRealmConfiguration() {
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.tajma.today")!
         let realmPath = directory.URLByAppendingPathComponent("default.realm")
         let urlSubString = realmPath.absoluteString.stringByReplacingOccurrencesOfString("file://", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        print(realmPath)
         Realm.Configuration.defaultConfiguration.path = urlSubString
     }
     

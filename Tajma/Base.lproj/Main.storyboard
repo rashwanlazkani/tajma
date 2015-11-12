@@ -53,10 +53,10 @@
             </objects>
             <point key="canvasLocation" x="873" y="-29"/>
         </scene>
-        <!--View Controller-->
+        <!--Stops Controller-->
         <scene sceneID="ei6-a1-9zM">
             <objects>
-                <viewController id="R3x-0W-ZXV" customClass="ViewController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="R3x-0W-ZXV" customClass="StopsController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bED-iB-zdf"/>
                         <viewControllerLayoutGuide type="bottom" id="aCV-Th-0s2"/>

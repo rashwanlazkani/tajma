@@ -9,6 +9,7 @@
 import RealmSwift
 
 public class Line: Object {
+    dynamic var id = ""
     dynamic var stop = Stop?()
     dynamic var lineAndDirection = ""
     dynamic var name = ""
@@ -21,7 +22,7 @@ public class Line: Object {
     var departures = Departure()
     
     override public static func primaryKey() -> String? {
-        return "lineAndDirection"
+        return "id"
     }
     
     override public static func ignoredProperties() -> [String] {

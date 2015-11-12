@@ -16,6 +16,8 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var lines = [Line]()
     var stop : Stop!
+    var stopId : String!
+    var myLines = [Line]()
     let deviceHelper = DeviceHelper()
     let lineService = LineService()
     var activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
@@ -23,7 +25,9 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        updateLines(stop.id)
+        stopId = stop.id
+        
+        updateLines(stopId)
         updateMyLines()
         
         tableView.delegate = self
@@ -82,7 +86,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func updateMyLines(){
-        stop.lines = RealmService.sharedInstance.getLinesAtStop(stop.id)
+        myLines = RealmService.sharedInstance.getLinesAtStop(stopId)
         tableView.reloadData()
     }
     
@@ -96,13 +100,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.selectionStyle = .None
         
         for view in cell.subviews{
-            if(view.isKindOfClass(UILabel) || view.isKindOfClass(UIImage) || view.isKindOfClass(UIView)){
-                view.removeFromSuperview()
-            }
+            view.removeFromSuperview()
         }
         
         var image = UIImage(named: "unchecked-box")
-        if(from(stop.lines).any({$0.lineAndDirection == currentLine.lineAndDirection})){
+        if(from(myLines).any({$0.id == currentLine.id})){
             image = UIImage(named: "check-box-red")
             cell.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 0.5)
         }
@@ -153,12 +155,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         let currentLine = from(lines).elementAt(indexPath.row)
-        currentLine.stop = stop
-        if (from(stop.lines).any({$0.lineAndDirection == currentLine.lineAndDirection})){
-            RealmService.sharedInstance.removeLine(currentLine)
+        if (from(myLines).any({$0.id == currentLine.id})){
+            RealmService.sharedInstance.updateLine(currentLine, stopId: stopId)
         }
         else{
-            RealmService.sharedInstance.addLine(currentLine)
+            RealmService.sharedInstance.updateLine(currentLine, stopId: stopId)
         }
         updateMyLines()
     }

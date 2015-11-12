@@ -21,16 +21,27 @@ public class LineService{
             else{
                 let jsonLines = json["DepartureBoard"]["Departure"]
                 var lines = [Line]()
+                let dbLines = RealmService.sharedInstance.getLinesAtStop(stopId)
+                
                 for (_,subJson):(String, JSON) in jsonLines {
-                    let line = Line()
-                    line.name = subJson["name"].string!
-                    line.sname = subJson["sname"].string ?? ""
-                    line.direction = subJson["direction"].string ?? ""
-                    line.type = subJson["type"].string!
-                    line.track = subJson["track"].string!
-                    line.fgColor = subJson["fgColor"].string!
-                    line.bgColor = subJson["bgColor"].string!
-                    line.lineAndDirection = "\(line.sname) \(line.direction)"
+                    let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"
+
+                    var line = Line()
+                    let dbLine = from(dbLines).singleOrNil({$0.id == id})
+                    if(dbLine != nil){
+                        line = dbLine!
+                    }
+                    else {
+                        line.id = id
+                        line.name = subJson["name"].string!
+                        line.sname = subJson["sname"].string ?? ""
+                        line.direction = subJson["direction"].string ?? ""
+                        line.type = subJson["type"].string!
+                        line.track = subJson["track"].string!
+                        line.fgColor = subJson["fgColor"].string!
+                        line.bgColor = subJson["bgColor"].string!
+                        line.lineAndDirection = "\(line.sname) \(line.direction)"
+                    }
                     
                     if (line.sname == "" && line.direction == ""){
                         continue

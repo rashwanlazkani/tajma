@@ -27,21 +27,28 @@ public class DepartureService {
             let serverDate = dateFormatter.dateFromString(self.serverDateTime(json)) as NSDate!
             let jsonDepartures = json["DepartureBoard"]["Departure"]
             
+            let dbLines = RealmService.sharedInstance.getLinesAtStop(stopId)
             var lines = [Line]()
             for (_,subJson):(String, JSON) in jsonDepartures {
+                let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"
                 var line = Line()
-                line.sname = self.trimSname(subJson["sname"].string!)
-                line.track = subJson["track"].string ?? ""
-                line.direction = subJson["direction"].string!
-                line.fgColor = subJson["fgColor"].string!
-                line.bgColor = subJson["bgColor"].string!
-                line.lineAndDirection = "\(line.sname) \(line.direction)"
                 
-                if (from(lines).any{$0.lineAndDirection == line.lineAndDirection}){
-                    line = from(lines).single({$0.lineAndDirection == line.lineAndDirection})
+                if (from(lines).any{$0.id == line.id}){
+                    continue
                 }
-                else{
-                    lines.append(line)
+                
+                var dbLine = from(dbLines).singleOrNil({$0.id == id})
+                if(dbLine != nil){
+                    line = dbLine!
+                }
+                else {
+                    line.id = id
+                    line.sname = self.trimSname(subJson["sname"].string!)
+                    line.track = subJson["track"].string ?? ""
+                    line.direction = subJson["direction"].string!
+                    line.fgColor = subJson["fgColor"].string!
+                    line.bgColor = subJson["bgColor"].string!
+                    line.lineAndDirection = "\(line.sname) \(line.direction)"
                 }
 
                 let time = subJson["rtTime"].string ?? subJson["time"].string
