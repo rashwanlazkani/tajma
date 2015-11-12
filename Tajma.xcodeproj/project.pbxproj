@@ -20,7 +20,6 @@
 		F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
 		F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
 		F80667721B1E5D7900A26B5D /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* Departure.swift */; };
-		F80667731B1E5D7900A26B5D /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE761B1B903F00D3DAFC /* Checkbox.swift */; };
 		F80667751B1E5D7900A26B5D /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
 		F80667781B1E5D7900A26B5D /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
 		F806677F1B1E5DC600A26B5D /* DepartureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806677E1B1E5DC600A26B5D /* DepartureService.swift */; };
@@ -39,7 +38,6 @@
 		F843A3BC1B1B04C2008F4505 /* TajmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */; };
 		F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3C51B1B066B008F4505 /* LinesViewController.swift */; };
 		F87AFE751B1B902400D3DAFC /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* Departure.swift */; };
-		F87AFE7F1B1B903F00D3DAFC /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE761B1B903F00D3DAFC /* Checkbox.swift */; };
 		F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
 		F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
 		F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
@@ -141,7 +139,6 @@
 		F87257681B3F3161006CBDA8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F872576B1B3F3391006CBDA8 /* DataRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRowController.swift; sourceTree = "<group>"; };
 		F87AFE721B1B902400D3DAFC /* Departure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Departure.swift; sourceTree = "<group>"; };
-		F87AFE761B1B903F00D3DAFC /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		F87AFE781B1B903F00D3DAFC /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		F87AFE7C1B1B903F00D3DAFC /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		F87AFE881B1B906400D3DAFC /* LineService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineService.swift; sourceTree = "<group>"; };
@@ -349,7 +346,6 @@
 		F87AFE661B1B89C100D3DAFC /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				F8CFC4F51BEBC24300301E59 /* Components */,
 				F8E080FF1B35B1C500A96A45 /* Enums */,
 				F806674F1B1D156E00A26B5D /* Helpers */,
 				F8CFC4F61BEBD27800301E59 /* Libs */,
@@ -379,14 +375,6 @@
 				F87AFE7C1B1B903F00D3DAFC /* Stop.swift */,
 			);
 			name = Models;
-			sourceTree = "<group>";
-		};
-		F8CFC4F51BEBC24300301E59 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				F87AFE761B1B903F00D3DAFC /* Checkbox.swift */,
-			);
-			name = Components;
 			sourceTree = "<group>";
 		};
 		F8CFC4F61BEBD27800301E59 /* Libs */ = {
@@ -711,7 +699,6 @@
 				F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */,
 				F88F545C1B38AB3000F0D402 /* Row.swift in Sources */,
 				F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */,
-				F80667731B1E5D7900A26B5D /* Checkbox.swift in Sources */,
 				F8D853CA1BE132F000E2C1E2 /* Constants.swift in Sources */,
 				F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */,
 				F80667721B1E5D7900A26B5D /* Departure.swift in Sources */,
@@ -732,7 +719,6 @@
 				F818619F1B41D52A005DDA3A /* DeviceHelper.swift in Sources */,
 				F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */,
 				F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */,
-				F87AFE7F1B1B903F00D3DAFC /* Checkbox.swift in Sources */,
 				F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */,
 				F807230C1BE290BA00749E76 /* Status.swift in Sources */,
 				F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */,

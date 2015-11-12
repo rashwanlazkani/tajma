@@ -9,11 +9,11 @@
 import RealmSwift
 
 public class Stop: Object {
-    var id = ""
-    var name = ""
-    var lat = ""
-    var long = ""
-    var distance = 0
+    dynamic var id = ""
+    dynamic var name = ""
+    dynamic var lat = ""
+    dynamic var long = ""
+    dynamic var distance = 0
     var lines = [Line]()
     
     override public static func primaryKey() -> String? {

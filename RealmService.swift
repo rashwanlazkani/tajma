@@ -10,6 +10,7 @@
 
 import Foundation
 import RealmSwift
+import SINQ
 
 class RealmService {
     func getStops() -> [Stop]{
@@ -26,37 +27,53 @@ class RealmService {
         setDefaultRealmConfiguration()
         let realm = try! Realm()
         
-        return realm.objects(Line).filter("stopId = '\(stopId)'").map({$0})
+        let objects = realm.objects(Line).filter("stop.id = '\(stopId)'")
+        var lines = [Line]()
+        for object in objects{
+            let line = Line()
+            
+            line.stop = object.stop
+            line.lineAndDirection = object.lineAndDirection
+            line.name = object.name
+            line.sname = object.sname
+            line.direction = object.direction
+            line.type = object.type
+            line.track = object.track
+            line.bgColor = object.bgColor
+            line.fgColor = object.fgColor
+            lines.append(line)
+        }
+        return lines
     }
     
-    func addLine(line: Line) -> Stop{
+    func addLine(line: Line) -> Void{
         setDefaultRealmConfiguration()
         let realm = try! Realm()
         
-        let stop = realm.objects(Stop).filter("stopId = '\(line.stop)").map({$0})
+        let stops = realm.objects(Stop).filter("id = '\(line.stop!.id)'")
         try! realm.write({ () -> Void in
-            if(stop.isEmpty){
+            if(stops.count == 0){
                 realm.add(line.stop!)
             }
-
             realm.add(line)
         })
-        return stop.first!
     }
     
-    func removeLine(line: Line) -> Stop{
+    func removeLine(line: Line) -> Void{
         setDefaultRealmConfiguration()
         let realm = try! Realm()
 
-        let stop = realm.objects(Stop).filter("stopId = '\(line.stop!.id)").map({$0})
+        let lines = realm.objects(Line).filter("stop.id = '\(line.stop!.id)'")
         try! realm.write({ () -> Void in
-            realm.delete(line)
-            
-            if((stop.first?.lines.isEmpty) != nil){
-                realm.delete(stop)
-            }
+            let l = realm.objects(Line).filter("lineAndDirection = '\(line.lineAndDirection)'")
+            realm.delete(l)
         })
-        return stop.first!
+//        if(lines.count == 0){
+//            try! realm.write({ () -> Void in
+//                let s = realm.objects(Stop).filter("id = '\(line.stop!.id)'")
+//                realm.delete(s)
+//            })
+//        }
     }
     
     func setDefaultRealmConfiguration() {

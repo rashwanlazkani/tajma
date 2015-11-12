@@ -24,6 +24,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         
         updateLines(stop.id)
+        updateMyLines()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -59,6 +60,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
+        tableView.tableFooterView = UIView(frame: CGRectZero)
     }
     
     func updateLines(stopId : String){
@@ -68,7 +70,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         lineService.getAllLinesAtStop(stopId, onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.lines = json
-                print(self.lines.count)
+                self.tableView.reloadData()
             })
             dispatch_async(dispatch_get_main_queue(),{
                 self.activityIndicator.stopAnimating()
@@ -77,7 +79,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             }, onError:{ error -> Void in
                 print(error)
         })
-        self.tableView.reloadData()
+    }
+    
+    func updateMyLines(){
+        stop.lines = RealmService.sharedInstance.getLinesAtStop(stop.id)
+        tableView.reloadData()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -87,21 +93,24 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let currentLine = from(lines).elementAt(indexPath.row)
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        cell.selectionStyle = .None
         
         for view in cell.subviews{
-            if(view.isKindOfClass(UILabel) || view.isKindOfClass(Checkbox)){
+            if(view.isKindOfClass(UILabel) || view.isKindOfClass(UIImage) || view.isKindOfClass(UIView)){
                 view.removeFromSuperview()
             }
         }
         
-        let checkBox = Checkbox()
-        checkBox.setImage(UIImage(named: "unchecked-box") as UIImage!, forState: UIControlState.Normal)
-        checkBox.addTarget(checkBox, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
-        checkBox.tag = indexPath.row
-        checkBox.frame = CGRectMake(50, 50, 1000, 44)
-        checkBox.center = CGPoint(x: tableView.bounds.width - 25, y: 44 / 2.0)
-        checkBox.tag = indexPath.row
+        var image = UIImage(named: "unchecked-box")
+        if(from(stop.lines).any({$0.lineAndDirection == currentLine.lineAndDirection})){
+            image = UIImage(named: "check-box-red")
+            cell.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 0.5)
+        }
         
+        let checkbox = UIImageView(image: image!)
+        checkbox.frame = CGRectMake(50, 50, 28, 28)
+        checkbox.center = CGPoint(x: tableView.bounds.width - 25, y: 44 / 2.0)
+
         var fontSize = CGFloat(16)
         var sname = ""
         if ((Int(currentLine.sname.substringToIndex(currentLine.sname.startIndex.advancedBy(1)))) == nil){
@@ -135,28 +144,23 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         directionLabel.font = directionLabel.font.fontWithSize(16)
         
         snameView.addSubview(snameLabel)
-        cell.addSubview(checkBox)
+        cell.addSubview(checkbox)
         cell.addSubview(snameView)
         cell.addSubview(directionLabel)
-        
-        if (indexPath.row == stop.lines.count - 1){
-            tableView.tableFooterView = UIView(frame: CGRectZero)
-        }
-        
+
         return cell
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath){
-        print(indexPath.row)
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         let currentLine = from(lines).elementAt(indexPath.row)
         currentLine.stop = stop
         if (from(stop.lines).any({$0.lineAndDirection == currentLine.lineAndDirection})){
-            RealmService.sharedInstance.removeLine(stop.lines[indexPath.row])
+            RealmService.sharedInstance.removeLine(currentLine)
         }
         else{
-            RealmService.sharedInstance.addLine(stop.lines[indexPath.row])
+            RealmService.sharedInstance.addLine(currentLine)
         }
-        updateLines(stop.id)
+        updateMyLines()
     }
     
     override func didReceiveMemoryWarning() {

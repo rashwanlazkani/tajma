@@ -102,6 +102,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
+        tableView.tableFooterView = UIView(frame: CGRectZero)
         
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
@@ -236,18 +237,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         } else{
             cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-        }
-        
-        // Sätter bakgrunden på tableView för att inte visa tomma rader
-        if (indexPath.row == stops.count - 1){
-            tableView.tableFooterView = UIView(frame: CGRectZero)
-            
-            if (indexPath.row % 2 == 0){
-                tableView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-            }
-            else{
-                tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-            }
         }
         
         // Rensar all checkboxar

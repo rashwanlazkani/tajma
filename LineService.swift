@@ -30,12 +30,13 @@ public class LineService{
                     line.track = subJson["track"].string!
                     line.fgColor = subJson["fgColor"].string!
                     line.bgColor = subJson["bgColor"].string!
+                    line.lineAndDirection = "\(line.sname) \(line.direction)"
                     
                     if (line.sname == "" && line.direction == ""){
                         continue
                     }
                     
-                    let lineAndDirection = self.subStringSnameAndDirection(line.sname, direction: line.direction)
+                    let lineAndDirection = self.subStringSnameAndDirection(line.lineAndDirection)
                     if (from(lines).any{$0.lineAndDirection == lineAndDirection}){
                         continue
                     }
@@ -49,13 +50,10 @@ public class LineService{
         }
     }
     
-    func subStringSnameAndDirection(sname: String, direction: String) -> String{
-        var lineAndDirection : String
-        lineAndDirection = sname + " " + direction
+    func subStringSnameAndDirection(var lineAndDirection: String) -> String{
         lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Buss", withString: "")
         lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Spårvagn", withString: "")
         lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("SVAR", withString: "SVART")
-        
         return lineAndDirection
     }
 }

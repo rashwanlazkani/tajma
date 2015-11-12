@@ -9,15 +9,15 @@
 import RealmSwift
 
 public class Line: Object {
-    var stop = Stop?()
-    var lineAndDirection = ""
-    var name = ""
-    var sname = ""
-    var direction = ""
-    var type = ""
-    var track = ""
-    var fgColor = ""
-    var bgColor = ""
+    dynamic var stop = Stop?()
+    dynamic var lineAndDirection = ""
+    dynamic var name = ""
+    dynamic var sname = ""
+    dynamic var direction = ""
+    dynamic var type = ""
+    dynamic var track = ""
+    dynamic var bgColor = ""
+    dynamic var fgColor = ""
     var departures = Departure()
     
     override public static func primaryKey() -> String? {
