@@ -107,7 +107,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
         tableView.tableFooterView = UIView(frame: CGRectZero)
         
-        activityIndicator.center = self.view.center
+        activityIndicator.center = CGPoint(x: (self.view.frame.width)/2, y: (self.view.frame.height)/3)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
         activityIndicator.color = UIColor.grayColor()
@@ -144,7 +144,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                     self.tableView!.reloadData()
                 }
                 else{
-                    self.displayError("Inga hållplatser i närheten. Försök igen.")
+                    //self.displayError("Inga hållplatser i närheten. Försök igen.")
                 }
                 self.locationManager.stopUpdatingLocation()
                 self.segmentedControl.enabled = true

@@ -22,6 +22,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        activityIndicator.startAnimating()
         
         updateLines(stop.id)
         updateMyLines()
@@ -30,6 +31,10 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.dataSource = self
         initiateViews()
         tableView.reloadData()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        activityIndicator.stopAnimating()
     }
     
     override func willMoveToParentViewController(parent: UIViewController?){
@@ -60,6 +65,12 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.tableFooterView = UIView(frame: CGRectZero)
+        
+        activityIndicator.center = CGPoint(x: (self.view.frame.width)/2, y: (self.view.frame.height)/3)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
+        activityIndicator.color = UIColor.grayColor()
+        self.view.addSubview(activityIndicator)
     }
     
     func updateLines(stopId : String){
@@ -145,7 +156,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         directionLabel.text = "\t     \(currentLine.direction)"
         directionLabel.font = directionLabel.font.fontWithSize(16)
         
-        let separator = UIView(frame: CGRectMake(0, cell.frame.height - 1, cell.frame.width, 1))
+        let separator = UIView(frame: CGRectMake(0, cell.frame.height - 1, cell.frame.width, 0.5))
         separator.backgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
         
         snameView.addSubview(snameLabel)
