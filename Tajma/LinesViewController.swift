@@ -105,6 +105,9 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             image = UIImage(named: "check-box-red")
             cell.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 0.5)
         }
+        else{
+            cell.backgroundColor = UIColor.clearColor()
+        }
         
         let checkbox = UIImageView(image: image!)
         checkbox.frame = CGRectMake(50, 50, 28, 28)
