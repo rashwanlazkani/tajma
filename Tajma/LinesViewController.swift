@@ -59,7 +59,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         titleView.addSubview(title)
         
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-        tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
         tableView.tableFooterView = UIView(frame: CGRectZero)
     }
     
@@ -143,10 +142,14 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         directionLabel.text = "\t     \(currentLine.direction)"
         directionLabel.font = directionLabel.font.fontWithSize(16)
         
+        let separator = UIView(frame: CGRectMake(0, cell.frame.height - 1, cell.frame.width, 1))
+        separator.backgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
+        
         snameView.addSubview(snameLabel)
         cell.addSubview(checkbox)
         cell.addSubview(snameView)
         cell.addSubview(directionLabel)
+        cell.addSubview(separator)
         
         return cell
     }
