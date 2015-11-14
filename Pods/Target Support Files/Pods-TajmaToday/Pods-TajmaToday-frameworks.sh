@@ -84,12 +84,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-TajmaToday/Realm.framework"
-  install_framework "Pods-TajmaToday/RealmSwift.framework"
   install_framework "Pods-TajmaToday/SINQ.framework"
+  install_framework "Pods-TajmaToday/SQLite.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-TajmaToday/Realm.framework"
-  install_framework "Pods-TajmaToday/RealmSwift.framework"
   install_framework "Pods-TajmaToday/SINQ.framework"
+  install_framework "Pods-TajmaToday/SQLite.framework"
 fi

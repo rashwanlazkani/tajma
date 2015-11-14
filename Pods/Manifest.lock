@@ -1,18 +1,22 @@
 PODS:
-  - Realm (0.96.2):
-    - Realm/Headers (= 0.96.2)
-  - Realm/Headers (0.96.2)
-  - RealmSwift (0.96.2):
-    - Realm (= 0.96.2)
   - SINQ (0.5.0)
+  - SQLite.swift (1.0.0)
 
 DEPENDENCIES:
-  - RealmSwift
   - SINQ
+  - SQLite.swift (from `https://github.com/stephencelis/SQLite.swift.git`)
+
+EXTERNAL SOURCES:
+  SQLite.swift:
+    :git: https://github.com/stephencelis/SQLite.swift.git
+
+CHECKOUT OPTIONS:
+  SQLite.swift:
+    :commit: c9d3082d1f5ddc2e55a792a8eb1a677b8a1b15f5
+    :git: https://github.com/stephencelis/SQLite.swift.git
 
 SPEC CHECKSUMS:
-  Realm: 3ce8448151c571e90b85002d984d7f93f54fc8a3
-  RealmSwift: 485599fe54e35461c4a0daa7d01d8fbf11424873
   SINQ: 259eb63d0b860d76fe9d063650f7b88d4d7d19dd
+  SQLite.swift: 3bb75f5a650f08673276bc6d3fb1de1b542b8f4d
 
 COCOAPODS: 0.39.0

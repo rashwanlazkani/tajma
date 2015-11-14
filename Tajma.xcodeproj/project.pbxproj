@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		47DC307E748653CA272AD076 /* Pods_TajmaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C76A6994332194705771DE /* Pods_TajmaTests.framework */; };
 		61B8ED10C83195557EB8E766 /* Pods_TajmaToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1ED0FF064904D39160B07D9 /* Pods_TajmaToday.framework */; };
 		ABEC9DDFFF250B330DC9E36B /* Pods_Tajma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D165923BED25C71F586365B2 /* Pods_Tajma.framework */; };
 		F80667511B1D157C00A26B5D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
@@ -27,16 +26,17 @@
 		F807230D1BE2917E00749E76 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807230B1BE290BA00749E76 /* Status.swift */; };
 		F818619F1B41D52A005DDA3A /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceHelper.swift */; };
 		F81861A01B41D52A005DDA3A /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceHelper.swift */; };
-		F82CB0841BD25B2C0015D3C5 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* RealmService.swift */; };
-		F82CB0851BD25B2C0015D3C5 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* RealmService.swift */; };
+		F82CB0841BD25B2C0015D3C5 /* SqliteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */; };
+		F82CB0851BD25B2C0015D3C5 /* SqliteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */; };
 		F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A21B1B04C2008F4505 /* AppDelegate.swift */; };
 		F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */; };
 		F843A3A81B1B04C2008F4505 /* StopsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A71B1B04C2008F4505 /* StopsController.swift */; };
 		F843A3AB1B1B04C2008F4505 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F843A3A91B1B04C2008F4505 /* Main.storyboard */; };
 		F843A3AD1B1B04C2008F4505 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F843A3AC1B1B04C2008F4505 /* Images.xcassets */; };
 		F843A3B01B1B04C2008F4505 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */; };
-		F843A3BC1B1B04C2008F4505 /* TajmaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */; };
 		F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3C51B1B066B008F4505 /* LinesViewController.swift */; };
+		F8729F411BF77E57000E9C9C /* SharedHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8729F401BF77E57000E9C9C /* SharedHelper.swift */; };
+		F8729F421BF77E57000E9C9C /* SharedHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8729F401BF77E57000E9C9C /* SharedHelper.swift */; };
 		F87AFE751B1B902400D3DAFC /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* Departure.swift */; };
 		F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
 		F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
@@ -61,13 +61,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = F80667551B1E5CA100A26B5D;
 			remoteInfo = TajmaToday;
-		};
-		F843A3B61B1B04C2008F4505 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F843A3951B1B04C2008F4505 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F843A39C1B1B04C2008F4505;
-			remoteInfo = Tajma;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -97,14 +90,12 @@
 
 /* Begin PBXFileReference section */
 		13C76A6994332194705771DE /* Pods_TajmaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TajmaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		372C181D250A365334C83DD9 /* Pods-TajmaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaTests/Pods-TajmaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		76B8097E1F47DE5F82222DA7 /* Pods-TajmaToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.release.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.release.xcconfig"; sourceTree = "<group>"; };
 		89E1448C11827E0F414AA0A5 /* Pods-Tajma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.debug.xcconfig"; sourceTree = "<group>"; };
 		8B176CBC4CA3691A6337B1C1 /* Pods-TajmaToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.debug.xcconfig"; sourceTree = "<group>"; };
 		C5CBB333F9456A56CEBB0F5A /* Pods-Tajma.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.release.xcconfig"; sourceTree = "<group>"; };
 		D165923BED25C71F586365B2 /* Pods_Tajma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tajma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1ED0FF064904D39160B07D9 /* Pods_TajmaToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TajmaToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D86E1C0B2EA2581D67502BCB /* Pods-TajmaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaTests/Pods-TajmaTests.release.xcconfig"; sourceTree = "<group>"; };
 		F80667501B1D157C00A26B5D /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F80667561B1E5CA100A26B5D /* TajmaToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TajmaToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F80667581B1E5CA100A26B5D /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -116,7 +107,7 @@
 		F806677E1B1E5DC600A26B5D /* DepartureService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartureService.swift; sourceTree = "<group>"; };
 		F807230B1BE290BA00749E76 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		F818619E1B41D52A005DDA3A /* DeviceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
-		F82CB0831BD25B2C0015D3C5 /* RealmService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqliteService.swift; sourceTree = "<group>"; };
 		F843A39D1B1B04C2008F4505 /* Tajma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tajma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F843A3A11B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F843A3A21B1B04C2008F4505 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,9 +116,6 @@
 		F843A3AA1B1B04C2008F4505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F843A3AC1B1B04C2008F4505 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F843A3AF1B1B04C2008F4505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		F843A3B51B1B04C2008F4505 /* TajmaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TajmaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F843A3BA1B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TajmaTests.swift; sourceTree = "<group>"; };
 		F843A3C51B1B066B008F4505 /* LinesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesViewController.swift; sourceTree = "<group>"; };
 		F87257331B3F2D5E006CBDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F87257341B3F2D5E006CBDA8 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
@@ -138,6 +126,7 @@
 		F87257521B3F2DE1006CBDA8 /* Tajma WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Tajma WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		F87257681B3F3161006CBDA8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F872576B1B3F3391006CBDA8 /* DataRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRowController.swift; sourceTree = "<group>"; };
+		F8729F401BF77E57000E9C9C /* SharedHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedHelper.swift; sourceTree = "<group>"; };
 		F87AFE721B1B902400D3DAFC /* Departure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Departure.swift; sourceTree = "<group>"; };
 		F87AFE781B1B903F00D3DAFC /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		F87AFE7C1B1B903F00D3DAFC /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
@@ -172,14 +161,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F843A3B21B1B04C2008F4505 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				47DC307E748653CA272AD076 /* Pods_TajmaTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -188,8 +169,6 @@
 			children = (
 				89E1448C11827E0F414AA0A5 /* Pods-Tajma.debug.xcconfig */,
 				C5CBB333F9456A56CEBB0F5A /* Pods-Tajma.release.xcconfig */,
-				372C181D250A365334C83DD9 /* Pods-TajmaTests.debug.xcconfig */,
-				D86E1C0B2EA2581D67502BCB /* Pods-TajmaTests.release.xcconfig */,
 				8B176CBC4CA3691A6337B1C1 /* Pods-TajmaToday.debug.xcconfig */,
 				76B8097E1F47DE5F82222DA7 /* Pods-TajmaToday.release.xcconfig */,
 			);
@@ -201,6 +180,7 @@
 			children = (
 				F818619E1B41D52A005DDA3A /* DeviceHelper.swift */,
 				F8D853C81BE12F2C00E2C1E2 /* Constants.swift */,
+				F8729F401BF77E57000E9C9C /* SharedHelper.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -241,7 +221,6 @@
 			children = (
 				F87AFE661B1B89C100D3DAFC /* Core */,
 				F843A39F1B1B04C2008F4505 /* Tajma */,
-				F843A3B81B1B04C2008F4505 /* TajmaTests */,
 				F806675A1B1E5CA100A26B5D /* TajmaToday */,
 				F87257311B3F2D5E006CBDA8 /* Tajma WatchKit Extension */,
 				F872573E1B3F2D5E006CBDA8 /* Tajma WatchKit App */,
@@ -255,7 +234,6 @@
 			isa = PBXGroup;
 			children = (
 				F843A39D1B1B04C2008F4505 /* Tajma.app */,
-				F843A3B51B1B04C2008F4505 /* TajmaTests.xctest */,
 				F80667561B1E5CA100A26B5D /* TajmaToday.appex */,
 			);
 			name = Products;
@@ -283,23 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				F843A3A11B1B04C2008F4505 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F843A3B81B1B04C2008F4505 /* TajmaTests */ = {
-			isa = PBXGroup;
-			children = (
-				F843A3BB1B1B04C2008F4505 /* TajmaTests.swift */,
-				F843A3B91B1B04C2008F4505 /* Supporting Files */,
-			);
-			path = TajmaTests;
-			sourceTree = "<group>";
-		};
-		F843A3B91B1B04C2008F4505 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F843A3BA1B1B04C2008F4505 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -360,7 +321,7 @@
 			children = (
 				F806677E1B1E5DC600A26B5D /* DepartureService.swift */,
 				F87AFE881B1B906400D3DAFC /* LineService.swift */,
-				F82CB0831BD25B2C0015D3C5 /* RealmService.swift */,
+				F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */,
 				F87AFE891B1B906400D3DAFC /* RestApiService.swift */,
 				F87AFE8A1B1B906400D3DAFC /* StopService.swift */,
 			);
@@ -443,27 +404,6 @@
 			productReference = F843A39D1B1B04C2008F4505 /* Tajma.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F843A3B41B1B04C2008F4505 /* TajmaTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F843A3C21B1B04C2008F4505 /* Build configuration list for PBXNativeTarget "TajmaTests" */;
-			buildPhases = (
-				E48FAC0C2BC4D282DA400D21 /* Check Pods Manifest.lock */,
-				F843A3B11B1B04C2008F4505 /* Sources */,
-				F843A3B21B1B04C2008F4505 /* Frameworks */,
-				F843A3B31B1B04C2008F4505 /* Resources */,
-				735BD514D8D8944BA3D1C6D6 /* Embed Pods Frameworks */,
-				AC565D69B54436845F949FD7 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F843A3B71B1B04C2008F4505 /* PBXTargetDependency */,
-			);
-			name = TajmaTests;
-			productName = TajmaTests;
-			productReference = F843A3B51B1B04C2008F4505 /* TajmaTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -493,10 +433,6 @@
 							};
 						};
 					};
-					F843A3B41B1B04C2008F4505 = {
-						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = F843A39C1B1B04C2008F4505;
-					};
 				};
 			};
 			buildConfigurationList = F843A3981B1B04C2008F4505 /* Build configuration list for PBXProject "Tajma" */;
@@ -513,7 +449,6 @@
 			projectRoot = "";
 			targets = (
 				F843A39C1B1B04C2008F4505 /* Tajma */,
-				F843A3B41B1B04C2008F4505 /* TajmaTests */,
 				F80667551B1E5CA100A26B5D /* TajmaToday */,
 			);
 		};
@@ -535,13 +470,6 @@
 				F843A3AB1B1B04C2008F4505 /* Main.storyboard in Resources */,
 				F843A3B01B1B04C2008F4505 /* LaunchScreen.xib in Resources */,
 				F843A3AD1B1B04C2008F4505 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F843A3B31B1B04C2008F4505 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,21 +506,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		735BD514D8D8944BA3D1C6D6 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TajmaTests/Pods-TajmaTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7F054A5DC3ED977AF67C03E7 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -621,21 +534,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AC565D69B54436845F949FD7 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TajmaTests/Pods-TajmaTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B442D2812AD266B4B1673634 /* Copy Pods Resources */ = {
@@ -668,21 +566,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E48FAC0C2BC4D282DA400D21 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -693,7 +576,8 @@
 				F807230D1BE2917E00749E76 /* Status.swift in Sources */,
 				F80667781B1E5D7900A26B5D /* Stop.swift in Sources */,
 				F81861A01B41D52A005DDA3A /* DeviceHelper.swift in Sources */,
-				F82CB0851BD25B2C0015D3C5 /* RealmService.swift in Sources */,
+				F82CB0851BD25B2C0015D3C5 /* SqliteService.swift in Sources */,
+				F8729F421BF77E57000E9C9C /* SharedHelper.swift in Sources */,
 				F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */,
 				F8B511691B22FA0400388866 /* UIColor.swift in Sources */,
 				F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */,
@@ -729,17 +613,10 @@
 				F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */,
 				F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */,
 				F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */,
-				F82CB0841BD25B2C0015D3C5 /* RealmService.swift in Sources */,
+				F82CB0841BD25B2C0015D3C5 /* SqliteService.swift in Sources */,
 				F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */,
 				F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F843A3B11B1B04C2008F4505 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F843A3BC1B1B04C2008F4505 /* TajmaTests.swift in Sources */,
+				F8729F411BF77E57000E9C9C /* SharedHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,11 +627,6 @@
 			isa = PBXTargetDependency;
 			target = F80667551B1E5CA100A26B5D /* TajmaToday */;
 			targetProxy = F80667611B1E5CA100A26B5D /* PBXContainerItemProxy */;
-		};
-		F843A3B71B1B04C2008F4505 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F843A39C1B1B04C2008F4505 /* Tajma */;
-			targetProxy = F843A3B61B1B04C2008F4505 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -957,44 +829,6 @@
 			};
 			name = Release;
 		};
-		F843A3C31B1B04C2008F4505 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 372C181D250A365334C83DD9 /* Pods-TajmaTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = TajmaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tajma.app/Tajma";
-			};
-			name = Debug;
-		};
-		F843A3C41B1B04C2008F4505 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D86E1C0B2EA2581D67502BCB /* Pods-TajmaTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = TajmaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tajma.app/Tajma";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1021,15 +855,6 @@
 			buildConfigurations = (
 				F843A3C01B1B04C2008F4505 /* Debug */,
 				F843A3C11B1B04C2008F4505 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F843A3C21B1B04C2008F4505 /* Build configuration list for PBXNativeTarget "TajmaTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F843A3C31B1B04C2008F4505 /* Debug */,
-				F843A3C41B1B04C2008F4505 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

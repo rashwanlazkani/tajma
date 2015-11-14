@@ -5,15 +5,16 @@ use_frameworks!
 
 
 target 'Tajma' do
-pod 'RealmSwift'
+pod 'SQLite.swift',
+  git: 'https://github.com/stephencelis/SQLite.swift.git'
 pod 'SINQ'
 end
 
 target 'TajmaTests' do
-pod 'RealmSwift'
 end
 
 target 'TajmaToday' do
-pod 'RealmSwift'
+pod 'SQLite.swift',
+  git: 'https://github.com/stephencelis/SQLite.swift.git'
 pod 'SINQ'
 end
