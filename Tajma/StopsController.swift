@@ -20,6 +20,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     var stopService = StopsService()
     let deviceHelper = DeviceHelper()
     var stops = [Stop]()
+    var lines = [Line]()
     
     var webView = UIWebView()
     var btnCloseWebView  = UIButton()
@@ -34,7 +35,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -51,6 +52,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         checkForFirstTimeLaunch()
         initiateViews()
         setRateSettings()
+        
+        lines = SqliteService.sharedInstance.getLines()
     }
  
     // MARK: - Functions
@@ -162,11 +165,12 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     override func didMoveToParentViewController(parent: UIViewController?) {
         // För att uppdatera listan över tillagda stopp när man kommer från linesViewn
         if (segmentedControl.selectedSegmentIndex == 1){
-            stops = RealmService.sharedInstance.getStops()
+            stops = SqliteService.sharedInstance.getStops()
         }
         else{
             getNearestStops()
         }
+        lines = SqliteService.sharedInstance.getLines()
         tableView.reloadData()
     }
     
@@ -176,8 +180,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
-            stops = RealmService.sharedInstance.getStops()
+            stops = SqliteService.sharedInstance.getStops()
         }
+        lines = SqliteService.sharedInstance.getLines()
         searchBar.resignFirstResponder()
         tableView.reloadData()
     }
@@ -191,6 +196,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         stopService.getStopsByInput(searchBar.text!, onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.stops = json
+                self.lines = SqliteService.sharedInstance.getLines()
                 if (self.stops.count > 0){
                     self.segmentedControl.setTitle("Sökresultat", forSegmentAtIndex: 0)
                 }
@@ -246,7 +252,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             }
         }
         
-        if (from(currentStop.lines).any()){
+        if (from(lines).any({$0.stopId == currentStop.id})){
             let imageName = "check-red"
             let image = UIImage(named: imageName)
             let imageView = UIImageView(image: image!)

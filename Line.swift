@@ -6,26 +6,17 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-import RealmSwift
-
-public class Line: Object {
-    dynamic var id = ""
-    dynamic var stop = Stop?()
-    dynamic var lineAndDirection = ""
-    dynamic var name = ""
-    dynamic var sname = ""
-    dynamic var direction = ""
-    dynamic var type = ""
-    dynamic var track = ""
-    dynamic var bgColor = ""
-    dynamic var fgColor = ""
+public class Line {
+    var id = ""
+    //var stop = Stop?()
+    var stopId = ""
+    var lineAndDirection = ""
+    var name = ""
+    var sname = ""
+    var direction = ""
+    var type = ""
+    var track = ""
+    var bgColor = ""
+    var fgColor = ""
     var departures = Departure()
-    
-    override public static func primaryKey() -> String? {
-        return "id"
-    }
-    
-    override public static func ignoredProperties() -> [String] {
-        return ["departures"]
-    }
 }

@@ -1,4 +1,4 @@
-	//
+//
 //  AppDelegate.swift
 //  Tajma
 //
@@ -8,8 +8,7 @@
 
 import UIKit
 import CoreData
-import Realm
-import RealmSwift
+import SQLite
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

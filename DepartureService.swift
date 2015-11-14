@@ -27,7 +27,7 @@ public class DepartureService {
             let serverDate = dateFormatter.dateFromString(self.serverDateTime(json)) as NSDate!
             let jsonDepartures = json["DepartureBoard"]["Departure"]
             
-            let dbLines = RealmService.sharedInstance.getLinesAtStop(stopId)
+            let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var lines = [Line]()
             for (_,subJson):(String, JSON) in jsonDepartures {
                 let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"

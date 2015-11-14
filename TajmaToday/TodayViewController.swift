@@ -26,7 +26,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        stops = RealmService.sharedInstance.getStops()
+        stops = SqliteService.sharedInstance.getStops()
 
         print("viewDidLoad")
         //self.preferredContentSize = CGSize(width: 50, height: 20)

@@ -16,8 +16,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var lines = [Line]()
     var stop : Stop!
-    var stopId : String!
-    var myLines = [Line]()
     let deviceHelper = DeviceHelper()
     let lineService = LineService()
     var activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
@@ -25,9 +23,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        stopId = stop.id
-        
-        updateLines(stopId)
+        updateLines(stop.id)
         updateMyLines()
         
         tableView.delegate = self
@@ -86,7 +82,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func updateMyLines(){
-        myLines = RealmService.sharedInstance.getLinesAtStop(stopId)
+        stop.lines = SqliteService.sharedInstance.getLinesAtStop(stop.id)
         tableView.reloadData()
     }
     
@@ -100,11 +96,13 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.selectionStyle = .None
         
         for view in cell.subviews{
-            view.removeFromSuperview()
+            if(view.isKindOfClass(UILabel) || view.isKindOfClass(UIImage) || view.isKindOfClass(UIView)){
+                view.removeFromSuperview()
+            }
         }
         
         var image = UIImage(named: "unchecked-box")
-        if(from(myLines).any({$0.id == currentLine.id})){
+        if(from(stop.lines).any({$0.id == currentLine.id})){
             image = UIImage(named: "check-box-red")
             cell.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 0.5)
         }
@@ -112,7 +110,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         let checkbox = UIImageView(image: image!)
         checkbox.frame = CGRectMake(50, 50, 28, 28)
         checkbox.center = CGPoint(x: tableView.bounds.width - 25, y: 44 / 2.0)
-
+        
         var fontSize = CGFloat(16)
         var sname = ""
         if ((Int(currentLine.sname.substringToIndex(currentLine.sname.startIndex.advancedBy(1)))) == nil){
@@ -149,17 +147,18 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.addSubview(checkbox)
         cell.addSubview(snameView)
         cell.addSubview(directionLabel)
-
+        
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         let currentLine = from(lines).elementAt(indexPath.row)
-        if (from(myLines).any({$0.id == currentLine.id})){
-            RealmService.sharedInstance.updateLine(currentLine, stopId: stopId)
+        currentLine.stopId = stop.id
+        if (from(stop.lines).any({$0.id == currentLine.id})){
+            SqliteService.sharedInstance.removeLine(currentLine, stopId: stop.id)
         }
         else{
-            RealmService.sharedInstance.updateLine(currentLine, stopId: stopId)
+            SqliteService.sharedInstance.addLine(currentLine, stop: stop)
         }
         updateMyLines()
     }

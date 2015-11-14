@@ -6,17 +6,11 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-import RealmSwift
-
-public class Stop: Object {
-    dynamic var id = ""
-    dynamic var name = ""
-    dynamic var lat = ""
-    dynamic var long = ""
-    dynamic var distance = 0
+public class Stop {
+    var id = ""
+    var name = ""
+    var lat = ""
+    var long = ""
+    var distance = 0
     var lines = [Line]()
-    
-    override public static func ignoredProperties() -> [String] {
-        return ["distance", "lines"]
-    }
 }

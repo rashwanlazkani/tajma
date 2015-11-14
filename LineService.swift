@@ -21,7 +21,7 @@ public class LineService{
             else{
                 let jsonLines = json["DepartureBoard"]["Departure"]
                 var lines = [Line]()
-                let dbLines = RealmService.sharedInstance.getLinesAtStop(stopId)
+                let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
                 
                 for (_,subJson):(String, JSON) in jsonLines {
                     let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"

@@ -10,7 +10,7 @@ import CoreLocation
 import SINQ
 
 class StopsService{
-    let checkedStops = RealmService.sharedInstance.getStops()
+    let checkedStops = SqliteService.sharedInstance.getStops()
     
     func getNearestStops(lat: String, long: String, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.getNearestStops(lat, long: long) { json in
