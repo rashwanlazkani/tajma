@@ -8,7 +8,7 @@
 
 public class Line {
     var id = ""
-    //var stop = Stop?()
+    var stop = Stop()
     var stopId = ""
     var lineAndDirection = ""
     var name = ""

@@ -24,13 +24,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         activityIndicator.startAnimating()
         
-        updateLines(stop.id)
         updateMyLines()
         
         tableView.delegate = self
         tableView.dataSource = self
         initiateViews()
-        tableView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -73,14 +71,16 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.view.addSubview(activityIndicator)
     }
     
-    func updateLines(stopId : String){
+    func updateLines(){
         activityIndicator.startAnimating()
         // Låser vyn
+        print("start")
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-        lineService.getAllLinesAtStop(stopId, onSuccess: { json -> Void in
+        lineService.getAllLinesAtStop(stop.id, onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.lines = json
                 self.tableView.reloadData()
+                print("finnish")
             })
             dispatch_async(dispatch_get_main_queue(),{
                 self.activityIndicator.stopAnimating()

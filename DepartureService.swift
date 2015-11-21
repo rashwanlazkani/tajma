@@ -37,7 +37,7 @@ public class DepartureService {
                     continue
                 }
                 
-                var dbLine = from(dbLines).singleOrNil({$0.id == id})
+                let dbLine = from(dbLines).singleOrNil({$0.id == id})
                 if(dbLine != nil){
                     line = dbLine!
                 }
@@ -58,17 +58,17 @@ public class DepartureService {
                 let departureTime = dateFormatter.dateFromString(dateTime) as NSDate!
                 let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverDate) / 60) - 1
                 
-//                let departure = Departure()
-//                departure.times = [intervalBetweenDepartures]
-//                line.departures.times.append(departure)
+                line.departures.times = [intervalBetweenDepartures]
+                lines.append(line)
             }
             lines.sortInPlace({ $0.lineAndDirection != $1.lineAndDirection})
             onSuccess(lines)
         }
     }
     
-    func getMyDepartures(var stops: [Stop], lat: Double, long: Double) -> [Stop] {
+    func getMyDepartures(lat: Double, long: Double) -> [Stop] {
         let getDeparturesGroup = dispatch_group_create()
+        var stops = SqliteService.sharedInstance.getStops()
         
         from(stops).each({
             $0.distance = self.stopService.calculateDistance($0, lat: lat, long: long)
@@ -79,7 +79,14 @@ public class DepartureService {
         var closestStops = [Stop]()
         for stop in stops {
             if (closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000){
-                closestStops.append(stop)
+                dispatch_group_enter(getDeparturesGroup)
+                getDeparturesFromStop(stop.id, onSuccess: { lines -> Void in
+                    stop.lines = lines
+                    closestStops.append(stop)
+                    dispatch_group_leave(getDeparturesGroup)
+                }, onError:{ error -> Void in
+                    print(error)
+                })
             }
             else{
                 break
