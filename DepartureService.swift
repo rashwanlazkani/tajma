@@ -29,28 +29,23 @@ public class DepartureService {
             
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var lines = [Line]()
+            
             for (_,subJson):(String, JSON) in jsonDepartures {
                 let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"
-                var line = Line()
                 
-                if (from(lines).any{$0.id == line.id}){
+                var line = from(lines).singleOrNil({$0.id == id})
+                if(line == nil){
+                    line = from(dbLines).singleOrNil({$0.id == id})
+                    
+                    if(line != nil){
+                        lines.append(line!)
+                    }
+                }
+                
+                if(line == nil){
                     continue
                 }
                 
-                let dbLine = from(dbLines).singleOrNil({$0.id == id})
-                if(dbLine != nil){
-                    line = dbLine!
-                }
-                else {
-                    line.id = id
-                    line.sname = self.trimSname(subJson["sname"].string!)
-                    line.track = subJson["track"].string ?? ""
-                    line.direction = subJson["direction"].string!
-                    line.fgColor = subJson["fgColor"].string!
-                    line.bgColor = subJson["bgColor"].string!
-                    line.lineAndDirection = "\(line.sname) \(line.direction)"
-                }
-
                 let time = subJson["rtTime"].string ?? subJson["time"].string
                 let date = subJson["rtDate"].string ?? subJson["date"].string
                 let dateTime = "\(date!) \(time!)"
@@ -58,8 +53,7 @@ public class DepartureService {
                 let departureTime = dateFormatter.dateFromString(dateTime) as NSDate!
                 let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverDate) / 60) - 1
                 
-                line.departures.times = [intervalBetweenDepartures]
-                lines.append(line)
+                line!.departures.times.append(intervalBetweenDepartures)
             }
             lines.sortInPlace({ $0.lineAndDirection != $1.lineAndDirection})
             onSuccess(lines)

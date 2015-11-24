@@ -58,9 +58,11 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
  
     // MARK: - Functions
     func checkForFirstTimeLaunch(){
-        let firstLaunch = NSUserDefaults.standardUserDefaults().boolForKey("FirstLaunch")
+        let firstLaunch = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("FirstLaunch")
+        //let x = NSUserDefaults.standardUserDefaults().boolForKey("FirstLaunch")
+        print(firstLaunch)
         if !firstLaunch  {
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "FirstLaunch")
+             NSUserDefaults(suiteName: "group.tajma.today")!.setBool(true, forKey: "FirstLaunch")
             
             webView = UIWebView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height))
             webView.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.tajmahelpappwebsite.rashwanlazkani.se/")!))

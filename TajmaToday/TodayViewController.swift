@@ -261,6 +261,10 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Functions
     func getData(){
+        let firstLaunch = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("FirstLaunch")
+        //let x = NSUserDefaults.standardUserDefaults().boolForKey("FirstLaunch")
+        print(firstLaunch)
+        
         print("getData")
         stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         

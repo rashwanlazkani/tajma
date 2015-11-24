@@ -25,7 +25,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         activityIndicator.startAnimating()
         
         updateMyLines()
-        
         tableView.delegate = self
         tableView.dataSource = self
         initiateViews()
