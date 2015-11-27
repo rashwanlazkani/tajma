@@ -84,6 +84,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func closeWebView(sender: UIButton!){
         btnCloseWebView.removeFromSuperview()
         webView.removeFromSuperview()
+        
+        locationManager.startUpdatingLocation()
     }
     
     func initiateViews(){
