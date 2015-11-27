@@ -25,11 +25,16 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("viewDidLoad")
+        //print("viewDidLoad")
         
-        infoLabel.text = "Laddar avgångar"
-        infoLabel.hidden = true
-
+        infoLabel.userInteractionEnabled = true
+        let aSelector : Selector = "lblTapped"
+        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
+        tapGesture.numberOfTapsRequired = 1
+        infoLabel.addGestureRecognizer(tapGesture)
+        
+        displayMessage("Laddar avgångar")
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -38,14 +43,15 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
         }
-        else{
-            locationOff()
-        }
+    }
+    
+    func lblTapped(){
+        openMainApp(nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear")
+        //print("viewWillAppear")
 
         locationManager.startUpdatingLocation()
         timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
@@ -53,7 +59,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        print("viewDidDisappear")
+        //print("viewDidDisappear")
         
         locationManager.stopUpdatingLocation()
         timer.invalidate()
@@ -62,10 +68,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     // MARK: - Location
     func getLocation(){
         locationManager.startUpdatingLocation()
-    }
-    
-    func locationOff(){
-        displayError("Du måste slå på lokaliseringen för Tajma.")
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -79,16 +81,26 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("Failed to find user´s location: \(error.localizedDescription)")
-        displayError("Kunde inte faställa position, försöker igen...")
         locationManager.requestLocation()
     }
     
-    func displayError(error: String){
-        preferredContentSize = CGSizeMake(0, 75)
-        if (error == infoLabel.text){
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        switch status {
+        case CLAuthorizationStatus.Restricted:
+            displayMessage("Slå på platstjänster")
+        case CLAuthorizationStatus.Denied:
+            displayMessage("Slå på platstjänster")
+        default:
+            break
+        }
+    }
+    
+    func displayMessage(message: String){
+        preferredContentSize = CGSizeMake(0, 30)
+        if (message == infoLabel.text){
             return
         }
-        infoLabel.text = error
+        infoLabel.text = message
         infoLabel.hidden = false
     }
     
@@ -205,20 +217,11 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         cell.addSubview(rightOne)
         cell.addSubview(rightTwo)
         
-        
-        print("CELL HEIGHT \(cell.frame.height)")
-        
         return cell
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.layer.backgroundColor = UIColor.clearColor().CGColor
-        
-        if indexPath.row == (tableView.indexPathsForVisibleRows?.last) {
-            if(!stops.isEmpty){
-                infoLabel.hidden = true
-            }
-        }
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -226,7 +229,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 1
+        return 0
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -273,6 +276,9 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         openMainApp(nil)
     }
     
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    
     // MARK: - Events
     func openMainApp(sender: UIButton!) {
         let url = NSURL(fileURLWithPath: "Tajma://home")
@@ -281,13 +287,13 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Functions
     func getData(){
-        print("getData")
+        //print("getData")
         
         stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
-        print("Hämtat stops")
+        //print("Hämtat stops")
         
         var count = stops.count
-        var height = stops.count * 35
+        var height = stops.count * 40
         for stop in stops{
             height += (stop.lines.count == 0 ? 1 : stop.lines.count) * 35
             
@@ -300,8 +306,11 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         preferredContentSize = CGSizeMake(0, CGFloat(height))
         
         if (stops.isEmpty){
-            displayError("Ingen vald hållplats i närheten.")
+            displayMessage("Ingen vald hållplats i närheten.")
             return
+        }
+        else{
+            infoLabel.hidden = true
         }
         
         self.tableView.reloadData()

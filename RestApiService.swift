@@ -57,16 +57,8 @@ class RestApiService: NSObject {
     
     func findAllLinesOnStop (stopId: String, onCompletion: (JSON) -> Void){
         var date = NSDate()
-        
         let dateFormattera = NSDateFormatter()
         dateFormattera.dateFormat = "EEEE"
-        let dayOfWeekString = dateFormattera.stringFromDate(date)
-        if (dayOfWeekString == "Saturday"){
-            addDays(date, additionalDays: 2)
-        }
-        else if (dayOfWeekString == "Sunday"){
-            date = addDays(date, additionalDays: 1)
-        }
         
         let formatterTime = NSDateFormatter()
         formatterTime.timeStyle = .ShortStyle //Set style of time
@@ -78,9 +70,21 @@ class RestApiService: NSObject {
         
         let dateString = formatterDate.stringFromDate(date) //Convert to String
         
-        let url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&date=\(dateString)"
+        var url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&date=\(dateString)"
         
         makeHTTPGetRequest(url, onCompletion: { json, err in
+            let result = json["DepartureBoard"]["Departure"]
+            if (result.count == 0){
+                var dateString = formatterDate.stringFromDate(date)
+                date = DateHelper.get(DateHelper.SearchDirection.Next, "Monday")
+                dateString = formatterDate.stringFromDate(date)
+                
+                url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&date=\(dateString)"
+                self.makeHTTPGetRequest(url, onCompletion: { json, err in
+                    onCompletion(json as JSON)
+                })
+                return
+            }
             onCompletion(json as JSON)
         })
     }
@@ -105,6 +109,9 @@ class RestApiService: NSObject {
     private func makeHTTPGetRequest(path: String, onCompletion: ServiceResponse) {
         let request = NSMutableURLRequest(URL: NSURL(string: path)!)
         let session = NSURLSession.sharedSession()
+        
+        session.configuration.timeoutIntervalForRequest = 0.000001
+        session.configuration.timeoutIntervalForResource = 0.000001
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             let json:JSON = JSON(data: data!)

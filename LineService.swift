@@ -16,6 +16,7 @@ public class LineService{
             if (String(error["error"]) == Constants.VTerrorCode){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
                 onError(error)
+                print(error)
                 return
             }
             else{
