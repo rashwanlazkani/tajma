@@ -119,12 +119,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         let view = UIView()
         view.backgroundColor = UIColor.clearColor()
         
-        let name = UILabel(frame: CGRectMake(8, 5, DeviceHelper.getLabelWidth(), 30))
+        let name = UILabel(frame: CGRectMake(8, 15, DeviceHelper.getLabelWidth(), 30))
         name.font = name.font.fontWithSize(16)
         name.text = stops[section].name
         name.textColor = UIColor.lightGrayColor()
         
-        let distance = UILabel(frame: CGRectMake(tableView.bounds.width - 130, 5, 100, 30))
+        let distance = UILabel(frame: CGRectMake(tableView.bounds.width - 130, 15, 100, 30))
         distance.font = distance.font.fontWithSize(16)
         distance.textColor = UIColor.lightGrayColor()
         distance.textAlignment = .Right;
@@ -153,6 +153,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         let currentStop = stops[indexPath.section]
         if (currentStop.lines.isEmpty) {
             mainLabel.text = "Inga avgångar hittades"
+            mainLabel.textColor = UIColor.whiteColor()
             cell.addSubview(mainLabel)
             return cell
         }
@@ -204,6 +205,9 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         cell.addSubview(rightOne)
         cell.addSubview(rightTwo)
         
+        
+        print("CELL HEIGHT \(cell.frame.height)")
+        
         return cell
     }
     
@@ -218,7 +222,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return 40
     }
     
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -283,10 +287,17 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         print("Hämtat stops")
         
         var count = stops.count
+        var height = stops.count * 35
         for stop in stops{
-            count += stop.lines.count
+            height += (stop.lines.count == 0 ? 1 : stop.lines.count) * 35
+            
+            
+            count += stop.lines.count == 0 ? 1 : stop.lines.count
         }
-        preferredContentSize = CGSizeMake(0, CGFloat(count * 35))
+        
+        print("**************TOTALT ANTAL RADER = \(count)**************")
+        
+        preferredContentSize = CGSizeMake(0, CGFloat(height))
         
         if (stops.isEmpty){
             displayError("Ingen vald hållplats i närheten.")

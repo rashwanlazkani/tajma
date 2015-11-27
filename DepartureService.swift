@@ -55,7 +55,8 @@ public class DepartureService {
                 
                 line!.departures.times.append(intervalBetweenDepartures)
             }
-            lines.sortInPlace({ $0.lineAndDirection != $1.lineAndDirection})
+            lines.sortInPlace({$0.departures.times.first < $1.departures.times.first})
+            
             onSuccess(lines)
         }
     }
@@ -89,7 +90,8 @@ public class DepartureService {
         
         dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
         print("Hämtat closestStops")
-        return closestStops
+        
+        return from(closestStops).orderBy({$0.distance}).map({$0})
     }
     
     private func trimSname(sname: String) -> String{
