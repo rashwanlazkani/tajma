@@ -55,8 +55,21 @@ public class LineService{
                     lines.append(line)
                     
                 }
-                lines.sortInPlace({$0.lineAndDirection < $1.lineAndDirection})
-                onSuccess(lines)
+                
+                
+                
+                let numberLines = from(lines).whereTrue({Int($0.sname) != nil})
+                let sortedNumberLines = numberLines.sort({Int($0.sname) < Int($1.sname)})
+                let charLines = from(lines).whereTrue({Int($0.sname) == nil}).orderBy({$0.lineAndDirection})
+    
+                var orderedList = [Line]()
+                for line in sortedNumberLines{
+                    orderedList.append(line)
+                }
+                for line in charLines{
+                    orderedList.append(line)
+                }
+                onSuccess(orderedList)
             }
         }
     }
