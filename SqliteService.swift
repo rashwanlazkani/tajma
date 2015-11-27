@@ -113,9 +113,9 @@ class SqliteService {
     private func createTables(){
         let db = try! Connection(sharedHelper.getSharedUrl())
         
-        let dbExists = NSUserDefaults.standardUserDefaults().boolForKey("DbExists")
+        let dbExists = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("DbExists")
         if !dbExists  {
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "DbExists")
+            NSUserDefaults(suiteName: "group.tajma.today")!.setBool(true, forKey: "DbExists")
             
             try! db.run("CREATE TABLE 'Stops' ('id' VARCHAR NOT NULL  UNIQUE, 'name' VARCHAR, 'lat' VARCHAR, 'long' VARCHAR)")
             
