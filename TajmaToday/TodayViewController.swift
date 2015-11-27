@@ -12,7 +12,7 @@ import CoreLocation
 import SINQ
 
 class TodayTableViewController: UITableViewController, CLLocationManagerDelegate {
-    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
     var departureService = DepartureService()
     var lineService = LineService()
     var timer = NSTimer()
@@ -26,9 +26,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
-
-        //self.preferredContentSize = CGSize(width: 50, height: 250)
         
+        preferredContentSize = CGSizeMake(0,75)
+        
+        infoLabel.text = "Laddar avgångar"
+        infoLabel.hidden = true
+
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -36,7 +39,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
         }
         else{
             locationOff()
@@ -46,7 +48,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
-        
+
         locationManager.startUpdatingLocation()
         timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
     }
@@ -72,7 +74,8 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         let location:CLLocationCoordinate2D = manager.location!.coordinate
         lat = String(location.latitude)
         long = String(location.longitude)
-        //locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
+        
         getData()
     }
     
@@ -80,16 +83,14 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         print("Failed to find user´s location: \(error.localizedDescription)")
         displayError("Kunde inte faställa position, försöker igen...")
         locationManager.requestLocation()
-        //self.tableView.reloadData()
     }
     
     func displayError(error: String){
-        if (error == errorLabel.text){
+        if (error == infoLabel.text){
             return
         }
-        self.preferredContentSize = CGSize(width: 300, height: 50)
-        errorLabel.text = error
-        errorLabel.hidden = false
+        infoLabel.text = error
+        infoLabel.hidden = false
     }
     
     // MARK: - Widget Delegate
@@ -99,120 +100,142 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        print("Stops \(stops.count)")
         return stops.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        count = stops.count
-//        from(stops).each({self.count += $0.lines.count})
-//        
-//        for stop in stops{
-//            count += stop.lines.count
-//        }
-//        
 //        if (count > DeviceHelper.iPhoneModelSize()){
 //            return DeviceHelper.iPhoneModelSize()
 //        }
-//        else{
-//            return count
-//        }
-        return stops.count
+        print("Lines \(stops[section].lines.count)")
+        return stops[section].lines.count == 0 ? 1 : stops[section].lines.count
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let currentStop = stops[section]
-        return currentStop.name
+        return ("\(stops[section].name) \(stops[section].distance)m")
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.clearColor()
+        
+        let name = UILabel(frame: CGRectMake(8, 0, DeviceHelper.getLabelWidth(), 30))
+        name.font = name.font.fontWithSize(16)
+        name.text = stops[section].name
+        name.textColor = UIColor.lightGrayColor()
+        
+        let distance = UILabel(frame: CGRectMake(tableView.bounds.width - 130, 0, 100, 30))
+        distance.font = distance.font.fontWithSize(16)
+        distance.textColor = UIColor.lightGrayColor()
+        distance.textAlignment = .Right;
+        distance.text = String(stops[section].distance) + " m"
+        
+        view.addSubview(name)
+        view.addSubview(distance)
+        
+        return view
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //let currentLine = stops[indexPath.section].lines[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
         for view in cell.subviews{
             view.removeFromSuperview()
         }
         
-//        let mainLabel = UILabel(frame: CGRectMake(8, 4, DeviceHelper.getLabelWidth(), 30))
-//        mainLabel.font = mainLabel.font.fontWithSize(14)
-//        let rightOne = UILabel(frame: CGRectMake(tableView.bounds.width - 50, 4, 100, 30))
-//        rightOne.font = rightOne.font.fontWithSize(14)
-//        let rightTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
-//        rightTwo.font = rightTwo.font.fontWithSize(14)
-//        
-//        let letterSname = Int(currentLine.sname)
-//        if (letterSname == nil){
-//            mainLabel.textColor = UIColor.whiteColor()
-//        }
-//        
-//        mainLabel.textColor = UIColor.whiteColor()
-//        mainLabel.font = UIFont.italicSystemFontOfSize(12)
-//        mainLabel.text = currentLine.stop.name
-//        cell.addSubview(mainLabel)
-//        
-//        // Linje
-//        rightOne.frame = CGRectMake(tableView.bounds.width - 70, 4, 30, 30)
-//        rightOne.textColor = UIColor.whiteColor()
-//        rightOne.font = rightOne.font.fontWithSize(14)
-//        rightOne.textAlignment = .Right;
-//        rightTwo.frame = CGRectMake(tableView.bounds.width - 30, 4, 25, 30)
-//        rightTwo.textColor = UIColor.lightGrayColor()
-//        rightTwo.font = rightTwo.font.fontWithSize(14)
-//        rightTwo.textAlignment = .Right;
-//        mainLabel.textColor = UIColor.whiteColor()
-//        mainLabel.text = currentLine.sname
-//        mainLabel.text! += " " + currentLine.direction
-//        
-//        for (index, time) in currentLine.departures.times.enumerate(){
-//            if (index == 0 && time == 0){
-//                rightOne.text = "Nu"
-//            }
-//            else if (index == 1 && time == 0){
-//                rightTwo.text = "Nu"
-//            }
-//            else if (index == 0){
-//                if (time < 0){
-//                    rightOne.text = "0"
-//                }
-//                else{
-//                    rightOne.text = String(time)
-//                }
-//            }
-//            else if (index == 1){
-//                if (time < 0){
-//                    rightTwo.text = "0"
-//                }
-//                else{
-//                    rightTwo.text = String(time)
-//                }
-//            }
-//        }
-//        
-//        let separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
-//        separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
-//        
-//        cell.addSubview(separatorView)
-//        cell.addSubview(mainLabel)
-//        cell.addSubview(rightOne)
-//        cell.addSubview(rightTwo)
-//        
-//        if (count < DeviceHelper.iPhoneModelSize()){
+        let mainLabel = UILabel(frame: CGRectMake(8, 4, DeviceHelper.getLabelWidth(), 30))
+        mainLabel.font = mainLabel.font.fontWithSize(14)
+        let rightOne = UILabel(frame: CGRectMake(tableView.bounds.width - 150, 4, 100, 30))
+        rightOne.font = rightOne.font.fontWithSize(14)
+        let rightTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
+        rightTwo.font = rightTwo.font.fontWithSize(14)
+        
+        let currentStop = stops[indexPath.section]
+        if (currentStop.lines.isEmpty) {
+            mainLabel.text = "Inga avgångar hittades"
+            cell.addSubview(mainLabel)
+            return cell
+        }
+        
+        let currentLine = currentStop.lines[indexPath.row]
+        
+        rightOne.frame = CGRectMake(tableView.bounds.width - 70, 4, 30, 30)
+        rightOne.textColor = UIColor.whiteColor()
+        rightOne.font = rightOne.font.fontWithSize(14)
+        rightOne.textAlignment = .Right;
+        rightTwo.frame = CGRectMake(tableView.bounds.width - 30, 4, 25, 30)
+        rightTwo.textColor = UIColor.lightGrayColor()
+        rightTwo.font = rightTwo.font.fontWithSize(14)
+        rightTwo.textAlignment = .Right;
+        mainLabel.textColor = UIColor.whiteColor()
+        mainLabel.text = currentLine.sname
+        mainLabel.text! += " " + currentLine.direction
+
+        for (index, time) in currentLine.departures.times.enumerate(){
+            if (index == 0 && time == 0){
+                rightOne.text = "Nu"
+            }
+            else if (index == 1 && time == 0){
+                rightTwo.text = "Nu"
+            }
+            else if (index == 0){
+                if (time < 0){
+                    rightOne.text = "0"
+                }
+                else{
+                    rightOne.text = String(time)
+                }
+            }
+            else if (index == 1){
+                if (time < 0){
+                    rightTwo.text = "0"
+                }
+                else{
+                    rightTwo.text = String(time)
+                }
+            }
+        }
+        
+        let separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
+        separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
+        
+        cell.addSubview(separatorView)
+        cell.addSubview(mainLabel)
+        cell.addSubview(rightOne)
+        cell.addSubview(rightTwo)
+//
+//        if (stops.count < DeviceHelper.iPhoneModelSize()){
 //            self.preferredContentSize = CGSizeMake(0, CGFloat(count * 36))
 //        }
 //        else{
 //            self.preferredContentSize = CGSizeMake(0, CGFloat(DeviceHelper.iPhoneModelSize() * 36 + 5))
 //        }
         
+        if (tableView.contentSize.height > 75){
+            preferredContentSize = tableView.contentSize
+        }
+        //preferredContentSize = tableView.contentSize
+        
+        //preferredContentSize = CGSizeMake(0, CGFloat(7 * 36))
         
         return cell
     }
     
-//    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-//        cell.layer.backgroundColor = UIColor.clearColor().CGColor
-//    }
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.layer.backgroundColor = UIColor.clearColor().CGColor
+        
+        if indexPath.row == (tableView.indexPathsForVisibleRows?.last) {
+            if(!stops.isEmpty){
+                infoLabel.hidden = true
+            }
+        }
+    }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         print("viewForFooterInSection")
-        if (count == 0){
+
+        if (stops.count == 0){
             let view = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, tableView.bounds.height));
             let loadingLabel = UILabel(frame: CGRectMake(0, 4, 200, 15))
             loadingLabel.textAlignment = NSTextAlignment.Left
@@ -222,7 +245,8 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             view.addSubview(loadingLabel)
             return view
         }
-        else if (count > DeviceHelper.iPhoneModelSize()){
+        // TODO count på stopp och linjer
+        else if (stops.count > DeviceHelper.iPhoneModelSize()){
             let view = UIView(frame: CGRectMake(0, 120, 300, 36));
             let maxLabel = UILabel(frame: CGRectMake(8, 10, 300, 36))
             maxLabel.text =  "Max antal linjer. Listar närmaste avgångar"
@@ -241,14 +265,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         }
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 35.0
-    }
-    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 35.0
-    }
-    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         openMainApp(nil)
     }
@@ -261,23 +277,17 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Functions
     func getData(){
-        let firstLaunch = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("FirstLaunch")
-        //let x = NSUserDefaults.standardUserDefaults().boolForKey("FirstLaunch")
-        print(firstLaunch)
-        
         print("getData")
+        
         stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
+        print("Hämtat stops")
         
         if (stops.isEmpty){
             displayError("Ingen vald hållplats i närheten.")
-        }
-        else{
-            for stop in stops{
-                
-            }
+            return
         }
         
-        errorLabel.hidden = true
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {

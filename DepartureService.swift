@@ -88,6 +88,7 @@ public class DepartureService {
         }
         
         dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
+        print("Hämtat closestStops")
         return closestStops
     }
     
