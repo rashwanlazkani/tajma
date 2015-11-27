@@ -27,8 +27,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         super.viewDidLoad()
         print("viewDidLoad")
         
-        preferredContentSize = CGSizeMake(0,75)
-        
         infoLabel.text = "Laddar avgångar"
         infoLabel.hidden = true
 
@@ -86,6 +84,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     func displayError(error: String){
+        preferredContentSize = CGSizeMake(0, 75)
         if (error == infoLabel.text){
             return
         }
@@ -120,12 +119,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         let view = UIView()
         view.backgroundColor = UIColor.clearColor()
         
-        let name = UILabel(frame: CGRectMake(8, 0, DeviceHelper.getLabelWidth(), 30))
+        let name = UILabel(frame: CGRectMake(8, 5, DeviceHelper.getLabelWidth(), 30))
         name.font = name.font.fontWithSize(16)
         name.text = stops[section].name
         name.textColor = UIColor.lightGrayColor()
         
-        let distance = UILabel(frame: CGRectMake(tableView.bounds.width - 130, 0, 100, 30))
+        let distance = UILabel(frame: CGRectMake(tableView.bounds.width - 130, 5, 100, 30))
         distance.font = distance.font.fontWithSize(16)
         distance.textColor = UIColor.lightGrayColor()
         distance.textAlignment = .Right;
@@ -204,20 +203,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         cell.addSubview(mainLabel)
         cell.addSubview(rightOne)
         cell.addSubview(rightTwo)
-//
-//        if (stops.count < DeviceHelper.iPhoneModelSize()){
-//            self.preferredContentSize = CGSizeMake(0, CGFloat(count * 36))
-//        }
-//        else{
-//            self.preferredContentSize = CGSizeMake(0, CGFloat(DeviceHelper.iPhoneModelSize() * 36 + 5))
-//        }
-        
-        if (tableView.contentSize.height > 75){
-            preferredContentSize = tableView.contentSize
-        }
-        //preferredContentSize = tableView.contentSize
-        
-        //preferredContentSize = CGSizeMake(0, CGFloat(7 * 36))
         
         return cell
     }
@@ -232,37 +217,52 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         }
     }
     
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1
+    }
+    
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         print("viewForFooterInSection")
+        
+        let table = UIView(frame: CGRectZero)
+        tableView.tableFooterView = table
+        table.hidden = true
+        tableView.tableFooterView?.hidden = true
+        self.tableView.backgroundColor = UIColor.clearColor()
+        return table
 
-        if (stops.count == 0){
-            let view = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, tableView.bounds.height));
-            let loadingLabel = UILabel(frame: CGRectMake(0, 4, 200, 15))
-            loadingLabel.textAlignment = NSTextAlignment.Left
-            loadingLabel.textColor = UIColor.grayColor()
-            loadingLabel.font = loadingLabel.font.fontWithSize(14)
-            loadingLabel.text = "Laddar hållplatser..."
-            view.addSubview(loadingLabel)
-            return view
-        }
-        // TODO count på stopp och linjer
-        else if (stops.count > DeviceHelper.iPhoneModelSize()){
-            let view = UIView(frame: CGRectMake(0, 120, 300, 36));
-            let maxLabel = UILabel(frame: CGRectMake(8, 10, 300, 36))
-            maxLabel.text =  "Max antal linjer. Listar närmaste avgångar"
-            maxLabel.font = UIFont.italicSystemFontOfSize(12)
-            maxLabel.textColor = UIColor.whiteColor()
-            view.addSubview(maxLabel)
-            return view
-        }
-        else{
-            let table = UIView(frame: CGRectZero)
-            tableView.tableFooterView = table
-            table.hidden = true
-            tableView.tableFooterView?.hidden = true
-            self.tableView.backgroundColor = UIColor.clearColor()
-            return table
-        }
+//        if (stops.count == 0){
+//            let view = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, tableView.bounds.height));
+//            let loadingLabel = UILabel(frame: CGRectMake(0, 4, 200, 15))
+//            loadingLabel.textAlignment = NSTextAlignment.Left
+//            loadingLabel.textColor = UIColor.grayColor()
+//            loadingLabel.font = loadingLabel.font.fontWithSize(14)
+//            loadingLabel.text = "Laddar hållplatser..."
+//            view.addSubview(loadingLabel)
+//            return view
+//        }
+//        // TODO count på stopp och linjer
+//        else if (stops.count > DeviceHelper.iPhoneModelSize()){
+//            let view = UIView(frame: CGRectMake(0, 120, 300, 36));
+//            let maxLabel = UILabel(frame: CGRectMake(8, 10, 300, 36))
+//            maxLabel.text =  "Max antal linjer. Listar närmaste avgångar"
+//            maxLabel.font = UIFont.italicSystemFontOfSize(12)
+//            maxLabel.textColor = UIColor.whiteColor()
+//            view.addSubview(maxLabel)
+//            return view
+//        }
+//        else{
+//            let table = UIView(frame: CGRectZero)
+//            tableView.tableFooterView = table
+//            table.hidden = true
+//            tableView.tableFooterView?.hidden = true
+//            self.tableView.backgroundColor = UIColor.clearColor()
+//            return table
+//        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -281,6 +281,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         
         stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         print("Hämtat stops")
+        
+        var count = stops.count
+        for stop in stops{
+            count += stop.lines.count
+        }
+        preferredContentSize = CGSizeMake(0, CGFloat(count * 35))
         
         if (stops.isEmpty){
             displayError("Ingen vald hållplats i närheten.")
