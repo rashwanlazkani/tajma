@@ -60,7 +60,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func checkForFirstTimeLaunch(){
         let firstLaunch = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("FirstLaunch")
         //let x = NSUserDefaults.standardUserDefaults().boolForKey("FirstLaunch")
-        print(firstLaunch)
         if !firstLaunch  {
              NSUserDefaults(suiteName: "group.tajma.today")!.setBool(true, forKey: "FirstLaunch")
             
@@ -153,10 +152,15 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.locationManager.stopUpdatingLocation()
                 self.segmentedControl.enabled = true
                 self.activityIndicator.stopAnimating()
+                
+                print("getNearestStops KLAR")
+                
             })
             }, onError:{ error -> Void in
                 self.displayError(error.localizedDescription)
         })
+        
+        
     }
     
     func displayError(error: String){
@@ -171,15 +175,14 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         if (segmentedControl.selectedSegmentIndex == 1){
             stops = SqliteService.sharedInstance.getStops()
         }
-        else{
-            getNearestStops()
-        }
         lines = SqliteService.sharedInstance.getLines()
         tableView.reloadData()
     }
     
     @IBAction func segmentedControl_Changed(sender: UISegmentedControl) {
         if (segmentedControl.selectedSegmentIndex == 0){
+            lat = ""
+            long = ""
             self.locationManager.startUpdatingLocation()
             self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
         }
@@ -217,6 +220,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
 
     // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if (!lat.isEmpty && !long.isEmpty){
+            return
+        }
         let location:CLLocationCoordinate2D = manager.location!.coordinate
         lat = String(location.latitude)
         long = String(location.longitude)
