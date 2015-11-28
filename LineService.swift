@@ -34,13 +34,13 @@ public class LineService{
                     }
                     else {
                         line.id = id
-                        line.name = subJson["name"].string!
+                        line.name = subJson["name"].string ?? ""
                         line.sname = subJson["sname"].string ?? ""
                         line.direction = subJson["direction"].string ?? ""
-                        line.type = subJson["type"].string!
-                        line.track = subJson["track"].string!
-                        line.fgColor = subJson["fgColor"].string!
-                        line.bgColor = subJson["bgColor"].string!
+                        line.type = subJson["type"].string ?? ""
+                        line.track = subJson["track"].string ?? ""
+                        line.fgColor = subJson["fgColor"].string ?? ""
+                        line.bgColor = subJson["bgColor"].string ?? ""
                         line.lineAndDirection = "\(line.sname) \(line.direction)"
                     }
                     

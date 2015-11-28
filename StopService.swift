@@ -65,10 +65,10 @@ class StopsService{
         
         for (_,subJson):(String, JSON) in json {
             let stop = Stop()
-            stop.id = subJson["id"].string!
-            stop.name = subJson["name"].string!
-            stop.lat = subJson["lat"].string!
-            stop.long = subJson["lon"].string!
+            stop.id = subJson["id"].string ?? ""
+            stop.name = subJson["name"].string ?? ""
+            stop.lat = subJson["lat"].string ?? ""
+            stop.long = subJson["lon"].string ?? ""
             stops.append(stop)
         }
         return stops
