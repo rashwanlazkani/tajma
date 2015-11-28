@@ -26,7 +26,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         //print("viewDidLoad")
-        
+
         infoLabel.userInteractionEnabled = true
         let aSelector : Selector = "lblTapped"
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
@@ -67,10 +67,15 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Location
     func getLocation(){
+        lat = ""
+        long = ""
         locationManager.startUpdatingLocation()
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if (!lat.isEmpty && !long.isEmpty){
+            return
+        }
         let location:CLLocationCoordinate2D = manager.location!.coordinate
         lat = String(location.latitude)
         long = String(location.longitude)
@@ -111,15 +116,11 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        print("Stops \(stops.count)")
+        //print("Stops \(stops.count)")
         return stops.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if (count > DeviceHelper.iPhoneModelSize()){
-//            return DeviceHelper.iPhoneModelSize()
-//        }
-        print("Lines \(stops[section].lines.count)")
         return stops[section].lines.count == 0 ? 1 : stops[section].lines.count
     }
     
@@ -241,35 +242,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         tableView.tableFooterView?.hidden = true
         self.tableView.backgroundColor = UIColor.clearColor()
         return table
-
-//        if (stops.count == 0){
-//            let view = UIView(frame: CGRectMake(0, 0, tableView.bounds.width, tableView.bounds.height));
-//            let loadingLabel = UILabel(frame: CGRectMake(0, 4, 200, 15))
-//            loadingLabel.textAlignment = NSTextAlignment.Left
-//            loadingLabel.textColor = UIColor.grayColor()
-//            loadingLabel.font = loadingLabel.font.fontWithSize(14)
-//            loadingLabel.text = "Laddar hållplatser..."
-//            view.addSubview(loadingLabel)
-//            return view
-//        }
-//        // TODO count på stopp och linjer
-//        else if (stops.count > DeviceHelper.iPhoneModelSize()){
-//            let view = UIView(frame: CGRectMake(0, 120, 300, 36));
-//            let maxLabel = UILabel(frame: CGRectMake(8, 10, 300, 36))
-//            maxLabel.text =  "Max antal linjer. Listar närmaste avgångar"
-//            maxLabel.font = UIFont.italicSystemFontOfSize(12)
-//            maxLabel.textColor = UIColor.whiteColor()
-//            view.addSubview(maxLabel)
-//            return view
-//        }
-//        else{
-//            let table = UIView(frame: CGRectZero)
-//            tableView.tableFooterView = table
-//            table.hidden = true
-//            tableView.tableFooterView?.hidden = true
-//            self.tableView.backgroundColor = UIColor.clearColor()
-//            return table
-//        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -287,7 +259,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Functions
     func getData(){
-        //print("getData")
+        print("getData")
         
         stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         //print("Hämtat stops")
@@ -301,7 +273,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             count += stop.lines.count == 0 ? 1 : stop.lines.count
         }
         
-        print("**************TOTALT ANTAL RADER = \(count)**************")
+        //print("**************TOTALT ANTAL RADER = \(count)**************")
         
         preferredContentSize = CGSizeMake(0, CGFloat(height))
         
