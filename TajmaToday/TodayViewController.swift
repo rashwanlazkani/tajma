@@ -25,8 +25,8 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print("viewDidLoad")
-
+        print("viewDidLoad")
+        
         infoLabel.userInteractionEnabled = true
         let aSelector : Selector = "lblTapped"
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
@@ -45,21 +45,20 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         }
     }
     
-    func lblTapped(){
-        openMainApp(nil)
-    }
-    
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        //print("viewWillAppear")
-
+        super.viewWillAppear(true)
+        print("viewWillAppear")
+        
+        lat = ""
+        long = ""
+        
         locationManager.startUpdatingLocation()
         timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
     }
     
     override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        //print("viewDidDisappear")
+        super.viewDidDisappear(true)
+        print("viewDidDisappear")
         
         locationManager.stopUpdatingLocation()
         timer.invalidate()
@@ -112,6 +111,8 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     // MARK: - Widget Delegate
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
         completionHandler(NCUpdateResult.NewData)
+        
+        print("widgetPerformUpdateWithCompletionHandler")
     }
     
     // MARK: - Table view data source
@@ -184,7 +185,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         mainLabel.textColor = UIColor.whiteColor()
         mainLabel.text = currentLine.sname
         mainLabel.text! += " " + currentLine.direction
-
+        
         for (index, time) in currentLine.departures.times.enumerate(){
             if (index == 0 && time == 0){
                 rightOne.text = "Nu"
@@ -286,6 +287,10 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         }
         
         self.tableView.reloadData()
+    }
+    
+    func lblTapped(){
+        openMainApp(nil)
     }
     
     override func didReceiveMemoryWarning() {
