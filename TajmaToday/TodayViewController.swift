@@ -33,8 +33,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         tapGesture.numberOfTapsRequired = 1
         infoLabel.addGestureRecognizer(tapGesture)
         
-        displayMessage("Laddar avgångar")
-        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -49,11 +47,19 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         super.viewWillAppear(true)
         print("viewWillAppear")
         
+        displayMessage("Laddar avgångar")
+        
         lat = ""
         long = ""
         
         locationManager.startUpdatingLocation()
         timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        
+        print("viewDidAppear")
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -100,10 +106,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     func displayMessage(message: String){
+        print("Message \(message)")
+        print("InfoLabel \(infoLabel.text!)")
         preferredContentSize = CGSizeMake(0, 30)
-        if (message == infoLabel.text){
-            return
-        }
+//        if (message == infoLabel.text){
+//            return
+//        }
         infoLabel.text = message
         infoLabel.hidden = false
     }
