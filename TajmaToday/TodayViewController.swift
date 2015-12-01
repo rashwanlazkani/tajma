@@ -106,8 +106,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     func displayMessage(message: String){
-        print("Message \(message)")
-        print("InfoLabel \(infoLabel.text!)")
         preferredContentSize = CGSizeMake(0, 30)
 //        if (message == infoLabel.text){
 //            return
@@ -119,8 +117,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     // MARK: - Widget Delegate
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
         completionHandler(NCUpdateResult.NewData)
-        
-        print("widgetPerformUpdateWithCompletionHandler")
     }
     
     // MARK: - Table view data source
@@ -142,16 +138,20 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         view.backgroundColor = UIColor.clearColor()
         
         let name = UILabel(frame: CGRectMake(8, 15, DeviceHelper.getLabelWidth(), 30))
-        name.font = name.font.fontWithSize(16)
+        name.font = name.font.fontWithSize(14)
         name.text = stops[section].name
         name.textColor = UIColor.lightGrayColor()
         
-        let distance = UILabel(frame: CGRectMake(tableView.bounds.width - 130, 15, 100, 30))
-        distance.font = distance.font.fontWithSize(16)
+        let distance = UILabel(frame: CGRectMake(tableView.bounds.width - 110, 15, 100, 30))
+        distance.font = distance.font.fontWithSize(14)
         distance.textColor = UIColor.lightGrayColor()
         distance.textAlignment = .Right;
         distance.text = String(stops[section].distance) + " m"
         
+        let separator = UIView(frame: CGRectMake(0, 45, tableView.frame.width, 1))
+        separator.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
+    
+        view.addSubview(separator)
         view.addSubview(name)
         view.addSubview(distance)
         
@@ -276,18 +276,17 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         var count = stops.count
         var height = stops.count * 40
         for stop in stops{
-            height += (stop.lines.count == 0 ? 1 : stop.lines.count) * 35
+            height += (stop.lines.count == 0 ? 1 : stop.lines.count) * 36
             
             
             count += stop.lines.count == 0 ? 1 : stop.lines.count
         }
-        
-        //print("**************TOTALT ANTAL RADER = \(count)**************")
-        
+
         preferredContentSize = CGSizeMake(0, CGFloat(height))
         
         if (stops.isEmpty){
             displayMessage("Ingen vald hållplats i närheten.")
+            tableView.reloadData()
             return
         }
         else{
