@@ -29,67 +29,46 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     var lat : String = ""
     var long : String = ""
     
+    let guideController = GuideController()
+    
+    
     override func viewDidAppear(animated: Bool) {
         initiateViews()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.locationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
+        
+        let loadData = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("LoadData")
+        if(!loadData){
+            self.performSegueWithIdentifier("ShowGuide", sender: nil)
+            NSUserDefaults(suiteName: "group.tajma.today")!.setBool(true, forKey: "LoadData")
         }
-        
-        self.title = "Bakåt"
-
-        searchBar!.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        checkForFirstTimeLaunch()
-        initiateViews()
-        setRateSettings()
-        
-        lines = SqliteService.sharedInstance.getLines()
+        else{
+            self.locationManager.requestWhenInUseAuthorization()
+            if CLLocationManager.locationServicesEnabled() {
+                locationManager.delegate = self
+                locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                locationManager.startUpdatingLocation()
+            }
+            
+            self.title = "Bakåt"
+            
+            searchBar!.delegate = self
+            tableView.delegate = self
+            tableView.dataSource = self
+            
+            initiateViews()
+            setRateSettings()
+            
+            lines = SqliteService.sharedInstance.getLines()
+        }
     }
- 
+    
     // MARK: - Functions
-    func checkForFirstTimeLaunch(){
-        let firstLaunch = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("FirstLaunch")
-        //let x = NSUserDefaults.standardUserDefaults().boolForKey("FirstLaunch")
-        if !firstLaunch  {
-             NSUserDefaults(suiteName: "group.tajma.today")!.setBool(true, forKey: "FirstLaunch")
-            
-            webView = UIWebView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height))
-            webView.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.tajmahelpappwebsite.rashwanlazkani.se/")!))
-            
-            btnCloseWebView = UIButton(frame: CGRectMake(view.bounds.width - 100,view.bounds.height - 45, 80, 40))
-            btnCloseWebView.backgroundColor = UIColor.clearColor()
-            btnCloseWebView.setTitle("Stäng", forState: UIControlState.Normal)
-            btnCloseWebView.addTarget(self, action: "closeWebView:", forControlEvents: .TouchUpInside)
-            btnCloseWebView.titleLabel?.font = UIFont.systemFontOfSize(14.0)
-            btnCloseWebView.titleLabel?.textAlignment = NSTextAlignment.Left
-            btnCloseWebView.backgroundColor = UIColor.grayColor()
-            btnCloseWebView.layer.cornerRadius = 5
-            
-            view.addSubview(webView)
-            view.addSubview(btnCloseWebView)
-        }
-    }
-    
-    func closeWebView(sender: UIButton!){
-        btnCloseWebView.removeFromSuperview()
-        webView.removeFromSuperview()
-        
-        locationManager.startUpdatingLocation()
-    }
-    
     func initiateViews(){
         self.view.backgroundColor = UIColor.whiteColor()
-
+        
         navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
         self.navigationController?.navigationBar.layer.zPosition = 1
@@ -212,12 +191,12 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.activityIndicator.stopAnimating()
                 UIApplication.sharedApplication().endIgnoringInteractionEvents()
             })
-        }, onError:{ error -> Void in
-            print(error)
-            self.displayError(error.localizedDescription)
+            }, onError:{ error -> Void in
+                print(error)
+                self.displayError(error.localizedDescription)
         })
     }
-
+    
     // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if (!lat.isEmpty && !long.isEmpty){
@@ -234,7 +213,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         print("Failed to find user´s location: \(error.localizedDescription)")
         displayError(error.localizedDescription)
     }
-
+    
     // MARK: - TableView
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -248,7 +227,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         cell.textLabel!.text = stops[indexPath.row].name
-
+        
         if(indexPath.row % 2 == 0){
             cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         } else{
@@ -286,7 +265,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         if (segue.identifier == "ShowLinesView")
         {
             UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-
+            
             let lines = segue.destinationViewController as! LinesViewController
             lines.stop = sender as! Stop
             lines.updateLines()
@@ -295,7 +274,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             self.activityIndicator.stopAnimating()
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

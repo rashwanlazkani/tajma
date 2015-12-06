@@ -97,6 +97,14 @@ class RestApiService: NSObject {
         })
     }
     
+    func twitchTest (stopId: String, onCompletion: (JSON) -> Void){
+        let url = "http://pastebin.com/nRp92hyd"
+        
+        makeHTTPGetRequest(url, onCompletion: { json, err in
+            onCompletion(json as JSON)
+        })
+    }
+    
     private func addDays(date: NSDate, additionalDays: Int) -> NSDate {
         let components = NSDateComponents()
         components.day = additionalDays

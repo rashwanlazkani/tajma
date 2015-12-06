@@ -16,6 +16,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     var  items = [String]()
     
     var deviceHelper = DeviceHelper()
+    let guide = GuideController()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -185,8 +186,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     func openHelp(){
-        let webV:UIWebView = UIWebView(frame: CGRectMake(0, self.navigationController!.navigationBar.bounds.height - 44, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height - 65))
-        webV.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.tajmahelpappwebsite.rashwanlazkani.se/")!))
-        self.view.addSubview(webV)
+        self.performSegueWithIdentifier("ShowGuide", sender: nil)
     }
 }

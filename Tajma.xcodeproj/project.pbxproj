@@ -48,6 +48,7 @@
 		F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */; };
 		F88F545C1B38AB3000F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
 		F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
+		F8A3D7701C14EAB500AEA7C3 /* GuideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */; };
 		F8B511691B22FA0400388866 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 		F8CB7DE91C08B6A400EAF401 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */; };
 		F8CB7DEA1C08B6A400EAF401 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */; };
@@ -143,6 +144,7 @@
 		F87AFE931B1B930700D3DAFC /* Tajma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tajma.entitlements; sourceTree = "<group>"; };
 		F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateMyApp.swift; sourceTree = "<group>"; };
 		F88F545B1B38AB3000F0D402 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
+		F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideController.swift; sourceTree = "<group>"; };
 		F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
 		F8D853C81BE12F2C00E2C1E2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				F843A3A71B1B04C2008F4505 /* StopsController.swift */,
 				F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */,
 				F843A3C51B1B066B008F4505 /* LinesViewController.swift */,
+				F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */,
 				F843A3A91B1B04C2008F4505 /* Main.storyboard */,
 				F843A3AC1B1B04C2008F4505 /* Images.xcassets */,
 				F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */,
@@ -616,6 +619,7 @@
 				F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */,
 				F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */,
 				F807230C1BE290BA00749E76 /* Status.swift in Sources */,
+				F8A3D7701C14EAB500AEA7C3 /* GuideController.swift in Sources */,
 				F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */,
 				F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */,
 				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,

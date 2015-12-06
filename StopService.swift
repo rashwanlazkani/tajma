@@ -52,6 +52,17 @@ class StopsService{
         }
     }
     
+    
+    func twitchTest(onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
+        RestApiService.sharedInstance.twitchTest("aa") { json in
+            let game = json["stream"]
+            print(json)
+            print(game)
+        }
+    }
+    
+    
+    
     func calculateDistance(stop: Stop, lat: Double, long: Double) -> Int{
         let userLocation = CLLocation(latitude: lat, longitude: long)
         let stopLocation = CLLocation(latitude: (stop.lat as NSString).doubleValue, longitude: (stop.long as NSString).doubleValue)

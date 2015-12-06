@@ -23,7 +23,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="9BT-l7-hRT">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9BT-l7-hRT" id="VCD-mg-pj7">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -47,11 +47,36 @@
                     <navigationItem key="navigationItem" id="HKu-Xg-Gkl"/>
                     <connections>
                         <outlet property="tableView" destination="zeL-5m-Bll" id="JAD-w1-lrr"/>
+                        <segue destination="U96-Za-JNU" kind="push" identifier="ShowGuide" id="egI-j1-zh1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5TD-b6-Atg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="873" y="-29"/>
+        </scene>
+        <!--Guide Controller-->
+        <scene sceneID="B1I-5N-3A3">
+            <objects>
+                <viewController id="U96-Za-JNU" customClass="GuideController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lyo-mA-bPL"/>
+                        <viewControllerLayoutGuide type="bottom" id="JJG-ts-ZHz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nG4-Hl-ztn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="vIR-i8-hhV"/>
+                    <connections>
+                        <segue destination="R3x-0W-ZXV" kind="push" identifier="ShowStops" id="BXL-uZ-VRB"/>
+                        <segue destination="7SI-it-BPf" kind="push" identifier="ShowInfo" id="1ac-6w-8ze"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vzo-CN-8Jk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1304" y="-10"/>
         </scene>
         <!--Stops Controller-->
         <scene sceneID="ei6-a1-9zM">
@@ -161,6 +186,7 @@
                         <outlet property="segmentedControl" destination="d8P-Ba-k8V" id="VaG-5F-WvZ"/>
                         <outlet property="tableView" destination="LDn-U8-IKL" id="seY-wp-XYL"/>
                         <segue destination="JpN-E7-M05" kind="push" identifier="ShowLinesView" id="Ead-0C-VTu"/>
+                        <segue destination="U96-Za-JNU" kind="push" identifier="ShowGuide" id="Bgc-3U-Nlu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RLX-9F-GkA" sceneMemberID="firstResponder"/>
@@ -228,4 +254,9 @@
         <image name="check-white" width="22" height="22"/>
         <image name="more-white" width="22" height="22"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="U32-uT-zLH"/>
+        <segue reference="egI-j1-zh1"/>
+        <segue reference="1ac-6w-8ze"/>
+    </inferredMetricsTieBreakers>
 </document>
