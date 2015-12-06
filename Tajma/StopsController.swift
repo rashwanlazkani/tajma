@@ -22,15 +22,12 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     var stops = [Stop]()
     var lines = [Line]()
     
-    var webView = UIWebView()
-    var btnCloseWebView  = UIButton()
     let locationManager = CLLocationManager()
     var activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
     var lat : String = ""
     var long : String = ""
     
     let guideController = GuideController()
-    
     
     override func viewDidAppear(animated: Bool) {
         initiateViews()
@@ -122,12 +119,12 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         stopService.getNearestStops(lat, long: long, onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.stops = json
-                if (self.stops.count > 0){
-                    self.tableView!.reloadData()
+                
+                if (self.stops.count == 0){
+                    self.displayError("Inga hållplatser i närheten. Försök igen.")
                 }
-                else{
-                    //self.displayError("Inga hållplatser i närheten. Försök igen.")
-                }
+                self.tableView!.reloadData()
+                
                 self.locationManager.stopUpdatingLocation()
                 self.segmentedControl.enabled = true
                 self.activityIndicator.stopAnimating()
@@ -143,8 +140,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func displayError(error: String){
-        let alert = UIAlertController(title: "Alert", message: error, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
+        let alert = UIAlertController(title: "Tajma", message: error, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
