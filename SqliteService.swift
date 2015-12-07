@@ -70,19 +70,19 @@ class SqliteService {
             return lines
         }
 
-        let data = Table("Lines")
-        for row in db.prepare(data) {
+        let stmt = db.prepare("SELECT * FROM Lines where stopId = '\(stopId)'")
+        for row in stmt {
             let line = Line()
-            line.id = row[Expression<String>("id")]
+            line.id = row[0] as! String
             line.stopId = stopId
-            line.lineAndDirection = row[Expression<String>("lineAndDirection")]
-            line.name = row[Expression<String>("name")]
-            line.sname = row[Expression<String>("sname")]
-            line.direction = row[Expression<String>("direction")]
-            line.type = row[Expression<String>("type")]
-            line.track = row[Expression<String>("track")]
-            line.bgColor = row[Expression<String>("bgColor")]
-            line.fgColor = row[Expression<String>("fgColor")]
+            line.name = row[2] as! String
+            line.sname = row[3] as! String
+            line.direction = row[4] as! String
+            line.lineAndDirection = row[5] as! String
+            line.type = row[6] as! String
+            line.track = row[7] as! String
+            line.bgColor = row[8] as! String
+            line.fgColor = row[9] as! String
             lines.append(line)
         }
         return lines
@@ -114,7 +114,7 @@ class SqliteService {
         let db = try! Connection(sharedHelper.getSharedUrl())
         
         let dbExists = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("DbExists")
-        if !dbExists  {
+        if !dbExists {
             NSUserDefaults(suiteName: "group.tajma.today")!.setBool(true, forKey: "DbExists")
             
             try! db.run("CREATE TABLE 'Stops' ('id' VARCHAR NOT NULL  UNIQUE, 'name' VARCHAR, 'lat' VARCHAR, 'long' VARCHAR)")
