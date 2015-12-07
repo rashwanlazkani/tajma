@@ -12,6 +12,7 @@ import SINQ
 public class LineService{
     func getAllLinesAtStop(stopId: String, onSuccess: ([Line]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.findAllLinesOnStop(stopId) { json in
+            let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var error = json["LocationList"]
             if (String(error["error"]) == Constants.VTerrorCode){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
@@ -22,7 +23,6 @@ public class LineService{
             else{
                 let jsonLines = json["DepartureBoard"]["Departure"]
                 var lines = [Line]()
-                let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
                 
                 for (_,subJson):(String, JSON) in jsonLines {
                     let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"
@@ -54,10 +54,15 @@ public class LineService{
                     }
                     
                     lines.append(line)
-                    
                 }
                 
-                
+                // om en linje inte går för tillfället så ska vi ändå lägga till den om den är tillagd sedan tidigare
+                for dbLine in dbLines{
+                    let line = from(lines).singleOrNil({$0.id == dbLine.id})
+                    if line == nil{
+                        lines.append(dbLine)
+                    }
+                }
                 
                 let numberLines = from(lines).whereTrue({Int($0.sname) != nil})
                 let sortedNumberLines = numberLines.sort({Int($0.sname) < Int($1.sname)})

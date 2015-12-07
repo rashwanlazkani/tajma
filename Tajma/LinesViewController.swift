@@ -73,13 +73,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     func updateLines(){
         activityIndicator.startAnimating()
         // Låser vyn
-        print("start")
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
         lineService.getAllLinesAtStop(stop.id, onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.lines = json
                 self.tableView.reloadData()
-                print("finnish")
             })
             dispatch_async(dispatch_get_main_queue(),{
                 self.activityIndicator.stopAnimating()
