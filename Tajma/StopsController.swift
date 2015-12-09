@@ -242,7 +242,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         let name = UILabel(frame: CGRectMake(15, 8, DeviceHelper.getLabelWidth() - 35, 30))
         name.textAlignment = NSTextAlignment.Left
         name.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        name.text = stops[indexPath.row].name + "hahahashhsahy12y87782181278127812787812"
+        name.text = stops[indexPath.row].name
         name.font = name.font.fontWithSize(16)
         
         cell.addSubview(name)
