@@ -43,25 +43,20 @@ class StopsService{
             }
             else{
                 let jsonStops = json["LocationList"]["StopLocation"]
-                let stops = from(self.mapToStop(jsonStops)).distinct{$0.0.name == $0.1.name}.toArray()
+                var stops = from(self.mapToStop(jsonStops)).distinct{$0.0.name == $0.1.name}.toArray()
                 for stop in stops{
+                    if (stop.id.isEmpty){
+                        if (stops.count == 1){
+                            stops.removeAll()
+                        }
+                        continue
+                    }
                     stop.id = StringHelper.customVtStopId(stop.id)
                 }
                 onSuccess(stops)
             }
         }
     }
-    
-    
-    func twitchTest(onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
-        RestApiService.sharedInstance.twitchTest("aa") { json in
-            let game = json["stream"]
-            print(json)
-            print(game)
-        }
-    }
-    
-    
     
     func calculateDistance(stop: Stop, lat: Double, long: Double) -> Int{
         let userLocation = CLLocation(latitude: lat, longitude: long)
