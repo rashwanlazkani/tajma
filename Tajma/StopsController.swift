@@ -121,7 +121,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.stops = json
                 
                 if (self.stops.count == 0){
-                    self.displayError("Inga hållplatser i närheten. Försök igen.")
+                    self.displayError("Inga hållplatser i närheten. Försök igen.", type: Error.Nearest)
                 }
                 self.tableView!.reloadData()
                 
@@ -133,17 +133,22 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 
             })
             }, onError:{ error -> Void in
-                self.displayError(error.localizedDescription)
+                self.displayError(error.localizedDescription, type: Error.Location)
         })
         
         
     }
     
-    func displayError(error: String){
+    func displayError(error: String, type: Error){
         let alert = UIAlertController(title: "Tajma", message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Försök igen", style: UIAlertActionStyle.Default, handler: { (alert) -> Void in
-            self.getNearestStops()
+            switch type {
+            case Error.Location :
+                return self.locationManager.startUpdatingLocation()
+            case Error.Nearest :
+                return self.getNearestStops()
+            }
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
@@ -193,7 +198,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             })
             }, onError:{ error -> Void in
                 print(error)
-                self.displayError(error.localizedDescription)
+                self.displayError(error.localizedDescription, type: Error.Location)
         })
     }
     
@@ -211,7 +216,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("Failed to find user´s location: \(error.localizedDescription)")
-        displayError(error.localizedDescription)
+        //displayError(error.localizedDescription)
+        displayError("Kunde inte faställa din position", type: Error.Location)
     }
     
     // MARK: - TableView
@@ -226,7 +232,20 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        cell.textLabel!.text = stops[indexPath.row].name
+        
+        for view in cell.subviews{
+            if(view.isKindOfClass(UILabel)){
+                view.removeFromSuperview()
+            }
+        }
+        
+        let name = UILabel(frame: CGRectMake(15, 8, DeviceHelper.getLabelWidth() - 35, 30))
+        name.textAlignment = NSTextAlignment.Left
+        name.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+        name.text = stops[indexPath.row].name + "hahahashhsahy12y87782181278127812787812"
+        name.font = name.font.fontWithSize(16)
+        
+        cell.addSubview(name)
         
         if(indexPath.row % 2 == 0){
             cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
