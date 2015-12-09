@@ -31,25 +31,32 @@ class DeviceHelper {
             return 13
         case "iPhone 6 Plus" :
             return 16
-        default:
+        case "iPhone 6s" :
             return 13
+        case "iPhone 6s Plus" :
+            return 16
+        default:
+            return 16
         }
     }
     
     static func getLabelWidth() -> CGFloat{
         switch DeviceHelper.iPhoneModelSize() {
-            // 5
+            // 4, 4s
+        case 8 :
+            return 270.0
+            // 5, 5s
         case 10 :
-            return 200.0
-            // 6
+            return 270.0
+            // 6, 6s
         case 13 :
-            return 250.0
-            // 6P
+            return 320.0
+            // 6P, 6sP
         case 16 :
-            return 290.0
+            return 360.0
             // Simulator, iPad osv
         default:
-            return 300
+            return 290
         }
     }
 }
