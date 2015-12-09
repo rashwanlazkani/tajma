@@ -142,6 +142,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func displayError(error: String){
         let alert = UIAlertController(title: "Tajma", message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Försök igen", style: UIAlertActionStyle.Default, handler: { (alert) -> Void in
+            self.getNearestStops()
+        }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
