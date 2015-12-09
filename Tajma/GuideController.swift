@@ -26,6 +26,8 @@ class GuideController: UIViewController{
         guideImageView.frame = CGRectMake(0, 0, CGFloat(deviceHelper.screenWidth), CGFloat(deviceHelper.screenHeight))
         self.view.addSubview(guideImageView)
         
+        
+        
         let swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
@@ -38,30 +40,24 @@ class GuideController: UIViewController{
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.Right :
-                // decrease index first
-                guideImageIndex--
-                
                 // check if index is in range
-                if guideImageIndex < 0 {
-                    guideImageIndex = 0
+                if guideImageIndex > 0 {
+                     guideImageIndex--
                 }
-                
+
                 guideImageView.image = UIImage(named: guideImages[guideImageIndex])
                 
             case UISwipeGestureRecognizerDirection.Left:
-                // increase index first
-                guideImageIndex++
-                
-                if guideImageIndex == guideImages.count - 1{
-                    let myFirstButton = UIButton()
-                    myFirstButton.frame = CGRectMake(0, self.view.frame.height - 75, CGFloat(deviceHelper.screenWidth), 75)
-                    myFirstButton.addTarget(self, action: "startApp:", forControlEvents: .TouchUpInside)
-                    self.view.addSubview(myFirstButton)
+                // check if index is in range
+                if guideImageIndex < guideImages.count - 1{
+                    guideImageIndex++
                 }
                 
-                // check if index is in range
-                if guideImageIndex > guideImages.count - 1{
-                    guideImageIndex = 0
+                if guideImageIndex == guideImages.count - 1{
+                    let button = UIButton()
+                    button.frame = CGRectMake(0, self.view.frame.height - 75, CGFloat(deviceHelper.screenWidth), 75)
+                    button.addTarget(self, action: "startApp:", forControlEvents: .TouchUpInside)
+                    self.view.addSubview(button)
                 }
                 
                 guideImageView.image = UIImage(named: guideImages[guideImageIndex])

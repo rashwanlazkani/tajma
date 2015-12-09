@@ -128,9 +128,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.locationManager.stopUpdatingLocation()
                 self.segmentedControl.enabled = true
                 self.activityIndicator.stopAnimating()
-                
-                print("getNearestStops KLAR")
-                
             })
             }, onError:{ error -> Void in
                 self.displayError(error.localizedDescription, type: Error.Location)
