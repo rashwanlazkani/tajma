@@ -17,6 +17,7 @@ class GuideController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController!.interactivePopGestureRecognizer!.enabled = false
         self.navigationController?.navigationBar.hidden = true
         start()
     }
@@ -68,6 +69,7 @@ class GuideController: UIViewController{
     }
     
     func startApp(sender: UIButton){
+        self.navigationController!.interactivePopGestureRecognizer!.enabled = true
         guideImageView.removeFromSuperview()
         self.performSegueWithIdentifier("ShowStops", sender: nil)
     }
