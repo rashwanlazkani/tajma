@@ -144,7 +144,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     // MARK: - Functions
     func openShare(){
         let activityItems = ["Vill tipsa om en grym app som jag...", "", "https://itunes.apple.com/se/app/instainfo/id689392780?mt=8"]
-        
         let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         self.presentViewController(vc, animated: true, completion: nil)
     }
@@ -173,7 +172,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         if (sender == Info.Feedback){
             let toRecipients = ["Rashwan87@gmail.com"]
             let subject = "Feedback Tajma app"
-            let body = "<H3>Feedback</h3><p>Jag har en \(UIDevice.currentDevice().modelName)<br> Jag har iOS version \(UIDevice.currentDevice().systemVersion)<br</p><br><br><br>"
+            let body = "<br><br><p>Jag har en \(UIDevice.currentDevice().modelName).<br> Jag har iOS version \(UIDevice.currentDevice().systemVersion).<br</p>"
             
             mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
