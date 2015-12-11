@@ -27,16 +27,12 @@ class DeviceHelper {
             return 8
         case "iPhone 5", "iPhone 5C", "iPhone 5S" :
             return 10
-        case "iPhone 6" :
+        case "iPhone 6, iPhone 6s" :
             return 13
-        case "iPhone 6 Plus" :
-            return 16
-        case "iPhone 6s" :
-            return 13
-        case "iPhone 6s Plus" :
+        case "iPhone 6 Plus, iPhone 6s Plus" :
             return 16
         default:
-            return 16
+            return 8
         }
     }
     
@@ -57,6 +53,15 @@ class DeviceHelper {
             // Simulator, iPad osv
         default:
             return 290
+        }
+    }
+    
+    static func isFourOrFive() -> Bool{
+        if (iPhoneModelSize() == 8) || (iPhoneModelSize() == 10){
+            return true
+        }
+        else{
+            return false
         }
     }
 }
