@@ -35,7 +35,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let loadData = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("LoadData")
         if(!loadData){
             self.performSegueWithIdentifier("ShowGuide", sender: nil)
@@ -77,10 +76,16 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.whiteColor()
         searchBar.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
-        searchBar.tintColor = UIColor(red: 32/255, green: 106/255, blue: 196/255, alpha: 1)
+        searchBar.setImage(UIImage(named: "erase"), forSearchBarIcon: UISearchBarIcon.Clear, state: UIControlState.Normal)
+        searchBar.tintColor = UIColor.whiteColor()
         let textfield:UITextField = searchBar.valueForKey("searchField") as! UITextField
         let attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
         textfield.attributedPlaceholder = attributedString
+        
+        
+        
+        
+        
         
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
