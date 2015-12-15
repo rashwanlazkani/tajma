@@ -41,16 +41,24 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
         }
+        else{
+            displayMessage("Slå på platstjänster")
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         print("viewWillAppear")
         
-        displayMessage("Laddar avgångar")
-        
         lat = ""
         long = ""
+        
+        if CLLocationManager.locationServicesEnabled() {
+            displayMessage("Laddar avgångar...")
+        }
+        else{
+            displayMessage("Klicka här för att slå på platstjänster.")
+        }
         
         locationManager.startUpdatingLocation()
         timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
@@ -97,9 +105,9 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch status {
         case CLAuthorizationStatus.Restricted:
-            displayMessage("Slå på platstjänster")
+            displayMessage("Klicka här för att slå på platstjänster.")
         case CLAuthorizationStatus.Denied:
-            displayMessage("Slå på platstjänster")
+            displayMessage("Klicka här för att slå på platstjänster.")
         default:
             break
         }

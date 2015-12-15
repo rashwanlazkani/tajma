@@ -124,8 +124,9 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         var fontSize = CGFloat(16)
         var sname = ""
         if ((Int(currentLine.sname.substringToIndex(currentLine.sname.startIndex.advancedBy(1)))) == nil){
+            fontSize = CGFloat(12)
             let snameArr = Array(currentLine.sname.characters)
-            sname = String(snameArr[0])
+            sname = String(snameArr[0]) + String(snameArr[1]) + String(snameArr[2])
         }
         else if (currentLine.sname.characters.count > 2){
             fontSize = CGFloat(12)

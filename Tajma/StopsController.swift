@@ -126,7 +126,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.stops = json
                 
                 if (self.stops.count == 0){
-                    self.displayError("Inga hållplatser i närheten. Försök igen.", type: Error.Nearest)
+                    self.displayError("Inga hållplatser i närheten.", type: Error.Nearest)
                 }
                 self.tableView!.reloadData()
                 
@@ -170,11 +170,12 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             lat = ""
             long = ""
             self.locationManager.startUpdatingLocation()
-            self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
             stops = SqliteService.sharedInstance.getStops()
         }
+        self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
+        self.searchBar.text = ""
         lines = SqliteService.sharedInstance.getLines()
         searchBar.resignFirstResponder()
         tableView.reloadData()

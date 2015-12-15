@@ -31,7 +31,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         tableView.delegate = self
         tableView.dataSource = self
         
-        items = ["Ge oss feedback","Gilla oss på facebook","Dela appen", "Betygsätt Tajma", "Hjälp"]
+        items = ["Ge oss feedback","Gilla oss på Facebook","Dela appen", "Betygsätt Tajma", "Så här fungerar appen"]
     }
     
     override func willMoveToParentViewController(parent: UIViewController?) {
