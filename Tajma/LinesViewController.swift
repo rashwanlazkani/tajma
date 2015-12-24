@@ -9,6 +9,7 @@
 import UIKit
 import SINQ
 
+
 class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet weak var navController: UINavigationItem!
     @IBOutlet weak var navItem: UINavigationItem!
@@ -102,6 +103,8 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         cell.selectionStyle = .None
         
+        
+        
         for view in cell.subviews{
             if(view.isKindOfClass(UILabel) || view.isKindOfClass(UIImage) || view.isKindOfClass(UIView)){
                 view.removeFromSuperview()
@@ -177,10 +180,12 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         updateMyLines()
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
 }
