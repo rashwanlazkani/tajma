@@ -21,7 +21,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     var stops = [Stop]()
     var lat  = ""
     var long = ""
-    var count = 0
+    var timerCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         lat = ""
         long = ""
         
-        if CLLocationManager.locationServicesEnabled() {
+        if CLLocationManager.locationServicesEnabled(){
             displayMessage("Laddar avgångar...")
         }
         else{
@@ -64,15 +64,11 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
-        
-        print("viewDidAppear")
-    }
-    
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)
         print("viewDidDisappear")
+        
+        self.stops = [Stop]()
         
         locationManager.stopUpdatingLocation()
         timer.invalidate()
@@ -80,6 +76,11 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Location
     func getLocation(){
+        print(timerCount)
+        if timerCount > 5{
+            timer.invalidate()
+        }
+        timerCount++
         lat = ""
         long = ""
         locationManager.startUpdatingLocation()
@@ -99,6 +100,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("Failed to find user´s location: \(error.localizedDescription)")
+        displayMessage("Klicka här för att slå på platstjänster.")
         locationManager.requestLocation()
     }
     
@@ -115,15 +117,17 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     func displayMessage(message: String){
         preferredContentSize = CGSizeMake(0, 30)
-//        if (message == infoLabel.text){
-//            return
-//        }
+        if (message == infoLabel.text){
+            return
+        }
         infoLabel.text = message
         infoLabel.hidden = false
     }
     
     // MARK: - Widget Delegate
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
+        displayMessage("Laddar data")
+        getData()
         completionHandler(NCUpdateResult.NewData)
     }
     
@@ -144,6 +148,9 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = UIColor.clearColor()
+        
+        view.layer.cornerRadius = 10
+        view.layer.masksToBounds = true
         
         let name = UILabel(frame: CGRectMake(8, 15, DeviceHelper.getLabelWidth(), 30))
         name.font = name.font.fontWithSize(14)
@@ -270,8 +277,13 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Events
     func openMainApp(sender: UIButton!) {
-        let url = NSURL(fileURLWithPath: "Tajma://home")
-        self.extensionContext?.openURL(url, completionHandler: nil)
+        if (infoLabel.text == "Klicka här för att slå på platstjänster."){
+            print("PLATS")
+        }
+        else{
+            let url = NSURL(fileURLWithPath: "Tajma://home")
+            self.extensionContext?.openURL(url, completionHandler: nil)
+        }
     }
     
     // MARK: - Functions
@@ -302,6 +314,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         }
         
         self.tableView.reloadData()
+        self.tableView.layoutIfNeeded()
     }
     
     func lblTapped(){
