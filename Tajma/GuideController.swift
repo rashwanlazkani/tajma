@@ -139,11 +139,11 @@ class GuideController: UIViewController{
             button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
             
             if (DeviceHelper.isFourOrFive()){
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 90, self.view.frame.height - 65, 45, 45)
+                button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 65, 45, 45)
                 button2.frame = CGRectMake(self.view.frame.width / 2 + 15, self.view.frame.height - 65, 100, 45)
             }
             else{
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 90, self.view.frame.height - 75, 45, 45)
+                button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 75, 45, 45)
                 button2.frame = CGRectMake(self.view.frame.width / 2 + 15, self.view.frame.height - 75, 100, 45)
             }
             self.view.addSubview(button1)
@@ -170,11 +170,11 @@ class GuideController: UIViewController{
             
             if (DeviceHelper.isFourOrFive()){
                 button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 65, 45, 45)
-                button2.frame = CGRectMake(self.view.frame.width / 3, self.view.frame.height - 65, 170, 45)
+                button2.frame = CGRectMake(self.view.frame.width / 2 - 50, self.view.frame.height - 65, 200, 45)
             }
             else{
                 button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 75, 45, 45)
-                button2.frame = CGRectMake(self.view.frame.width / 3, self.view.frame.height - 75, 220, 45)
+                button2.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.height - 75, 300, 45)
             }
             self.view.addSubview(button1)
             self.view.addSubview(button2)
