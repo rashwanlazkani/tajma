@@ -292,7 +292,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         
         stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         //print("Hämtat stops")
-        
         var count = stops.count
         var height = stops.count * 40
         for stop in stops{

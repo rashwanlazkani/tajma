@@ -22,7 +22,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="9BT-l7-hRT">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9BT-l7-hRT" id="VCD-mg-pj7">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -76,7 +76,7 @@
         <!--Stops Controller-->
         <scene sceneID="ei6-a1-9zM">
             <objects>
-                <viewController id="R3x-0W-ZXV" customClass="StopsController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StopsController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="R3x-0W-ZXV" customClass="StopsController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bED-iB-zdf"/>
                         <viewControllerLayoutGuide type="bottom" id="aCV-Th-0s2"/>
@@ -190,7 +190,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="gTa-zA-twJ">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gTa-zA-twJ" id="FkM-50-9Su">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -238,8 +238,8 @@
         <image name="more-white" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="egI-j1-zh1"/>
-        <segue reference="1ac-6w-8ze"/>
-        <segue reference="BXL-uZ-VRB"/>
+        <segue reference="U32-uT-zLH"/>
+        <segue reference="cKZ-WW-ghh"/>
+        <segue reference="Bgc-3U-Nlu"/>
     </inferredMetricsTieBreakers>
 </document>

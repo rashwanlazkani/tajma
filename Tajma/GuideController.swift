@@ -95,19 +95,21 @@ class GuideController: UIViewController{
             }
         }
         
+        let button1 = UIButton()
+        button1.layer.borderColor = UIColor.whiteColor().CGColor
+        button1.layer.borderWidth = 2
+        button1.layer.cornerRadius = 20
+        
+        let button2 = UIButton()
+        button2.layer.borderColor = UIColor.whiteColor().CGColor
+        button2.layer.borderWidth = 2
+        button2.layer.cornerRadius = 20
+        
         switch index {
         case 0 :
-            let button1 = UIButton()
-            button1.layer.borderColor = UIColor.whiteColor().CGColor
-            button1.layer.borderWidth = 2
-            button1.layer.cornerRadius = 20
             button1.setTitle("Avsluta", forState: .Normal)
             button1.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
             
-            let button2 = UIButton()
-            button2.layer.borderColor = UIColor.whiteColor().CGColor
-            button2.layer.borderWidth = 2
-            button2.layer.cornerRadius = 20
             button2.setTitle("Visa mig >", forState: .Normal)
             button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
             
@@ -123,18 +125,9 @@ class GuideController: UIViewController{
             self.view.addSubview(button1)
             self.view.addSubview(button2)
         case 1, 2, 3, 4 :
-            let button1 = UIButton()
-            
-            button1.layer.borderColor = UIColor.whiteColor().CGColor
-            button1.layer.borderWidth = 2
-            button1.layer.cornerRadius = 20
             button1.setTitle("<", forState: .Normal)
             button1.addTarget(self, action: "previous", forControlEvents: .TouchUpInside)
             
-            let button2 = UIButton()
-            button2.layer.borderColor = UIColor.whiteColor().CGColor
-            button2.layer.borderWidth = 2
-            button2.layer.cornerRadius = 20
             button2.setTitle("Nästa >", forState: .Normal)
             button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
             
@@ -150,18 +143,9 @@ class GuideController: UIViewController{
             self.view.addSubview(button2)
             
         case 5 :
-            let button1 = UIButton()
-            
-            button1.layer.borderColor = UIColor.whiteColor().CGColor
-            button1.layer.borderWidth = 2
-            button1.layer.cornerRadius = 20
             button1.setTitle("<", forState: .Normal)
             button1.addTarget(self, action: "previous", forControlEvents: .TouchUpInside)
             
-            let button2 = UIButton()
-            button2.layer.borderColor = UIColor.whiteColor().CGColor
-            button2.layer.borderWidth = 2
-            button2.layer.cornerRadius = 20
             button2.setTitle("TAJMA AVÅNG!", forState: .Normal)
             button2.backgroundColor = UIColor.whiteColor()
             button2.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
