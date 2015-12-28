@@ -14,9 +14,10 @@ import SINQ
 
 class SqliteService {
     let sharedHelper = SharedHelper()
-    let dbExists = NSUserDefaults.standardUserDefaults().boolForKey("DbExists")
     
     func getStops() -> [Stop]{
+        let dbExists = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("DbExists")
+        print("DB Exists \(dbExists)")
         if (!dbExists){
             createTables()
         }
@@ -37,6 +38,7 @@ class SqliteService {
     }
     
     func getLines() -> [Line]{
+        let dbExists = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("DbExists")
         if (!dbExists){
             createTables()
         }
@@ -113,9 +115,12 @@ class SqliteService {
     private func createTables(){
         let db = try! Connection(sharedHelper.getSharedUrl())
         
-        let dbExists = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("DbExists")
+        var dbExists = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("DbExists")
         if !dbExists {
             NSUserDefaults(suiteName: "group.tajma.today")!.setBool(true, forKey: "DbExists")
+            
+            dbExists = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("DbExists")
+            print("DB Exists in SQLITE \(dbExists)")
             
             try! db.run("CREATE TABLE 'Stops' ('id' VARCHAR NOT NULL  UNIQUE, 'name' VARCHAR, 'lat' VARCHAR, 'long' VARCHAR)")
             
