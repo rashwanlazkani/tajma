@@ -23,11 +23,10 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.layer.zPosition = 1
-        
         initiateViews()
         
-        // TableView
+        self.navigationController?.navigationBar.layer.zPosition = 1
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -44,8 +43,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     // MARK: - Functions
     func initiateViews(){
-        
-        // NavController
         self.navigationController?.navigationBar.hidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -87,8 +84,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
             cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         }
         
-        
-        // Sätta bakgrunden på tableView
         if (indexPath.row == items.count - 1){
             tableView.tableFooterView = UIView(frame: CGRectZero)
             

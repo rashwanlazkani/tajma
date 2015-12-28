@@ -28,10 +28,9 @@ class DateHelper {
         
         assert(weekdaysName.contains(dayName), "weekday symbol should be in form \(weekdaysName)")
         
-        let nextWeekDayIndex = weekdaysName.indexOf(dayName)! + 1 // weekday is in form 1 ... 7 where as index is 0 ... 6
-        
+        // weekday is in form 1 ... 7 where as index is 0 ... 6
+        let nextWeekDayIndex = weekdaysName.indexOf(dayName)! + 1
         let today = NSDate()
-        
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         
         if consider && calendar.component(.Weekday, fromDate: today) == nextWeekDayIndex {

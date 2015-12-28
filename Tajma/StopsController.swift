@@ -82,11 +82,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         let attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
         textfield.attributedPlaceholder = attributedString
         
-        
-        
-        
-        
-        
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
         tableView.tableFooterView = UIView(frame: CGRectZero)
@@ -137,8 +132,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             }, onError:{ error -> Void in
                 self.displayError(error.localizedDescription, type: Error.Location)
         })
-        
-        
     }
     
     func displayError(error: String, type: Error){
@@ -217,7 +210,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        //displayError(error.localizedDescription)
         displayError("Kunde inte faställa din position", type: Error.Location)
     }
     
