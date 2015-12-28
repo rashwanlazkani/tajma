@@ -200,7 +200,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 UIApplication.sharedApplication().endIgnoringInteractionEvents()
             })
             }, onError:{ error -> Void in
-                print(error)
                 self.displayError(error.localizedDescription, type: Error.Location)
         })
     }
@@ -218,7 +217,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print("Failed to find user´s location: \(error.localizedDescription)")
         //displayError(error.localizedDescription)
         displayError("Kunde inte faställa din position", type: Error.Location)
     }

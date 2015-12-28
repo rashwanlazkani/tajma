@@ -19,7 +19,6 @@ public class DepartureService {
             if (String(error["error"]) == Constants.VTerrorCode){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
                 onError(error)
-                print(error)
                 return
             }
             
@@ -81,7 +80,7 @@ public class DepartureService {
                     closestStops.append(stop)
                     dispatch_group_leave(getDeparturesGroup)
                 }, onError:{ error -> Void in
-                    print(error)
+                    
                 })
             }
             else{
@@ -90,7 +89,6 @@ public class DepartureService {
         }
         
         dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
-        print("Hämtat closestStops")
         
         return from(closestStops).orderBy({$0.distance}).map({$0})
     }

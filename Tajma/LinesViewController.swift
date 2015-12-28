@@ -85,7 +85,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
                 UIApplication.sharedApplication().endIgnoringInteractionEvents()
             })
             }, onError:{ error -> Void in
-                print(error)
         })
     }
     

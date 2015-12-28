@@ -66,7 +66,6 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: { (placemarks, error) -> Void in
             if (error != nil){
-                print("Error: " + error!.localizedDescription)
                 return
             }
             if (placemarks!.count > 0){
@@ -74,7 +73,6 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
                 self.displayLocationInfo(pm!)
             }
             else{
-                print("Error with location data")
             }
         })
     }
@@ -94,7 +92,6 @@ class InterfaceController: WKInterfaceController, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print("Error: " + error.localizedDescription)
     }
     
     func getLocationAndUpdateView(){

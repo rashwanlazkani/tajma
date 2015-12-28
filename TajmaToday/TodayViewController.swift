@@ -25,14 +25,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("viewDidLoad")
-        
-        infoLabel.userInteractionEnabled = true
-        let aSelector : Selector = "lblTapped"
-        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
-        tapGesture.numberOfTapsRequired = 1
-        infoLabel.addGestureRecognizer(tapGesture)
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -48,7 +41,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        print("viewWillAppear")
+        
+        infoLabel.userInteractionEnabled = true
+        let aSelector : Selector = "lblTapped"
+        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
+        tapGesture.numberOfTapsRequired = 1
+        infoLabel.addGestureRecognizer(tapGesture)
         
         lat = ""
         long = ""
@@ -57,7 +55,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             displayMessage("Laddar avgångar...")
         }
         else{
-            displayMessage("Klicka här för att slå på platstjänster.")
+            displayMessage("Slå på platstjänster för att använda Tajma.")
         }
         
         locationManager.startUpdatingLocation()
@@ -66,19 +64,18 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)
-        print("viewDidDisappear")
         
         self.stops = [Stop]()
-        
         locationManager.stopUpdatingLocation()
         timer.invalidate()
+        infoLabel.text = ""
     }
     
     // MARK: - Location
     func getLocation(){
-        print(timerCount)
-        if timerCount > 5{
+        if timerCount >= 4{
             timer.invalidate()
+            return
         }
         timerCount++
         lat = ""
@@ -99,17 +96,16 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print("Failed to find user´s location: \(error.localizedDescription)")
-        displayMessage("Klicka här för att slå på platstjänster.")
+        displayMessage("Slå på platstjänster för att använda Tajma.")
         locationManager.requestLocation()
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch status {
         case CLAuthorizationStatus.Restricted:
-            displayMessage("Klicka här för att slå på platstjänster.")
+            displayMessage("Slå på platstjänster för att använda Tajma.")
         case CLAuthorizationStatus.Denied:
-            displayMessage("Klicka här för att slå på platstjänster.")
+            displayMessage("Slå på platstjänster för att använda Tajma.")
         default:
             break
         }
@@ -133,7 +129,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        //print("Stops \(stops.count)")
         return stops.count
     }
     
@@ -242,6 +237,8 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         cell.addSubview(rightOne)
         cell.addSubview(rightTwo)
         
+        cell.layoutIfNeeded()
+        
         return cell
     }
     
@@ -258,13 +255,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        print("viewForFooterInSection")
-        
         let table = UIView(frame: CGRectZero)
         tableView.tableFooterView = table
         table.hidden = true
         tableView.tableFooterView?.hidden = true
         self.tableView.backgroundColor = UIColor.clearColor()
+        
         return table
     }
     
@@ -278,7 +274,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     // MARK: - Events
     func openMainApp(sender: UIButton!) {
         if (infoLabel.text == "Klicka här för att slå på platstjänster."){
-            print("PLATS")
         }
         else{
             let url = NSURL(fileURLWithPath: "Tajma://home")
@@ -288,10 +283,8 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Functions
     func getData(){
-        print("getData")
-        
         stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
-        //print("Hämtat stops")
+        
         var count = stops.count
         var height = stops.count * 40
         for stop in stops{
@@ -313,7 +306,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         }
         
         self.tableView.reloadData()
-        self.tableView.layoutIfNeeded()
     }
     
     func lblTapped(){
