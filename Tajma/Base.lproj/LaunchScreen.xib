@@ -11,14 +11,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B6M-AA-eZf">
-                    <rect key="frame" x="0.0" y="105" width="480" height="375"/>
+                    <rect key="frame" x="0.0" y="107" width="480" height="373"/>
                     <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.90588235289999997" green="0.2470588235" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="B6M-AA-eZf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Jv9-Hb-Ade"/>
-                <constraint firstItem="B6M-AA-eZf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="105" id="Sju-yE-9Gn"/>
+                <constraint firstItem="B6M-AA-eZf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="107" id="Sju-yE-9Gn"/>
                 <constraint firstAttribute="bottom" secondItem="B6M-AA-eZf" secondAttribute="bottom" id="aDH-pq-3Jm"/>
                 <constraint firstAttribute="trailing" secondItem="B6M-AA-eZf" secondAttribute="trailing" id="qHB-S3-cMM"/>
             </constraints>
