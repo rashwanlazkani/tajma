@@ -31,11 +31,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
+            displayMessage("Laddar avgångar...")
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
         }
         else{
-            displayMessage("Slå på platstjänster")
+            displayMessage("Slå på platstjänster för att använda Tajma.")
         }
     }
     
@@ -50,13 +51,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         
         lat = ""
         long = ""
-        
-        if CLLocationManager.locationServicesEnabled(){
-            displayMessage("Laddar avgångar...")
-        }
-        else{
-            displayMessage("Slå på platstjänster för att använda Tajma.")
-        }
         
         locationManager.startUpdatingLocation()
         timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
@@ -90,8 +84,8 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         let location:CLLocationCoordinate2D = manager.location!.coordinate
         lat = String(location.latitude)
         long = String(location.longitude)
-        locationManager.stopUpdatingLocation()
         
+        locationManager.stopUpdatingLocation()
         getData()
     }
     
@@ -283,6 +277,14 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Functions
     func getData(){
+        print("getData lat \(lat) long \(long) INNAN!")
+        
+        if (lat == "" && long == ""){
+            locationManager.startUpdatingLocation()
+            return
+        }
+        
+        print("getData lat \(lat) long \(long) EFTER!")
         stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
         var count = stops.count
