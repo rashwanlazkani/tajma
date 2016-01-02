@@ -25,23 +25,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        self.locationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            displayMessage("Laddar avgångar...")
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        }
-        else{
-            displayMessage("Slå på platstjänster för att använda Tajma.")
-        }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
+        print("viewDidLoad")
         
         infoLabel.userInteractionEnabled = true
         let aSelector : Selector = "lblTapped"
@@ -49,12 +33,37 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         tapGesture.numberOfTapsRequired = 1
         infoLabel.addGestureRecognizer(tapGesture)
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        }
+        else{
+            displayMessage("Slå på platstjänster")
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        print("viewWillAppear")
+        
         lat = ""
         long = ""
+        
+        if CLLocationManager.locationServicesEnabled() {
+            displayMessage("Laddar avgångar...")
+        }
+        else{
+            displayMessage("Klicka här för att slå på platstjänster.")
+        }
         
         locationManager.startUpdatingLocation()
         timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
     }
+
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)
@@ -116,10 +125,15 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Widget Delegate
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
-        displayMessage("Laddar data")
-        getData()
+        displayMessage("Laddar data...")
+        locationManager.startUpdatingLocation()
         completionHandler(NCUpdateResult.NewData)
     }
+    
+//    func widgetMarginInsetsForProposedMarginInsets(defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
+//        print("Inne")
+//        return UIEdgeInsetsMake(0, 0, 0, 0)
+//    }
     
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
