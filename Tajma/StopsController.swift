@@ -35,6 +35,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let loadData = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("LoadData")
         if(!loadData){
             self.performSegueWithIdentifier("ShowGuide", sender: nil)
@@ -130,7 +131,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.activityIndicator.stopAnimating()
             })
             }, onError:{ error -> Void in
-                self.displayError(error.localizedDescription, type: Error.Location)
+                self.displayError("Ett fel har uppstått med hämtning av närmaste hållplatser.", type: Error.Location)
         })
     }
     
@@ -193,7 +194,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 UIApplication.sharedApplication().endIgnoringInteractionEvents()
             })
             }, onError:{ error -> Void in
-                self.displayError(error.localizedDescription, type: Error.Location)
+                self.displayError("Ett fel har uppstått med sökningen.", type: Error.Location)
         })
     }
     
@@ -210,7 +211,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        displayError("Kunde inte faställa din position", type: Error.Location)
+        displayError("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.", type: Error.Location)
     }
     
     // MARK: - TableView

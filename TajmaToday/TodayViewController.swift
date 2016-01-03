@@ -12,7 +12,8 @@ import CoreLocation
 import SINQ
 
 class TodayTableViewController: UITableViewController, CLLocationManagerDelegate {
-    @IBOutlet weak var infoLabel: UILabel!
+
+    @IBOutlet weak var infoText: UITextView!
     var departureService = DepartureService()
     var lineService = LineService()
     var timer = NSTimer()
@@ -25,13 +26,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("viewDidLoad")
         
-        infoLabel.userInteractionEnabled = true
+        infoText.userInteractionEnabled = true
         let aSelector : Selector = "lblTapped"
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
         tapGesture.numberOfTapsRequired = 1
-        infoLabel.addGestureRecognizer(tapGesture)
+        infoText.addGestureRecognizer(tapGesture)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -42,14 +42,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
         }
         else{
-            displayMessage("Slå på platstjänster")
+            displayMessage("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        print("viewWillAppear")
-        
         lat = ""
         long = ""
         
@@ -57,7 +55,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             displayMessage("Laddar avgångar...")
         }
         else{
-            displayMessage("Klicka här för att slå på platstjänster.")
+            displayMessage("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         }
         
         locationManager.startUpdatingLocation()
@@ -71,7 +69,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         self.stops = [Stop]()
         locationManager.stopUpdatingLocation()
         timer.invalidate()
-        infoLabel.text = ""
+        infoText.text = ""
     }
     
     // MARK: - Location
@@ -99,33 +97,33 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        displayMessage("Slå på platstjänster för att använda Tajma.")
+        displayMessage("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         locationManager.requestLocation()
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch status {
         case CLAuthorizationStatus.Restricted:
-            displayMessage("Slå på platstjänster för att använda Tajma.")
+            displayMessage("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         case CLAuthorizationStatus.Denied:
-            displayMessage("Slå på platstjänster för att använda Tajma.")
+            displayMessage("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         default:
             break
         }
     }
     
     func displayMessage(message: String){
-        preferredContentSize = CGSizeMake(0, 30)
-        if (message == infoLabel.text){
+        preferredContentSize = CGSizeMake(0, 60)
+        if (message == infoText.text){
             return
         }
-        infoLabel.text = message
-        infoLabel.hidden = false
+        infoText.text = message
+        infoText.hidden = false
     }
     
     // MARK: - Widget Delegate
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
-        displayMessage("Laddar data...")
+        displayMessage("Laddar avgångar...")
         locationManager.startUpdatingLocation()
         completionHandler(NCUpdateResult.NewData)
     }
@@ -281,7 +279,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Events
     func openMainApp(sender: UIButton!) {
-        if (infoLabel.text == "Klicka här för att slå på platstjänster."){
+        if (infoText.text == "Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster."){
         }
         else{
             let url = NSURL(fileURLWithPath: "Tajma://home")
@@ -318,7 +316,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             return
         }
         else{
-            infoLabel.hidden = true
+            infoText.hidden = true
         }
         
         self.tableView.reloadData()
