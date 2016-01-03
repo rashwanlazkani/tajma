@@ -16,7 +16,7 @@ extension Int  {
     }
 }
 
-class RestApiService: NSObject {
+class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     static let sharedInstance = RestApiService()
     
     func getNearestStops(lat: String, long: String, onCompletion: (JSON) -> Void){
@@ -108,12 +108,17 @@ class RestApiService: NSObject {
     
     private func makeHTTPGetRequest(path: String, onCompletion: ServiceResponse) {
         let request = NSMutableURLRequest(URL: NSURL(string: path)!)
-        let session = NSURLSession.sharedSession()
         
-        session.configuration.timeoutIntervalForRequest = 0.000001
-        session.configuration.timeoutIntervalForResource = 0.000001
+        let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        urlconfig.timeoutIntervalForRequest = 5
+        urlconfig.timeoutIntervalForResource = 5
+        let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+            if data == nil{
+                onCompletion(nil, error)
+                return
+            }
             let json:JSON = JSON(data: data!)
             onCompletion(json, error)
         })
