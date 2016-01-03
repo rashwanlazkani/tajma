@@ -58,6 +58,7 @@
 		F8E081011B35B1D000A96A45 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E081001B35B1D000A96A45 /* Info.swift */; };
 		F8E7142C1C0A57E40004182D /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82D34161C0A552000E03703 /* DateHelper.swift */; };
 		F8F668401C18D41000F6B15A /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F6683F1C18D41000F6B15A /* Error.swift */; };
+		F8FA48421C39BE010080E12B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA48411C39BE010080E12B /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +152,7 @@
 		F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		F8E081001B35B1D000A96A45 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		F8F6683F1C18D41000F6B15A /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		F8FA48411C39BE010080E12B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				F8729F401BF77E57000E9C9C /* SharedHelper.swift */,
 				F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */,
 				F82D34161C0A552000E03703 /* DateHelper.swift */,
+				F8FA48411C39BE010080E12B /* Reachability.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				F807230C1BE290BA00749E76 /* Status.swift in Sources */,
 				F8A3D7701C14EAB500AEA7C3 /* GuideController.swift in Sources */,
 				F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */,
+				F8FA48421C39BE010080E12B /* Reachability.swift in Sources */,
 				F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */,
 				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,
 				F80667511B1D157C00A26B5D /* UIColor.swift in Sources */,

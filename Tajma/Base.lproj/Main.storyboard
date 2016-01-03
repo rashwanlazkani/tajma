@@ -22,7 +22,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="9BT-l7-hRT">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9BT-l7-hRT" id="VCD-mg-pj7">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -89,7 +89,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="107"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZ4-sc-DBS">
-                                        <rect key="frame" x="265" y="24" width="58" height="22"/>
+                                        <rect key="frame" x="265" y="24" width="58" height="44"/>
                                         <state key="normal" image="more-white">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -238,8 +238,8 @@
         <image name="more-white" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="U32-uT-zLH"/>
-        <segue reference="cKZ-WW-ghh"/>
+        <segue reference="BXL-uZ-VRB"/>
         <segue reference="Bgc-3U-Nlu"/>
+        <segue reference="cKZ-WW-ghh"/>
     </inferredMetricsTieBreakers>
 </document>
