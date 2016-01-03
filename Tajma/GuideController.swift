@@ -12,7 +12,7 @@ class GuideController: UIViewController{
     let deviceHelper = DeviceHelper()
     
     var guideImageIndex: NSInteger = 0
-    let guideImages = ["guide-1", "guide-2", "guide-3", "guide-4", "guide-5", "guide-6"]
+    let guideImages = ["guide_1", "guide_2", "guide_3", "guide_4", "guide_5", "guide_6"]
     let guideImageView = UIImageView()
     
     override func viewDidLoad() {
@@ -37,26 +37,29 @@ class GuideController: UIViewController{
         self.view.addGestureRecognizer(swipeLeft)
         
         let button1 = UIButton()
-        button1.layer.borderColor = UIColor.whiteColor().CGColor
-        button1.layer.borderWidth = 2
-        button1.layer.cornerRadius = 20
-        button1.setTitle("Avsluta", forState: .Normal)
+        let img = UIImage(named: "close")
+        button1.setImage(img, forState: .Normal)
         button1.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
         
         let button2 = UIButton()
+        let imgTwo = UIImage(named: "right")
+        button2.setImage(imgTwo, forState: .Normal)
         button2.layer.borderColor = UIColor.whiteColor().CGColor
         button2.layer.borderWidth = 2
-        button2.layer.cornerRadius = 20
-        button2.setTitle("Visa mig >", forState: .Normal)
+        button2.layer.cornerRadius = 22
+        button2.setTitle(" Visa mig  ", forState: .Normal)
         button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
+        button2.transform = CGAffineTransformMakeScale(-1.0, 1.0)
+        button2.titleLabel!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
+        button2.imageView!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
         
         if (DeviceHelper.isFourOrFive()){
-            button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 65, 90, 45)
-            button2.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.height - 65, 150, 45)
+            button1.frame = CGRectMake(-10, 20, 90, 44)
+            button2.frame = CGRectMake(self.view.frame.width / 2 - 60, self.view.frame.height - 65, 120, 45)
         }
         else{
-            button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 75, 90, 45)
-            button2.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.height - 75, 150, 45)
+            button1.frame = CGRectMake(-10, 20, 90, 44)
+            button2.frame = CGRectMake(self.view.frame.width / 2 - 60, self.view.frame.height - 75, 150, 45)
         }
         self.view.addSubview(button1)
         self.view.addSubview(button2)
@@ -98,67 +101,85 @@ class GuideController: UIViewController{
         let button1 = UIButton()
         button1.layer.borderColor = UIColor.whiteColor().CGColor
         button1.layer.borderWidth = 2
-        button1.layer.cornerRadius = 20
+        button1.layer.cornerRadius = 22
         
         let button2 = UIButton()
         button2.layer.borderColor = UIColor.whiteColor().CGColor
         button2.layer.borderWidth = 2
-        button2.layer.cornerRadius = 20
+        button2.layer.cornerRadius = 22
         
         switch index {
         case 0 :
-            button1.setTitle("Avsluta", forState: .Normal)
+            button1.layer.borderColor = UIColor.clearColor().CGColor
+            button1.layer.borderWidth = 0
+            button1.layer.cornerRadius = 0
+            
+            let img = UIImage(named: "close")
+            button1.setImage(img, forState: .Normal)
             button1.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
             
-            button2.setTitle("Visa mig >", forState: .Normal)
+            button2.setTitle(" Visa mig  ", forState: .Normal)
             button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
+            let imgTwo = UIImage(named: "right")
+            button2.setImage(imgTwo, forState: .Normal)
+            button2.transform = CGAffineTransformMakeScale(-1.0, 1.0)
+            button2.titleLabel!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
+            button2.imageView!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
             
             if (DeviceHelper.isFourOrFive()){
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 65, 90, 45)
-                button2.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.height - 65, 150, 45)
+                button1.frame = CGRectMake(-10, 20, 90, 44)
+                button2.frame = CGRectMake(self.view.frame.width / 2 - 60, self.view.frame.height - 65, 120, 45)
             }
             else{
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 75, 90, 45)
-                button2.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.height - 75, 150, 45)
+                button1.frame = CGRectMake(-10, 20, 90, 44)
+                button2.frame = CGRectMake(self.view.frame.width / 2 - 60, self.view.frame.height - 75, 150, 45)
             }
             
             self.view.addSubview(button1)
             self.view.addSubview(button2)
         case 1, 2, 3, 4 :
-            button1.setTitle("<", forState: .Normal)
+            let img = UIImage(named: "left")
+            button1.setImage(img, forState: .Normal)
             button1.addTarget(self, action: "previous", forControlEvents: .TouchUpInside)
+            button1.layer.cornerRadius = 22
             
-            button2.setTitle("Nästa >", forState: .Normal)
+            button2.setTitle("Nästa  ", forState: .Normal)
             button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
             
+            let imgTwo = UIImage(named: "right")
+            button2.setImage(imgTwo, forState: .Normal)
+            button2.transform = CGAffineTransformMakeScale(-1.0, 1.0)
+            button2.titleLabel!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
+            button2.imageView!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
+            
             if (DeviceHelper.isFourOrFive()){
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 65, 45, 45)
+                button1.frame = CGRectMake((self.view.frame.width / 2) - 115, self.view.frame.height - 65, 44, 44)
                 button2.frame = CGRectMake(self.view.frame.width / 2 + 15, self.view.frame.height - 65, 100, 45)
             }
             else{
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 75, 45, 45)
+                button1.frame = CGRectMake((self.view.frame.width / 2) - 115, self.view.frame.height - 75, 44, 44)
                 button2.frame = CGRectMake(self.view.frame.width / 2 + 15, self.view.frame.height - 75, 100, 45)
             }
             self.view.addSubview(button1)
             self.view.addSubview(button2)
             
         case 5 :
-            button1.setTitle("<", forState: .Normal)
+            let img = UIImage(named: "left")
+            button1.setImage(img, forState: .Normal)
             button1.addTarget(self, action: "previous", forControlEvents: .TouchUpInside)
             
-            button2.setTitle("TAJMA AVÅNG!", forState: .Normal)
+            button2.setTitle("Stäng guide", forState: .Normal)
             button2.backgroundColor = UIColor.whiteColor()
             button2.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
             button2.setTitleColor(UIColor(red: 233/255, green: 64/255, blue: 87/255, alpha: 1), forState: UIControlState.Normal)
             
-            
             if (DeviceHelper.isFourOrFive()){
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 65, 45, 45)
-                button2.frame = CGRectMake(self.view.frame.width / 2 - 50, self.view.frame.height - 65, 200, 45)
+                button1.frame = CGRectMake((self.view.frame.width / 2) - 115, self.view.frame.height - 65, 44, 44)
+                button2.frame = CGRectMake(self.view.frame.width / 2 - 30, self.view.frame.height - 65, 150, 44)
             }
             else{
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 130, self.view.frame.height - 75, 45, 45)
-                button2.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.height - 75, 300, 45)
+                button1.frame = CGRectMake((self.view.frame.width / 2) - 115, self.view.frame.height - 75, 44, 44)
+                button2.frame = CGRectMake(self.view.frame.width / 2 - 30, self.view.frame.height - 75, 200, 44)
             }
             self.view.addSubview(button1)
             self.view.addSubview(button2)
