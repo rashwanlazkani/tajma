@@ -30,7 +30,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         tableView.delegate = self
         tableView.dataSource = self
         
-        items = ["Ge oss feedback","Gilla oss på Facebook","Dela appen", "Betygsätt Tajma", "Så här fungerar appen"]
+        items = ["Ge oss feedback","Gilla oss på Facebook","Tipsa en vän", "Betygsätt Tajma", "Så här fungerar appen"]
     }
     
     override func willMoveToParentViewController(parent: UIViewController?) {
@@ -135,7 +135,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
 
     // MARK: - Functions
     func openShare(){
-        let activityItems = ["Vill tipsa om en grym app som jag...", "", "https://itunes.apple.com/se/app/instainfo/id689392780?mt=8"]
+        let activityItems = ["Hej! Kolla in den här grymma appen: ", "", "https://itunes.apple.com/se/app/instainfo/id689392780?mt=8"]
         let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         self.presentViewController(vc, animated: true, completion: nil)
     }
@@ -146,7 +146,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     func openFacebook(sender : Info){
         if (sender == Info.Like){
-            let fbId = "100003120646750"
+            let fbId = "436544669889188"
             let url = "fb://profile/\(fbId)"
             let fbURL = NSURL(string: url)
             if UIApplication.sharedApplication().canOpenURL(fbURL!)
@@ -155,7 +155,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
                 
             } else {
                 //redirect to safari because the user doesn't have FaceBook
-                UIApplication.sharedApplication().openURL(NSURL(string: "http://facebook.com/profile/\(fbId)")!)
+                UIApplication.sharedApplication().openURL(NSURL(string: "http://facebook.com/\(fbId)")!)
             }
         }
     }
