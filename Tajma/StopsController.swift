@@ -203,6 +203,10 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         if (!lat.isEmpty && !long.isEmpty){
             return
         }
+        if Reachability.isConnectedToNetwork() != true {
+            stops = [Stop]()
+            return
+        }
         let location:CLLocationCoordinate2D = manager.location!.coordinate
         lat = String(location.latitude)
         long = String(location.longitude)
