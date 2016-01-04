@@ -149,14 +149,14 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
             let fbId = "436544669889188"
             let url = "fb://profile/\(fbId)"
             let fbURL = NSURL(string: url)
-            if UIApplication.sharedApplication().canOpenURL(fbURL!)
-            {
+            if UIApplication.sharedApplication().canOpenURL(fbURL!){
                 UIApplication.sharedApplication().openURL(fbURL!)
                 
             } else {
                 //redirect to safari because the user doesn't have FaceBook
                 UIApplication.sharedApplication().openURL(NSURL(string: "http://facebook.com/\(fbId)")!)
             }
+
         }
     }
     
