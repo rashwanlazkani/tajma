@@ -38,7 +38,6 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="200"/>
                     <connections>
-                        <outlet property="infoLabel" destination="3wg-jm-LbK" id="Vgh-XQ-Gd4"/>
                         <outlet property="infoText" destination="3wg-jm-LbK" id="MRN-u4-J3u"/>
                     </connections>
                 </tableViewController>
