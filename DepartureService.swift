@@ -31,7 +31,9 @@ public class DepartureService {
             var lines = [Line]()
             
             for (_,subJson):(String, JSON) in jsonDepartures {
-                let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"
+                let sname = subJson["sname"].string! ?? ""
+                let direction = subJson["direction"].string! ?? ""
+                let id = "\(stopId)-\(sname)-\(direction)"
                 
                 var line = from(lines).singleOrNil({$0.id == id})
                 if(line == nil){
