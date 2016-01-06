@@ -23,10 +23,10 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     var lat  = ""
     var long = ""
     var timerCount = 0
+    var seconds = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         infoText.userInteractionEnabled = true
         let aSelector : Selector = "lblTapped"
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
@@ -59,7 +59,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         }
         
         locationManager.startUpdatingLocation()
-        timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
     }
 
     
@@ -74,11 +74,24 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Location
     func getLocation(){
-        if timerCount >= 4{
+        timerCount++
+        if timerCount == 5{
             timer.invalidate()
             return
         }
-        timerCount++
+        
+        timer.invalidate()
+        if seconds == 0.0{
+            seconds = 10.0
+        }
+        else if seconds == 10.0{
+            seconds = 20.0
+        }
+        else if seconds == 20.0{
+            seconds = 20.0
+        }
+        timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
+        
         lat = ""
         long = ""
         locationManager.startUpdatingLocation()
@@ -88,11 +101,18 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         if (!lat.isEmpty && !long.isEmpty){
             return
         }
+
+//        let horizontalAccuracy: CLLocationAccuracy = manager.location!.horizontalAccuracy
+//        print(horizontalAccuracy)
+//        
+//        if horizontalAccuracy > 250.0 {
+//            locationManager.startUpdatingLocation()
+//            return
+//        }
+//        
         let location:CLLocationCoordinate2D = manager.location!.coordinate
         lat = String(location.latitude)
         long = String(location.longitude)
-        
-        locationManager.stopUpdatingLocation()
         getData()
     }
     
@@ -289,14 +309,11 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Functions
     func getData(){
-        print("getData lat \(lat) long \(long) INNAN!")
-        
         if (lat == "" && long == ""){
             locationManager.startUpdatingLocation()
             return
         }
         
-        print("getData lat \(lat) long \(long) EFTER!")
         stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
         var count = stops.count
