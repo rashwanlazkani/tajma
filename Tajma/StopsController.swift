@@ -36,6 +36,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        
         let loadData = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("LoadData")
         if(!loadData){
             self.performSegueWithIdentifier("ShowGuide", sender: nil)
@@ -112,6 +114,11 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             rate.trackAppUsage()
         })
+    }
+    
+    func applicationDidBecomeActive(application: UIApplication) {
+        self.segmentedControl.selectedSegmentIndex = 0
+        getNearestStops()
     }
     
     func getNearestStops() {
