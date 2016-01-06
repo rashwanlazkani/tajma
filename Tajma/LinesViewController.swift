@@ -169,6 +169,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+        
+        
+        
+        
+        
         let currentLine = from(lines).elementAt(indexPath.row)
         currentLine.stopId = stop.id
         if (from(stop.lines).any({$0.id == currentLine.id})){
