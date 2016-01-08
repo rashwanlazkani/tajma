@@ -75,21 +75,21 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     // MARK: - Location
     func getLocation(){
         timerCount++
-        if timerCount == 5{
+
+        print(timerCount)
+        if timerCount == 1{
+            seconds = 10.0
+        }
+        else if timerCount <= 4{
+            seconds = 20.0
+        }
+        else{
             timer.invalidate()
             return
         }
+    
         
         timer.invalidate()
-        if seconds == 0.0{
-            seconds = 10.0
-        }
-        else if seconds == 10.0{
-            seconds = 20.0
-        }
-        else if seconds == 20.0{
-            seconds = 20.0
-        }
         timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
         
         lat = ""
@@ -102,14 +102,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             return
         }
 
-//        let horizontalAccuracy: CLLocationAccuracy = manager.location!.horizontalAccuracy
-//        print(horizontalAccuracy)
-//        
-//        if horizontalAccuracy > 250.0 {
-//            locationManager.startUpdatingLocation()
-//            return
-//        }
-//        
         let location:CLLocationCoordinate2D = manager.location!.coordinate
         lat = String(location.latitude)
         long = String(location.longitude)
@@ -147,12 +139,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         locationManager.startUpdatingLocation()
         completionHandler(NCUpdateResult.NewData)
     }
-    
-//    func widgetMarginInsetsForProposedMarginInsets(defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
-//        print("Inne")
-//        return UIEdgeInsetsMake(0, 0, 0, 0)
-//    }
-    
+
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return stops.count
@@ -309,23 +296,9 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Functions
     func getData(){
-        if (lat == "" && long == ""){
-            locationManager.startUpdatingLocation()
-            return
-        }
-        
         stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
         
-        var count = stops.count
-        var height = stops.count * 40
-        for stop in stops{
-            height += (stop.lines.count == 0 ? 1 : stop.lines.count) * 36
-            
-            
-            count += stop.lines.count == 0 ? 1 : stop.lines.count
-        }
-
-        preferredContentSize = CGSizeMake(0, CGFloat(height))
+        preferredContentSize = CGSizeMake(0, contentHeight())
         
         if (stops.isEmpty){
             displayMessage("Ingen vald hållplats i närheten.")
@@ -335,8 +308,17 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         else{
             infoText.hidden = true
         }
-        
         self.tableView.reloadData()
+    }
+    
+    func contentHeight() -> CGFloat{
+        var count = stops.count
+        var height = stops.count * 40
+        for stop in stops{
+            height += (stop.lines.count == 0 ? 1 : stop.lines.count) * 36
+            count += stop.lines.count == 0 ? 1 : stop.lines.count
+        }
+        return CGFloat(height)
     }
     
     func lblTapped(){
