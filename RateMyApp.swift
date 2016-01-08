@@ -41,7 +41,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     
     var promptAfterDays:Double = 2
     var promptAfterUses = 5
-    var promptAfterCustomEventsCount = 10
+    var promptAfterCustomEventsCount = 20
     var daysBeforeReminding:Double = 2
     
     var alertTitle = NSLocalizedString("Betygsätt Tajma", comment: "RateMyApp")
