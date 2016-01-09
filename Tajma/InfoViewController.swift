@@ -162,7 +162,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     func openMail(sender : Info){
         if (sender == Info.Feedback){
-            let toRecipients = ["Rashwan87@gmail.com"]
+            let toRecipients = ["tajma@golazo.nu"]
             let subject = "Feedback Tajma app"
             let body = "<br><br><p>Jag har en \(UIDevice.currentDevice().modelName).<br> Jag har iOS version \(UIDevice.currentDevice().systemVersion).<br</p>"
             
