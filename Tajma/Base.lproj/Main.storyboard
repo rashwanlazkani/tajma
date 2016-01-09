@@ -44,6 +44,7 @@
                     <connections>
                         <outlet property="tableView" destination="zeL-5m-Bll" id="JAD-w1-lrr"/>
                         <segue destination="U96-Za-JNU" kind="push" identifier="ShowGuide" animates="NO" id="egI-j1-zh1"/>
+                        <segue destination="3LU-hT-ZWo" kind="push" identifier="ShowAboutUs" id="b5Y-b9-qPV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5TD-b6-Atg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -235,14 +236,52 @@
             </objects>
             <point key="canvasLocation" x="440.5333333333333" y="737.45333333333338"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="41m-Bm-OeH">
+            <objects>
+                <viewController id="3LU-hT-ZWo" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yCn-ME-Ug2"/>
+                        <viewControllerLayoutGuide type="bottom" id="dOJ-hI-YbM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="K99-gv-Q4e">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="E8I-Ri-Kbg">
+                                <rect key="frame" x="16" y="-1" width="288" height="504"/>
+                                <color key="backgroundColor" red="0.90588235294117647" green="0.24705882352941178" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+Rashwan ruleeezzZZZzzZZZzz</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.90588235289999997" green="0.2470588235" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="dOJ-hI-YbM" firstAttribute="top" secondItem="E8I-Ri-Kbg" secondAttribute="bottom" constant="1" id="5Qr-H3-9JR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="E8I-Ri-Kbg" secondAttribute="trailing" id="FY2-We-uyg"/>
+                            <constraint firstItem="E8I-Ri-Kbg" firstAttribute="top" secondItem="yCn-ME-Ug2" secondAttribute="bottom" constant="-1" id="PKs-Yk-kes"/>
+                            <constraint firstItem="E8I-Ri-Kbg" firstAttribute="leading" secondItem="K99-gv-Q4e" secondAttribute="leadingMargin" id="smb-H4-6YX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="akz-dW-7wl"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PoD-kT-ATF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1684" y="562"/>
+        </scene>
     </scenes>
     <resources>
         <image name="check-white" width="22" height="22"/>
         <image name="more-white" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BXL-uZ-VRB"/>
-        <segue reference="Bgc-3U-Nlu"/>
         <segue reference="cKZ-WW-ghh"/>
+        <segue reference="BXL-uZ-VRB"/>
+        <segue reference="egI-j1-zh1"/>
     </inferredMetricsTieBreakers>
 </document>

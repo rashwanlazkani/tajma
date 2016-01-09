@@ -30,7 +30,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         tableView.delegate = self
         tableView.dataSource = self
         
-        items = ["Ge oss feedback","Gilla oss på Facebook","Tipsa en vän", "Betygsätt Tajma", "Så här fungerar appen"]
+        items = ["Ge oss feedback","Gilla oss på Facebook","Tipsa en vän", "Betygsätt Tajma", "Så här fungerar appen", "Vem är vi?"]
     }
     
     override func willMoveToParentViewController(parent: UIViewController?) {
@@ -99,20 +99,21 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if (indexPath.row == 0){
+        switch indexPath.row {
+        case 0:
             openMail(Info.Feedback)
-        }
-        else if (indexPath.row == 1){
+        case 1:
             openFacebook(Info.Like)
-        }
-        else if (indexPath.row == 2){
+        case 2:
             openShare()
-        }
-        else if (indexPath.row == 3){
+        case 3:
             openAppStore()
-        }
-        else if (indexPath.row == 4){
+        case 4:
             openHelp()
+        case 5:
+            openAboutUs()
+        default:
+            return
         }
     }
     
@@ -178,5 +179,9 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     func openHelp(){
         self.performSegueWithIdentifier("ShowGuide", sender: nil)
+    }
+    
+    func openAboutUs(){
+        self.performSegueWithIdentifier("ShowAboutUs", sender: nil)
     }
 }
