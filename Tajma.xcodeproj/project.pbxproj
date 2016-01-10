@@ -698,6 +698,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = TajmaToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.Tajma.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TajmaToday;
@@ -719,6 +720,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = TajmaToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.Tajma.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TajmaToday;
@@ -824,6 +826,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Tajma/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -845,6 +848,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Tajma/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.project.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

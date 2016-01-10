@@ -24,7 +24,7 @@ class SqliteService {
         let data = Table("Stops")
         
         var stops = [Stop]()
-        for row in db.prepare(data) {
+        for row in try! db.prepare(data) {
             let stop = Stop()
             stop.id = row[Expression<String>("id")]
             stop.name = row[Expression<String>("name")]
@@ -45,7 +45,7 @@ class SqliteService {
         let data = Table("Lines")
         
         var lines = [Line]()
-        for row in db.prepare(data) {
+        for row in try! db.prepare(data) {
             let line = Line()
             line.id = row[Expression<String>("id")]
             line.stopId = row[Expression<String>("stopId")]
@@ -71,7 +71,7 @@ class SqliteService {
             return lines
         }
 
-        let stmt = db.prepare("SELECT * FROM Lines where stopId = '\(stopId)'")
+        let stmt = try! db.prepare("SELECT * FROM Lines where stopId = '\(stopId)'")
         for row in stmt {
             let line = Line()
             line.id = row[0] as! String

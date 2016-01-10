@@ -30,7 +30,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         tableView.delegate = self
         tableView.dataSource = self
         
-        items = ["Ge oss feedback","Gilla oss på Facebook","Tipsa en vän", "Betygsätt Tajma", "Så här fungerar appen", "Vem är vi?"]
+        items = ["Lämna feedback","Gilla oss på Facebook","Tipsa en vän", "Betygsätt Tajma", "Så här fungerar appen", "Om oss"]
     }
     
     override func willMoveToParentViewController(parent: UIViewController?) {
@@ -136,7 +136,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
 
     // MARK: - Functions
     func openShare(){
-        let activityItems = ["Hej! Kolla in den här grymma appen: ", "", "https://itunes.apple.com/se/app/instainfo/id689392780?mt=8"]
+        let activityItems = ["Hej! Kolla in den här grymma appen som hjälper dig att Tajma avgångarna i kollektivtrafiken:", "", "https://itunes.apple.com/se/app/instainfo/id689392780?mt=8"]
         let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         self.presentViewController(vc, animated: true, completion: nil)
     }
