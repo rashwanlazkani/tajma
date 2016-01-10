@@ -109,7 +109,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func setRateSettings(){
         let rate = RateMyApp.sharedInstance
-        rate.appID = "689392780"
+        rate.appID = Constants.AppId
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             rate.trackAppUsage()

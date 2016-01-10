@@ -52,7 +52,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         let title = UILabel(frame: CGRectMake(0, 6, 200, 30))
         title.textAlignment = NSTextAlignment.Center
         title.textColor = UIColor.whiteColor()
-        title.font = title.font.fontWithSize(17)
+        title.font = title.font.fontWithSize(19)
         title.text = "Information"
         
         let navBarTitleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
@@ -136,13 +136,13 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
 
     // MARK: - Functions
     func openShare(){
-        let activityItems = ["Hej! Kolla in den här grymma appen som hjälper dig att Tajma avgångarna i kollektivtrafiken:", "", "https://itunes.apple.com/se/app/instainfo/id689392780?mt=8"]
+        let activityItems = ["Hej! Kolla in den här smarta appen som hjälper dig att Tajma avgångarna i kollektivtrafiken:", "", "http://apple.co/1TNxDzk"]
         let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func openAppStore(){
-        UIApplication.sharedApplication().openURL(NSURL(string: "https://itunes.apple.com/se/app/instainfo/id689392780?mt=8")!)
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://apple.co/1TNxDzk")!)
     }
     
     func openFacebook(sender : Info){
