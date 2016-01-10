@@ -39,7 +39,6 @@ class OmOssViewController: UIViewController {
         
         let attrDict: [String : AnyObject] = [NSFontAttributeName:UIFont.systemFontOfSize(CGFloat(size)), NSForegroundColorAttributeName: UIColor.whiteColor()]
 
-        
         let attributedString = NSMutableAttributedString(string: string as String, attributes: attrDict)
         
         let smallerItalicFont = [NSFontAttributeName: UIFont.italicSystemFontOfSize(13)]

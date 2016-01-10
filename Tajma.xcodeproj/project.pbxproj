@@ -389,7 +389,6 @@
 				F80667521B1E5CA100A26B5D /* Sources */,
 				F80667531B1E5CA100A26B5D /* Frameworks */,
 				F80667541B1E5CA100A26B5D /* Resources */,
-				CE6ECE0F143EFC5B99DDEDDD /* Embed Pods Frameworks */,
 				95F640F5DF88811A3FC154F3 /* Copy Pods Resources */,
 			);
 			buildRules = (
@@ -571,21 +570,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tajma/Pods-Tajma-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CE6ECE0F143EFC5B99DDEDDD /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -691,8 +675,10 @@
 			baseConfigurationReference = 8B176CBC4CA3691A6337B1C1 /* Pods-TajmaToday.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -717,8 +703,10 @@
 			baseConfigurationReference = 76B8097E1F47DE5F82222DA7 /* Pods-TajmaToday.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
+				DEFINES_MODULE = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -728,7 +716,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma.today;
 				PRODUCT_NAME = TajmaToday;
-				PROVISIONING_PROFILE = "2b3dfc46-7f2b-4df6-b05d-c6db5aadaf8e";
+				PROVISIONING_PROFILE = "27c6eaba-184d-46ae-bd02-c5b7b486a0a2";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "TajmaToday/Bridging-Header.h";
 			};
@@ -825,6 +813,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EXCLUDED_SOURCE_FOLDER_NAMES = .git;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -834,7 +823,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b65bc19a-c742-47d9-b529-7af5104678d7";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
 			};
 			name = Debug;
@@ -845,8 +834,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
+				EXCLUDED_SOURCE_FOLDER_NAMES = .git;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -854,9 +844,10 @@
 				INFOPLIST_FILE = Tajma/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"MTL_ENABLE_DEBUG_INFO[arch=*]" = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b65bc19a-c742-47d9-b529-7af5104678d7";
+				PROVISIONING_PROFILE = "e64a6cb7-86f7-4571-be8a-26cac75cbd29";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
 			};
 			name = Release;

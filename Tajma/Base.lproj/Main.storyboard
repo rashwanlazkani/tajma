@@ -295,8 +295,8 @@ Utvecklare</string>
         <image name="more-white" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Bgc-3U-Nlu"/>
         <segue reference="BXL-uZ-VRB"/>
-        <segue reference="1ac-6w-8ze"/>
+        <segue reference="Bgc-3U-Nlu"/>
+        <segue reference="cKZ-WW-ghh"/>
     </inferredMetricsTieBreakers>
 </document>
