@@ -61,7 +61,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         locationManager.startUpdatingLocation()
         timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
     }
-
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)

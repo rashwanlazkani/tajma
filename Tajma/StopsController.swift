@@ -118,7 +118,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func applicationDidBecomeActive(application: UIApplication) {
         self.segmentedControl.selectedSegmentIndex = 0
-        getNearestStops()
+        locationManager.startUpdatingLocation()
     }
     
     func getNearestStops() {
@@ -127,7 +127,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         stopService.getNearestStops(lat, long: long, onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.stops = json
-                
                 if (self.stops.count == 0){
                     self.displayError("Inga hållplatser i närheten.", type: Error.Nearest)
                 }
