@@ -13,6 +13,7 @@ import SQLite
 import SINQ
 
 class SqliteService {
+    static let sharedInstance = SqliteService()
     let sharedHelper = SharedHelper()
     
     func getStops() -> [Stop]{
@@ -122,12 +123,5 @@ class SqliteService {
             
             try! db.run("CREATE TABLE 'Lines' ('id' VARCHAR NOT NULL, 'stopId' VARCHAR NOT NULL, 'name' VARCHAR NOT NULL, 'sname' VARCHAR NOT NULL,  'direction' VARCHAR NOT NULL, 'lineAndDirection' VARCHAR, 'type' VARCHAR, 'track' VARCHAR NOT NULL, 'bgColor' VARCHAR, 'fgColor' VARCHAR)")
         }
-    }
-    
-    class var sharedInstance: SqliteService {
-        struct Static {
-            static let instance = SqliteService()
-        }
-        return Static.instance
     }
 }
