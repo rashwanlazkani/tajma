@@ -56,6 +56,66 @@ class DeviceHelper {
         }
     }
     
+    static func showGuideY() -> CGFloat{
+        switch UIScreen.mainScreen().bounds.height {
+            // 4, 4s
+        case 480 :
+            return 100
+            // 5, 5s
+        case 568 :
+            return 120
+            // 6, 6s
+        case 667 :
+            return 150
+            // 6P, 6sP
+        case 736 :
+            return 150
+            // Simulator, iPad osv
+        default:
+            return 290
+        }
+    }
+
+    static func gifY() -> CGFloat{
+        switch UIScreen.mainScreen().bounds.height {
+            // 4, 4s
+        case 480 :
+            return 100.0
+            // 5, 5s
+        case 568 :
+            return 125.0
+            // 6, 6s
+        case 667 :
+            return 125.0
+            // 6P, 6sP
+        case 736 :
+            return 125.0
+            // Simulator, iPad osv
+        default:
+            return 290
+        }
+    }
+    
+    static func gifHeight() -> CGFloat{
+        switch UIScreen.mainScreen().bounds.height {
+        // 4, 4s
+        case 480 :
+            return 300.0
+        // 5, 5s
+        case 568 :
+            return 350.0
+        // 6, 6s
+        case 667 :
+            return 450.0
+        // 6P, 6sP
+        case 736 :
+            return 500.0
+        // Simulator, iPad osv
+        default:
+            return 290
+        }
+    }
+    
     static func isFourOrFive() -> Bool{
         if (iPhoneModelSize() == 8) || (iPhoneModelSize() == 10){
             return true
