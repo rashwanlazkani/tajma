@@ -66,6 +66,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="vIR-i8-hhV"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <segue destination="R3x-0W-ZXV" kind="push" identifier="ShowStops" animates="NO" id="BXL-uZ-VRB"/>
                         <segue destination="7SI-it-BPf" kind="push" identifier="ShowInfo" animates="NO" id="1ac-6w-8ze"/>
@@ -295,8 +296,8 @@ Utvecklare</string>
         <image name="more-white" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BXL-uZ-VRB"/>
         <segue reference="Bgc-3U-Nlu"/>
-        <segue reference="cKZ-WW-ghh"/>
+        <segue reference="BXL-uZ-VRB"/>
+        <segue reference="1ac-6w-8ze"/>
     </inferredMetricsTieBreakers>
 </document>

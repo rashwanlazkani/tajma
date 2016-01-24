@@ -12,7 +12,7 @@ class GuideController: UIViewController{
     let deviceHelper = DeviceHelper()
     
     var guideImageIndex: NSInteger = 0
-    let guideImages = ["guide_1", "guide_2", "guide_3", "guide_4", "guide_5", "guide_6"]
+    let guideImages = ["guide_1", "guide_2", "guide_3", "guide_4"]
     let guideImageView = UIImageView()
     
     override func viewDidLoad() {
@@ -36,33 +36,7 @@ class GuideController: UIViewController{
         swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
         self.view.addGestureRecognizer(swipeLeft)
         
-        let button1 = UIButton()
-        let img = UIImage(named: "close")
-        button1.setImage(img, forState: .Normal)
-        button1.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
-        
-        let button2 = UIButton()
-        let imgTwo = UIImage(named: "right")
-        button2.setImage(imgTwo, forState: .Normal)
-        button2.layer.borderColor = UIColor.whiteColor().CGColor
-        button2.layer.borderWidth = 2
-        button2.layer.cornerRadius = 22
-        button2.setTitle(" Visa mig  ", forState: .Normal)
-        button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
-        button2.transform = CGAffineTransformMakeScale(-1.0, 1.0)
-        button2.titleLabel!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
-        button2.imageView!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
-        
-        if (DeviceHelper.isFourOrFive()){
-            button1.frame = CGRectMake(-10, 20, 90, 44)
-            button2.frame = CGRectMake(self.view.frame.width / 2 - 60, self.view.frame.height - 65, 120, 45)
-        }
-        else{
-            button1.frame = CGRectMake(-10, 20, 90, 44)
-            button2.frame = CGRectMake(self.view.frame.width / 2 - 60, self.view.frame.height - 75, 150, 45)
-        }
-        self.view.addSubview(button1)
-        self.view.addSubview(button2)
+        addButtons(0)
     }
     
     func swiped(gesture: UIGestureRecognizer) {
@@ -93,10 +67,22 @@ class GuideController: UIViewController{
     
     func addButtons(index : Int){
         for view in self.view.subviews {
-            if (view.isKindOfClass(UIButton)){
+            if view.isKindOfClass(UIImageView){
+                if view.tag == 999{
+                    view.removeFromSuperview()
+                }
+            }
+            else if view.isKindOfClass(UIButton){
                 view.removeFromSuperview()
             }
         }
+        
+        let closeButton = UIButton()
+        let img = UIImage(named: "close")
+        closeButton.setImage(img, forState: .Normal)
+        closeButton.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
+        closeButton.frame = CGRectMake(self.view.frame.width - 35, 25, 20, 20)
+        self.view.addSubview(closeButton)
         
         let button1 = UIButton()
         button1.layer.borderColor = UIColor.whiteColor().CGColor
@@ -108,86 +94,93 @@ class GuideController: UIViewController{
         button2.layer.borderWidth = 2
         button2.layer.cornerRadius = 22
         
+        let gifImageView = UIImageView(frame: CGRect(x: 60, y: DeviceHelper.gifY(), width: self.view.frame.width - 120, height: DeviceHelper.gifHeight()))
+        gifImageView.tag = 999
         switch index {
         case 0 :
-            button1.layer.borderColor = UIColor.clearColor().CGColor
-            button1.layer.borderWidth = 0
-            button1.layer.cornerRadius = 0
-            
-            let img = UIImage(named: "close")
-            button1.setImage(img, forState: .Normal)
-            button1.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
-            
-            button2.setTitle(" Visa mig  ", forState: .Normal)
-            button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
             let imgTwo = UIImage(named: "right")
             button2.setImage(imgTwo, forState: .Normal)
+            button2.layer.borderColor = UIColor.whiteColor().CGColor
+            button2.layer.borderWidth = 2
+            button2.layer.cornerRadius = 22
+            button2.setTitle(" Visa mig  ", forState: .Normal)
+            button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
             button2.transform = CGAffineTransformMakeScale(-1.0, 1.0)
             button2.titleLabel!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
             button2.imageView!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
+            button2.backgroundColor = UIColor.whiteColor()
+            button2.titleLabel!.font = UIFont.boldSystemFontOfSize(18)
+            button2.setTitleColor(UIColor(red: 229/255, green: 66/255, blue: 90/255, alpha: 1), forState: UIControlState.Normal)
+            button1.frame = CGRectMake(self.view.frame.width - 80, 20, 90, 44)
+            button2.frame = CGRectMake(0, DeviceHelper.showGuideY(), 170, 45)
+            button2.center.x = self.view.center.x
             
-            if (DeviceHelper.isFourOrFive()){
-                button1.frame = CGRectMake(-10, 20, 90, 44)
-                button2.frame = CGRectMake(self.view.frame.width / 2 - 60, self.view.frame.height - 65, 120, 45)
+            self.view.addSubview(button2)
+        case 1, 2 :
+            if (index == 1){
+                let gif = UIImage.gifWithName("tajma-gif-1")
+                gifImageView.image = gif
+                self.view.addSubview(gifImageView)
             }
             else{
-                button1.frame = CGRectMake(-10, 20, 90, 44)
-                button2.frame = CGRectMake(self.view.frame.width / 2 - 60, self.view.frame.height - 75, 150, 45)
+                let gif = UIImage.gifWithName("tajma-gif-2")
+                gifImageView.image = gif
+                self.view.addSubview(gifImageView)
             }
             
-            self.view.addSubview(button1)
-            self.view.addSubview(button2)
-        case 1, 2, 3, 4 :
             let img = UIImage(named: "left")
             button1.setImage(img, forState: .Normal)
             button1.addTarget(self, action: "previous", forControlEvents: .TouchUpInside)
             button1.layer.cornerRadius = 22
+            button1.backgroundColor = UIColor.whiteColor()
             
             button2.setTitle("Nästa  ", forState: .Normal)
             button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
             
             let imgTwo = UIImage(named: "right")
             button2.setImage(imgTwo, forState: .Normal)
+            button2.backgroundColor = UIColor.whiteColor()
+            button2.setTitleColor(UIColor(red: 229/255, green: 66/255, blue: 90/255, alpha: 1), forState: UIControlState.Normal)
             button2.transform = CGAffineTransformMakeScale(-1.0, 1.0)
             button2.titleLabel!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
             button2.imageView!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
             
-            if (DeviceHelper.isFourOrFive()){
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 115, self.view.frame.height - 65, 44, 44)
-                button2.frame = CGRectMake(self.view.frame.width / 2 + 15, self.view.frame.height - 65, 100, 45)
-            }
-            else{
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 115, self.view.frame.height - 75, 44, 44)
-                button2.frame = CGRectMake(self.view.frame.width / 2 + 15, self.view.frame.height - 75, 100, 45)
-            }
+            button1.frame = CGRectMake((self.view.frame.width / 2) - 70, self.view.frame.height - 65, 44, 44)
+            button2.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.height - 65, 125, 45)
+            button1.center.x = self.view.center.x - 80
+            button2.center.x = self.view.center.x + 40
+            
             self.view.addSubview(button1)
             self.view.addSubview(button2)
             
-        case 5 :
+        case 3 :
+            let gif = UIImage.gifWithName("tajma-gif-3")
+            gifImageView.image = gif
+            self.view.addSubview(gifImageView)
+            
             let img = UIImage(named: "left")
             button1.setImage(img, forState: .Normal)
             button1.addTarget(self, action: "previous", forControlEvents: .TouchUpInside)
+            button1.backgroundColor = UIColor.whiteColor()
             
             button2.setTitle("Stäng guide", forState: .Normal)
             button2.backgroundColor = UIColor.whiteColor()
             button2.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
             button2.setTitleColor(UIColor(red: 233/255, green: 64/255, blue: 87/255, alpha: 1), forState: UIControlState.Normal)
+            button2.backgroundColor = UIColor.whiteColor()
+            button2.setTitleColor(UIColor(red: 229/255, green: 66/255, blue: 90/255, alpha: 1), forState: UIControlState.Normal)
             
-            if (DeviceHelper.isFourOrFive()){
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 115, self.view.frame.height - 65, 44, 44)
-                button2.frame = CGRectMake(self.view.frame.width / 2 - 30, self.view.frame.height - 65, 150, 44)
-            }
-            else{
-                button1.frame = CGRectMake((self.view.frame.width / 2) - 115, self.view.frame.height - 75, 44, 44)
-                button2.frame = CGRectMake(self.view.frame.width / 2 - 30, self.view.frame.height - 75, 200, 44)
-            }
+            button1.frame = CGRectMake((self.view.frame.width / 2) - 70, self.view.frame.height - 65, 44, 44)
+            button2.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.height - 65, 125, 45)
+            button1.center.x = self.view.center.x - 80
+            button2.center.x = self.view.center.x + 40
+            
             self.view.addSubview(button1)
             self.view.addSubview(button2)
             
         default:
             return
         }
-        
     }
     
     func next(){
