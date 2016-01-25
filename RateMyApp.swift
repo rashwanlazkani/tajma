@@ -39,9 +39,9 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     private var reviewURL = "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id="
     private var reviewURLiOS7 = "itms-apps://itunes.apple.com/app/id"
     
-    var promptAfterDays:Double = 2
-    var promptAfterUses = 5
-    var promptAfterCustomEventsCount = 20
+    var promptAfterDays:Double = 3
+    var promptAfterUses = 15
+    var promptAfterCustomEventsCount = 30
     var daysBeforeReminding:Double = 2
     
     var alertTitle = NSLocalizedString("Betygsätt Tajma", comment: "RateMyApp")
