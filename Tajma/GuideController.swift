@@ -28,14 +28,6 @@ class GuideController: UIViewController{
         guideImageView.frame = CGRectMake(0, 0, CGFloat(deviceHelper.screenWidth), CGFloat(deviceHelper.screenHeight))
         self.view.addSubview(guideImageView)
         
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: "swiped:")
-        swipeRight.direction = UISwipeGestureRecognizerDirection.Right
-        self.view.addGestureRecognizer(swipeRight)
-        
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: "swiped:")
-        swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
-        self.view.addGestureRecognizer(swipeLeft)
-        
         addButtons(0)
     }
     
@@ -187,12 +179,24 @@ class GuideController: UIViewController{
         let swipeGesture = UISwipeGestureRecognizer()
         swipeGesture.direction = UISwipeGestureRecognizerDirection.Left
         swiped(swipeGesture)
+        
+        let animation: CATransition = CATransition()
+        animation.duration = 0.5
+        animation.type = kCATransitionPush
+        animation.subtype = kCATransitionFromRight
+        self.view.layer.addAnimation(animation, forKey: ";SwitchToView1")
     }
     
     func previous(){
         let swipeGesture = UISwipeGestureRecognizer()
         swipeGesture.direction = UISwipeGestureRecognizerDirection.Right
         swiped(swipeGesture)
+        
+        let animation: CATransition = CATransition()
+        animation.duration = 0.5
+        animation.type = kCATransitionPush
+        animation.subtype = kCATransitionFromLeft
+        self.view.layer.addAnimation(animation, forKey: ";SwitchToView1")
     }
     
     func startApp(){
