@@ -116,6 +116,21 @@ class DeviceHelper {
         }
     }
     
+    static func currentDevice() -> String{
+        switch UIScreen.mainScreen().bounds.height {
+        case 480 :
+            return "iPhone 4/S"
+        case 568 :
+            return "iPhone 5/S"
+        case 667 :
+            return "iPhone 6/S"
+        case 736 :
+            return "iPhone 6 Plus/S"
+        default:
+            return ""
+        }
+    }
+    
     static func isFourOrFive() -> Bool{
         if (iPhoneModelSize() == 8) || (iPhoneModelSize() == 10){
             return true
