@@ -91,7 +91,6 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     
     func getDeparturesAtStop (stopId: String, onCompletion: (JSON) -> Void){
         let url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&timeSpan=120&maxDeparturesPerLine=2"
-        
         makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
         })
@@ -110,8 +109,8 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         let request = NSMutableURLRequest(URL: NSURL(string: path)!)
         
         let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
-        urlconfig.timeoutIntervalForRequest = 5
-        urlconfig.timeoutIntervalForResource = 5
+        urlconfig.timeoutIntervalForRequest = 15
+        urlconfig.timeoutIntervalForResource = 15
         let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
