@@ -46,6 +46,7 @@
                         <outlet property="tableView" destination="zeL-5m-Bll" id="JAD-w1-lrr"/>
                         <segue destination="U96-Za-JNU" kind="push" identifier="ShowGuide" animates="NO" id="egI-j1-zh1"/>
                         <segue destination="3LU-hT-ZWo" kind="push" identifier="ShowAboutUs" id="b5Y-b9-qPV"/>
+                        <segue destination="zKK-1b-w2R" kind="push" identifier="ShowWebView" id="XoU-wA-p8Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5TD-b6-Atg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -75,6 +76,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vzo-CN-8Jk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1304" y="-10"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="Yen-RA-an7">
+            <objects>
+                <viewController id="zKK-1b-w2R" customClass="WebViewController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6o8-mR-XgD"/>
+                        <viewControllerLayoutGuide type="bottom" id="sp7-Ze-Ng0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hlt-PB-hzs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O3g-td-gm2">
+                                <rect key="frame" x="-4" y="20" width="328" height="548"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="O3g-td-gm2" firstAttribute="top" secondItem="6o8-mR-XgD" secondAttribute="bottom" id="H3l-6c-0Pi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="O3g-td-gm2" secondAttribute="trailing" constant="-20" id="SX3-4m-wMe"/>
+                            <constraint firstItem="sp7-Ze-Ng0" firstAttribute="top" secondItem="O3g-td-gm2" secondAttribute="bottom" id="VbU-X6-Ufr"/>
+                            <constraint firstItem="O3g-td-gm2" firstAttribute="leading" secondItem="hlt-PB-hzs" secondAttribute="leadingMargin" constant="-20" id="ab5-8l-SS8"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="0FN-8d-VmV"/>
+                    <connections>
+                        <outlet property="webView" destination="O3g-td-gm2" id="Qww-o1-xtS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4EC-IN-Uh8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1720" y="-432"/>
         </scene>
         <!--Stops Controller-->
         <scene sceneID="ei6-a1-9zM">
@@ -296,8 +331,8 @@ Utvecklare</string>
         <image name="more-white" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Bgc-3U-Nlu"/>
-        <segue reference="BXL-uZ-VRB"/>
+        <segue reference="egI-j1-zh1"/>
         <segue reference="1ac-6w-8ze"/>
+        <segue reference="BXL-uZ-VRB"/>
     </inferredMetricsTieBreakers>
 </document>

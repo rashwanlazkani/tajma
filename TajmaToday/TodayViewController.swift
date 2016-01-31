@@ -74,8 +74,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     // MARK: - Location
     func getLocation(){
         timerCount++
-
-        print(timerCount)
         if timerCount == 1{
             seconds = 10.0
         }
@@ -87,7 +85,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             return
         }
     
-        
         timer.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
         

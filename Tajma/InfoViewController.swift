@@ -180,7 +180,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     func openFaq(){
-        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.tajma.faq.golazo.nu")!)
+        performSegueWithIdentifier("ShowWebView", sender: nil)
     }
     
     func openHelp(){
@@ -189,5 +189,12 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     func openAboutUs(){
         self.performSegueWithIdentifier("ShowAboutUs", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!){
+        if (segue.identifier == "ShowWebView"){
+            let web = segue.destinationViewController as! WebViewController
+            web.url = "http://www.tajma.faq.golazo.nu"
+        }
     }
 }

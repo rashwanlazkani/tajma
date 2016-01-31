@@ -26,6 +26,7 @@
 		F807230D1BE2917E00749E76 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807230B1BE290BA00749E76 /* Status.swift */; };
 		F818619F1B41D52A005DDA3A /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceHelper.swift */; };
 		F81861A01B41D52A005DDA3A /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceHelper.swift */; };
+		F81D4E791C5EBB3F0024B798 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81D4E781C5EBB3F0024B798 /* WebViewController.swift */; };
 		F82CB0841BD25B2C0015D3C5 /* SqliteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */; };
 		F82CB0851BD25B2C0015D3C5 /* SqliteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */; };
 		F82D34171C0A552000E03703 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82D34161C0A552000E03703 /* DateHelper.swift */; };
@@ -119,6 +120,7 @@
 		F806677E1B1E5DC600A26B5D /* DepartureService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartureService.swift; sourceTree = "<group>"; };
 		F807230B1BE290BA00749E76 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		F818619E1B41D52A005DDA3A /* DeviceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
+		F81D4E781C5EBB3F0024B798 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqliteService.swift; sourceTree = "<group>"; };
 		F82D34161C0A552000E03703 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		F843A39D1B1B04C2008F4505 /* Tajma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tajma.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +276,7 @@
 				F843A3C51B1B066B008F4505 /* LinesViewController.swift */,
 				F8FEC9A21C42B484008C615A /* OmOssViewController.swift */,
 				F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */,
+				F81D4E781C5EBB3F0024B798 /* WebViewController.swift */,
 				F843A3A91B1B04C2008F4505 /* Main.storyboard */,
 				F843A3AC1B1B04C2008F4505 /* Images.xcassets */,
 				F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */,
@@ -645,6 +648,7 @@
 				F8FEC9A31C42B484008C615A /* OmOssViewController.swift in Sources */,
 				F87AFE751B1B902400D3DAFC /* Departure.swift in Sources */,
 				F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */,
+				F81D4E791C5EBB3F0024B798 /* WebViewController.swift in Sources */,
 				F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */,
 				F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */,
 				F82CB0841BD25B2C0015D3C5 /* SqliteService.swift in Sources */,

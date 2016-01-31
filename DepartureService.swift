@@ -26,7 +26,7 @@ public class DepartureService {
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
             let serverDate = dateFormatter.dateFromString(self.serverDateTime(json)) as NSDate!
             let jsonDepartures = json["DepartureBoard"]["Departure"]
-            
+
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var lines = [Line]()
             
@@ -72,7 +72,6 @@ public class DepartureService {
         })
         stops.sortInPlace({ $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
 
-        
         var closestStops = [Stop]()
         for stop in stops {
             if (closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000){
@@ -91,7 +90,7 @@ public class DepartureService {
         }
         
         dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
-        
+
         return from(closestStops).orderBy({$0.distance}).map({$0})
     }
     
