@@ -119,6 +119,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func applicationDidBecomeActive(application: UIApplication) {
         self.segmentedControl.selectedSegmentIndex = 0
         locationManager.startUpdatingLocation()
+        lat = ""
+        long = ""
     }
     
     func getNearestStops() {
