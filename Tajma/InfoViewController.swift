@@ -22,7 +22,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = "Bakåt"
         initiateViews()
         
         self.navigationController?.navigationBar.layer.zPosition = 1
@@ -30,7 +30,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         tableView.delegate = self
         tableView.dataSource = self
         
-        items = ["Lämna feedback","Gilla oss på Facebook","Tipsa en vän", "Betygsätt Tajma", "Så här fungerar appen", "Om oss"]
+        items = ["Lämna feedback","Gilla oss på Facebook","Tipsa en vän", "Betygsätt Tajma", "Guide: Så här kommer du igång", "Vanliga frågor", "Om oss"]
     }
     
     override func willMoveToParentViewController(parent: UIViewController?) {
@@ -111,6 +111,8 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         case 4:
             openHelp()
         case 5:
+            openFaq()
+        case 6:
             openAboutUs()
         default:
             return
@@ -175,6 +177,10 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
             
             presentViewController(mail, animated: true, completion: nil)
         }
+    }
+    
+    func openFaq(){
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://www.tajma.faq.golazo.nu")!)
     }
     
     func openHelp(){
