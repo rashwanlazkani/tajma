@@ -150,7 +150,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         snameLabel.textColor = UIColor(rgba: currentLine.bgColor)
         snameLabel.font = snameLabel.font.fontWithSize(fontSize)
         
-        let directionLabel = UILabel(frame: CGRectMake(0, 8, DeviceHelper.getLabelWidth(), 30))
+        let directionLabel = UILabel(frame: CGRectMake(0, 8, DeviceHelper.labelWidth() + 40, 30))
         directionLabel.textAlignment = NSTextAlignment.Left
         directionLabel.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         directionLabel.text = "\t     \(currentLine.direction)"

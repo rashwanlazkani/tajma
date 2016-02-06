@@ -116,6 +116,23 @@ class DeviceHelper {
         }
     }
     
+    static func labelWidth() -> CGFloat{
+        switch UIScreen.mainScreen().bounds.height {
+            // 4, 4s, 5, 5s
+        case 480, 568 :
+            return 220.0
+            // 6, 6s
+        case 667 :
+            return 275.0
+            // 6P, 6sP
+        case 736 :
+            return 315.0
+            // Simulator, iPad osv
+        default:
+            return 290
+        }
+    }
+    
     static func currentDevice() -> String{
         switch UIScreen.mainScreen().bounds.height {
         case 480 :

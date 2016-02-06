@@ -227,13 +227,11 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     // MARK: - TableView
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return stops.count
     }
     
-    func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
+    func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let currentStop = from(stops).elementAt(indexPath.row)
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
@@ -245,7 +243,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             }
         }
         
-        let name = UILabel(frame: CGRectMake(15, 8, DeviceHelper.getLabelWidth() - 35, 30))
+        let name = UILabel(frame: CGRectMake(15, 8, DeviceHelper.labelWidth(), 30))
         name.textAlignment = NSTextAlignment.Left
         name.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         name.text = stops[indexPath.row].name
