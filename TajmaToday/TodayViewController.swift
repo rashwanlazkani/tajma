@@ -157,9 +157,10 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         
         let name = UILabel(frame: CGRectMake(8, 15, DeviceHelper.getLabelWidth(), 30))
         name.font = name.font.fontWithSize(14)
-        name.text = stops[section].name
         name.textColor = UIColor.lightGrayColor()
         
+        name.text = stops[section].name.componentsSeparatedByString(",")[0]
+
         let distance = UILabel(frame: CGRectMake(tableView.bounds.width - 110, 15, 100, 30))
         distance.font = distance.font.fontWithSize(14)
         distance.textColor = UIColor.lightGrayColor()
@@ -303,6 +304,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         else{
             infoText.hidden = true
         }
+        
         self.tableView.reloadData()
     }
     
