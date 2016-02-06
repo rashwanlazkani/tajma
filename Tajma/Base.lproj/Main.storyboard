@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="b3Y-wY-JjN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="b3Y-wY-JjN">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -45,7 +45,6 @@
                     <connections>
                         <outlet property="tableView" destination="zeL-5m-Bll" id="JAD-w1-lrr"/>
                         <segue destination="U96-Za-JNU" kind="push" identifier="ShowGuide" animates="NO" id="egI-j1-zh1"/>
-                        <segue destination="3LU-hT-ZWo" kind="push" identifier="ShowAboutUs" id="b5Y-b9-qPV"/>
                         <segue destination="zKK-1b-w2R" kind="push" identifier="ShowWebView" id="XoU-wA-p8Y"/>
                     </connections>
                 </viewController>
@@ -272,58 +271,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtA-8M-LtC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="440.5333333333333" y="737.45333333333338"/>
-        </scene>
-        <!--Om oss-->
-        <scene sceneID="41m-Bm-OeH">
-            <objects>
-                <viewController title="Om oss" id="3LU-hT-ZWo" customClass="OmOssViewController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="yCn-ME-Ug2"/>
-                        <viewControllerLayoutGuide type="bottom" id="dOJ-hI-YbM"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="K99-gv-Q4e">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="E8I-Ri-Kbg">
-                                <rect key="frame" x="16" y="8" width="288" height="496"/>
-                                <color key="backgroundColor" red="0.90588235294117647" green="0.24705882352941178" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="496" id="gm3-c3-A5q"/>
-                                </constraints>
-                                <string key="text">Vi har som mål med Tajma att förenkla vardagen för dig och dina vänner. Vi arbetar kontinuerligt med uppdateringar av appen. I nuläget fungerar Tajma för Västtrafiks linjer men vi jobbar på att inkludera Skånetrafiken och Storstockholms Lokaltrafik inom kort. Om du har några frågor till Tajma-teamet, maila oss gärna på tajma@golazo.nu.
-
-Vårt team består av följande personer:
-
-Rashwan Lazkani
-Utvecklare
-
-Martin Ohls
-UX Designer
-
-Olof Stranne
-Utvecklare</string>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.90588235289999997" green="0.2470588235" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="E8I-Ri-Kbg" secondAttribute="trailing" id="FY2-We-uyg"/>
-                            <constraint firstItem="E8I-Ri-Kbg" firstAttribute="top" secondItem="yCn-ME-Ug2" secondAttribute="bottom" constant="8" id="PKs-Yk-kes"/>
-                            <constraint firstItem="E8I-Ri-Kbg" firstAttribute="leading" secondItem="K99-gv-Q4e" secondAttribute="leadingMargin" id="smb-H4-6YX"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="akz-dW-7wl"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
-                    <connections>
-                        <outlet property="txtField" destination="E8I-Ri-Kbg" id="WI5-uQ-fDp"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PoD-kT-ATF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1684" y="562"/>
         </scene>
     </scenes>
     <resources>

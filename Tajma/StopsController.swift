@@ -285,8 +285,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     // MARK: - Segue
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!)
-    {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!){
         if (segue.identifier == "ShowLinesView")
         {
             UIApplication.sharedApplication().beginIgnoringInteractionEvents()
