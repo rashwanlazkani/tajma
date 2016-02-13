@@ -78,7 +78,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                 date = DateHelper.get(DateHelper.SearchDirection.Next, "Monday")
                 dateString = formatterDate.stringFromDate(date)
                 
-                url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&date=\(dateString)&timeSpan=180&maxDeparturesPerLine=1"
+                url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&date=\(dateString)&timeSpan=120&maxDeparturesPerLine=1"
                 self.makeHTTPGetRequest(url, onCompletion: { json, err in
                     onCompletion(json as JSON)
                 })

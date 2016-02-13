@@ -31,7 +31,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidAppear(animated: Bool) {
         initiateViews()
-        print("Appear")
         
         if (segmentedControl.selectedSegmentIndex == 1){
             stops = SqliteService.sharedInstance.getStops()
