@@ -31,10 +31,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         initiateViews()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        activityIndicator.stopAnimating()
-    }
-    
     override func willMoveToParentViewController(parent: UIViewController?){
         super.willMoveToParentViewController(parent)
         if parent == nil {
@@ -167,11 +163,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        
-        
-        
-        
-        
         let currentLine = from(lines).elementAt(indexPath.row)
         currentLine.stopId = stop.id
         if (from(stop.lines).any({$0.id == currentLine.id})){
@@ -181,6 +172,10 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             SqliteService.sharedInstance.addLine(currentLine, stop: stop)
         }
         updateMyLines()
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        activityIndicator.stopAnimating()
     }
 
     override func didReceiveMemoryWarning() {
