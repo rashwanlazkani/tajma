@@ -31,6 +31,13 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidAppear(animated: Bool) {
         initiateViews()
+        print("Appear")
+        
+        if (segmentedControl.selectedSegmentIndex == 1){
+            stops = SqliteService.sharedInstance.getStops()
+        }
+        lines = SqliteService.sharedInstance.getLines()
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -156,17 +163,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
-    
-    // MARK: - Events
-    override func didMoveToParentViewController(parent: UIViewController?) {
-        // För att uppdatera listan över tillagda stopp när man kommer från linesViewn
-        if (segmentedControl.selectedSegmentIndex == 1){
-            stops = SqliteService.sharedInstance.getStops()
-        }
-        lines = SqliteService.sharedInstance.getLines()
-        tableView.reloadData()
-    }
-    
+
     @IBAction func segmentedControl_Changed(sender: UISegmentedControl) {
         if (segmentedControl.selectedSegmentIndex == 0){
             lat = ""
