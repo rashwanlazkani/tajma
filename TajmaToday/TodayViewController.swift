@@ -184,7 +184,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             view.removeFromSuperview()
         }
         
-        let mainLabel = UILabel(frame: CGRectMake(8, 4, DeviceHelper.getLabelWidth(), 30))
+        let mainLabel = UILabel(frame: CGRectMake(8, 4, DeviceHelper.labelWidth() - 30, 30))
         mainLabel.font = mainLabel.font.fontWithSize(14)
         let rightOne = UILabel(frame: CGRectMake(tableView.bounds.width - 150, 4, 100, 30))
         rightOne.font = rightOne.font.fontWithSize(14)
