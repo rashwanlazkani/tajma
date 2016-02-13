@@ -73,7 +73,7 @@ class GuideController: UIViewController{
         let img = UIImage(named: "close")
         closeButton.setImage(img, forState: .Normal)
         closeButton.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
-        closeButton.frame = CGRectMake(self.view.frame.width - 35, 25, 20, 20)
+        closeButton.frame = CGRectMake(self.view.frame.width - 45, 25, 40, 40)
         self.view.addSubview(closeButton)
         
         let button1 = UIButton()
