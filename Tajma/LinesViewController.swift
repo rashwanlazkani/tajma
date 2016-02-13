@@ -101,9 +101,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         let currentLine = from(lines).elementAt(indexPath.row)
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         cell.selectionStyle = .None
-        
-        
-        
+
         for view in cell.subviews{
             if(view.isKindOfClass(UILabel) || view.isKindOfClass(UIImage) || view.isKindOfClass(UIView)){
                 view.removeFromSuperview()

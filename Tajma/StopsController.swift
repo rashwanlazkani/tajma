@@ -234,6 +234,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let currentStop = from(stops).elementAt(indexPath.row)
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        
         cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
@@ -275,8 +276,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         searchBar.resignFirstResponder()
         self.searchBar!.text = ""
         self.performSegueWithIdentifier("ShowLinesView", sender: stops[indexPath.row])
