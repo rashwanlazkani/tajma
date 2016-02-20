@@ -70,7 +70,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         
         let dateString = formatterDate.stringFromDate(date) //Convert to String
         
-        var url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&date=\(dateString)&timeSpan=120&maxDeparturesPerLine=1"
+        var url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&date=\(dateString)&timeSpan=60&maxDeparturesPerLine=1"
         makeHTTPGetRequest(url, onCompletion: { json, err in
             let result = json["DepartureBoard"]["Departure"]
             if (result.count == 0){
@@ -78,7 +78,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                 date = DateHelper.get(DateHelper.SearchDirection.Next, "Monday")
                 dateString = formatterDate.stringFromDate(date)
                 
-                url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&date=\(dateString)&timeSpan=120&maxDeparturesPerLine=1"
+                url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&date=\(dateString)&timeSpan=60&maxDeparturesPerLine=1"
                 self.makeHTTPGetRequest(url, onCompletion: { json, err in
                     onCompletion(json as JSON)
                 })
@@ -89,7 +89,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
     
     func getDeparturesAtStop (stopId: String, onCompletion: (JSON) -> Void){
-        let url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&timeSpan=120&maxDeparturesPerLine=2"
+        let url = "\(Constants.VTurl)departureBoard?authKey=\(Constants.VTauth)&format=json&id=\(stopId)&timeSpan=60&maxDeparturesPerLine=2"
         makeHTTPGetRequest(url, onCompletion: { json, err in
             onCompletion(json as JSON)
         })
