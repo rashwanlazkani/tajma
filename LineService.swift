@@ -24,7 +24,15 @@ public class LineService{
                 var lines = [Line]()
                 
                 for (_,subJson):(String, JSON) in jsonLines {
-                    let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"
+                    let sname = subJson["sname"].string
+                    let direction = subJson["direction"].string
+                    
+                    if (sname == nil || direction == nil){
+                        let error = NSError(domain: "Kunde inte hämta id", code: 1000, userInfo: nil)
+                        onError(error)
+                        return
+                    }
+                    let id = "\(stopId)-\(sname)-\(direction)"
 
                     var line = Line()
                     let dbLine = from(dbLines).singleOrNil({$0.id == id})

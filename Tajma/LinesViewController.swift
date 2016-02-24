@@ -81,6 +81,15 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
                 UIApplication.sharedApplication().endIgnoringInteractionEvents()
             })
             }, onError:{ error -> Void in
+                dispatch_async(dispatch_get_main_queue(),{
+                    let alert = UIAlertController(title: "Tajma", message: "Kan inte hämta linjer, försök igen senare.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (alert) -> Void in
+                        self.navigationController!.popViewControllerAnimated(true)
+                    }))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                })
         })
     }
     
