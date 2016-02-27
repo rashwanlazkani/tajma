@@ -27,6 +27,9 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        SqliteService.sharedInstance.updateOptionals()
+        
         infoText.userInteractionEnabled = true
         let aSelector : Selector = "lblTapped"
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)

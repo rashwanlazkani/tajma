@@ -31,7 +31,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidAppear(animated: Bool) {
         initiateViews()
-        
+
         if (segmentedControl.selectedSegmentIndex == 1){
             stops = SqliteService.sharedInstance.getStops()
         }
@@ -41,6 +41,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        SqliteService.sharedInstance.updateOptionals()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
         
@@ -69,7 +71,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             lines = SqliteService.sharedInstance.getLines()
         }
     }
-    
+
     // MARK: - Functions
     func initiateViews(){
         self.view.backgroundColor = UIColor.whiteColor()

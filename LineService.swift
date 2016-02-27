@@ -32,7 +32,7 @@ public class LineService{
                         onError(error)
                         return
                     }
-                    let id = "\(stopId)-\(sname)-\(direction)"
+                    let id = "\(stopId)-\(sname!)-\(direction!)"
 
                     var line = Line()
                     let dbLine = from(dbLines).singleOrNil({$0.id == id})

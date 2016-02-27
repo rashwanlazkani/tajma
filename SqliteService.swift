@@ -112,6 +112,11 @@ class SqliteService {
         }
     }
     
+    func updateOptionals(){
+        let db = try! Connection(sharedHelper.getSharedUrl())
+        try! db.execute("UPDATE lines SET id = replace(replace(id, 'Optional(\"',''), '\")', '') WHERE id LIKE '%Optional%';")
+    }
+    
     private func createTables(){
         let db = try! Connection(sharedHelper.getSharedUrl())
         
