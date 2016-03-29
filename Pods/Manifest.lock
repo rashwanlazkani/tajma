@@ -1,6 +1,6 @@
 PODS:
-  - SINQ (0.5.0)
-  - SQLite.swift (1.0.0)
+  - SINQ (0.6.0)
+  - SQLite.swift (0.10.0)
 
 DEPENDENCIES:
   - SINQ
@@ -12,11 +12,11 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SQLite.swift:
-    :commit: 5638f1f791e60713fdee06f267107f21a5ad9b59
+    :commit: ca0043fdd0e4dfef1ba386de9837ea2b837734ca
     :git: https://github.com/stephencelis/SQLite.swift.git
 
 SPEC CHECKSUMS:
-  SINQ: 259eb63d0b860d76fe9d063650f7b88d4d7d19dd
-  SQLite.swift: 3bb75f5a650f08673276bc6d3fb1de1b542b8f4d
+  SINQ: 503dc26fdcbf29be8fb48ebeace911c4268bef5c
+  SQLite.swift: f3eda15d5948771826c5f897fe93c6967b985f86
 
 COCOAPODS: 0.39.0

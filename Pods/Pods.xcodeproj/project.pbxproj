@@ -1,916 +1,2481 @@
-// !$*UTF8*$!
-{
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXBuildFile section */
-		0513F1232D1DA9933D758AA653420530 /* SQLite-Bridging.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E2F14998891F14A20D793F91022542 /* SQLite-Bridging.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		0DAAECF5A78DBF022E6F8E2EBCE92C59 /* SINQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54631D3638EBF2B84EC5A338ACDFFCC8 /* SINQ.swift */; };
-		12F56DCC731D9E6464880F86C0B390B4 /* Pods-TajmaToday-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7965296C01A5370AC8C3B84DCE8FE87F /* Pods-TajmaToday-dummy.m */; };
-		14D87CBC908215A4A268D20B6FEC981C /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4F845EB68D1E2A86875234042DF829 /* Foundation.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		15AB7318CE2089CAA89667C03D66B61F /* SQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = CC437018845A9E2AC4DC7AF565C1CC6B /* SQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1A88EFB479435122FD870E7C540819AC /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BC5A0EBBF600FB335F629EA3A485E5 /* Query.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		388870EC6E33EEA24EC3FFD02CDA1C3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		410A697CA45C86208E6BE4BA21BD726B /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE2DB94E0DFE2B83BC5FDF658DC1C0E /* Connection.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		41840E3FF7EDFD024458F8759A09F906 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		4FF22A0DB852E25256A92D77965E5DA2 /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCED745F0BB781F77FEA7D5A3C4009C3 /* Statement.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		59F41AD15631A453B9E651DEAC1BA0D8 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4795F412CE9BCAB29C71E1F4F622F4 /* Operators.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		5A728131F6E7B6E3B4C6655AACCA4DDE /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931602BE2373C74AB93272878FBA0CC8 /* Expression.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		5D2D44A7141440851A7A85CF5F7693F2 /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1806AB387B5CFB6C2FFDF2B6028A79 /* Blob.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		5D840830F73D97AA853809356620B5C8 /* FTS4.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91270CCFAB275123A267948500D8D4D /* FTS4.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		5E2BA162C25989E8B312DAA9A07259F1 /* Pods-Tajma-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FEFCA338747F42674FE801B433139EAB /* Pods-Tajma-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6B52E5B658549D290E24FBFB4BE38819 /* Pods-Tajma-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE40B468F8AC8207CFCFEF237EFEB2C2 /* Pods-Tajma-dummy.m */; };
-		7059A5FE161C7ECF862D24B2C2C347BF /* CoreFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D15358B5CCF1BF737EB1C89BD941B27 /* CoreFunctions.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		868CEE96597701DD6663EA6EF85AC245 /* SQLite-Bridging.h in Headers */ = {isa = PBXBuildFile; fileRef = A4343ED946B591482F53F2B4AC64B9AD /* SQLite-Bridging.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8B96F107BC98DC3C659C5C16E24D5C38 /* Collation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12E4C060D94882FCE1D212FFBBEE6F6 /* Collation.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		8C061AA579BBB2D2140B257CD3257DA8 /* R*Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007ACB829F31165B353C0B88E9C88045 /* R*Tree.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		9D583229D633DF51A539B7979720E70F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		BD198040FAA8CC7EF08E6C82640581B8 /* Setter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964540AFA448EAB5CBA985CC0BA19F75 /* Setter.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		BE6E383A2542EEF45CC90778C2C0C5DB /* SINQ-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CFAE2BB77D32D43160AA794F95CAB872 /* SINQ-dummy.m */; };
-		BF7E86D047F90001C7C59458A66679E3 /* fts3_tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 541E470B11DD1242B44EE48342BB7CB4 /* fts3_tokenizer.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		C4D3C17CC1E2B6CDC940078981B5B435 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6A4EC022A103ACD22D71EBE288586 /* Helpers.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		C52C06BB193C3FF380CAC674E95DC825 /* SINQ-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFBE08177A78D706023547164851C42 /* SINQ-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D728580FE19994834AE07E2CC9E70054 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2439FFFAB0A4ACC4E480164267B40FC /* Value.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		E3509EF73B38238E2F951B6510F1EB11 /* Pods-TajmaToday-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 117357BC5E851193BCEFBB93250DF88D /* Pods-TajmaToday-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDD9AD17B178F03E0CB3C72A54F2383F /* CustomFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA01E52DC5E5195C03873DB53EA141 /* CustomFunctions.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		F22818E3DCBCAA399775008F28A1AC1B /* AggregateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF4BA7C7F88C8C64CCC8916BED87425 /* AggregateFunctions.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		F6BC68807FF274145A519B859D7C404F /* SQLite.swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B63922302CF5B20F376327F83811D240 /* SQLite.swift-dummy.m */; };
-		FAB87B1728CD0C0233EFE3CA2352DBBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		FAD91221FB051E01964A14E0E1AB40B8 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E950B77D8709E754980BAE5C0DB1CAB /* Schema.swift */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		13336A7C6E9C2077F43CE5BC90EBA00B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CBC0965630F7085BBE48FC69C90586D7;
-			remoteInfo = SQLite.swift;
-		};
-		175C17AE3DAF1F34D6A6521010CD0EBF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 71A8621F907CE346DBC1BC391F17695E;
-			remoteInfo = SINQ;
-		};
-		4828BED03DB8603A7C299B4D998694D0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 71A8621F907CE346DBC1BC391F17695E;
-			remoteInfo = SINQ;
-		};
-		5602D17C332752A22F39C7A4A2A1BFE2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CBC0965630F7085BBE48FC69C90586D7;
-			remoteInfo = SQLite.swift;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXFileReference section */
-		007ACB829F31165B353C0B88E9C88045 /* R*Tree.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "R*Tree.swift"; path = "Source/Extensions/R*Tree.swift"; sourceTree = "<group>"; };
-		01FA01E52DC5E5195C03873DB53EA141 /* CustomFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomFunctions.swift; path = Source/Typed/CustomFunctions.swift; sourceTree = "<group>"; };
-		043EF61185772F241603EF97E86DE280 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		046AC7F892B7FFCD41DEF0A6FBFA99A3 /* Pods_Tajma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tajma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0DDDEEDF0258E5C78307973219B86C0F /* Pods-TajmaToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TajmaToday.debug.xcconfig"; sourceTree = "<group>"; };
-		117357BC5E851193BCEFBB93250DF88D /* Pods-TajmaToday-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TajmaToday-umbrella.h"; sourceTree = "<group>"; };
-		1D15358B5CCF1BF737EB1C89BD941B27 /* CoreFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoreFunctions.swift; path = Source/Typed/CoreFunctions.swift; sourceTree = "<group>"; };
-		21175FE3572FF8F5247AFC89915180E9 /* SINQ-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SINQ-prefix.pch"; sourceTree = "<group>"; };
-		25D6A4EC022A103ACD22D71EBE288586 /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Source/Helpers.swift; sourceTree = "<group>"; };
-		2BFDDFDCC936B347C1EAB39B62FB6111 /* Pods-Tajma.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Tajma.modulemap"; sourceTree = "<group>"; };
-		2E62E3200CCC1F17D6DEA57CAC6B2230 /* Pods-TajmaToday-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TajmaToday-acknowledgements.markdown"; sourceTree = "<group>"; };
-		3C4F845EB68D1E2A86875234042DF829 /* Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Foundation.swift; path = Source/Foundation.swift; sourceTree = "<group>"; };
-		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		47709A83E8D207862A90074E3DD17CF1 /* Pods-TajmaToday.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-TajmaToday.modulemap"; sourceTree = "<group>"; };
-		53EEACDEE1F2849592CA24562E552BB1 /* Pods-Tajma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tajma.debug.xcconfig"; sourceTree = "<group>"; };
-		541E470B11DD1242B44EE48342BB7CB4 /* fts3_tokenizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = fts3_tokenizer.h; path = Source/Core/fts3_tokenizer.h; sourceTree = "<group>"; };
-		54631D3638EBF2B84EC5A338ACDFFCC8 /* SINQ.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SINQ.swift; path = SINQ/SINQ.swift; sourceTree = "<group>"; };
-		54B01A49582AF14D3C29CDA32EFBE9C6 /* Pods-Tajma.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tajma.release.xcconfig"; sourceTree = "<group>"; };
-		6BE0A4601E664A83DF743A2249C608F2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E950B77D8709E754980BAE5C0DB1CAB /* Schema.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Schema.swift; path = Source/Typed/Schema.swift; sourceTree = "<group>"; };
-		723BE9B772B753AE3CEDF6BB08FDE283 /* SQLite.swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SQLite.swift-prefix.pch"; sourceTree = "<group>"; };
-		7965296C01A5370AC8C3B84DCE8FE87F /* Pods-TajmaToday-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TajmaToday-dummy.m"; sourceTree = "<group>"; };
-		797DBCFFBF61F3C7EF82B200EB961306 /* SINQ.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SINQ.xcconfig; sourceTree = "<group>"; };
-		7BDB8EBE86C0ACD2287A02CD6C298CCE /* Pods-TajmaToday-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TajmaToday-frameworks.sh"; sourceTree = "<group>"; };
-		82B8548FA8BEAF47BA9C9E6513DC85A4 /* Pods-TajmaToday-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TajmaToday-resources.sh"; sourceTree = "<group>"; };
-		8A2F1FE26D0F8919C08066B4300D811C /* SINQ.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SINQ.modulemap; sourceTree = "<group>"; };
-		931602BE2373C74AB93272878FBA0CC8 /* Expression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Expression.swift; path = Source/Typed/Expression.swift; sourceTree = "<group>"; };
-		964540AFA448EAB5CBA985CC0BA19F75 /* Setter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Setter.swift; path = Source/Typed/Setter.swift; sourceTree = "<group>"; };
-		97CD219C0D83CE50A6E25478BAC61CB8 /* Pods-Tajma-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tajma-frameworks.sh"; sourceTree = "<group>"; };
-		A4343ED946B591482F53F2B4AC64B9AD /* SQLite-Bridging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SQLite-Bridging.h"; path = "Source/Core/SQLite-Bridging.h"; sourceTree = "<group>"; };
-		A743FF3C14490630540F80961E7318AB /* SQLite.swift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SQLite.swift.xcconfig; sourceTree = "<group>"; };
-		AAF4BA7C7F88C8C64CCC8916BED87425 /* AggregateFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AggregateFunctions.swift; path = Source/Typed/AggregateFunctions.swift; sourceTree = "<group>"; };
-		B42FAA431ABA280193660901135559D8 /* SINQ.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SINQ.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B63922302CF5B20F376327F83811D240 /* SQLite.swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SQLite.swift-dummy.m"; sourceTree = "<group>"; };
-		B6BE53EB7FBE2409724C0F4DDE74D336 /* Pods_TajmaToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TajmaToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B6E2F14998891F14A20D793F91022542 /* SQLite-Bridging.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SQLite-Bridging.m"; path = "Source/Core/SQLite-Bridging.m"; sourceTree = "<group>"; };
-		B91270CCFAB275123A267948500D8D4D /* FTS4.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FTS4.swift; path = Source/Extensions/FTS4.swift; sourceTree = "<group>"; };
-		B93526BD357648EBEB00643EC9BF4397 /* Pods-Tajma-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tajma-acknowledgements.markdown"; sourceTree = "<group>"; };
-		B978EB858602D86AB9CC9A853549ACBC /* SQLite.swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SQLite.swift.modulemap; sourceTree = "<group>"; };
-		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		BEBAD5EC92F58EC260B9E1193B8C8C80 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3271919738C6202B6D03D056BA11358 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9E6E1C0690E187D0606CBF96AB4AC80 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC437018845A9E2AC4DC7AF565C1CC6B /* SQLite.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SQLite.h; path = "Supporting Files/SQLite/SQLite.h"; sourceTree = "<group>"; };
-		CE4795F412CE9BCAB29C71E1F4F622F4 /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Source/Typed/Operators.swift; sourceTree = "<group>"; };
-		CFAE2BB77D32D43160AA794F95CAB872 /* SINQ-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SINQ-dummy.m"; sourceTree = "<group>"; };
-		D33CE99FEB3715A5A82BE82290FBE86D /* Pods-Tajma-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tajma-resources.sh"; sourceTree = "<group>"; };
-		DCED745F0BB781F77FEA7D5A3C4009C3 /* Statement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Statement.swift; path = Source/Core/Statement.swift; sourceTree = "<group>"; };
-		DEFBE08177A78D706023547164851C42 /* SINQ-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SINQ-umbrella.h"; sourceTree = "<group>"; };
-		DF1806AB387B5CFB6C2FFDF2B6028A79 /* Blob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Blob.swift; path = Source/Core/Blob.swift; sourceTree = "<group>"; };
-		E01F0F0DE4C940C8419D23824F8084E2 /* Pods-Tajma-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tajma-acknowledgements.plist"; sourceTree = "<group>"; };
-		E12E4C060D94882FCE1D212FFBBEE6F6 /* Collation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Collation.swift; path = Source/Typed/Collation.swift; sourceTree = "<group>"; };
-		E2439FFFAB0A4ACC4E480164267B40FC /* Value.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Value.swift; path = Source/Core/Value.swift; sourceTree = "<group>"; };
-		E9BC5A0EBBF600FB335F629EA3A485E5 /* Query.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Query.swift; path = Source/Typed/Query.swift; sourceTree = "<group>"; };
-		EE40B468F8AC8207CFCFEF237EFEB2C2 /* Pods-Tajma-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tajma-dummy.m"; sourceTree = "<group>"; };
-		F161E9359FD836C063484BD6E667A4D7 /* Pods-TajmaToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TajmaToday.release.xcconfig"; sourceTree = "<group>"; };
-		F407FCED8BC62D9A8E441C66DD9D1E47 /* Pods-TajmaToday-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TajmaToday-acknowledgements.plist"; sourceTree = "<group>"; };
-		FDE2DB94E0DFE2B83BC5FDF658DC1C0E /* Connection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Connection.swift; path = Source/Core/Connection.swift; sourceTree = "<group>"; };
-		FEFCA338747F42674FE801B433139EAB /* Pods-Tajma-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Tajma-umbrella.h"; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		1C536D34C639FF5319366835CC08ED64 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				388870EC6E33EEA24EC3FFD02CDA1C3E /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		21E46D6557D6CB2BFC2AFA48A17013E6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				41840E3FF7EDFD024458F8759A09F906 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		649F43626401982BA56508E9E00C1A1F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FAB87B1728CD0C0233EFE3CA2352DBBE /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DD0089BCDA53DEA4A7BAE874DA686202 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9D583229D633DF51A539B7979720E70F /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		10531782A629471BDF9E9DFBC3CBFBF8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				046AC7F892B7FFCD41DEF0A6FBFA99A3 /* Pods_Tajma.framework */,
-				B6BE53EB7FBE2409724C0F4DDE74D336 /* Pods_TajmaToday.framework */,
-				B42FAA431ABA280193660901135559D8 /* SINQ.framework */,
-				BEBAD5EC92F58EC260B9E1193B8C8C80 /* SQLite.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		56A8C2884A6EAF12D90596DAD06F5409 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				79A798A80BF2783A6D9CC1562D503FE7 /* SINQ */,
-				77A0C522AD48F43A34AAAA95E25EE04D /* SQLite.swift */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		66101A41C155724B56B1B885A850FBC5 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				FAD64E2D64DB8CFB4A427D54A626EF7E /* Pods-Tajma */,
-				78E21DBE3D75E123F94726EFA7FB084A /* Pods-TajmaToday */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		77A0C522AD48F43A34AAAA95E25EE04D /* SQLite.swift */ = {
-			isa = PBXGroup;
-			children = (
-				AAF4BA7C7F88C8C64CCC8916BED87425 /* AggregateFunctions.swift */,
-				DF1806AB387B5CFB6C2FFDF2B6028A79 /* Blob.swift */,
-				E12E4C060D94882FCE1D212FFBBEE6F6 /* Collation.swift */,
-				FDE2DB94E0DFE2B83BC5FDF658DC1C0E /* Connection.swift */,
-				1D15358B5CCF1BF737EB1C89BD941B27 /* CoreFunctions.swift */,
-				01FA01E52DC5E5195C03873DB53EA141 /* CustomFunctions.swift */,
-				931602BE2373C74AB93272878FBA0CC8 /* Expression.swift */,
-				3C4F845EB68D1E2A86875234042DF829 /* Foundation.swift */,
-				541E470B11DD1242B44EE48342BB7CB4 /* fts3_tokenizer.h */,
-				B91270CCFAB275123A267948500D8D4D /* FTS4.swift */,
-				25D6A4EC022A103ACD22D71EBE288586 /* Helpers.swift */,
-				CE4795F412CE9BCAB29C71E1F4F622F4 /* Operators.swift */,
-				E9BC5A0EBBF600FB335F629EA3A485E5 /* Query.swift */,
-				007ACB829F31165B353C0B88E9C88045 /* R*Tree.swift */,
-				6E950B77D8709E754980BAE5C0DB1CAB /* Schema.swift */,
-				964540AFA448EAB5CBA985CC0BA19F75 /* Setter.swift */,
-				CC437018845A9E2AC4DC7AF565C1CC6B /* SQLite.h */,
-				A4343ED946B591482F53F2B4AC64B9AD /* SQLite-Bridging.h */,
-				B6E2F14998891F14A20D793F91022542 /* SQLite-Bridging.m */,
-				DCED745F0BB781F77FEA7D5A3C4009C3 /* Statement.swift */,
-				E2439FFFAB0A4ACC4E480164267B40FC /* Value.swift */,
-				C96A0313F79E17F0AE6DF5E196CE7685 /* Support Files */,
-			);
-			path = SQLite.swift;
-			sourceTree = "<group>";
-		};
-		78E21DBE3D75E123F94726EFA7FB084A /* Pods-TajmaToday */ = {
-			isa = PBXGroup;
-			children = (
-				6BE0A4601E664A83DF743A2249C608F2 /* Info.plist */,
-				47709A83E8D207862A90074E3DD17CF1 /* Pods-TajmaToday.modulemap */,
-				2E62E3200CCC1F17D6DEA57CAC6B2230 /* Pods-TajmaToday-acknowledgements.markdown */,
-				F407FCED8BC62D9A8E441C66DD9D1E47 /* Pods-TajmaToday-acknowledgements.plist */,
-				7965296C01A5370AC8C3B84DCE8FE87F /* Pods-TajmaToday-dummy.m */,
-				7BDB8EBE86C0ACD2287A02CD6C298CCE /* Pods-TajmaToday-frameworks.sh */,
-				82B8548FA8BEAF47BA9C9E6513DC85A4 /* Pods-TajmaToday-resources.sh */,
-				117357BC5E851193BCEFBB93250DF88D /* Pods-TajmaToday-umbrella.h */,
-				0DDDEEDF0258E5C78307973219B86C0F /* Pods-TajmaToday.debug.xcconfig */,
-				F161E9359FD836C063484BD6E667A4D7 /* Pods-TajmaToday.release.xcconfig */,
-			);
-			name = "Pods-TajmaToday";
-			path = "Target Support Files/Pods-TajmaToday";
-			sourceTree = "<group>";
-		};
-		79A798A80BF2783A6D9CC1562D503FE7 /* SINQ */ = {
-			isa = PBXGroup;
-			children = (
-				54631D3638EBF2B84EC5A338ACDFFCC8 /* SINQ.swift */,
-				C8DD66748B4C80187385FCF62A308833 /* Support Files */,
-			);
-			path = SINQ;
-			sourceTree = "<group>";
-		};
-		7DB346D0F39D3F0E887471402A8071AB = {
-			isa = PBXGroup;
-			children = (
-				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
-				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				56A8C2884A6EAF12D90596DAD06F5409 /* Pods */,
-				10531782A629471BDF9E9DFBC3CBFBF8 /* Products */,
-				66101A41C155724B56B1B885A850FBC5 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		C8DD66748B4C80187385FCF62A308833 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				C9E6E1C0690E187D0606CBF96AB4AC80 /* Info.plist */,
-				8A2F1FE26D0F8919C08066B4300D811C /* SINQ.modulemap */,
-				797DBCFFBF61F3C7EF82B200EB961306 /* SINQ.xcconfig */,
-				CFAE2BB77D32D43160AA794F95CAB872 /* SINQ-dummy.m */,
-				21175FE3572FF8F5247AFC89915180E9 /* SINQ-prefix.pch */,
-				DEFBE08177A78D706023547164851C42 /* SINQ-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SINQ";
-			sourceTree = "<group>";
-		};
-		C96A0313F79E17F0AE6DF5E196CE7685 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				C3271919738C6202B6D03D056BA11358 /* Info.plist */,
-				B978EB858602D86AB9CC9A853549ACBC /* SQLite.swift.modulemap */,
-				A743FF3C14490630540F80961E7318AB /* SQLite.swift.xcconfig */,
-				B63922302CF5B20F376327F83811D240 /* SQLite.swift-dummy.m */,
-				723BE9B772B753AE3CEDF6BB08FDE283 /* SQLite.swift-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SQLite.swift";
-			sourceTree = "<group>";
-		};
-		FAD64E2D64DB8CFB4A427D54A626EF7E /* Pods-Tajma */ = {
-			isa = PBXGroup;
-			children = (
-				043EF61185772F241603EF97E86DE280 /* Info.plist */,
-				2BFDDFDCC936B347C1EAB39B62FB6111 /* Pods-Tajma.modulemap */,
-				B93526BD357648EBEB00643EC9BF4397 /* Pods-Tajma-acknowledgements.markdown */,
-				E01F0F0DE4C940C8419D23824F8084E2 /* Pods-Tajma-acknowledgements.plist */,
-				EE40B468F8AC8207CFCFEF237EFEB2C2 /* Pods-Tajma-dummy.m */,
-				97CD219C0D83CE50A6E25478BAC61CB8 /* Pods-Tajma-frameworks.sh */,
-				D33CE99FEB3715A5A82BE82290FBE86D /* Pods-Tajma-resources.sh */,
-				FEFCA338747F42674FE801B433139EAB /* Pods-Tajma-umbrella.h */,
-				53EEACDEE1F2849592CA24562E552BB1 /* Pods-Tajma.debug.xcconfig */,
-				54B01A49582AF14D3C29CDA32EFBE9C6 /* Pods-Tajma.release.xcconfig */,
-			);
-			name = "Pods-Tajma";
-			path = "Target Support Files/Pods-Tajma";
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		14AC69B801E6D0A80605D88F4CA3C1E8 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5E2BA162C25989E8B312DAA9A07259F1 /* Pods-Tajma-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		54FFCF4F77EE00AE7C3038A8BA69498F /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E3509EF73B38238E2F951B6510F1EB11 /* Pods-TajmaToday-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6ACA95B6E53AF822CCA4FFE005518F73 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BF7E86D047F90001C7C59458A66679E3 /* fts3_tokenizer.h in Headers */,
-				868CEE96597701DD6663EA6EF85AC245 /* SQLite-Bridging.h in Headers */,
-				15AB7318CE2089CAA89667C03D66B61F /* SQLite.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C4B8F7A429971805DB82A99F2E8FA5C0 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C52C06BB193C3FF380CAC674E95DC825 /* SINQ-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
-/* Begin PBXNativeTarget section */
-		10707D71EEA48BBDCC67E2F994F90029 /* Pods-TajmaToday */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 12A2AB9F0A2809F5F5CB5AE1EBEA18AD /* Build configuration list for PBXNativeTarget "Pods-TajmaToday" */;
-			buildPhases = (
-				971D719A4514E08E83F6FAA452753D6D /* Sources */,
-				649F43626401982BA56508E9E00C1A1F /* Frameworks */,
-				54FFCF4F77EE00AE7C3038A8BA69498F /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B140630250F1CB68E35E88A4AB44C573 /* PBXTargetDependency */,
-				70198C79F9997749AF99BE311EB7D403 /* PBXTargetDependency */,
-			);
-			name = "Pods-TajmaToday";
-			productName = "Pods-TajmaToday";
-			productReference = B6BE53EB7FBE2409724C0F4DDE74D336 /* Pods_TajmaToday.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		71A8621F907CE346DBC1BC391F17695E /* SINQ */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BD090F44E1FB4F534E0ECF2A25B1E8CF /* Build configuration list for PBXNativeTarget "SINQ" */;
-			buildPhases = (
-				A6994AA03C9D8AFDAC0927B44F7E22BB /* Sources */,
-				21E46D6557D6CB2BFC2AFA48A17013E6 /* Frameworks */,
-				C4B8F7A429971805DB82A99F2E8FA5C0 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SINQ;
-			productName = SINQ;
-			productReference = B42FAA431ABA280193660901135559D8 /* SINQ.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		9500D0B8C419E4CB8A9C57F2FB8FDAE8 /* Pods-Tajma */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DA1A814D22E30FE8B0B1E46BDAD9A3F0 /* Build configuration list for PBXNativeTarget "Pods-Tajma" */;
-			buildPhases = (
-				D01D2240518811933641B96EEF27F6A7 /* Sources */,
-				DD0089BCDA53DEA4A7BAE874DA686202 /* Frameworks */,
-				14AC69B801E6D0A80605D88F4CA3C1E8 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7A6B19300C5C11A10A85551D66B61696 /* PBXTargetDependency */,
-				F567560C4DC4EAA6C1CDCF6160E34C6C /* PBXTargetDependency */,
-			);
-			name = "Pods-Tajma";
-			productName = "Pods-Tajma";
-			productReference = 046AC7F892B7FFCD41DEF0A6FBFA99A3 /* Pods_Tajma.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		CBC0965630F7085BBE48FC69C90586D7 /* SQLite.swift */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AA77777C00B6D9812192DB5F27A3DF40 /* Build configuration list for PBXNativeTarget "SQLite.swift" */;
-			buildPhases = (
-				24A44B912A5DC916A3E8E6586DA0D942 /* Sources */,
-				1C536D34C639FF5319366835CC08ED64 /* Frameworks */,
-				6ACA95B6E53AF822CCA4FFE005518F73 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SQLite.swift;
-			productName = SQLite.swift;
-			productReference = BEBAD5EC92F58EC260B9E1193B8C8C80 /* SQLite.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
-			};
-			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-			);
-			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 10531782A629471BDF9E9DFBC3CBFBF8 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				9500D0B8C419E4CB8A9C57F2FB8FDAE8 /* Pods-Tajma */,
-				10707D71EEA48BBDCC67E2F994F90029 /* Pods-TajmaToday */,
-				71A8621F907CE346DBC1BC391F17695E /* SINQ */,
-				CBC0965630F7085BBE48FC69C90586D7 /* SQLite.swift */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXSourcesBuildPhase section */
-		24A44B912A5DC916A3E8E6586DA0D942 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F22818E3DCBCAA399775008F28A1AC1B /* AggregateFunctions.swift in Sources */,
-				5D2D44A7141440851A7A85CF5F7693F2 /* Blob.swift in Sources */,
-				8B96F107BC98DC3C659C5C16E24D5C38 /* Collation.swift in Sources */,
-				410A697CA45C86208E6BE4BA21BD726B /* Connection.swift in Sources */,
-				7059A5FE161C7ECF862D24B2C2C347BF /* CoreFunctions.swift in Sources */,
-				EDD9AD17B178F03E0CB3C72A54F2383F /* CustomFunctions.swift in Sources */,
-				5A728131F6E7B6E3B4C6655AACCA4DDE /* Expression.swift in Sources */,
-				14D87CBC908215A4A268D20B6FEC981C /* Foundation.swift in Sources */,
-				5D840830F73D97AA853809356620B5C8 /* FTS4.swift in Sources */,
-				C4D3C17CC1E2B6CDC940078981B5B435 /* Helpers.swift in Sources */,
-				59F41AD15631A453B9E651DEAC1BA0D8 /* Operators.swift in Sources */,
-				1A88EFB479435122FD870E7C540819AC /* Query.swift in Sources */,
-				8C061AA579BBB2D2140B257CD3257DA8 /* R*Tree.swift in Sources */,
-				FAD91221FB051E01964A14E0E1AB40B8 /* Schema.swift in Sources */,
-				BD198040FAA8CC7EF08E6C82640581B8 /* Setter.swift in Sources */,
-				0513F1232D1DA9933D758AA653420530 /* SQLite-Bridging.m in Sources */,
-				F6BC68807FF274145A519B859D7C404F /* SQLite.swift-dummy.m in Sources */,
-				4FF22A0DB852E25256A92D77965E5DA2 /* Statement.swift in Sources */,
-				D728580FE19994834AE07E2CC9E70054 /* Value.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		971D719A4514E08E83F6FAA452753D6D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				12F56DCC731D9E6464880F86C0B390B4 /* Pods-TajmaToday-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A6994AA03C9D8AFDAC0927B44F7E22BB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BE6E383A2542EEF45CC90778C2C0C5DB /* SINQ-dummy.m in Sources */,
-				0DAAECF5A78DBF022E6F8E2EBCE92C59 /* SINQ.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D01D2240518811933641B96EEF27F6A7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6B52E5B658549D290E24FBFB4BE38819 /* Pods-Tajma-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		70198C79F9997749AF99BE311EB7D403 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SQLite.swift;
-			target = CBC0965630F7085BBE48FC69C90586D7 /* SQLite.swift */;
-			targetProxy = 5602D17C332752A22F39C7A4A2A1BFE2 /* PBXContainerItemProxy */;
-		};
-		7A6B19300C5C11A10A85551D66B61696 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SINQ;
-			target = 71A8621F907CE346DBC1BC391F17695E /* SINQ */;
-			targetProxy = 4828BED03DB8603A7C299B4D998694D0 /* PBXContainerItemProxy */;
-		};
-		B140630250F1CB68E35E88A4AB44C573 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SINQ;
-			target = 71A8621F907CE346DBC1BC391F17695E /* SINQ */;
-			targetProxy = 175C17AE3DAF1F34D6A6521010CD0EBF /* PBXContainerItemProxy */;
-		};
-		F567560C4DC4EAA6C1CDCF6160E34C6C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SQLite.swift;
-			target = CBC0965630F7085BBE48FC69C90586D7 /* SQLite.swift */;
-			targetProxy = 13336A7C6E9C2077F43CE5BC90EBA00B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin XCBuildConfiguration section */
-		0170E83E16FA8D2214721D06E80BC66B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A743FF3C14490630540F80961E7318AB /* SQLite.swift.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SQLite.swift/SQLite.swift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SQLite.swift/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SQLite.swift/SQLite.swift.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = SQLite;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		182FCE085AF8ED5F370B2AB122BEF84B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 53EEACDEE1F2849592CA24562E552BB1 /* Pods-Tajma.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Tajma/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Tajma/Pods-Tajma.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_Tajma;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		31DC5EAE98F9066FD6E75ADBA81E64EC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 54B01A49582AF14D3C29CDA32EFBE9C6 /* Pods-Tajma.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Tajma/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Tajma/Pods-Tajma.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_Tajma;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		86EE130A92E27F19ABE15E06905C3141 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F161E9359FD836C063484BD6E667A4D7 /* Pods-TajmaToday.release.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-TajmaToday/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-TajmaToday/Pods-TajmaToday.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_TajmaToday;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Debug;
-		};
-		A8D75A452A714E0BEC5E2060A4463804 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 797DBCFFBF61F3C7EF82B200EB961306 /* SINQ.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SINQ/SINQ-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SINQ/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SINQ/SINQ.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = SINQ;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		DBE53710BC5E7E765DD48295B1410917 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A743FF3C14490630540F80961E7318AB /* SQLite.swift.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SQLite.swift/SQLite.swift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SQLite.swift/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SQLite.swift/SQLite.swift.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = SQLite;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		F0DF5ABDD8DDB950921C24714263FE13 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 797DBCFFBF61F3C7EF82B200EB961306 /* SINQ.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SINQ/SINQ-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SINQ/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SINQ/SINQ.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = SINQ;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		F7CA97391853AD03A2432BC16CA5B679 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0DDDEEDF0258E5C78307973219B86C0F /* Pods-TajmaToday.debug.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-TajmaToday/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-TajmaToday/Pods-TajmaToday.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_TajmaToday;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		FB45FFD90572718D82AB9092B750F0CA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		12A2AB9F0A2809F5F5CB5AE1EBEA18AD /* Build configuration list for PBXNativeTarget "Pods-TajmaToday" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F7CA97391853AD03A2432BC16CA5B679 /* Debug */,
-				86EE130A92E27F19ABE15E06905C3141 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */,
-				FB45FFD90572718D82AB9092B750F0CA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AA77777C00B6D9812192DB5F27A3DF40 /* Build configuration list for PBXNativeTarget "SQLite.swift" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0170E83E16FA8D2214721D06E80BC66B /* Debug */,
-				DBE53710BC5E7E765DD48295B1410917 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BD090F44E1FB4F534E0ECF2A25B1E8CF /* Build configuration list for PBXNativeTarget "SINQ" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F0DF5ABDD8DDB950921C24714263FE13 /* Debug */,
-				A8D75A452A714E0BEC5E2060A4463804 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DA1A814D22E30FE8B0B1E46BDAD9A3F0 /* Build configuration list for PBXNativeTarget "Pods-Tajma" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				182FCE085AF8ED5F370B2AB122BEF84B /* Debug */,
-				31DC5EAE98F9066FD6E75ADBA81E64EC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-	};
-	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>archiveVersion</key>
+	<string>1</string>
+	<key>classes</key>
+	<dict/>
+	<key>objectVersion</key>
+	<string>46</string>
+	<key>objects</key>
+	<dict>
+		<key>0170E83E16FA8D2214721D06E80BC66B</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>A5AF3D2B0DA0BEB660FCD42103BF9E25</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>APPLICATION_EXTENSION_API_ONLY</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/SQLite.swift/SQLite.swift-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/SQLite.swift/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/SQLite.swift/SQLite.swift.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>PRODUCT_NAME</key>
+				<string>SQLite</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>043EF61185772F241603EF97E86DE280</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>046AC7F892B7FFCD41DEF0A6FBFA99A3</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Pods_Tajma.framework</string>
+			<key>path</key>
+			<string>Pods_Tajma.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>0DAAECF5A78DBF022E6F8E2EBCE92C59</key>
+		<dict>
+			<key>fileRef</key>
+			<string>54631D3638EBF2B84EC5A338ACDFFCC8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0DDDEEDF0258E5C78307973219B86C0F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-TajmaToday.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0E33BFA834E8B9A64A6E4B29418D389F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>80C29057FBD793A5EDD47C2CBCEF117A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>0F07E0D12E34B28D6CB4885B2B9B8636</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7D9BDB89EDE8769B2B29A1951E30196D</string>
+				<string>6E039BEC6442886A7E8CE4BD316FB939</string>
+				<string>80C29057FBD793A5EDD47C2CBCEF117A</string>
+				<string>EC860F209A85B7AD51C7A346801122B6</string>
+				<string>1EE30D06D7F53DFB52CB4E1D993AC767</string>
+				<string>29821BF2FE3CBB761AEB30CDAD551197</string>
+				<string>29677FF56F0C636E834B74487C0283C6</string>
+				<string>D0BB041F5069D76777348A95442EA851</string>
+				<string>5D9B54A651343A4FB2F03E44DCC747E0</string>
+				<string>75CC9717C4924575E64999E4B60D75BE</string>
+				<string>888B0A944E369556ABB3AEEDA15419A8</string>
+				<string>8E29025CE39893C41754977778C825C0</string>
+				<string>1A977937737B77B1C6BA39E082BB534D</string>
+				<string>99F5B142EF7D3B47C18A348B4DB966E2</string>
+				<string>216EAA1516145B05299CD681D92EE117</string>
+				<string>9C580506555D24392B3A0477768AAED8</string>
+				<string>D12AACACB152367DD7590EB17C05CF82</string>
+				<string>C9A55C83864E31DE2C7A5EA159478E9E</string>
+				<string>CBE5E604337ACA3D558FA64FBDD3AE0C</string>
+				<string>9A2499F9ED484832524E9853C29D79EB</string>
+				<string>81E52F4FC67CE676CD97DEA467A4733E</string>
+				<string>5CDF3632621A9EDC7DEEECFB639CCD50</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>SQLite.swift</string>
+			<key>path</key>
+			<string>SQLite.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>10531782A629471BDF9E9DFBC3CBFBF8</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>046AC7F892B7FFCD41DEF0A6FBFA99A3</string>
+				<string>B6BE53EB7FBE2409724C0F4DDE74D336</string>
+				<string>B42FAA431ABA280193660901135559D8</string>
+				<string>BEBAD5EC92F58EC260B9E1193B8C8C80</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>10707D71EEA48BBDCC67E2F994F90029</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>12A2AB9F0A2809F5F5CB5AE1EBEA18AD</string>
+			<key>buildPhases</key>
+			<array>
+				<string>971D719A4514E08E83F6FAA452753D6D</string>
+				<string>649F43626401982BA56508E9E00C1A1F</string>
+				<string>54FFCF4F77EE00AE7C3038A8BA69498F</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>B140630250F1CB68E35E88A4AB44C573</string>
+				<string>70198C79F9997749AF99BE311EB7D403</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-TajmaToday</string>
+			<key>productName</key>
+			<string>Pods-TajmaToday</string>
+			<key>productReference</key>
+			<string>B6BE53EB7FBE2409724C0F4DDE74D336</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>117357BC5E851193BCEFBB93250DF88D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-TajmaToday-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>12A2AB9F0A2809F5F5CB5AE1EBEA18AD</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>F7CA97391853AD03A2432BC16CA5B679</string>
+				<string>86EE130A92E27F19ABE15E06905C3141</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>12F56DCC731D9E6464880F86C0B390B4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7965296C01A5370AC8C3B84DCE8FE87F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>13336A7C6E9C2077F43CE5BC90EBA00B</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>CBC0965630F7085BBE48FC69C90586D7</string>
+			<key>remoteInfo</key>
+			<string>SQLite.swift</string>
+		</dict>
+		<key>14AC69B801E6D0A80605D88F4CA3C1E8</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>5E2BA162C25989E8B312DAA9A07259F1</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>175C17AE3DAF1F34D6A6521010CD0EBF</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>71A8621F907CE346DBC1BC391F17695E</string>
+			<key>remoteInfo</key>
+			<string>SINQ</string>
+		</dict>
+		<key>182FCE085AF8ED5F370B2AB122BEF84B</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>53EEACDEE1F2849592CA24562E552BB1</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods-Tajma/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods-Tajma/Pods-Tajma.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods_Tajma</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>184C3534C55D9A27BE76DCD876B3FF23</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9C580506555D24392B3A0477768AAED8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1A5245FF9A715F9C3F8B273CB8AC4430</key>
+		<dict>
+			<key>fileRef</key>
+			<string>81E52F4FC67CE676CD97DEA467A4733E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1A977937737B77B1C6BA39E082BB534D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Query.swift</string>
+			<key>path</key>
+			<string>SQLite/Typed/Query.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1C536D34C639FF5319366835CC08ED64</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>388870EC6E33EEA24EC3FFD02CDA1C3E</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>1C78ABF9952602794AC1D37BBA3F86D9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>29677FF56F0C636E834B74487C0283C6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1EE30D06D7F53DFB52CB4E1D993AC767</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>CoreFunctions.swift</string>
+			<key>path</key>
+			<string>SQLite/Typed/CoreFunctions.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>21175FE3572FF8F5247AFC89915180E9</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SINQ-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>216EAA1516145B05299CD681D92EE117</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Schema.swift</string>
+			<key>path</key>
+			<string>SQLite/Typed/Schema.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>21E46D6557D6CB2BFC2AFA48A17013E6</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>41840E3FF7EDFD024458F8759A09F906</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>29677FF56F0C636E834B74487C0283C6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Expression.swift</string>
+			<key>path</key>
+			<string>SQLite/Typed/Expression.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>29821BF2FE3CBB761AEB30CDAD551197</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>CustomFunctions.swift</string>
+			<key>path</key>
+			<string>SQLite/Typed/CustomFunctions.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2A99F27E4C6ADEBC476C353E6D949C0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A06FBA46E99A65D5BD22975ACF2FE875</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2BFDDFDCC936B347C1EAB39B62FB6111</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pods-Tajma.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2D8E8EC45A3A1A1D94AE762CB5028504</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>A70CDAD61F90AC503C7D04CC22DA2923</string>
+				<string>FB45FFD90572718D82AB9092B750F0CA</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>2E62E3200CCC1F17D6DEA57CAC6B2230</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>Pods-TajmaToday-acknowledgements.markdown</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>31DC5EAE98F9066FD6E75ADBA81E64EC</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>54B01A49582AF14D3C29CDA32EFBE9C6</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods-Tajma/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods-Tajma/Pods-Tajma.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods_Tajma</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>35A0DF2F8620F44C85915A73C217B02E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C9A55C83864E31DE2C7A5EA159478E9E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>3620E26A58F15E5C1D3BF4CFE2394446</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9A2499F9ED484832524E9853C29D79EB</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>388870EC6E33EEA24EC3FFD02CDA1C3E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E4E89230EF59BC255123B67864ACF77</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>3E4E89230EF59BC255123B67864ACF77</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>412122A069A7F83129E3BDEE17C00B20</key>
+		<dict>
+			<key>fileRef</key>
+			<string>99F5B142EF7D3B47C18A348B4DB966E2</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>41840E3FF7EDFD024458F8759A09F906</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E4E89230EF59BC255123B67864ACF77</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>47709A83E8D207862A90074E3DD17CF1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pods-TajmaToday.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4828BED03DB8603A7C299B4D998694D0</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>71A8621F907CE346DBC1BC391F17695E</string>
+			<key>remoteInfo</key>
+			<string>SINQ</string>
+		</dict>
+		<key>53EEACDEE1F2849592CA24562E552BB1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-Tajma.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>54631D3638EBF2B84EC5A338ACDFFCC8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>SINQ.swift</string>
+			<key>path</key>
+			<string>SINQ/SINQ.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>54B01A49582AF14D3C29CDA32EFBE9C6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-Tajma.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>54FFCF4F77EE00AE7C3038A8BA69498F</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>E3509EF73B38238E2F951B6510F1EB11</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>5602D17C332752A22F39C7A4A2A1BFE2</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>CBC0965630F7085BBE48FC69C90586D7</string>
+			<key>remoteInfo</key>
+			<string>SQLite.swift</string>
+		</dict>
+		<key>56A8C2884A6EAF12D90596DAD06F5409</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>79A798A80BF2783A6D9CC1562D503FE7</string>
+				<string>0F07E0D12E34B28D6CB4885B2B9B8636</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5CDF3632621A9EDC7DEEECFB639CCD50</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>9D5E30318D6957025C230990DDA6D155</string>
+				<string>9DDA9E1B79E7A9C3AB9464CFBD2E3175</string>
+				<string>A5AF3D2B0DA0BEB660FCD42103BF9E25</string>
+				<string>A06FBA46E99A65D5BD22975ACF2FE875</string>
+				<string>C77DA808657919312EC3DAA52A1CFD0D</string>
+				<string>E09B83E4FD96E21F1E0A356E929667DE</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/SQLite.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5D9B54A651343A4FB2F03E44DCC747E0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>fts3_tokenizer.h</string>
+			<key>path</key>
+			<string>SQLite/Core/fts3_tokenizer.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5E2BA162C25989E8B312DAA9A07259F1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>FEFCA338747F42674FE801B433139EAB</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>61ECAFC42789EB9B671456D77D142A06</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7D9BDB89EDE8769B2B29A1951E30196D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>649F43626401982BA56508E9E00C1A1F</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>FAB87B1728CD0C0233EFE3CA2352DBBE</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>66101A41C155724B56B1B885A850FBC5</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>FAD64E2D64DB8CFB4A427D54A626EF7E</string>
+				<string>78E21DBE3D75E123F94726EFA7FB084A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Targets Support Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6B52E5B658549D290E24FBFB4BE38819</key>
+		<dict>
+			<key>fileRef</key>
+			<string>EE40B468F8AC8207CFCFEF237EFEB2C2</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>6BE0A4601E664A83DF743A2249C608F2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6E039BEC6442886A7E8CE4BD316FB939</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Blob.swift</string>
+			<key>path</key>
+			<string>SQLite/Core/Blob.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>70198C79F9997749AF99BE311EB7D403</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>SQLite.swift</string>
+			<key>target</key>
+			<string>CBC0965630F7085BBE48FC69C90586D7</string>
+			<key>targetProxy</key>
+			<string>5602D17C332752A22F39C7A4A2A1BFE2</string>
+		</dict>
+		<key>71A8621F907CE346DBC1BC391F17695E</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>BD090F44E1FB4F534E0ECF2A25B1E8CF</string>
+			<key>buildPhases</key>
+			<array>
+				<string>A6994AA03C9D8AFDAC0927B44F7E22BB</string>
+				<string>21E46D6557D6CB2BFC2AFA48A17013E6</string>
+				<string>C4B8F7A429971805DB82A99F2E8FA5C0</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>SINQ</string>
+			<key>productName</key>
+			<string>SINQ</string>
+			<key>productReference</key>
+			<string>B42FAA431ABA280193660901135559D8</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>7511C2451851557F86775A7697B126E2</key>
+		<dict>
+			<key>fileRef</key>
+			<string>888B0A944E369556ABB3AEEDA15419A8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>75CC9717C4924575E64999E4B60D75BE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>FTS4.swift</string>
+			<key>path</key>
+			<string>SQLite/Extensions/FTS4.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>78E21DBE3D75E123F94726EFA7FB084A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6BE0A4601E664A83DF743A2249C608F2</string>
+				<string>47709A83E8D207862A90074E3DD17CF1</string>
+				<string>2E62E3200CCC1F17D6DEA57CAC6B2230</string>
+				<string>F407FCED8BC62D9A8E441C66DD9D1E47</string>
+				<string>7965296C01A5370AC8C3B84DCE8FE87F</string>
+				<string>7BDB8EBE86C0ACD2287A02CD6C298CCE</string>
+				<string>82B8548FA8BEAF47BA9C9E6513DC85A4</string>
+				<string>117357BC5E851193BCEFBB93250DF88D</string>
+				<string>0DDDEEDF0258E5C78307973219B86C0F</string>
+				<string>F161E9359FD836C063484BD6E667A4D7</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods-TajmaToday</string>
+			<key>path</key>
+			<string>Target Support Files/Pods-TajmaToday</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7965296C01A5370AC8C3B84DCE8FE87F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-TajmaToday-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>797DBCFFBF61F3C7EF82B200EB961306</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>SINQ.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>79A798A80BF2783A6D9CC1562D503FE7</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>54631D3638EBF2B84EC5A338ACDFFCC8</string>
+				<string>C8DD66748B4C80187385FCF62A308833</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>SINQ</string>
+			<key>path</key>
+			<string>SINQ</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7A4A528FD77B5B4E2D5C78C36FF65876</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>951DC1E5588CBCB424680D3EFB6B1A62</string>
+				<string>35A0DF2F8620F44C85915A73C217B02E</string>
+				<string>AF93FFA947AE695CBB95852462459D60</string>
+				<string>E0DEFF134C3A3D2024E0B02C741F7A5A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>7A6B19300C5C11A10A85551D66B61696</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>SINQ</string>
+			<key>target</key>
+			<string>71A8621F907CE346DBC1BC391F17695E</string>
+			<key>targetProxy</key>
+			<string>4828BED03DB8603A7C299B4D998694D0</string>
+		</dict>
+		<key>7BDB8EBE86C0ACD2287A02CD6C298CCE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-TajmaToday-frameworks.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7D9BDB89EDE8769B2B29A1951E30196D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>AggregateFunctions.swift</string>
+			<key>path</key>
+			<string>SQLite/Typed/AggregateFunctions.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7DB346D0F39D3F0E887471402A8071AB</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
+				<string>BC3CA7F9E30CC8F7E2DD044DD34432FC</string>
+				<string>56A8C2884A6EAF12D90596DAD06F5409</string>
+				<string>10531782A629471BDF9E9DFBC3CBFBF8</string>
+				<string>66101A41C155724B56B1B885A850FBC5</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>80C29057FBD793A5EDD47C2CBCEF117A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Collation.swift</string>
+			<key>path</key>
+			<string>SQLite/Typed/Collation.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>81E52F4FC67CE676CD97DEA467A4733E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Value.swift</string>
+			<key>path</key>
+			<string>SQLite/Core/Value.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>82B8548FA8BEAF47BA9C9E6513DC85A4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-TajmaToday-resources.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>86EE130A92E27F19ABE15E06905C3141</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>F161E9359FD836C063484BD6E667A4D7</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>APPLICATION_EXTENSION_API_ONLY</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods-TajmaToday/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods-TajmaToday/Pods-TajmaToday.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods_TajmaToday</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>888B0A944E369556ABB3AEEDA15419A8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Helpers.swift</string>
+			<key>path</key>
+			<string>SQLite/Helpers.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8A2F1FE26D0F8919C08066B4300D811C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>SINQ.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8E29025CE39893C41754977778C825C0</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Operators.swift</string>
+			<key>path</key>
+			<string>SQLite/Typed/Operators.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9500D0B8C419E4CB8A9C57F2FB8FDAE8</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>DA1A814D22E30FE8B0B1E46BDAD9A3F0</string>
+			<key>buildPhases</key>
+			<array>
+				<string>D01D2240518811933641B96EEF27F6A7</string>
+				<string>DD0089BCDA53DEA4A7BAE874DA686202</string>
+				<string>14AC69B801E6D0A80605D88F4CA3C1E8</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>7A6B19300C5C11A10A85551D66B61696</string>
+				<string>F567560C4DC4EAA6C1CDCF6160E34C6C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-Tajma</string>
+			<key>productName</key>
+			<string>Pods-Tajma</string>
+			<key>productReference</key>
+			<string>046AC7F892B7FFCD41DEF0A6FBFA99A3</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>951DC1E5588CBCB424680D3EFB6B1A62</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5D9B54A651343A4FB2F03E44DCC747E0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
+				</array>
+			</dict>
+		</dict>
+		<key>971D719A4514E08E83F6FAA452753D6D</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>12F56DCC731D9E6464880F86C0B390B4</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>97BCF237508BD020191619BFFABBA0B9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>EC860F209A85B7AD51C7A346801122B6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>97CD219C0D83CE50A6E25478BAC61CB8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-Tajma-frameworks.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>99F5B142EF7D3B47C18A348B4DB966E2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>R*Tree.swift</string>
+			<key>path</key>
+			<string>SQLite/Extensions/R*Tree.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9A2499F9ED484832524E9853C29D79EB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Statement.swift</string>
+			<key>path</key>
+			<string>SQLite/Core/Statement.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9C580506555D24392B3A0477768AAED8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Setter.swift</string>
+			<key>path</key>
+			<string>SQLite/Typed/Setter.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9D583229D633DF51A539B7979720E70F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E4E89230EF59BC255123B67864ACF77</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>9D5E30318D6957025C230990DDA6D155</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9DDA9E1B79E7A9C3AB9464CFBD2E3175</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>SQLite.swift.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A06FBA46E99A65D5BD22975ACF2FE875</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SQLite.swift-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A4D4BB79170C485D042B195FCD3BF986</key>
+		<dict>
+			<key>fileRef</key>
+			<string>29821BF2FE3CBB761AEB30CDAD551197</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A5AF3D2B0DA0BEB660FCD42103BF9E25</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>SQLite.swift.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A6547DA8EF107C7F759CAE40AB66484D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>CBE5E604337ACA3D558FA64FBDD3AE0C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A6994AA03C9D8AFDAC0927B44F7E22BB</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>BE6E383A2542EEF45CC90778C2C0C5DB</string>
+				<string>0DAAECF5A78DBF022E6F8E2EBCE92C59</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>A70CDAD61F90AC503C7D04CC22DA2923</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>STRIP_INSTALLED_PRODUCT</key>
+				<string>NO</string>
+				<key>SYMROOT</key>
+				<string>${SRCROOT}/../build</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>A8D75A452A714E0BEC5E2060A4463804</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>797DBCFFBF61F3C7EF82B200EB961306</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>APPLICATION_EXTENSION_API_ONLY</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/SINQ/SINQ-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/SINQ/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/SINQ/SINQ.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>PRODUCT_NAME</key>
+				<string>SINQ</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>AA77777C00B6D9812192DB5F27A3DF40</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>0170E83E16FA8D2214721D06E80BC66B</string>
+				<string>DBE53710BC5E7E765DD48295B1410917</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>AF93FFA947AE695CBB95852462459D60</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D12AACACB152367DD7590EB17C05CF82</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>B140630250F1CB68E35E88A4AB44C573</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>SINQ</string>
+			<key>target</key>
+			<string>71A8621F907CE346DBC1BC391F17695E</string>
+			<key>targetProxy</key>
+			<string>175C17AE3DAF1F34D6A6521010CD0EBF</string>
+		</dict>
+		<key>B41FDC913C774ABD804372F012FE703F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8E29025CE39893C41754977778C825C0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>B42FAA431ABA280193660901135559D8</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>SINQ.framework</string>
+			<key>path</key>
+			<string>SINQ.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>B58CEFB7EA6454B852749ED8BB1C72EE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>75CC9717C4924575E64999E4B60D75BE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>B6BE53EB7FBE2409724C0F4DDE74D336</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Pods_TajmaToday.framework</string>
+			<key>path</key>
+			<string>Pods_TajmaToday.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>B7DB0CDADD12F44AF96C0058F814011C</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>61ECAFC42789EB9B671456D77D142A06</string>
+				<string>CA83F8B43DA5C8B227008EE42AADB74D</string>
+				<string>0E33BFA834E8B9A64A6E4B29418D389F</string>
+				<string>97BCF237508BD020191619BFFABBA0B9</string>
+				<string>C5702C6C1AD087AE60D00F23F39AB2B5</string>
+				<string>A4D4BB79170C485D042B195FCD3BF986</string>
+				<string>1C78ABF9952602794AC1D37BBA3F86D9</string>
+				<string>FB486FCA98BD2B1BC4313F0C297105B9</string>
+				<string>B58CEFB7EA6454B852749ED8BB1C72EE</string>
+				<string>7511C2451851557F86775A7697B126E2</string>
+				<string>B41FDC913C774ABD804372F012FE703F</string>
+				<string>C6C90CFBF6235DE643500844BBCBF8DE</string>
+				<string>412122A069A7F83129E3BDEE17C00B20</string>
+				<string>DE6C76BE0C2A99ACDD4F008E9133AAAD</string>
+				<string>184C3534C55D9A27BE76DCD876B3FF23</string>
+				<string>A6547DA8EF107C7F759CAE40AB66484D</string>
+				<string>2A99F27E4C6ADEBC476C353E6D949C0A</string>
+				<string>3620E26A58F15E5C1D3BF4CFE2394446</string>
+				<string>1A5245FF9A715F9C3F8B273CB8AC4430</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>B93526BD357648EBEB00643EC9BF4397</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>Pods-Tajma-acknowledgements.markdown</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BA6428E9F66FD5A23C0A2E06ED26CD2F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>name</key>
+			<string>Podfile</string>
+			<key>path</key>
+			<string>../Podfile</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.ruby</string>
+		</dict>
+		<key>BC3CA7F9E30CC8F7E2DD044DD34432FC</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>BF6342C8B29F4CEEA088EFF7AB4DE362</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BD090F44E1FB4F534E0ECF2A25B1E8CF</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>F0DF5ABDD8DDB950921C24714263FE13</string>
+				<string>A8D75A452A714E0BEC5E2060A4463804</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>BE6E383A2542EEF45CC90778C2C0C5DB</key>
+		<dict>
+			<key>fileRef</key>
+			<string>CFAE2BB77D32D43160AA794F95CAB872</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>BEBAD5EC92F58EC260B9E1193B8C8C80</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>SQLite.framework</string>
+			<key>path</key>
+			<string>SQLite.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>BF6342C8B29F4CEEA088EFF7AB4DE362</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>3E4E89230EF59BC255123B67864ACF77</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>iOS</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C4B8F7A429971805DB82A99F2E8FA5C0</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>C52C06BB193C3FF380CAC674E95DC825</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>C52C06BB193C3FF380CAC674E95DC825</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DEFBE08177A78D706023547164851C42</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>C5702C6C1AD087AE60D00F23F39AB2B5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1EE30D06D7F53DFB52CB4E1D993AC767</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C6C90CFBF6235DE643500844BBCBF8DE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1A977937737B77B1C6BA39E082BB534D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C77DA808657919312EC3DAA52A1CFD0D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SQLite.swift-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C8DD66748B4C80187385FCF62A308833</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>C9E6E1C0690E187D0606CBF96AB4AC80</string>
+				<string>8A2F1FE26D0F8919C08066B4300D811C</string>
+				<string>797DBCFFBF61F3C7EF82B200EB961306</string>
+				<string>CFAE2BB77D32D43160AA794F95CAB872</string>
+				<string>21175FE3572FF8F5247AFC89915180E9</string>
+				<string>DEFBE08177A78D706023547164851C42</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/SINQ</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C9A55C83864E31DE2C7A5EA159478E9E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>SQLite-Bridging.h</string>
+			<key>path</key>
+			<string>SQLite/Core/SQLite-Bridging.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C9E6E1C0690E187D0606CBF96AB4AC80</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CA83F8B43DA5C8B227008EE42AADB74D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6E039BEC6442886A7E8CE4BD316FB939</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>CBC0965630F7085BBE48FC69C90586D7</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>AA77777C00B6D9812192DB5F27A3DF40</string>
+			<key>buildPhases</key>
+			<array>
+				<string>B7DB0CDADD12F44AF96C0058F814011C</string>
+				<string>1C536D34C639FF5319366835CC08ED64</string>
+				<string>7A4A528FD77B5B4E2D5C78C36FF65876</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>SQLite.swift</string>
+			<key>productName</key>
+			<string>SQLite.swift</string>
+			<key>productReference</key>
+			<string>BEBAD5EC92F58EC260B9E1193B8C8C80</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>CBE5E604337ACA3D558FA64FBDD3AE0C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>SQLite-Bridging.m</string>
+			<key>path</key>
+			<string>SQLite/Core/SQLite-Bridging.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CFAE2BB77D32D43160AA794F95CAB872</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SINQ-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D01D2240518811933641B96EEF27F6A7</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>6B52E5B658549D290E24FBFB4BE38819</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>D0BB041F5069D76777348A95442EA851</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Foundation.swift</string>
+			<key>path</key>
+			<string>SQLite/Foundation.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D12AACACB152367DD7590EB17C05CF82</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>SQLite.h</string>
+			<key>path</key>
+			<string>SQLite/SQLite.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D33CE99FEB3715A5A82BE82290FBE86D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-Tajma-resources.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D41D8CD98F00B204E9800998ECF8427E</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastSwiftUpdateCheck</key>
+				<string>0700</string>
+				<key>LastUpgradeCheck</key>
+				<string>0700</string>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>2D8E8EC45A3A1A1D94AE762CB5028504</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>7DB346D0F39D3F0E887471402A8071AB</string>
+			<key>productRefGroup</key>
+			<string>10531782A629471BDF9E9DFBC3CBFBF8</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>9500D0B8C419E4CB8A9C57F2FB8FDAE8</string>
+				<string>10707D71EEA48BBDCC67E2F994F90029</string>
+				<string>71A8621F907CE346DBC1BC391F17695E</string>
+				<string>CBC0965630F7085BBE48FC69C90586D7</string>
+			</array>
+		</dict>
+		<key>DA1A814D22E30FE8B0B1E46BDAD9A3F0</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>182FCE085AF8ED5F370B2AB122BEF84B</string>
+				<string>31DC5EAE98F9066FD6E75ADBA81E64EC</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>DBE53710BC5E7E765DD48295B1410917</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>A5AF3D2B0DA0BEB660FCD42103BF9E25</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>APPLICATION_EXTENSION_API_ONLY</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/SQLite.swift/SQLite.swift-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/SQLite.swift/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/SQLite.swift/SQLite.swift.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>PRODUCT_NAME</key>
+				<string>SQLite</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>DD0089BCDA53DEA4A7BAE874DA686202</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>9D583229D633DF51A539B7979720E70F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>DE6C76BE0C2A99ACDD4F008E9133AAAD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>216EAA1516145B05299CD681D92EE117</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DEFBE08177A78D706023547164851C42</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SINQ-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E01F0F0DE4C940C8419D23824F8084E2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Pods-Tajma-acknowledgements.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E09B83E4FD96E21F1E0A356E929667DE</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>SQLite.swift-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E0DEFF134C3A3D2024E0B02C741F7A5A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E09B83E4FD96E21F1E0A356E929667DE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>E3509EF73B38238E2F951B6510F1EB11</key>
+		<dict>
+			<key>fileRef</key>
+			<string>117357BC5E851193BCEFBB93250DF88D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>EC860F209A85B7AD51C7A346801122B6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Connection.swift</string>
+			<key>path</key>
+			<string>SQLite/Core/Connection.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>EE40B468F8AC8207CFCFEF237EFEB2C2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-Tajma-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F0DF5ABDD8DDB950921C24714263FE13</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>797DBCFFBF61F3C7EF82B200EB961306</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>APPLICATION_EXTENSION_API_ONLY</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/SINQ/SINQ-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/SINQ/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/SINQ/SINQ.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>PRODUCT_NAME</key>
+				<string>SINQ</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>F161E9359FD836C063484BD6E667A4D7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-TajmaToday.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F407FCED8BC62D9A8E441C66DD9D1E47</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Pods-TajmaToday-acknowledgements.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F567560C4DC4EAA6C1CDCF6160E34C6C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>SQLite.swift</string>
+			<key>target</key>
+			<string>CBC0965630F7085BBE48FC69C90586D7</string>
+			<key>targetProxy</key>
+			<string>13336A7C6E9C2077F43CE5BC90EBA00B</string>
+		</dict>
+		<key>F7CA97391853AD03A2432BC16CA5B679</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>0DDDEEDF0258E5C78307973219B86C0F</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>APPLICATION_EXTENSION_API_ONLY</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods-TajmaToday/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods-TajmaToday/Pods-TajmaToday.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods_TajmaToday</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>FAB87B1728CD0C0233EFE3CA2352DBBE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E4E89230EF59BC255123B67864ACF77</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>FAD64E2D64DB8CFB4A427D54A626EF7E</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>043EF61185772F241603EF97E86DE280</string>
+				<string>2BFDDFDCC936B347C1EAB39B62FB6111</string>
+				<string>B93526BD357648EBEB00643EC9BF4397</string>
+				<string>E01F0F0DE4C940C8419D23824F8084E2</string>
+				<string>EE40B468F8AC8207CFCFEF237EFEB2C2</string>
+				<string>97CD219C0D83CE50A6E25478BAC61CB8</string>
+				<string>D33CE99FEB3715A5A82BE82290FBE86D</string>
+				<string>FEFCA338747F42674FE801B433139EAB</string>
+				<string>53EEACDEE1F2849592CA24562E552BB1</string>
+				<string>54B01A49582AF14D3C29CDA32EFBE9C6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods-Tajma</string>
+			<key>path</key>
+			<string>Target Support Files/Pods-Tajma</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FB45FFD90572718D82AB9092B750F0CA</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>RELEASE=1</string>
+				</array>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>STRIP_INSTALLED_PRODUCT</key>
+				<string>NO</string>
+				<key>SYMROOT</key>
+				<string>${SRCROOT}/../build</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>FB486FCA98BD2B1BC4313F0C297105B9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D0BB041F5069D76777348A95442EA851</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>FEFCA338747F42674FE801B433139EAB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-Tajma-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+	</dict>
+	<key>rootObject</key>
+	<string>D41D8CD98F00B204E9800998ECF8427E</string>
+</dict>
+</plist>

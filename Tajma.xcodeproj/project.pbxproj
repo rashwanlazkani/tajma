@@ -1,929 +1,2438 @@
-// !$*UTF8*$!
-{
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXBuildFile section */
-		61B8ED10C83195557EB8E766 /* Pods_TajmaToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1ED0FF064904D39160B07D9 /* Pods_TajmaToday.framework */; };
-		ABEC9DDFFF250B330DC9E36B /* Pods_Tajma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D165923BED25C71F586365B2 /* Pods_Tajma.framework */; };
-		F80667511B1D157C00A26B5D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
-		F80667591B1E5CA100A26B5D /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F80667581B1E5CA100A26B5D /* NotificationCenter.framework */; };
-		F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806675D1B1E5CA100A26B5D /* TodayViewController.swift */; };
-		F80667601B1E5CA100A26B5D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */; };
-		F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F80667561B1E5CA100A26B5D /* TajmaToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
-		F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
-		F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
-		F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
-		F80667721B1E5D7900A26B5D /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* Departure.swift */; };
-		F80667751B1E5D7900A26B5D /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
-		F80667781B1E5D7900A26B5D /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
-		F806677F1B1E5DC600A26B5D /* DepartureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806677E1B1E5DC600A26B5D /* DepartureService.swift */; };
-		F807230C1BE290BA00749E76 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807230B1BE290BA00749E76 /* Status.swift */; };
-		F807230D1BE2917E00749E76 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807230B1BE290BA00749E76 /* Status.swift */; };
-		F818619F1B41D52A005DDA3A /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceHelper.swift */; };
-		F81861A01B41D52A005DDA3A /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceHelper.swift */; };
-		F81D4E791C5EBB3F0024B798 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81D4E781C5EBB3F0024B798 /* WebViewController.swift */; };
-		F82CB0841BD25B2C0015D3C5 /* SqliteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */; };
-		F82CB0851BD25B2C0015D3C5 /* SqliteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */; };
-		F82D34171C0A552000E03703 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82D34161C0A552000E03703 /* DateHelper.swift */; };
-		F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A21B1B04C2008F4505 /* AppDelegate.swift */; };
-		F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */; };
-		F843A3A81B1B04C2008F4505 /* StopsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A71B1B04C2008F4505 /* StopsController.swift */; };
-		F843A3AB1B1B04C2008F4505 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F843A3A91B1B04C2008F4505 /* Main.storyboard */; };
-		F843A3AD1B1B04C2008F4505 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F843A3AC1B1B04C2008F4505 /* Images.xcassets */; };
-		F843A3B01B1B04C2008F4505 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */; };
-		F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3C51B1B066B008F4505 /* LinesViewController.swift */; };
-		F8729F411BF77E57000E9C9C /* SharedHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8729F401BF77E57000E9C9C /* SharedHelper.swift */; };
-		F8729F421BF77E57000E9C9C /* SharedHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8729F401BF77E57000E9C9C /* SharedHelper.swift */; };
-		F87AFE751B1B902400D3DAFC /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* Departure.swift */; };
-		F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
-		F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
-		F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
-		F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
-		F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
-		F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
-		F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */; };
-		F88F545C1B38AB3000F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
-		F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
-		F891B7C71C5572D600A00F15 /* tajma-gif-1.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C41C5572D600A00F15 /* tajma-gif-1.gif */; };
-		F891B7C81C5572D600A00F15 /* tajma-gif-2.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C51C5572D600A00F15 /* tajma-gif-2.gif */; };
-		F891B7C91C5572D600A00F15 /* tajma-gif-3.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C61C5572D600A00F15 /* tajma-gif-3.gif */; };
-		F891B7CB1C55730400A00F15 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = F891B7CA1C55730400A00F15 /* UIImage+Gif.swift */; };
-		F8A3D7701C14EAB500AEA7C3 /* GuideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */; };
-		F8B511691B22FA0400388866 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
-		F8CB7DE91C08B6A400EAF401 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */; };
-		F8CB7DEA1C08B6A400EAF401 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */; };
-		F8D853C91BE12F2C00E2C1E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D853C81BE12F2C00E2C1E2 /* Constants.swift */; };
-		F8D853CA1BE132F000E2C1E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D853C81BE12F2C00E2C1E2 /* Constants.swift */; };
-		F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */; };
-		F8E081011B35B1D000A96A45 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E081001B35B1D000A96A45 /* Info.swift */; };
-		F8E7142C1C0A57E40004182D /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82D34161C0A552000E03703 /* DateHelper.swift */; };
-		F8F668401C18D41000F6B15A /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F6683F1C18D41000F6B15A /* Error.swift */; };
-		F8FA48421C39BE010080E12B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA48411C39BE010080E12B /* Reachability.swift */; };
-		F8FEC9A31C42B484008C615A /* OmOssViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEC9A21C42B484008C615A /* OmOssViewController.swift */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		F80667611B1E5CA100A26B5D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F843A3951B1B04C2008F4505 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F80667551B1E5CA100A26B5D;
-			remoteInfo = TajmaToday;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		F80667671B1E5CA100A26B5D /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F871410F1BD55FB800A75E1B /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
-/* Begin PBXFileReference section */
-		13C76A6994332194705771DE /* Pods_TajmaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TajmaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		76B8097E1F47DE5F82222DA7 /* Pods-TajmaToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.release.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.release.xcconfig"; sourceTree = "<group>"; };
-		89E1448C11827E0F414AA0A5 /* Pods-Tajma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.debug.xcconfig"; sourceTree = "<group>"; };
-		8B176CBC4CA3691A6337B1C1 /* Pods-TajmaToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.debug.xcconfig"; sourceTree = "<group>"; };
-		C5CBB333F9456A56CEBB0F5A /* Pods-Tajma.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.release.xcconfig"; sourceTree = "<group>"; };
-		D165923BED25C71F586365B2 /* Pods_Tajma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tajma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D1ED0FF064904D39160B07D9 /* Pods_TajmaToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TajmaToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F80667501B1D157C00A26B5D /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
-		F80667561B1E5CA100A26B5D /* TajmaToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TajmaToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		F80667581B1E5CA100A26B5D /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		F806675C1B1E5CA100A26B5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F806675D1B1E5CA100A26B5D /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
-		F80667681B1E5CBA00A26B5D /* TajmaToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TajmaToday.entitlements; sourceTree = "<group>"; };
-		F806676A1B1E5D2200A26B5D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		F806677E1B1E5DC600A26B5D /* DepartureService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartureService.swift; sourceTree = "<group>"; };
-		F807230B1BE290BA00749E76 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
-		F818619E1B41D52A005DDA3A /* DeviceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
-		F81D4E781C5EBB3F0024B798 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqliteService.swift; sourceTree = "<group>"; };
-		F82D34161C0A552000E03703 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
-		F843A39D1B1B04C2008F4505 /* Tajma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tajma.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F843A3A11B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F843A3A21B1B04C2008F4505 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F843A3A51B1B04C2008F4505 /* Tajma.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tajma.xcdatamodel; sourceTree = "<group>"; };
-		F843A3A71B1B04C2008F4505 /* StopsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopsController.swift; sourceTree = "<group>"; };
-		F843A3AA1B1B04C2008F4505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F843A3AC1B1B04C2008F4505 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F843A3AF1B1B04C2008F4505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		F843A3C51B1B066B008F4505 /* LinesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesViewController.swift; sourceTree = "<group>"; };
-		F87257331B3F2D5E006CBDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F87257341B3F2D5E006CBDA8 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
-		F87257361B3F2D5E006CBDA8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F87257401B3F2D5E006CBDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F87257421B3F2D5E006CBDA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		F87257441B3F2D5E006CBDA8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F87257521B3F2DE1006CBDA8 /* Tajma WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Tajma WatchKit Extension.entitlements"; sourceTree = "<group>"; };
-		F87257681B3F3161006CBDA8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		F872576B1B3F3391006CBDA8 /* DataRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRowController.swift; sourceTree = "<group>"; };
-		F8729F401BF77E57000E9C9C /* SharedHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedHelper.swift; sourceTree = "<group>"; };
-		F87AFE721B1B902400D3DAFC /* Departure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Departure.swift; sourceTree = "<group>"; };
-		F87AFE781B1B903F00D3DAFC /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
-		F87AFE7C1B1B903F00D3DAFC /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
-		F87AFE881B1B906400D3DAFC /* LineService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineService.swift; sourceTree = "<group>"; };
-		F87AFE891B1B906400D3DAFC /* RestApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiService.swift; sourceTree = "<group>"; };
-		F87AFE8A1B1B906400D3DAFC /* StopService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopService.swift; sourceTree = "<group>"; };
-		F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSONService.swift; sourceTree = "<group>"; };
-		F87AFE901B1B90AB00D3DAFC /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		F87AFE931B1B930700D3DAFC /* Tajma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tajma.entitlements; sourceTree = "<group>"; };
-		F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateMyApp.swift; sourceTree = "<group>"; };
-		F88F545B1B38AB3000F0D402 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
-		F891B7C41C5572D600A00F15 /* tajma-gif-1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-1.gif"; sourceTree = "<group>"; };
-		F891B7C51C5572D600A00F15 /* tajma-gif-2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-2.gif"; sourceTree = "<group>"; };
-		F891B7C61C5572D600A00F15 /* tajma-gif-3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-3.gif"; sourceTree = "<group>"; };
-		F891B7CA1C55730400A00F15 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
-		F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideController.swift; sourceTree = "<group>"; };
-		F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
-		F8D853C81BE12F2C00E2C1E2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		F8E081001B35B1D000A96A45 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
-		F8F6683F1C18D41000F6B15A /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		F8FA48411C39BE010080E12B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		F8FEC9A21C42B484008C615A /* OmOssViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmOssViewController.swift; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		F80667531B1E5CA100A26B5D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F80667591B1E5CA100A26B5D /* NotificationCenter.framework in Frameworks */,
-				61B8ED10C83195557EB8E766 /* Pods_TajmaToday.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F843A39A1B1B04C2008F4505 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				ABEC9DDFFF250B330DC9E36B /* Pods_Tajma.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		A4D4A2080B483DEB5592B2C2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				89E1448C11827E0F414AA0A5 /* Pods-Tajma.debug.xcconfig */,
-				C5CBB333F9456A56CEBB0F5A /* Pods-Tajma.release.xcconfig */,
-				8B176CBC4CA3691A6337B1C1 /* Pods-TajmaToday.debug.xcconfig */,
-				76B8097E1F47DE5F82222DA7 /* Pods-TajmaToday.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		F806674F1B1D156E00A26B5D /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				F818619E1B41D52A005DDA3A /* DeviceHelper.swift */,
-				F8D853C81BE12F2C00E2C1E2 /* Constants.swift */,
-				F8729F401BF77E57000E9C9C /* SharedHelper.swift */,
-				F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */,
-				F82D34161C0A552000E03703 /* DateHelper.swift */,
-				F8FA48411C39BE010080E12B /* Reachability.swift */,
-			);
-			name = Helpers;
-			sourceTree = "<group>";
-		};
-		F80667571B1E5CA100A26B5D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F80667581B1E5CA100A26B5D /* NotificationCenter.framework */,
-				D165923BED25C71F586365B2 /* Pods_Tajma.framework */,
-				13C76A6994332194705771DE /* Pods_TajmaTests.framework */,
-				D1ED0FF064904D39160B07D9 /* Pods_TajmaToday.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F806675A1B1E5CA100A26B5D /* TajmaToday */ = {
-			isa = PBXGroup;
-			children = (
-				F80667681B1E5CBA00A26B5D /* TajmaToday.entitlements */,
-				F806675D1B1E5CA100A26B5D /* TodayViewController.swift */,
-				F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */,
-				F806676A1B1E5D2200A26B5D /* Bridging-Header.h */,
-				F806675B1B1E5CA100A26B5D /* Supporting Files */,
-			);
-			path = TajmaToday;
-			sourceTree = "<group>";
-		};
-		F806675B1B1E5CA100A26B5D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F806675C1B1E5CA100A26B5D /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F843A3941B1B04C2008F4505 = {
-			isa = PBXGroup;
-			children = (
-				F87AFE661B1B89C100D3DAFC /* Core */,
-				F843A39F1B1B04C2008F4505 /* Tajma */,
-				F806675A1B1E5CA100A26B5D /* TajmaToday */,
-				F87257311B3F2D5E006CBDA8 /* Tajma WatchKit Extension */,
-				F872573E1B3F2D5E006CBDA8 /* Tajma WatchKit App */,
-				F80667571B1E5CA100A26B5D /* Frameworks */,
-				F843A39E1B1B04C2008F4505 /* Products */,
-				A4D4A2080B483DEB5592B2C2 /* Pods */,
-			);
-			sourceTree = "<group>";
-		};
-		F843A39E1B1B04C2008F4505 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F843A39D1B1B04C2008F4505 /* Tajma.app */,
-				F80667561B1E5CA100A26B5D /* TajmaToday.appex */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		F843A39F1B1B04C2008F4505 /* Tajma */ = {
-			isa = PBXGroup;
-			children = (
-				F87AFE931B1B930700D3DAFC /* Tajma.entitlements */,
-				F843A3A21B1B04C2008F4505 /* AppDelegate.swift */,
-				F843A3A71B1B04C2008F4505 /* StopsController.swift */,
-				F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */,
-				F843A3C51B1B066B008F4505 /* LinesViewController.swift */,
-				F8FEC9A21C42B484008C615A /* OmOssViewController.swift */,
-				F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */,
-				F81D4E781C5EBB3F0024B798 /* WebViewController.swift */,
-				F843A3A91B1B04C2008F4505 /* Main.storyboard */,
-				F843A3AC1B1B04C2008F4505 /* Images.xcassets */,
-				F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */,
-				F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */,
-				F87AFE901B1B90AB00D3DAFC /* Bridging-Header.h */,
-				F843A3A01B1B04C2008F4505 /* Supporting Files */,
-			);
-			path = Tajma;
-			sourceTree = "<group>";
-		};
-		F843A3A01B1B04C2008F4505 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F843A3A11B1B04C2008F4505 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F87257311B3F2D5E006CBDA8 /* Tajma WatchKit Extension */ = {
-			isa = PBXGroup;
-			children = (
-				F87257521B3F2DE1006CBDA8 /* Tajma WatchKit Extension.entitlements */,
-				F872576B1B3F3391006CBDA8 /* DataRowController.swift */,
-				F87257341B3F2D5E006CBDA8 /* InterfaceController.swift */,
-				F87257361B3F2D5E006CBDA8 /* Images.xcassets */,
-				F87257681B3F3161006CBDA8 /* Bridging-Header.h */,
-				F87257321B3F2D5E006CBDA8 /* Supporting Files */,
-			);
-			path = "Tajma WatchKit Extension";
-			sourceTree = "<group>";
-		};
-		F87257321B3F2D5E006CBDA8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F87257331B3F2D5E006CBDA8 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F872573E1B3F2D5E006CBDA8 /* Tajma WatchKit App */ = {
-			isa = PBXGroup;
-			children = (
-				F87257411B3F2D5E006CBDA8 /* Interface.storyboard */,
-				F87257441B3F2D5E006CBDA8 /* Images.xcassets */,
-				F872573F1B3F2D5E006CBDA8 /* Supporting Files */,
-			);
-			path = "Tajma WatchKit App";
-			sourceTree = "<group>";
-		};
-		F872573F1B3F2D5E006CBDA8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F87257401B3F2D5E006CBDA8 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F87AFE661B1B89C100D3DAFC /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				F891B7C31C5572B700A00F15 /* Assets */,
-				F8E080FF1B35B1C500A96A45 /* Enums */,
-				F806674F1B1D156E00A26B5D /* Helpers */,
-				F8CFC4F61BEBD27800301E59 /* Libs */,
-				F87AFE6F1B1B8FE000D3DAFC /* Models */,
-				F87AFE691B1B8F7A00D3DAFC /* Services */,
-			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		F87AFE691B1B8F7A00D3DAFC /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				F806677E1B1E5DC600A26B5D /* DepartureService.swift */,
-				F87AFE881B1B906400D3DAFC /* LineService.swift */,
-				F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */,
-				F87AFE891B1B906400D3DAFC /* RestApiService.swift */,
-				F87AFE8A1B1B906400D3DAFC /* StopService.swift */,
-			);
-			name = Services;
-			sourceTree = "<group>";
-		};
-		F87AFE6F1B1B8FE000D3DAFC /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				F87AFE721B1B902400D3DAFC /* Departure.swift */,
-				F87AFE781B1B903F00D3DAFC /* Line.swift */,
-				F87AFE7C1B1B903F00D3DAFC /* Stop.swift */,
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
-		F891B7C31C5572B700A00F15 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				F891B7C41C5572D600A00F15 /* tajma-gif-1.gif */,
-				F891B7C51C5572D600A00F15 /* tajma-gif-2.gif */,
-				F891B7C61C5572D600A00F15 /* tajma-gif-3.gif */,
-			);
-			name = Assets;
-			sourceTree = "<group>";
-		};
-		F8CFC4F61BEBD27800301E59 /* Libs */ = {
-			isa = PBXGroup;
-			children = (
-				F891B7CA1C55730400A00F15 /* UIImage+Gif.swift */,
-				F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */,
-				F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */,
-				F80667501B1D157C00A26B5D /* UIColor.swift */,
-			);
-			name = Libs;
-			sourceTree = "<group>";
-		};
-		F8E080FF1B35B1C500A96A45 /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-				F8E081001B35B1D000A96A45 /* Info.swift */,
-				F88F545B1B38AB3000F0D402 /* Row.swift */,
-				F807230B1BE290BA00749E76 /* Status.swift */,
-				F8F6683F1C18D41000F6B15A /* Error.swift */,
-			);
-			name = Enums;
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
-
-/* Begin PBXNativeTarget section */
-		F80667551B1E5CA100A26B5D /* TajmaToday */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F80667641B1E5CA100A26B5D /* Build configuration list for PBXNativeTarget "TajmaToday" */;
-			buildPhases = (
-				558EBC512D137433897803B9 /* Check Pods Manifest.lock */,
-				F80667521B1E5CA100A26B5D /* Sources */,
-				F80667531B1E5CA100A26B5D /* Frameworks */,
-				F80667541B1E5CA100A26B5D /* Resources */,
-				95F640F5DF88811A3FC154F3 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TajmaToday;
-			productName = TajmaToday;
-			productReference = F80667561B1E5CA100A26B5D /* TajmaToday.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		F843A39C1B1B04C2008F4505 /* Tajma */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F843A3BF1B1B04C2008F4505 /* Build configuration list for PBXNativeTarget "Tajma" */;
-			buildPhases = (
-				7F054A5DC3ED977AF67C03E7 /* Check Pods Manifest.lock */,
-				F843A3991B1B04C2008F4505 /* Sources */,
-				F843A39A1B1B04C2008F4505 /* Frameworks */,
-				F843A39B1B1B04C2008F4505 /* Resources */,
-				F80667671B1E5CA100A26B5D /* Embed App Extensions */,
-				F871410F1BD55FB800A75E1B /* Embed Watch Content */,
-				0FBE96FF709B186CBAF774B0 /* Embed Pods Frameworks */,
-				B442D2812AD266B4B1673634 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F80667621B1E5CA100A26B5D /* PBXTargetDependency */,
-			);
-			name = Tajma;
-			productName = Tajma;
-			productReference = F843A39D1B1B04C2008F4505 /* Tajma.app */;
-			productType = "com.apple.product-type.application";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		F843A3951B1B04C2008F4505 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Rashwan Lazkani";
-				TargetAttributes = {
-					F80667551B1E5CA100A26B5D = {
-						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = 7XDMTA49ZT;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
-					F843A39C1B1B04C2008F4505 = {
-						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = 7XDMTA49ZT;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
-				};
-			};
-			buildConfigurationList = F843A3981B1B04C2008F4505 /* Build configuration list for PBXProject "Tajma" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-				Base,
-			);
-			mainGroup = F843A3941B1B04C2008F4505;
-			productRefGroup = F843A39E1B1B04C2008F4505 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				F843A39C1B1B04C2008F4505 /* Tajma */,
-				F80667551B1E5CA100A26B5D /* TajmaToday */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		F80667541B1E5CA100A26B5D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F80667601B1E5CA100A26B5D /* MainInterface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F843A39B1B1B04C2008F4505 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F843A3AB1B1B04C2008F4505 /* Main.storyboard in Resources */,
-				F891B7C91C5572D600A00F15 /* tajma-gif-3.gif in Resources */,
-				F891B7C81C5572D600A00F15 /* tajma-gif-2.gif in Resources */,
-				F891B7C71C5572D600A00F15 /* tajma-gif-1.gif in Resources */,
-				F843A3B01B1B04C2008F4505 /* LaunchScreen.xib in Resources */,
-				F843A3AD1B1B04C2008F4505 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0FBE96FF709B186CBAF774B0 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tajma/Pods-Tajma-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		558EBC512D137433897803B9 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7F054A5DC3ED977AF67C03E7 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		95F640F5DF88811A3FC154F3 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B442D2812AD266B4B1673634 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tajma/Pods-Tajma-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		F80667521B1E5CA100A26B5D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F807230D1BE2917E00749E76 /* Status.swift in Sources */,
-				F80667781B1E5D7900A26B5D /* Stop.swift in Sources */,
-				F81861A01B41D52A005DDA3A /* DeviceHelper.swift in Sources */,
-				F82CB0851BD25B2C0015D3C5 /* SqliteService.swift in Sources */,
-				F8729F421BF77E57000E9C9C /* SharedHelper.swift in Sources */,
-				F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */,
-				F8B511691B22FA0400388866 /* UIColor.swift in Sources */,
-				F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */,
-				F8CB7DEA1C08B6A400EAF401 /* StringHelper.swift in Sources */,
-				F88F545C1B38AB3000F0D402 /* Row.swift in Sources */,
-				F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */,
-				F8D853CA1BE132F000E2C1E2 /* Constants.swift in Sources */,
-				F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */,
-				F80667721B1E5D7900A26B5D /* Departure.swift in Sources */,
-				F80667751B1E5D7900A26B5D /* Line.swift in Sources */,
-				F8E7142C1C0A57E40004182D /* DateHelper.swift in Sources */,
-				F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */,
-				F806677F1B1E5DC600A26B5D /* DepartureService.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F843A3991B1B04C2008F4505 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F843A3A81B1B04C2008F4505 /* StopsController.swift in Sources */,
-				F8D853C91BE12F2C00E2C1E2 /* Constants.swift in Sources */,
-				F891B7CB1C55730400A00F15 /* UIImage+Gif.swift in Sources */,
-				F8CB7DE91C08B6A400EAF401 /* StringHelper.swift in Sources */,
-				F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */,
-				F8E081011B35B1D000A96A45 /* Info.swift in Sources */,
-				F818619F1B41D52A005DDA3A /* DeviceHelper.swift in Sources */,
-				F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */,
-				F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */,
-				F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */,
-				F807230C1BE290BA00749E76 /* Status.swift in Sources */,
-				F8A3D7701C14EAB500AEA7C3 /* GuideController.swift in Sources */,
-				F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */,
-				F8FA48421C39BE010080E12B /* Reachability.swift in Sources */,
-				F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */,
-				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,
-				F80667511B1D157C00A26B5D /* UIColor.swift in Sources */,
-				F8FEC9A31C42B484008C615A /* OmOssViewController.swift in Sources */,
-				F87AFE751B1B902400D3DAFC /* Departure.swift in Sources */,
-				F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */,
-				F81D4E791C5EBB3F0024B798 /* WebViewController.swift in Sources */,
-				F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */,
-				F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */,
-				F82CB0841BD25B2C0015D3C5 /* SqliteService.swift in Sources */,
-				F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */,
-				F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */,
-				F82D34171C0A552000E03703 /* DateHelper.swift in Sources */,
-				F8F668401C18D41000F6B15A /* Error.swift in Sources */,
-				F8729F411BF77E57000E9C9C /* SharedHelper.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F80667621B1E5CA100A26B5D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F80667551B1E5CA100A26B5D /* TajmaToday */;
-			targetProxy = F80667611B1E5CA100A26B5D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		F843A3A91B1B04C2008F4505 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F843A3AA1B1B04C2008F4505 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F843A3AF1B1B04C2008F4505 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-		F87257411B3F2D5E006CBDA8 /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F87257421B3F2D5E006CBDA8 /* Base */,
-			);
-			name = Interface.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
-/* Begin XCBuildConfiguration section */
-		F80667651B1E5CA100A26B5D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8B176CBC4CA3691A6337B1C1 /* Pods-TajmaToday.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEFINES_MODULE = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = TajmaToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma.today;
-				PRODUCT_NAME = TajmaToday;
-				PROVISIONING_PROFILE = "2b3dfc46-7f2b-4df6-b05d-c6db5aadaf8e";
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "TajmaToday/Bridging-Header.h";
-			};
-			name = Debug;
-		};
-		F80667661B1E5CA100A26B5D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 76B8097E1F47DE5F82222DA7 /* Pods-TajmaToday.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
-				DEFINES_MODULE = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = TajmaToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma.today;
-				PRODUCT_NAME = TajmaToday;
-				PROVISIONING_PROFILE = "27c6eaba-184d-46ae-bd02-c5b7b486a0a2";
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "TajmaToday/Bridging-Header.h";
-			};
-			name = Release;
-		};
-		F843A3BD1B1B04C2008F4505 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"ADDITIONAL_SDKS[arch=*]" = "";
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		F843A3BE1B1B04C2008F4505 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		F843A3C01B1B04C2008F4505 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89E1448C11827E0F414AA0A5 /* Pods-Tajma.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EXCLUDED_SOURCE_FOLDER_NAMES = .git;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = Tajma/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
-			};
-			name = Debug;
-		};
-		F843A3C11B1B04C2008F4505 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C5CBB333F9456A56CEBB0F5A /* Pods-Tajma.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
-				EXCLUDED_SOURCE_FOLDER_NAMES = .git;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = Tajma/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				"MTL_ENABLE_DEBUG_INFO[arch=*]" = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e64a6cb7-86f7-4571-be8a-26cac75cbd29";
-				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		F80667641B1E5CA100A26B5D /* Build configuration list for PBXNativeTarget "TajmaToday" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F80667651B1E5CA100A26B5D /* Debug */,
-				F80667661B1E5CA100A26B5D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F843A3981B1B04C2008F4505 /* Build configuration list for PBXProject "Tajma" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F843A3BD1B1B04C2008F4505 /* Debug */,
-				F843A3BE1B1B04C2008F4505 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F843A3BF1B1B04C2008F4505 /* Build configuration list for PBXNativeTarget "Tajma" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F843A3C01B1B04C2008F4505 /* Debug */,
-				F843A3C11B1B04C2008F4505 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F843A3A51B1B04C2008F4505 /* Tajma.xcdatamodel */,
-			);
-			currentVersion = F843A3A51B1B04C2008F4505 /* Tajma.xcdatamodel */;
-			path = Tajma.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
-	};
-	rootObject = F843A3951B1B04C2008F4505 /* Project object */;
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>archiveVersion</key>
+	<string>1</string>
+	<key>classes</key>
+	<dict/>
+	<key>objectVersion</key>
+	<string>46</string>
+	<key>objects</key>
+	<dict>
+		<key>0FBE96FF709B186CBAF774B0</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Embed Pods Frameworks</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods-Tajma/Pods-Tajma-frameworks.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>13C76A6994332194705771DE</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pods_TajmaTests.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>558EBC512D137433897803B9</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Check Pods Manifest.lock</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
+if [[ $? != 0 ]] ; then
+    cat &lt;&lt; EOM
+error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+EOM
+    exit 1
+fi
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>61B8ED10C83195557EB8E766</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D1ED0FF064904D39160B07D9</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>76B8097E1F47DE5F82222DA7</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-TajmaToday.release.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7F054A5DC3ED977AF67C03E7</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Check Pods Manifest.lock</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
+if [[ $? != 0 ]] ; then
+    cat &lt;&lt; EOM
+error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+EOM
+    exit 1
+fi
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>89E1448C11827E0F414AA0A5</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-Tajma.debug.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods-Tajma/Pods-Tajma.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8B176CBC4CA3691A6337B1C1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-TajmaToday.debug.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>95F640F5DF88811A3FC154F3</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Copy Pods Resources</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday-resources.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>A4D4A2080B483DEB5592B2C2</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>89E1448C11827E0F414AA0A5</string>
+				<string>C5CBB333F9456A56CEBB0F5A</string>
+				<string>8B176CBC4CA3691A6337B1C1</string>
+				<string>76B8097E1F47DE5F82222DA7</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>ABEC9DDFFF250B330DC9E36B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D165923BED25C71F586365B2</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>B442D2812AD266B4B1673634</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Copy Pods Resources</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods-Tajma/Pods-Tajma-resources.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>B62DC0CF9BFA492F69F14B74</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Embed Pods Frameworks</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday-frameworks.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>C5CBB333F9456A56CEBB0F5A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-Tajma.release.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods-Tajma/Pods-Tajma.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D165923BED25C71F586365B2</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pods_Tajma.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>D1ED0FF064904D39160B07D9</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pods_TajmaToday.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>F806674F1B1D156E00A26B5D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F818619E1B41D52A005DDA3A</string>
+				<string>F8D853C81BE12F2C00E2C1E2</string>
+				<string>F8729F401BF77E57000E9C9C</string>
+				<string>F8CB7DE81C08B6A400EAF401</string>
+				<string>F82D34161C0A552000E03703</string>
+				<string>F8FA48411C39BE010080E12B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Helpers</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F80667501B1D157C00A26B5D</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>UIColor.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F80667511B1D157C00A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F80667501B1D157C00A26B5D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F80667521B1E5CA100A26B5D</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>F807230D1BE2917E00749E76</string>
+				<string>F80667781B1E5D7900A26B5D</string>
+				<string>F81861A01B41D52A005DDA3A</string>
+				<string>F82CB0851BD25B2C0015D3C5</string>
+				<string>F8729F421BF77E57000E9C9C</string>
+				<string>F806676D1B1E5D7200A26B5D</string>
+				<string>F8B511691B22FA0400388866</string>
+				<string>F806676F1B1E5D7200A26B5D</string>
+				<string>F8CB7DEA1C08B6A400EAF401</string>
+				<string>F88F545C1B38AB3000F0D402</string>
+				<string>F806676C1B1E5D7200A26B5D</string>
+				<string>F8D853CA1BE132F000E2C1E2</string>
+				<string>F806676E1B1E5D7200A26B5D</string>
+				<string>F80667721B1E5D7900A26B5D</string>
+				<string>F80667751B1E5D7900A26B5D</string>
+				<string>F8E7142C1C0A57E40004182D</string>
+				<string>F806675E1B1E5CA100A26B5D</string>
+				<string>F806677F1B1E5DC600A26B5D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>F80667531B1E5CA100A26B5D</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>F80667591B1E5CA100A26B5D</string>
+				<string>61B8ED10C83195557EB8E766</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>F80667541B1E5CA100A26B5D</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>F80667601B1E5CA100A26B5D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>F80667551B1E5CA100A26B5D</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>F80667641B1E5CA100A26B5D</string>
+			<key>buildPhases</key>
+			<array>
+				<string>558EBC512D137433897803B9</string>
+				<string>F80667521B1E5CA100A26B5D</string>
+				<string>F80667531B1E5CA100A26B5D</string>
+				<string>F80667541B1E5CA100A26B5D</string>
+				<string>95F640F5DF88811A3FC154F3</string>
+				<string>B62DC0CF9BFA492F69F14B74</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>TajmaToday</string>
+			<key>productName</key>
+			<string>TajmaToday</string>
+			<key>productReference</key>
+			<string>F80667561B1E5CA100A26B5D</string>
+			<key>productType</key>
+			<string>com.apple.product-type.app-extension</string>
+		</dict>
+		<key>F80667561B1E5CA100A26B5D</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.app-extension</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>TajmaToday.appex</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>F80667571B1E5CA100A26B5D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F80667581B1E5CA100A26B5D</string>
+				<string>D165923BED25C71F586365B2</string>
+				<string>13C76A6994332194705771DE</string>
+				<string>D1ED0FF064904D39160B07D9</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F80667581B1E5CA100A26B5D</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>NotificationCenter.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/NotificationCenter.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>F80667591B1E5CA100A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F80667581B1E5CA100A26B5D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F806675A1B1E5CA100A26B5D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F80667681B1E5CBA00A26B5D</string>
+				<string>F806675D1B1E5CA100A26B5D</string>
+				<string>F806675F1B1E5CA100A26B5D</string>
+				<string>F806676A1B1E5D2200A26B5D</string>
+				<string>F806675B1B1E5CA100A26B5D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>TajmaToday</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F806675B1B1E5CA100A26B5D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F806675C1B1E5CA100A26B5D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F806675C1B1E5CA100A26B5D</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F806675D1B1E5CA100A26B5D</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>TodayViewController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F806675E1B1E5CA100A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F806675D1B1E5CA100A26B5D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F806675F1B1E5CA100A26B5D</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.storyboard</string>
+			<key>path</key>
+			<string>MainInterface.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F80667601B1E5CA100A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F806675F1B1E5CA100A26B5D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F80667611B1E5CA100A26B5D</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>F843A3951B1B04C2008F4505</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>F80667551B1E5CA100A26B5D</string>
+			<key>remoteInfo</key>
+			<string>TajmaToday</string>
+		</dict>
+		<key>F80667621B1E5CA100A26B5D</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>F80667551B1E5CA100A26B5D</string>
+			<key>targetProxy</key>
+			<string>F80667611B1E5CA100A26B5D</string>
+		</dict>
+		<key>F80667631B1E5CA100A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F80667561B1E5CA100A26B5D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>RemoveHeadersOnCopy</string>
+				</array>
+			</dict>
+		</dict>
+		<key>F80667641B1E5CA100A26B5D</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>F80667651B1E5CA100A26B5D</string>
+				<string>F80667661B1E5CA100A26B5D</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>F80667651B1E5CA100A26B5D</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>8B176CBC4CA3691A6337B1C1</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_ENTITLEMENTS</key>
+				<string>Tajma/Tajma.entitlements</string>
+				<key>CODE_SIGN_IDENTITY</key>
+				<string>iPhone Distribution</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>DEFINES_MODULE</key>
+				<string>NO</string>
+				<key>EMBEDDED_CONTENT_CONTAINS_SWIFT</key>
+				<string>NO</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>$(PROJECT_DIR)</string>
+				</array>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>TajmaToday/Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>com.golazo.tajma.today</string>
+				<key>PRODUCT_NAME</key>
+				<string>TajmaToday</string>
+				<key>PROVISIONING_PROFILE</key>
+				<string>2b3dfc46-7f2b-4df6-b05d-c6db5aadaf8e</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OBJC_BRIDGING_HEADER</key>
+				<string>TajmaToday/Bridging-Header.h</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>F80667661B1E5CA100A26B5D</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>76B8097E1F47DE5F82222DA7</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_ENTITLEMENTS</key>
+				<string>Tajma/Tajma.entitlements</string>
+				<key>CODE_SIGN_IDENTITY</key>
+				<string>iPhone Distribution</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)</string>
+				<key>DEFINES_MODULE</key>
+				<string>NO</string>
+				<key>EMBEDDED_CONTENT_CONTAINS_SWIFT</key>
+				<string>NO</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>$(PROJECT_DIR)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>TajmaToday/Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>com.golazo.tajma.today</string>
+				<key>PRODUCT_NAME</key>
+				<string>TajmaToday</string>
+				<key>PROVISIONING_PROFILE</key>
+				<string>27c6eaba-184d-46ae-bd02-c5b7b486a0a2</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OBJC_BRIDGING_HEADER</key>
+				<string>TajmaToday/Bridging-Header.h</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>F80667671B1E5CA100A26B5D</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>dstPath</key>
+			<string></string>
+			<key>dstSubfolderSpec</key>
+			<string>13</string>
+			<key>files</key>
+			<array>
+				<string>F80667631B1E5CA100A26B5D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXCopyFilesBuildPhase</string>
+			<key>name</key>
+			<string>Embed App Extensions</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>F80667681B1E5CBA00A26B5D</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xml</string>
+			<key>path</key>
+			<string>TajmaToday.entitlements</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F806676A1B1E5D2200A26B5D</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Bridging-Header.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F806676C1B1E5D7200A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE881B1B906400D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F806676D1B1E5D7200A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE891B1B906400D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F806676E1B1E5D7200A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE8A1B1B906400D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F806676F1B1E5D7200A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE8B1B1B906400D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F80667721B1E5D7900A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE721B1B902400D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F80667751B1E5D7900A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE781B1B903F00D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F80667781B1E5D7900A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE7C1B1B903F00D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F806677E1B1E5DC600A26B5D</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>DepartureService.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F806677F1B1E5DC600A26B5D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F806677E1B1E5DC600A26B5D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F807230B1BE290BA00749E76</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Status.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F807230C1BE290BA00749E76</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F807230B1BE290BA00749E76</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F807230D1BE2917E00749E76</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F807230B1BE290BA00749E76</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F818619E1B41D52A005DDA3A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>DeviceHelper.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F818619F1B41D52A005DDA3A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F818619E1B41D52A005DDA3A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F81861A01B41D52A005DDA3A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F818619E1B41D52A005DDA3A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F81D4E781C5EBB3F0024B798</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>WebViewController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F81D4E791C5EBB3F0024B798</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F81D4E781C5EBB3F0024B798</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F82CB0831BD25B2C0015D3C5</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>SqliteService.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F82CB0841BD25B2C0015D3C5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F82CB0831BD25B2C0015D3C5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F82CB0851BD25B2C0015D3C5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F82CB0831BD25B2C0015D3C5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F82D34161C0A552000E03703</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>DateHelper.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F82D34171C0A552000E03703</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F82D34161C0A552000E03703</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F843A3941B1B04C2008F4505</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F87AFE661B1B89C100D3DAFC</string>
+				<string>F843A39F1B1B04C2008F4505</string>
+				<string>F806675A1B1E5CA100A26B5D</string>
+				<string>F87257311B3F2D5E006CBDA8</string>
+				<string>F872573E1B3F2D5E006CBDA8</string>
+				<string>F80667571B1E5CA100A26B5D</string>
+				<string>F843A39E1B1B04C2008F4505</string>
+				<string>A4D4A2080B483DEB5592B2C2</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3951B1B04C2008F4505</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastSwiftMigration</key>
+				<string>0700</string>
+				<key>LastSwiftUpdateCheck</key>
+				<string>0700</string>
+				<key>LastUpgradeCheck</key>
+				<string>0700</string>
+				<key>ORGANIZATIONNAME</key>
+				<string>Rashwan Lazkani</string>
+				<key>TargetAttributes</key>
+				<dict>
+					<key>F80667551B1E5CA100A26B5D</key>
+					<dict>
+						<key>CreatedOnToolsVersion</key>
+						<string>6.3.2</string>
+						<key>DevelopmentTeam</key>
+						<string>7XDMTA49ZT</string>
+						<key>SystemCapabilities</key>
+						<dict>
+							<key>com.apple.ApplicationGroups.iOS</key>
+							<dict>
+								<key>enabled</key>
+								<string>1</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>F843A39C1B1B04C2008F4505</key>
+					<dict>
+						<key>CreatedOnToolsVersion</key>
+						<string>6.3.2</string>
+						<key>DevelopmentTeam</key>
+						<string>7XDMTA49ZT</string>
+						<key>SystemCapabilities</key>
+						<dict>
+							<key>com.apple.ApplicationGroups.iOS</key>
+							<dict>
+								<key>enabled</key>
+								<string>1</string>
+							</dict>
+						</dict>
+					</dict>
+				</dict>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>F843A3981B1B04C2008F4505</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+				<string>Base</string>
+			</array>
+			<key>mainGroup</key>
+			<string>F843A3941B1B04C2008F4505</string>
+			<key>productRefGroup</key>
+			<string>F843A39E1B1B04C2008F4505</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>F843A39C1B1B04C2008F4505</string>
+				<string>F80667551B1E5CA100A26B5D</string>
+			</array>
+		</dict>
+		<key>F843A3981B1B04C2008F4505</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>F843A3BD1B1B04C2008F4505</string>
+				<string>F843A3BE1B1B04C2008F4505</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>F843A3991B1B04C2008F4505</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>F843A3A81B1B04C2008F4505</string>
+				<string>F8D853C91BE12F2C00E2C1E2</string>
+				<string>F891B7CB1C55730400A00F15</string>
+				<string>F8CB7DE91C08B6A400EAF401</string>
+				<string>F87AFE851B1B903F00D3DAFC</string>
+				<string>F8E081011B35B1D000A96A45</string>
+				<string>F818619F1B41D52A005DDA3A</string>
+				<string>F87F4FF81B5829CF00FB4BE0</string>
+				<string>F8E080FD1B35A28E00A96A45</string>
+				<string>F843A3A31B1B04C2008F4505</string>
+				<string>F807230C1BE290BA00749E76</string>
+				<string>F8A3D7701C14EAB500AEA7C3</string>
+				<string>F87AFE8C1B1B906400D3DAFC</string>
+				<string>F8FA48421C39BE010080E12B</string>
+				<string>F87AFE8F1B1B906400D3DAFC</string>
+				<string>F87AFE811B1B903F00D3DAFC</string>
+				<string>F80667511B1D157C00A26B5D</string>
+				<string>F8FEC9A31C42B484008C615A</string>
+				<string>F87AFE751B1B902400D3DAFC</string>
+				<string>F88F545D1B38AE5E00F0D402</string>
+				<string>F81D4E791C5EBB3F0024B798</string>
+				<string>F87AFE8D1B1B906400D3DAFC</string>
+				<string>F843A3C61B1B066B008F4505</string>
+				<string>F82CB0841BD25B2C0015D3C5</string>
+				<string>F87AFE8E1B1B906400D3DAFC</string>
+				<string>F843A3A61B1B04C2008F4505</string>
+				<string>F82D34171C0A552000E03703</string>
+				<string>F8F668401C18D41000F6B15A</string>
+				<string>F8729F411BF77E57000E9C9C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>F843A39A1B1B04C2008F4505</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>ABEC9DDFFF250B330DC9E36B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>F843A39B1B1B04C2008F4505</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>F843A3AB1B1B04C2008F4505</string>
+				<string>F891B7C91C5572D600A00F15</string>
+				<string>F891B7C81C5572D600A00F15</string>
+				<string>F891B7C71C5572D600A00F15</string>
+				<string>F843A3B01B1B04C2008F4505</string>
+				<string>F843A3AD1B1B04C2008F4505</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>F843A39C1B1B04C2008F4505</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>F843A3BF1B1B04C2008F4505</string>
+			<key>buildPhases</key>
+			<array>
+				<string>7F054A5DC3ED977AF67C03E7</string>
+				<string>F843A3991B1B04C2008F4505</string>
+				<string>F843A39A1B1B04C2008F4505</string>
+				<string>F843A39B1B1B04C2008F4505</string>
+				<string>F80667671B1E5CA100A26B5D</string>
+				<string>F871410F1BD55FB800A75E1B</string>
+				<string>0FBE96FF709B186CBAF774B0</string>
+				<string>B442D2812AD266B4B1673634</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>F80667621B1E5CA100A26B5D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Tajma</string>
+			<key>productName</key>
+			<string>Tajma</string>
+			<key>productReference</key>
+			<string>F843A39D1B1B04C2008F4505</string>
+			<key>productType</key>
+			<string>com.apple.product-type.application</string>
+		</dict>
+		<key>F843A39D1B1B04C2008F4505</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.application</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Tajma.app</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>F843A39E1B1B04C2008F4505</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F843A39D1B1B04C2008F4505</string>
+				<string>F80667561B1E5CA100A26B5D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A39F1B1B04C2008F4505</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F87AFE931B1B930700D3DAFC</string>
+				<string>F843A3A21B1B04C2008F4505</string>
+				<string>F843A3A71B1B04C2008F4505</string>
+				<string>F8E080FC1B35A28E00A96A45</string>
+				<string>F843A3C51B1B066B008F4505</string>
+				<string>F8FEC9A21C42B484008C615A</string>
+				<string>F8A3D76F1C14EAB500AEA7C3</string>
+				<string>F81D4E781C5EBB3F0024B798</string>
+				<string>F843A3A91B1B04C2008F4505</string>
+				<string>F843A3AC1B1B04C2008F4505</string>
+				<string>F843A3AE1B1B04C2008F4505</string>
+				<string>F843A3A41B1B04C2008F4505</string>
+				<string>F87AFE901B1B90AB00D3DAFC</string>
+				<string>F843A3A01B1B04C2008F4505</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Tajma</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3A01B1B04C2008F4505</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F843A3A11B1B04C2008F4505</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3A11B1B04C2008F4505</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3A21B1B04C2008F4505</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>AppDelegate.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3A31B1B04C2008F4505</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F843A3A21B1B04C2008F4505</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F843A3A41B1B04C2008F4505</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F843A3A51B1B04C2008F4505</string>
+			</array>
+			<key>currentVersion</key>
+			<string>F843A3A51B1B04C2008F4505</string>
+			<key>isa</key>
+			<string>XCVersionGroup</string>
+			<key>path</key>
+			<string>Tajma.xcdatamodeld</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>versionGroupType</key>
+			<string>wrapper.xcdatamodel</string>
+		</dict>
+		<key>F843A3A51B1B04C2008F4505</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.xcdatamodel</string>
+			<key>path</key>
+			<string>Tajma.xcdatamodel</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3A61B1B04C2008F4505</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F843A3A41B1B04C2008F4505</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F843A3A71B1B04C2008F4505</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>StopsController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3A81B1B04C2008F4505</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F843A3A71B1B04C2008F4505</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F843A3A91B1B04C2008F4505</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F843A3AA1B1B04C2008F4505</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>Main.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3AA1B1B04C2008F4505</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.storyboard</string>
+			<key>name</key>
+			<string>Base</string>
+			<key>path</key>
+			<string>Base.lproj/Main.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3AB1B1B04C2008F4505</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F843A3A91B1B04C2008F4505</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F843A3AC1B1B04C2008F4505</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>folder.assetcatalog</string>
+			<key>path</key>
+			<string>Images.xcassets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3AD1B1B04C2008F4505</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F843A3AC1B1B04C2008F4505</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F843A3AE1B1B04C2008F4505</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F843A3AF1B1B04C2008F4505</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>LaunchScreen.xib</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3AF1B1B04C2008F4505</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.xib</string>
+			<key>name</key>
+			<string>Base</string>
+			<key>path</key>
+			<string>Base.lproj/LaunchScreen.xib</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3B01B1B04C2008F4505</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F843A3AE1B1B04C2008F4505</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F843A3BD1B1B04C2008F4505</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ADDITIONAL_SDKS[arch=*]</key>
+				<string></string>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>ENABLE_TESTABILITY</key>
+				<string>YES</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>9.0</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>F843A3BE1B1B04C2008F4505</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>9.0</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>F843A3BF1B1B04C2008F4505</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>F843A3C01B1B04C2008F4505</string>
+				<string>F843A3C11B1B04C2008F4505</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>F843A3C01B1B04C2008F4505</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>89E1448C11827E0F414AA0A5</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>CODE_SIGN_ENTITLEMENTS</key>
+				<string>Tajma/Tajma.entitlements</string>
+				<key>CODE_SIGN_IDENTITY</key>
+				<string>iPhone Developer</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer: Rashwan Lazkani (PGMKGDAHM5)</string>
+				<key>EXCLUDED_SOURCE_FOLDER_NAMES</key>
+				<string>.git</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>$(PROJECT_DIR)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>Tajma/Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>com.golazo.tajma</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PROVISIONING_PROFILE</key>
+				<string></string>
+				<key>SWIFT_OBJC_BRIDGING_HEADER</key>
+				<string>Tajma/Bridging-Header.h</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>F843A3C11B1B04C2008F4505</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>C5CBB333F9456A56CEBB0F5A</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>CODE_SIGN_ENTITLEMENTS</key>
+				<string>Tajma/Tajma.entitlements</string>
+				<key>CODE_SIGN_IDENTITY</key>
+				<string>iPhone Distribution</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)</string>
+				<key>EXCLUDED_SOURCE_FOLDER_NAMES</key>
+				<string>.git</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>$(PROJECT_DIR)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>Tajma/Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/Frameworks</string>
+				<key>MTL_ENABLE_DEBUG_INFO[arch=*]</key>
+				<string>NO</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>com.golazo.tajma</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>PROVISIONING_PROFILE</key>
+				<string>e64a6cb7-86f7-4571-be8a-26cac75cbd29</string>
+				<key>SWIFT_OBJC_BRIDGING_HEADER</key>
+				<string>Tajma/Bridging-Header.h</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>F843A3C51B1B066B008F4505</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>LinesViewController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F843A3C61B1B066B008F4505</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F843A3C51B1B066B008F4505</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F871410F1BD55FB800A75E1B</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>dstPath</key>
+			<string>$(CONTENTS_FOLDER_PATH)/Watch</string>
+			<key>dstSubfolderSpec</key>
+			<string>16</string>
+			<key>files</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXCopyFilesBuildPhase</string>
+			<key>name</key>
+			<string>Embed Watch Content</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>F87257311B3F2D5E006CBDA8</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F87257521B3F2DE1006CBDA8</string>
+				<string>F872576B1B3F3391006CBDA8</string>
+				<string>F87257341B3F2D5E006CBDA8</string>
+				<string>F87257361B3F2D5E006CBDA8</string>
+				<string>F87257681B3F3161006CBDA8</string>
+				<string>F87257321B3F2D5E006CBDA8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Tajma WatchKit Extension</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87257321B3F2D5E006CBDA8</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F87257331B3F2D5E006CBDA8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87257331B3F2D5E006CBDA8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87257341B3F2D5E006CBDA8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>InterfaceController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87257361B3F2D5E006CBDA8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>folder.assetcatalog</string>
+			<key>path</key>
+			<string>Images.xcassets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F872573E1B3F2D5E006CBDA8</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F87257411B3F2D5E006CBDA8</string>
+				<string>F87257441B3F2D5E006CBDA8</string>
+				<string>F872573F1B3F2D5E006CBDA8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Tajma WatchKit App</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F872573F1B3F2D5E006CBDA8</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F87257401B3F2D5E006CBDA8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87257401B3F2D5E006CBDA8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87257411B3F2D5E006CBDA8</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F87257421B3F2D5E006CBDA8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>Interface.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87257421B3F2D5E006CBDA8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.storyboard</string>
+			<key>name</key>
+			<string>Base</string>
+			<key>path</key>
+			<string>Base.lproj/Interface.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87257441B3F2D5E006CBDA8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>folder.assetcatalog</string>
+			<key>path</key>
+			<string>Images.xcassets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87257521B3F2DE1006CBDA8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xml</string>
+			<key>path</key>
+			<string>Tajma WatchKit Extension.entitlements</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87257681B3F3161006CBDA8</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Bridging-Header.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F872576B1B3F3391006CBDA8</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>DataRowController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8729F401BF77E57000E9C9C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>SharedHelper.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8729F411BF77E57000E9C9C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8729F401BF77E57000E9C9C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8729F421BF77E57000E9C9C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8729F401BF77E57000E9C9C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F87AFE661B1B89C100D3DAFC</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F891B7C31C5572B700A00F15</string>
+				<string>F8E080FF1B35B1C500A96A45</string>
+				<string>F806674F1B1D156E00A26B5D</string>
+				<string>F8CFC4F61BEBD27800301E59</string>
+				<string>F87AFE6F1B1B8FE000D3DAFC</string>
+				<string>F87AFE691B1B8F7A00D3DAFC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Core</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87AFE691B1B8F7A00D3DAFC</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F806677E1B1E5DC600A26B5D</string>
+				<string>F87AFE881B1B906400D3DAFC</string>
+				<string>F82CB0831BD25B2C0015D3C5</string>
+				<string>F87AFE891B1B906400D3DAFC</string>
+				<string>F87AFE8A1B1B906400D3DAFC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Services</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87AFE6F1B1B8FE000D3DAFC</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F87AFE721B1B902400D3DAFC</string>
+				<string>F87AFE781B1B903F00D3DAFC</string>
+				<string>F87AFE7C1B1B903F00D3DAFC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Models</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87AFE721B1B902400D3DAFC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Departure.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87AFE751B1B902400D3DAFC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE721B1B902400D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F87AFE781B1B903F00D3DAFC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Line.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87AFE7C1B1B903F00D3DAFC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Stop.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87AFE811B1B903F00D3DAFC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE781B1B903F00D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F87AFE851B1B903F00D3DAFC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE7C1B1B903F00D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F87AFE881B1B906400D3DAFC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>LineService.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87AFE891B1B906400D3DAFC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>RestApiService.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87AFE8A1B1B906400D3DAFC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>StopService.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87AFE8B1B1B906400D3DAFC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>SwiftyJSONService.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87AFE8C1B1B906400D3DAFC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE881B1B906400D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F87AFE8D1B1B906400D3DAFC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE891B1B906400D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F87AFE8E1B1B906400D3DAFC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE8A1B1B906400D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F87AFE8F1B1B906400D3DAFC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87AFE8B1B1B906400D3DAFC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F87AFE901B1B90AB00D3DAFC</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Bridging-Header.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87AFE931B1B930700D3DAFC</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xml</string>
+			<key>path</key>
+			<string>Tajma.entitlements</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87F4FF71B5829CF00FB4BE0</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>RateMyApp.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F87F4FF81B5829CF00FB4BE0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F87F4FF71B5829CF00FB4BE0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F88F545B1B38AB3000F0D402</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Row.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F88F545C1B38AB3000F0D402</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F88F545B1B38AB3000F0D402</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F88F545D1B38AE5E00F0D402</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F88F545B1B38AB3000F0D402</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F891B7C31C5572B700A00F15</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F891B7C41C5572D600A00F15</string>
+				<string>F891B7C51C5572D600A00F15</string>
+				<string>F891B7C61C5572D600A00F15</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Assets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F891B7C41C5572D600A00F15</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.gif</string>
+			<key>path</key>
+			<string>tajma-gif-1.gif</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F891B7C51C5572D600A00F15</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.gif</string>
+			<key>path</key>
+			<string>tajma-gif-2.gif</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F891B7C61C5572D600A00F15</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>image.gif</string>
+			<key>path</key>
+			<string>tajma-gif-3.gif</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F891B7C71C5572D600A00F15</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F891B7C41C5572D600A00F15</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F891B7C81C5572D600A00F15</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F891B7C51C5572D600A00F15</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F891B7C91C5572D600A00F15</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F891B7C61C5572D600A00F15</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F891B7CA1C55730400A00F15</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>UIImage+Gif.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F891B7CB1C55730400A00F15</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F891B7CA1C55730400A00F15</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8A3D76F1C14EAB500AEA7C3</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>GuideController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8A3D7701C14EAB500AEA7C3</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8A3D76F1C14EAB500AEA7C3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8B511691B22FA0400388866</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F80667501B1D157C00A26B5D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8CB7DE81C08B6A400EAF401</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>StringHelper.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8CB7DE91C08B6A400EAF401</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8CB7DE81C08B6A400EAF401</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8CB7DEA1C08B6A400EAF401</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8CB7DE81C08B6A400EAF401</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8CFC4F61BEBD27800301E59</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F891B7CA1C55730400A00F15</string>
+				<string>F87F4FF71B5829CF00FB4BE0</string>
+				<string>F87AFE8B1B1B906400D3DAFC</string>
+				<string>F80667501B1D157C00A26B5D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Libs</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8D853C81BE12F2C00E2C1E2</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Constants.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8D853C91BE12F2C00E2C1E2</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8D853C81BE12F2C00E2C1E2</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8D853CA1BE132F000E2C1E2</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8D853C81BE12F2C00E2C1E2</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8E080FC1B35A28E00A96A45</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>InfoViewController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8E080FD1B35A28E00A96A45</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8E080FC1B35A28E00A96A45</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8E080FF1B35B1C500A96A45</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>F8E081001B35B1D000A96A45</string>
+				<string>F88F545B1B38AB3000F0D402</string>
+				<string>F807230B1BE290BA00749E76</string>
+				<string>F8F6683F1C18D41000F6B15A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Enums</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8E081001B35B1D000A96A45</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Info.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8E081011B35B1D000A96A45</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8E081001B35B1D000A96A45</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8E7142C1C0A57E40004182D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F82D34161C0A552000E03703</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8F6683F1C18D41000F6B15A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Error.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8F668401C18D41000F6B15A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8F6683F1C18D41000F6B15A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8FA48411C39BE010080E12B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Reachability.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8FA48421C39BE010080E12B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8FA48411C39BE010080E12B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F8FEC9A21C42B484008C615A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>OmOssViewController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F8FEC9A31C42B484008C615A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F8FEC9A21C42B484008C615A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+	</dict>
+	<key>rootObject</key>
+	<string>F843A3951B1B04C2008F4505</string>
+</dict>
+</plist>
