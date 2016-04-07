@@ -28,6 +28,11 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if Reachability.isConnectedToNetwork() != true {
+            displayMessage("Ingen anslutning, försök igen.")
+            return
+        }
+        
         SqliteService.sharedInstance.updateOptionals()
         
         infoText.userInteractionEnabled = true
@@ -51,6 +56,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        
+        if Reachability.isConnectedToNetwork() != true {
+            displayMessage("Ingen anslutning, försök igen.")
+            return
+        }
+        
         lat = ""
         long = ""
         
