@@ -31,31 +31,35 @@ public class DepartureService {
             var lines = [Line]()
             
             for (_,subJson):(String, JSON) in jsonDepartures {
-                let sname = subJson["sname"].string! ?? ""
-                let direction = subJson["direction"].string! ?? ""
-                let id = "\(stopId)-\(sname)-\(direction)"
                 
-                var line = from(lines).singleOrNil({$0.id == id})
-                if(line == nil){
-                    line = from(dbLines).singleOrNil({$0.id == id})
+                if let sname = subJson["sname"].string, direction = subJson["direction"].string{
+                    let id = "\(stopId)-\(sname)-\(direction)"
                     
-                    if(line != nil){
-                        lines.append(line!)
+                    var line = from(lines).singleOrNil({$0.id == id})
+                    if(line == nil){
+                        line = from(dbLines).singleOrNil({$0.id == id})
+                        
+                        if(line != nil){
+                            lines.append(line!)
+                        }
                     }
+                    
+                    if(line == nil){
+                        continue
+                    }
+                    
+                    let time = subJson["rtTime"].string ?? subJson["time"].string
+                    let date = subJson["rtDate"].string ?? subJson["date"].string
+                    let dateTime = "\(date!) \(time!)"
+                    
+                    let departureTime = dateFormatter.dateFromString(dateTime) as NSDate!
+                    let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverDate) / 60) - 1
+                    
+                    line!.departures.times.append(intervalBetweenDepartures)
                 }
-                
-                if(line == nil){
-                    continue
+                else{
+                    print("Sname/Direction nil")
                 }
-                
-                let time = subJson["rtTime"].string ?? subJson["time"].string
-                let date = subJson["rtDate"].string ?? subJson["date"].string
-                let dateTime = "\(date!) \(time!)"
-                
-                let departureTime = dateFormatter.dateFromString(dateTime) as NSDate!
-                let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverDate) / 60) - 1
-                
-                line!.departures.times.append(intervalBetweenDepartures)
             }
             lines.sortInPlace({$0.departures.times.first < $1.departures.times.first})
             
