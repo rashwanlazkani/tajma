@@ -415,6 +415,7 @@
 				F80667541B1E5CA100A26B5D /* Resources */,
 				95F640F5DF88811A3FC154F3 /* Copy Pods Resources */,
 				B62DC0CF9BFA492F69F14B74 /* Embed Pods Frameworks */,
+				F8B0D9381CB7164F0090383F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -612,6 +613,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		F8B0D9381CB7164F0090383F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then\nrm -fr Frameworks\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
