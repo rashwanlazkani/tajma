@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
+import Alamofire
 import Foundation
 
 typealias ServiceResponse = (JSON, NSError?) -> Void

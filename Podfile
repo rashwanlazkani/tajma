@@ -5,13 +5,13 @@ use_frameworks!
 
 
 target 'Tajma' do
-pod 'SQLite.swift',
-  git: 'https://github.com/stephencelis/SQLite.swift.git'
-pod 'SINQ'
+	pod 'SQLite.swift', '~> 0.10.1'
+	pod 'SINQ'
+	pod 'Alamofire', '~> 3.4'
 end
 
 target 'TajmaToday' do
-pod 'SQLite.swift',
-  git: 'https://github.com/stephencelis/SQLite.swift.git'
-pod 'SINQ'
+	pod 'SQLite.swift', '~> 0.10.1'
+	pod 'SINQ'
+	pod 'Alamofire', '~> 3.4'
 end
