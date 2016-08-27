@@ -20,8 +20,12 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     let locationManager = CLLocationManager()
     
     var stops = [Stop]()
-    var lat  = ""
-    var long = ""
+    var lat  = 0.0
+    var long = 0.0
+    
+    var oldLat  = 0.0
+    var oldLong = 0.0
+    
     var timerCount = 0
     var seconds = 0.0
     
@@ -48,6 +52,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.distanceFilter = 20
         }
         else{
             displayMessage("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
@@ -61,9 +66,6 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
             displayMessage("Ingen anslutning, försök igen.")
             return
         }
-        
-        lat = ""
-        long = ""
         
         if CLLocationManager.locationServicesEnabled() {
             displayMessage("Laddar avgångar...")
@@ -102,19 +104,16 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         timer.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
         
-        lat = ""
-        long = ""
         locationManager.startUpdatingLocation()
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if (!lat.isEmpty && !long.isEmpty){
-            return
-        }
+        lat = 0.0
+        long = 0.0
 
         let location:CLLocationCoordinate2D = manager.location!.coordinate
-        lat = String(location.latitude)
-        long = String(location.longitude)
+        lat = location.latitude
+        long = location.longitude
         getData()
     }
     
@@ -304,9 +303,14 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         }
     }
     
+    private func roundToFive(x : Double) -> Int {
+        return 5 * Int(round(x / 5.0))
+    }
+    
     // MARK: - Functions
     func getData(){
-        stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
+        print("Getdata")
+        stops = departureService.getMyDepartures(lat, long: long)
         
         preferredContentSize = CGSizeMake(0, contentHeight())
         
