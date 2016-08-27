@@ -20,12 +20,16 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     var stopService = StopsService()
     let deviceHelper = DeviceHelper()
     var stops = [Stop]()
+    var favoriteStops = [Stop]()
     var lines = [Line]()
     
     let locationManager = CLLocationManager()
     var activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
-    var lat : String = ""
-    var long : String = ""
+    var lat = 0.0
+    var long = 0.0
+    
+    var oldLat = 0.0
+    var oldLong = 0.0
     
     let guideController = GuideController()
     
@@ -49,6 +53,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         let loadData = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("LoadData")
         if(!loadData){
             self.performSegueWithIdentifier("ShowGuide", sender: nil)
+            NSUserDefaults(suiteName: "group.tajma.today")!.stringForKey("token")
+            NSUserDefaults(suiteName: "group.tajma.today")!.setObject("", forKey: "token")
+            
             NSUserDefaults(suiteName: "group.tajma.today")!.setBool(true, forKey: "LoadData")
         }
         else{
@@ -56,6 +63,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             if CLLocationManager.locationServicesEnabled() {
                 locationManager.delegate = self
                 locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                locationManager.distanceFilter = 10
                 locationManager.startUpdatingLocation()
             }
             
@@ -127,14 +135,34 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func applicationDidBecomeActive(application: UIApplication) {
         self.segmentedControl.selectedSegmentIndex = 0
         locationManager.startUpdatingLocation()
-        lat = ""
-        long = ""
+    }
+    
+    private func roundToFive(x : Double) -> Int {
+        return 5 * Int(round(x / 5.0))
     }
     
     func getNearestStops() {
         self.activityIndicator.startAnimating()
+        
+        // För att inte behöva göra många onödiga anrop till VT så kollar vi så att distansen mellan detta och senaste anropet är mindre än 100m
+        if oldLat != 0.0 && oldLong != 0.0{
+            let userLocation = CLLocation(latitude: oldLat, longitude:oldLong)
+            let destinationLocation = CLLocation(latitude: lat, longitude: long)
+            let distance = roundToFive(userLocation.distanceFromLocation(destinationLocation))
+            
+            print(distance)
+            if distance <= 100{
+                print("Hämtar inte ny data")
+                self.activityIndicator.stopAnimating()
+                self.tableView!.reloadData()
+                return
+            }
+        }
+        
+        print("Hämtar ny data")
+        
         self.segmentedControl.enabled = false
-        stopService.getNearestStops(lat, long: long, onSuccess: { json -> Void in
+        stopService.getNearestStops(String(lat), long: String(long), onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.stops = json
                 if (self.stops.count == 0){
@@ -142,7 +170,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 }
                 self.tableView!.reloadData()
                 
-                self.locationManager.stopUpdatingLocation()
+                //self.locationManager.stopUpdatingLocation()
                 self.segmentedControl.enabled = true
                 self.activityIndicator.stopAnimating()
             })
@@ -167,12 +195,10 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
 
     @IBAction func segmentedControl_Changed(sender: UISegmentedControl) {
         if (segmentedControl.selectedSegmentIndex == 0){
-            lat = ""
-            long = ""
             self.locationManager.startUpdatingLocation()
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
-            stops = SqliteService.sharedInstance.getStops()
+            favoriteStops = SqliteService.sharedInstance.getStops()
         }
         self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
         self.searchBar.text = ""
@@ -206,17 +232,22 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if (!lat.isEmpty && !long.isEmpty){
-            return
+        if lat != 0.0 && long != 0.0{
+            oldLat = lat
+            oldLong = long
         }
+        
+        lat = 0.0
+        long = 0.0
+
         if Reachability.isConnectedToNetwork() != true {
             stops = [Stop]()
             return
         }
+        
         let location:CLLocationCoordinate2D = manager.location!.coordinate
-        lat = String(location.latitude)
-        long = String(location.longitude)
-        locationManager.stopUpdatingLocation()
+        lat = location.latitude
+        long = location.longitude
         getNearestStops()
     }
     
@@ -226,7 +257,12 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     // MARK: - TableView
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return stops.count
+        if (segmentedControl.selectedSegmentIndex == 0){
+            return stops.count
+        }
+        else{
+            return favoriteStops.count
+        }
     }
     
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
