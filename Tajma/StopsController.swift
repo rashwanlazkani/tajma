@@ -35,7 +35,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidAppear(animated: Bool) {
         initiateViews()
-
+        
         if (segmentedControl.selectedSegmentIndex == 1){
             stops = SqliteService.sharedInstance.getStops()
         }
@@ -63,7 +63,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             if CLLocationManager.locationServicesEnabled() {
                 locationManager.delegate = self
                 locationManager.desiredAccuracy = kCLLocationAccuracyBest
-                locationManager.distanceFilter = 10
+                locationManager.distanceFilter = 20
                 locationManager.startUpdatingLocation()
             }
             
