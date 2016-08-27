@@ -22,10 +22,11 @@ class StopsService{
             }
             else{
                 let jsonStops = json["LocationList"]["StopLocation"]
-                let stops = from(self.mapToStop(jsonStops)).distinct{$0.0.name == $0.1.name}.toArray()
+                let     stops = from(self.mapToStop(jsonStops)).distinct{$0.0.name == $0.1.name}.toArray()
                 for stop in stops{
                     stop.id = StringHelper.customVtStopId(stop.id)
                 }
+                
                 onSuccess(stops)
             }
         }
