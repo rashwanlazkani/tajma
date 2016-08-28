@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5A26C62D2BBAC087F87B0170 /* Pods_Tajma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17F87EF79B929EC04108AEEA /* Pods_Tajma.framework */; };
+		6B6E79451D7218EF00C0D61C /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6E79441D7218EF00C0D61C /* UIImage+Gif.swift */; };
 		DA1BC25F214299D21865D377 /* Pods_TajmaToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C9B3D58EAB46B60E4DD8A2B /* Pods_TajmaToday.framework */; };
 		F8020F6B1CB52F920060C0C8 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA48411C39BE010080E12B /* Reachability.swift */; };
 		F80667511B1D157C00A26B5D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
@@ -53,7 +54,6 @@
 		F891B7C71C5572D600A00F15 /* tajma-gif-1.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C41C5572D600A00F15 /* tajma-gif-1.gif */; };
 		F891B7C81C5572D600A00F15 /* tajma-gif-2.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C51C5572D600A00F15 /* tajma-gif-2.gif */; };
 		F891B7C91C5572D600A00F15 /* tajma-gif-3.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C61C5572D600A00F15 /* tajma-gif-3.gif */; };
-		F891B7CB1C55730400A00F15 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = F891B7CA1C55730400A00F15 /* UIImage+Gif.swift */; };
 		F8A3D7701C14EAB500AEA7C3 /* GuideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */; };
 		F8B511691B22FA0400388866 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 		F8CB7DE91C08B6A400EAF401 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */; };
@@ -105,6 +105,7 @@
 /* Begin PBXFileReference section */
 		17F87EF79B929EC04108AEEA /* Pods_Tajma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tajma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C9B3D58EAB46B60E4DD8A2B /* Pods_TajmaToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TajmaToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B6E79441D7218EF00C0D61C /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		AA1FD6FC4E138D1C84241FBE /* Pods-TajmaToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.debug.xcconfig"; sourceTree = "<group>"; };
 		AC42618A963B5B39E78E9F0F /* Pods-Tajma.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.release.xcconfig"; sourceTree = "<group>"; };
 		CB645C838D5A2C9F46D8FED2 /* Pods-TajmaToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.release.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.release.xcconfig"; sourceTree = "<group>"; };
@@ -156,7 +157,6 @@
 		F891B7C41C5572D600A00F15 /* tajma-gif-1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-1.gif"; sourceTree = "<group>"; };
 		F891B7C51C5572D600A00F15 /* tajma-gif-2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-2.gif"; sourceTree = "<group>"; };
 		F891B7C61C5572D600A00F15 /* tajma-gif-3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-3.gif"; sourceTree = "<group>"; };
-		F891B7CA1C55730400A00F15 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideController.swift; sourceTree = "<group>"; };
 		F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
 		F8D853C81BE12F2C00E2C1E2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -381,7 +381,7 @@
 		F8CFC4F61BEBD27800301E59 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				F891B7CA1C55730400A00F15 /* UIImage+Gif.swift */,
+				6B6E79441D7218EF00C0D61C /* UIImage+Gif.swift */,
 				F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */,
 				F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */,
 				F80667501B1D157C00A26B5D /* UIColor.swift */,
@@ -660,7 +660,6 @@
 			files = (
 				F843A3A81B1B04C2008F4505 /* StopsController.swift in Sources */,
 				F8D853C91BE12F2C00E2C1E2 /* Constants.swift in Sources */,
-				F891B7CB1C55730400A00F15 /* UIImage+Gif.swift in Sources */,
 				F8CB7DE91C08B6A400EAF401 /* StringHelper.swift in Sources */,
 				F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */,
 				F8E081011B35B1D000A96A45 /* Info.swift in Sources */,
@@ -687,6 +686,7 @@
 				F82D34171C0A552000E03703 /* DateHelper.swift in Sources */,
 				F8F668401C18D41000F6B15A /* Error.swift in Sources */,
 				F8729F411BF77E57000E9C9C /* SharedHelper.swift in Sources */,
+				6B6E79451D7218EF00C0D61C /* UIImage+Gif.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

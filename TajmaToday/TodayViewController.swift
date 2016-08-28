@@ -40,7 +40,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         SqliteService.sharedInstance.updateOptionals()
         
         infoText.userInteractionEnabled = true
-        let aSelector : Selector = "lblTapped"
+        let aSelector : Selector = #selector(TodayTableViewController.lblTapped)
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
         tapGesture.numberOfTapsRequired = 1
         infoText.addGestureRecognizer(tapGesture)
@@ -75,7 +75,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         }
         
         locationManager.startUpdatingLocation()
-        timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: #selector(TodayTableViewController.getLocation), userInfo: nil, repeats: true)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -89,7 +89,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
     
     // MARK: - Location
     func getLocation(){
-        timerCount++
+        timerCount += 1
         if timerCount == 1{
             seconds = 10.0
         }
@@ -102,7 +102,7 @@ class TodayTableViewController: UITableViewController, CLLocationManagerDelegate
         }
     
         timer.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: Selector("getLocation"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: #selector(TodayTableViewController.getLocation), userInfo: nil, repeats: true)
         
         locationManager.startUpdatingLocation()
     }

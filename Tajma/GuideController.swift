@@ -37,7 +37,7 @@ class GuideController: UIViewController{
             case UISwipeGestureRecognizerDirection.Right :
                 // check if index is in range
                 if guideImageIndex > 0 {
-                     guideImageIndex--
+                     guideImageIndex -= 1
                 }
 
                 guideImageView.image = UIImage(named: guideImages[guideImageIndex])
@@ -45,7 +45,7 @@ class GuideController: UIViewController{
             case UISwipeGestureRecognizerDirection.Left:
                 // check if index is in range
                 if guideImageIndex < guideImages.count - 1{
-                    guideImageIndex++
+                    guideImageIndex += 1
                 }
                 
                 guideImageView.image = UIImage(named: guideImages[guideImageIndex])
@@ -72,7 +72,7 @@ class GuideController: UIViewController{
         let closeButton = UIButton()
         let img = UIImage(named: "close")
         closeButton.setImage(img, forState: .Normal)
-        closeButton.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(GuideController.startApp), forControlEvents: .TouchUpInside)
         closeButton.frame = CGRectMake(self.view.frame.width - 45, 25, 40, 40)
         self.view.addSubview(closeButton)
         
@@ -96,7 +96,7 @@ class GuideController: UIViewController{
             button2.layer.borderWidth = 2
             button2.layer.cornerRadius = 22
             button2.setTitle(" Visa mig  ", forState: .Normal)
-            button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
+            button2.addTarget(self, action: #selector(GuideController.next), forControlEvents: .TouchUpInside)
             button2.transform = CGAffineTransformMakeScale(-1.0, 1.0)
             button2.titleLabel!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
             button2.imageView!.transform = CGAffineTransformMakeScale(-1.0, 1.0)
@@ -122,12 +122,12 @@ class GuideController: UIViewController{
             
             let img = UIImage(named: "left")
             button1.setImage(img, forState: .Normal)
-            button1.addTarget(self, action: "previous", forControlEvents: .TouchUpInside)
+            button1.addTarget(self, action: #selector(GuideController.previous), forControlEvents: .TouchUpInside)
             button1.layer.cornerRadius = 22
             button1.backgroundColor = UIColor.whiteColor()
             
             button2.setTitle("Nästa  ", forState: .Normal)
-            button2.addTarget(self, action: "next", forControlEvents: .TouchUpInside)
+            button2.addTarget(self, action: #selector(GuideController.next), forControlEvents: .TouchUpInside)
             
             let imgTwo = UIImage(named: "right")
             button2.setImage(imgTwo, forState: .Normal)
@@ -152,12 +152,12 @@ class GuideController: UIViewController{
             
             let img = UIImage(named: "left")
             button1.setImage(img, forState: .Normal)
-            button1.addTarget(self, action: "previous", forControlEvents: .TouchUpInside)
+            button1.addTarget(self, action: #selector(GuideController.previous), forControlEvents: .TouchUpInside)
             button1.backgroundColor = UIColor.whiteColor()
             
             button2.setTitle("Stäng guide", forState: .Normal)
             button2.backgroundColor = UIColor.whiteColor()
-            button2.addTarget(self, action: "startApp", forControlEvents: .TouchUpInside)
+            button2.addTarget(self, action: #selector(GuideController.startApp), forControlEvents: .TouchUpInside)
             button2.setTitleColor(UIColor(red: 233/255, green: 64/255, blue: 87/255, alpha: 1), forState: UIControlState.Normal)
             button2.backgroundColor = UIColor.whiteColor()
             button2.setTitleColor(UIColor(red: 229/255, green: 66/255, blue: 90/255, alpha: 1), forState: UIControlState.Normal)
