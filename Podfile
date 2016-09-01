@@ -7,11 +7,9 @@ use_frameworks!
 target 'Tajma' do
 	pod 'SQLite.swift', '~> 0.10.1'
 	pod 'SINQ'
-	pod 'Alamofire', '~> 3.4'
 end
 
 target 'TajmaToday' do
 	pod 'SQLite.swift', '~> 0.10.1'
 	pod 'SINQ'
-	pod 'Alamofire', '~> 3.4'
 end

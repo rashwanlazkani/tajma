@@ -68,7 +68,15 @@ public class DepartureService {
     
     func getMyDepartures(lat: Double, long: Double) -> [Stop] {
         let getDeparturesGroup = dispatch_group_create()
-        var stops = SqliteService.sharedInstance.getStops()
+        var stops = [Stop]()
+        var error = false
+        
+        if SqliteService.sharedInstance.getStops().isEmpty{
+            return stops
+        }
+        else{
+            stops = SqliteService.sharedInstance.getStops()
+        }
         
         from(stops).each({
             $0.distance = self.stopService.calculateDistance($0, lat: lat, long: long)
@@ -83,8 +91,9 @@ public class DepartureService {
                     stop.lines = lines
                     closestStops.append(stop)
                     dispatch_group_leave(getDeparturesGroup)
-                }, onError:{ error -> Void in
-                    
+                }, onError:{ e -> Void in
+                    print("Error")
+                    error = true
                 })
             }
             else{
@@ -93,7 +102,15 @@ public class DepartureService {
         }
         
         dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
-
+        
+        if error{
+            let stop = Stop()
+            stop.name = "Fel vid hämtning"
+            var s = [Stop]()
+            s.append(stop)
+            return s
+        }
+        
         return from(closestStops).orderBy({$0.distance}).map({$0})
     }
     

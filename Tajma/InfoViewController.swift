@@ -30,7 +30,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         tableView.delegate = self
         tableView.dataSource = self
         
-        items = ["Lämna feedback","Gilla oss på Facebook","Tipsa en vän", "Betygsätt Tajma", "Guide: Så här kommer du igång", "Vanliga frågor", "Om oss"]
+        items = ["Lämna feedback","Tajma på Facebook","Tipsa en vän", "Betygsätt Tajma", "Guide: Så här kommer du igång", "Vanliga frågor", "Om oss"]
     }
     
     override func willMoveToParentViewController(parent: UIViewController?) {
@@ -53,7 +53,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         title.textAlignment = NSTextAlignment.Center
         title.textColor = UIColor.whiteColor()
         title.font = title.font.fontWithSize(19)
-        title.text = "Information"
+        title.text = "Tajma"
         
         let navBarTitleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
         navBarTitleView.backgroundColor = UIColor.clearColor()

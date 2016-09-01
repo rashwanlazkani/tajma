@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-import Alamofire
 import Foundation
+import UIKit
 
 typealias ServiceResponse = (JSON, NSError?) -> Void
 
@@ -20,7 +20,6 @@ extension Int  {
 class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     static let sharedInstance = RestApiService()
     
-    // v2
     func getNearestStops(lat: String, long: String, onCompletion: (JSON) -> Void){
         let url = "\(Constants.VTurl)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"
         
@@ -29,17 +28,15 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         })
     }
     
-    // v2
     func findStops(userInput: String, onCompletion: (JSON) -> Void){
         let escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         let url = "\(Constants.VTurl)location.name?input=\(escapedUserInput)&format=json"
         
         getToken(url, onCompletion: {json in
-            return json
+            onCompletion(json as JSON)
         })
     }
     
-    // v2
     func findAllLinesOnStop (stopId: String, onCompletion: (JSON) -> Void){
         var date = NSDate()
         let dateFormattera = NSDateFormatter()
@@ -74,7 +71,6 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         })
     }
     
-    // v2
     func getDeparturesAtStop (stopId: String, onCompletion: (JSON) -> Void){
         let date = NSDate()
         let dateFormattera = NSDateFormatter()
@@ -93,7 +89,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         
         let escapedString = timeString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         
-        let url = "\(Constants.VTurl)departureBoard?id=\(stopId)&date=\(dateString)&time=\(escapedString)&timeSpan=60&maxDeparturesPerLine=2&format=json"
+        let url = "\(Constants.VTurl)departureBoard?id=\(stopId)&date=\(dateString)&time=\(escapedString)&timeSpan=15&maxDeparturesPerLine=2&format=json"
         
         getToken(url, onCompletion: {json in
             onCompletion(json as JSON)
@@ -129,10 +125,9 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                 print(error!)
                 return
             }
-            let json:JSON = JSON(data: data!)
-            NSUserDefaults(suiteName: "group.tajma.today")!.setObject(json["access_token"].string!, forKey: "token")
-            print("Token " + NSUserDefaults(suiteName: "group.tajma.today")!.stringForKey("token")!)
-            
+            let tokenJson:JSON = JSON(data: data!)
+            NSUserDefaults(suiteName: "group.tajma.today")!.setObject(tokenJson["access_token"].string!, forKey: "token")
+
             self.makeHTTPGetRequest(url, onCompletion: { json, err in
                 onCompletion(json as JSON)
             })
@@ -141,7 +136,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
     
     private func makeHTTPGetRequest(path: String, onCompletion: ServiceResponse) {
-        print("Bearer \(NSUserDefaults(suiteName: "group.tajma.today")!.stringForKey("token")!)")
+        //print("Bearer \(NSUserDefaults(suiteName: "group.tajma.today")!.stringForKey("token")!)")
         let request = NSMutableURLRequest(URL: NSURL(string: path)!)
         request.addValue("Bearer \(NSUserDefaults(suiteName: "group.tajma.today")!.stringForKey("token")!)", forHTTPHeaderField: "Authorization")
         let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()

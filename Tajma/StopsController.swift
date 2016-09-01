@@ -19,17 +19,18 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     let lineService = LineService()
     var stopService = StopsService()
     let deviceHelper = DeviceHelper()
+    let locationHelper = LocationHelper()
     var stops = [Stop]()
-    var favoriteStops = [Stop]()
     var lines = [Line]()
+    
+    var cached = [Stop]()
     
     let locationManager = CLLocationManager()
     var activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
     var lat = 0.0
     var long = 0.0
     
-    var oldLat = 0.0
-    var oldLong = 0.0
+    var horizontalAccuracy = 1000
     
     let guideController = GuideController()
     
@@ -63,8 +64,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             if CLLocationManager.locationServicesEnabled() {
                 locationManager.delegate = self
                 locationManager.desiredAccuracy = kCLLocationAccuracyBest
-                locationManager.distanceFilter = 20
-                locationManager.startUpdatingLocation()
+                locationManager.distanceFilter = 50
+                updateLocation()
             }
             
             self.title = "Bakåt"
@@ -134,7 +135,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func applicationDidBecomeActive(application: UIApplication) {
         self.segmentedControl.selectedSegmentIndex = 0
-        locationManager.startUpdatingLocation()
+        updateLocation()
     }
     
     private func roundToFive(x : Double) -> Int {
@@ -143,34 +144,17 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func getNearestStops() {
         self.activityIndicator.startAnimating()
-        
-        // För att inte behöva göra många onödiga anrop till VT så kollar vi så att distansen mellan detta och senaste anropet är mindre än 100m
-        if oldLat != 0.0 && oldLong != 0.0{
-            let userLocation = CLLocation(latitude: oldLat, longitude:oldLong)
-            let destinationLocation = CLLocation(latitude: lat, longitude: long)
-            let distance = roundToFive(userLocation.distanceFromLocation(destinationLocation))
-            
-            print(distance)
-            if distance <= 100{
-                print("Hämtar inte ny data")
-                self.activityIndicator.stopAnimating()
-                self.tableView!.reloadData()
-                return
-            }
-        }
-        
-        print("Hämtar ny data")
-        
+
         self.segmentedControl.enabled = false
         stopService.getNearestStops(String(lat), long: String(long), onSuccess: { json -> Void in
             dispatch_async(dispatch_get_main_queue(),{
                 self.stops = json
+                self.cached = json
                 if (self.stops.count == 0){
                     self.displayError("Inga hållplatser i närheten.", type: Error.Nearest)
                 }
                 self.tableView!.reloadData()
                 
-                //self.locationManager.stopUpdatingLocation()
                 self.segmentedControl.enabled = true
                 self.activityIndicator.stopAnimating()
             })
@@ -185,7 +169,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         alert.addAction(UIAlertAction(title: "Försök igen", style: UIAlertActionStyle.Default, handler: { (alert) -> Void in
             switch type {
             case Error.Location :
-                return self.locationManager.startUpdatingLocation()
+                return self.updateLocation()
             case Error.Nearest :
                 return self.getNearestStops()
             }
@@ -195,10 +179,10 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
 
     @IBAction func segmentedControl_Changed(sender: UISegmentedControl) {
         if (segmentedControl.selectedSegmentIndex == 0){
-            self.locationManager.startUpdatingLocation()
+            self.updateLocation()
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
-            favoriteStops = SqliteService.sharedInstance.getStops()
+            stops = SqliteService.sharedInstance.getStops()
         }
         self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
         self.searchBar.text = ""
@@ -230,24 +214,28 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         })
     }
     
+    func updateLocation(){
+        print(horizontalAccuracy)
+        if horizontalAccuracy <= 50{
+            stops = cached
+            tableView.reloadData()
+            locationManager.stopUpdatingLocation()
+            return
+        }
+        locationManager.startUpdatingLocation()
+    }
+    
     // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if lat != 0.0 && long != 0.0{
-            oldLat = lat
-            oldLong = long
-        }
+        horizontalAccuracy = Int((manager.location?.horizontalAccuracy)!)
         
-        lat = 0.0
-        long = 0.0
-
         if Reachability.isConnectedToNetwork() != true {
             stops = [Stop]()
             return
         }
         
-        let location:CLLocationCoordinate2D = manager.location!.coordinate
-        lat = location.latitude
-        long = location.longitude
+        lat = manager.location!.coordinate.latitude
+        long = manager.location!.coordinate.longitude
         getNearestStops()
     }
     
@@ -257,12 +245,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     // MARK: - TableView
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        if (segmentedControl.selectedSegmentIndex == 0){
-            return stops.count
-        }
-        else{
-            return favoriteStops.count
-        }
+        return stops.count
     }
     
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
