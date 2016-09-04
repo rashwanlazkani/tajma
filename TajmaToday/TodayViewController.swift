@@ -11,7 +11,7 @@ import NotificationCenter
 import CoreLocation
 import SINQ
 
-class TodayTableViewController: UITableViewController, CLLocationManagerDelegate {
+class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLocationManagerDelegate {
 
     @IBOutlet weak var infoText: UITextView!
     var departureService = DepartureService()
