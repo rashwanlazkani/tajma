@@ -9,7 +9,6 @@
 import UIKit
 import NotificationCenter
 import CoreLocation
-import SINQ
 
 class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLocationManagerDelegate {
 

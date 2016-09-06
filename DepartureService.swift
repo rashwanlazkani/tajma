@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreLocation
-import SINQ
 
 public class DepartureService {
     var stopService = StopsService()
@@ -33,10 +32,10 @@ public class DepartureService {
             for (_,subJson):(String, JSON) in jsonDepartures {
                 if let sname = subJson["sname"].string, direction = subJson["direction"].string{
                     let id = "\(stopId)-\(sname)-\(direction)"
-                    
-                    var line = from(lines).singleOrNil({$0.id == id})
+                
+                var line = lines.firstOrDefault {$0.id == id}
                     if(line == nil){
-                        line = from(dbLines).singleOrNil({$0.id == id})
+                        line = dbLines.firstOrDefault({$0.id == id})
                         
                         if(line != nil){
                             lines.append(line!)
@@ -70,9 +69,9 @@ public class DepartureService {
         let getDeparturesGroup = dispatch_group_create()
         var stops = SqliteService.sharedInstance.getStops()
         
-        from(stops).each({
-            $0.distance = self.stopService.calculateDistance($0, lat: lat, long: long)
-        })
+        for stop in stops{
+            stop.distance = self.stopService.calculateDistance(stop, lat: lat, long: long)
+        }
         stops.sortInPlace({ $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
 
         var closestStops = [Stop]()
@@ -93,8 +92,8 @@ public class DepartureService {
         }
         
         dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
-
-        return from(closestStops).orderBy({$0.distance}).map({$0})
+        
+        return closestStops.sort({ $0.distance < $1.distance})
     }
     
     private func trimSname(sname: String) -> String{

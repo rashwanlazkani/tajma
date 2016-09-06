@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		61B8ED10C83195557EB8E766 /* Pods_TajmaToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1ED0FF064904D39160B07D9 /* Pods_TajmaToday.framework */; };
-		ABEC9DDFFF250B330DC9E36B /* Pods_Tajma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D165923BED25C71F586365B2 /* Pods_Tajma.framework */; };
+		618F431B6780E5F69E3BDFBD /* Pods_Tajma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7074C1FC4665BB1B3DC3A07A /* Pods_Tajma.framework */; };
+		6BB802351D7D2289003506C2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB802341D7D2289003506C2 /* Extensions.swift */; };
+		6BB802361D7D2289003506C2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB802341D7D2289003506C2 /* Extensions.swift */; };
+		7B101E2A30018C52673F8FB1 /* Pods_TajmaToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915A1D70E493D02167B53DB1 /* Pods_TajmaToday.framework */; };
 		F8020F6B1CB52F920060C0C8 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA48411C39BE010080E12B /* Reachability.swift */; };
 		F80667511B1D157C00A26B5D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 		F80667591B1E5CA100A26B5D /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F80667581B1E5CA100A26B5D /* NotificationCenter.framework */; };
@@ -103,13 +105,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		13C76A6994332194705771DE /* Pods_TajmaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TajmaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		76B8097E1F47DE5F82222DA7 /* Pods-TajmaToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.release.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.release.xcconfig"; sourceTree = "<group>"; };
-		89E1448C11827E0F414AA0A5 /* Pods-Tajma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.debug.xcconfig"; sourceTree = "<group>"; };
-		8B176CBC4CA3691A6337B1C1 /* Pods-TajmaToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.debug.xcconfig"; sourceTree = "<group>"; };
-		C5CBB333F9456A56CEBB0F5A /* Pods-Tajma.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.release.xcconfig"; sourceTree = "<group>"; };
-		D165923BED25C71F586365B2 /* Pods_Tajma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tajma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D1ED0FF064904D39160B07D9 /* Pods_TajmaToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TajmaToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		14C5110378237B0D9C445609 /* Pods-Tajma.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.release.xcconfig"; sourceTree = "<group>"; };
+		5E49416DADDBD4376A4C3CD0 /* Pods-TajmaToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.debug.xcconfig"; sourceTree = "<group>"; };
+		6BB802341D7D2289003506C2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7074C1FC4665BB1B3DC3A07A /* Pods_Tajma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tajma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		915A1D70E493D02167B53DB1 /* Pods_TajmaToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TajmaToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCD40C0E70C3A27B45E7747D /* Pods-Tajma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.debug.xcconfig"; sourceTree = "<group>"; };
+		E598784A1A2B16B23A38357C /* Pods-TajmaToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.release.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.release.xcconfig"; sourceTree = "<group>"; };
 		F80667501B1D157C00A26B5D /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F80667561B1E5CA100A26B5D /* TajmaToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TajmaToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F80667581B1E5CA100A26B5D /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -174,7 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F80667591B1E5CA100A26B5D /* NotificationCenter.framework in Frameworks */,
-				61B8ED10C83195557EB8E766 /* Pods_TajmaToday.framework in Frameworks */,
+				7B101E2A30018C52673F8FB1 /* Pods_TajmaToday.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,20 +184,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABEC9DDFFF250B330DC9E36B /* Pods_Tajma.framework in Frameworks */,
+				618F431B6780E5F69E3BDFBD /* Pods_Tajma.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A4D4A2080B483DEB5592B2C2 /* Pods */ = {
+		6BB802331D7D227A003506C2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				89E1448C11827E0F414AA0A5 /* Pods-Tajma.debug.xcconfig */,
-				C5CBB333F9456A56CEBB0F5A /* Pods-Tajma.release.xcconfig */,
-				8B176CBC4CA3691A6337B1C1 /* Pods-TajmaToday.debug.xcconfig */,
-				76B8097E1F47DE5F82222DA7 /* Pods-TajmaToday.release.xcconfig */,
+				6BB802341D7D2289003506C2 /* Extensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		E1BA6055E6B616253A92F501 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CCD40C0E70C3A27B45E7747D /* Pods-Tajma.debug.xcconfig */,
+				14C5110378237B0D9C445609 /* Pods-Tajma.release.xcconfig */,
+				5E49416DADDBD4376A4C3CD0 /* Pods-TajmaToday.debug.xcconfig */,
+				E598784A1A2B16B23A38357C /* Pods-TajmaToday.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -217,9 +227,8 @@
 			isa = PBXGroup;
 			children = (
 				F80667581B1E5CA100A26B5D /* NotificationCenter.framework */,
-				D165923BED25C71F586365B2 /* Pods_Tajma.framework */,
-				13C76A6994332194705771DE /* Pods_TajmaTests.framework */,
-				D1ED0FF064904D39160B07D9 /* Pods_TajmaToday.framework */,
+				7074C1FC4665BB1B3DC3A07A /* Pods_Tajma.framework */,
+				915A1D70E493D02167B53DB1 /* Pods_TajmaToday.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -254,7 +263,7 @@
 				F872573E1B3F2D5E006CBDA8 /* Tajma WatchKit App */,
 				F80667571B1E5CA100A26B5D /* Frameworks */,
 				F843A39E1B1B04C2008F4505 /* Products */,
-				A4D4A2080B483DEB5592B2C2 /* Pods */,
+				E1BA6055E6B616253A92F501 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -338,6 +347,7 @@
 		F87AFE661B1B89C100D3DAFC /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				6BB802331D7D227A003506C2 /* Extensions */,
 				F891B7C31C5572B700A00F15 /* Assets */,
 				F8E080FF1B35B1C500A96A45 /* Enums */,
 				F806674F1B1D156E00A26B5D /* Helpers */,
@@ -409,13 +419,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F80667641B1E5CA100A26B5D /* Build configuration list for PBXNativeTarget "TajmaToday" */;
 			buildPhases = (
-				558EBC512D137433897803B9 /* Check Pods Manifest.lock */,
+				9353C9B4FEF55F7FD8BDF68D /* [CP] Check Pods Manifest.lock */,
 				F80667521B1E5CA100A26B5D /* Sources */,
 				F80667531B1E5CA100A26B5D /* Frameworks */,
 				F80667541B1E5CA100A26B5D /* Resources */,
-				95F640F5DF88811A3FC154F3 /* Copy Pods Resources */,
-				B62DC0CF9BFA492F69F14B74 /* Embed Pods Frameworks */,
 				F8B0D9381CB7164F0090383F /* ShellScript */,
+				4C7D7DD238218FDCB2DDF8A3 /* [CP] Embed Pods Frameworks */,
+				F60923BF42239AACA8B544B2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -430,14 +440,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F843A3BF1B1B04C2008F4505 /* Build configuration list for PBXNativeTarget "Tajma" */;
 			buildPhases = (
-				7F054A5DC3ED977AF67C03E7 /* Check Pods Manifest.lock */,
+				8A5862EF9553E82E751EBB57 /* [CP] Check Pods Manifest.lock */,
 				F843A3991B1B04C2008F4505 /* Sources */,
 				F843A39A1B1B04C2008F4505 /* Frameworks */,
 				F843A39B1B1B04C2008F4505 /* Resources */,
 				F80667671B1E5CA100A26B5D /* Embed App Extensions */,
 				F871410F1BD55FB800A75E1B /* Embed Watch Content */,
-				0FBE96FF709B186CBAF774B0 /* Embed Pods Frameworks */,
-				B442D2812AD266B4B1673634 /* Copy Pods Resources */,
+				7734ED7DA75A001E8BE707CA /* [CP] Embed Pods Frameworks */,
+				8AC7AEF9B5E8A225C04FC0A4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -524,14 +534,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0FBE96FF709B186CBAF774B0 /* Embed Pods Frameworks */ = {
+		4C7D7DD238218FDCB2DDF8A3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7734ED7DA75A001E8BE707CA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,14 +564,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tajma/Pods-Tajma-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		558EBC512D137433897803B9 /* Check Pods Manifest.lock */ = {
+		8A5862EF9553E82E751EBB57 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -554,44 +579,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		7F054A5DC3ED977AF67C03E7 /* Check Pods Manifest.lock */ = {
+		8AC7AEF9B5E8A225C04FC0A4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		95F640F5DF88811A3FC154F3 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B442D2812AD266B4B1673634 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -599,19 +594,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tajma/Pods-Tajma-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B62DC0CF9BFA492F69F14B74 /* Embed Pods Frameworks */ = {
+		9353C9B4FEF55F7FD8BDF68D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F60923BF42239AACA8B544B2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F8B0D9381CB7164F0090383F /* ShellScript */ = {
@@ -649,6 +659,7 @@
 				F8D853CA1BE132F000E2C1E2 /* Constants.swift in Sources */,
 				F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */,
 				F80667721B1E5D7900A26B5D /* Departure.swift in Sources */,
+				6BB802361D7D2289003506C2 /* Extensions.swift in Sources */,
 				F80667751B1E5D7900A26B5D /* Line.swift in Sources */,
 				F8E7142C1C0A57E40004182D /* DateHelper.swift in Sources */,
 				F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */,
@@ -685,6 +696,7 @@
 				F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */,
 				F82CB0841BD25B2C0015D3C5 /* SqliteService.swift in Sources */,
 				F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */,
+				6BB802351D7D2289003506C2 /* Extensions.swift in Sources */,
 				F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */,
 				F82D34171C0A552000E03703 /* DateHelper.swift in Sources */,
 				F8F668401C18D41000F6B15A /* Error.swift in Sources */,
@@ -732,7 +744,7 @@
 /* Begin XCBuildConfiguration section */
 		F80667651B1E5CA100A26B5D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8B176CBC4CA3691A6337B1C1 /* Pods-TajmaToday.debug.xcconfig */;
+			baseConfigurationReference = 5E49416DADDBD4376A4C3CD0 /* Pods-TajmaToday.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -760,7 +772,7 @@
 		};
 		F80667661B1E5CA100A26B5D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 76B8097E1F47DE5F82222DA7 /* Pods-TajmaToday.release.xcconfig */;
+			baseConfigurationReference = E598784A1A2B16B23A38357C /* Pods-TajmaToday.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -867,7 +879,7 @@
 		};
 		F843A3C01B1B04C2008F4505 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89E1448C11827E0F414AA0A5 /* Pods-Tajma.debug.xcconfig */;
+			baseConfigurationReference = CCD40C0E70C3A27B45E7747D /* Pods-Tajma.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
@@ -890,7 +902,7 @@
 		};
 		F843A3C11B1B04C2008F4505 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C5CBB333F9456A56CEBB0F5A /* Pods-Tajma.release.xcconfig */;
+			baseConfigurationReference = 14C5110378237B0D9C445609 /* Pods-Tajma.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;

@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreLocation
-import SINQ
 
 class StopsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
     @IBOutlet var navController: UIView!
@@ -230,7 +229,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let currentStop = from(stops).elementAt(indexPath.row)
+        let currentStop = stops[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
         cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
@@ -263,7 +262,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             }
         }
         
-        if (from(lines).any({$0.stopId == currentStop.id})){
+        if (!lines.filter{$0.stopId == currentStop.id}.isEmpty){
             let imageName = "check-red"
             let image = UIImage(named: imageName)
             let imageView = UIImageView(image: image!)

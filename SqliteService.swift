@@ -10,7 +10,6 @@
 
 import Foundation
 import SQLite
-import SINQ
 
 class SqliteService {
     static let sharedInstance = SqliteService()

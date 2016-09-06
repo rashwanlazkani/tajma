@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SINQ
 
 public class LineService{
     func getAllLinesAtStop(stopId: String, onSuccess: ([Line]) -> Void, onError: (NSError) -> Void){
@@ -35,7 +34,7 @@ public class LineService{
                     let id = "\(stopId)-\(sname!)-\(direction!)"
 
                     var line = Line()
-                    let dbLine = from(dbLines).singleOrNil({$0.id == id})
+                    let dbLine = dbLines.firstOrDefault({$0.id == id})
                     if(dbLine != nil){
                         line = dbLine!
                     }
@@ -56,7 +55,7 @@ public class LineService{
                     }
                     
                     let lineAndDirection = self.subStringSnameAndDirection(line.lineAndDirection)
-                    if (from(lines).any{$0.lineAndDirection == lineAndDirection}){
+                    if !lines.filter({$0.lineAndDirection == lineAndDirection}).isEmpty{
                         continue
                     }
                     
@@ -65,21 +64,22 @@ public class LineService{
                 
                 // om en linje inte går för tillfället så ska vi ändå lägga till den om den är tillagd sedan tidigare
                 for dbLine in dbLines{
-                    let line = from(lines).singleOrNil({$0.id == dbLine.id})
+                    let line = lines.firstOrDefault({$0.id == dbLine.id})
                     if line == nil{
                         lines.append(dbLine)
                     }
                 }
                 
-                let numberLines = from(lines).whereTrue({Int($0.sname) != nil})
+                let numberLines = lines.filter({Int($0.sname) != nil})
                 let sortedNumberLines = numberLines.sort({Int($0.sname) < Int($1.sname)})
-                let charLines = from(lines).whereTrue({Int($0.sname) == nil}).orderBy({$0.lineAndDirection})
+                let charLines = lines.filter({Int($0.sname) == nil})
+                let sortedCharLines = charLines.sort({Int($0.sname) < Int($1.sname)})
     
                 var orderedList = [Line]()
                 for line in sortedNumberLines{
                     orderedList.append(line)
                 }
-                for line in charLines{
+                for line in sortedCharLines{
                     orderedList.append(line)
                 }
                 onSuccess(orderedList)

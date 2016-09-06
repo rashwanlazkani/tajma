@@ -7,7 +7,6 @@
 //
 
 import CoreLocation
-import SINQ
 
 class StopsService{
     let checkedStops = SqliteService.sharedInstance.getStops()
@@ -21,8 +20,12 @@ class StopsService{
                 return
             }
             else{
+                
+                
+                
                 let jsonStops = json["LocationList"]["StopLocation"]
-                let stops = from(self.mapToStop(jsonStops)).distinct{$0.0.name == $0.1.name}.toArray()
+                let stops = self.mapToStop(jsonStops).sort{$0.0.name == $0.1.name}.orderedSetValue
+
                 for stop in stops{
                     stop.id = StringHelper.customVtStopId(stop.id)
                 }
@@ -41,7 +44,7 @@ class StopsService{
             }
             else{
                 let jsonStops = json["LocationList"]["StopLocation"]
-                var stops = from(self.mapToStop(jsonStops)).distinct{$0.0.name == $0.1.name}.toArray()
+                var stops = self.mapToStop(jsonStops).sort{$0.0.name == $0.1.name}.orderedSetValue
                 for stop in stops{
                     if (stop.id.isEmpty){
                         if (stops.count == 1){

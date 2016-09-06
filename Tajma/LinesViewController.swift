@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import SINQ
-
 
 class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet weak var navController: UINavigationItem!
@@ -103,7 +101,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let currentLine = from(lines).elementAt(indexPath.row)
+        let currentLine = lines[indexPath.row]
         let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         cell.selectionStyle = .None
 
@@ -114,12 +112,12 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         var image = UIImage(named: "unchecked-box")
-        if(from(stop.lines).any({$0.id == currentLine.id})){
-            image = UIImage(named: "check-box-red")
-            cell.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 0.5)
+        if(stop.lines.filter({$0.id == currentLine.id}).isEmpty){
+            cell.backgroundColor = UIColor.clearColor()
         }
         else{
-            cell.backgroundColor = UIColor.clearColor()
+            image = UIImage(named: "check-box-red")
+            cell.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 0.5)
         }
         
         let checkbox = UIImageView(image: image!)
@@ -172,13 +170,13 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        let currentLine = from(lines).elementAt(indexPath.row)
+        let currentLine = lines[indexPath.row]
         currentLine.stopId = stop.id
-        if (from(stop.lines).any({$0.id == currentLine.id})){
-            SqliteService.sharedInstance.removeLine(currentLine, stopId: stop.id)
+        if (stop.lines.filter({$0.id == currentLine.id}).isEmpty){
+            SqliteService.sharedInstance.addLine(currentLine, stop: stop)
         }
         else{
-            SqliteService.sharedInstance.addLine(currentLine, stop: stop)
+            SqliteService.sharedInstance.removeLine(currentLine, stopId: stop.id)
         }
         updateMyLines()
     }
