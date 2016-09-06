@@ -7,11 +7,9 @@ use_frameworks!
 target 'Tajma' do
 pod 'SQLite.swift',
   git: 'https://github.com/stephencelis/SQLite.swift.git'
-pod 'SINQ'
 end
 
 target 'TajmaToday' do
 pod 'SQLite.swift',
   git: 'https://github.com/stephencelis/SQLite.swift.git'
-pod 'SINQ'
 end
