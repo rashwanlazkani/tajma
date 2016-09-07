@@ -66,7 +66,7 @@ class SqliteService {
         let db = try! Connection(sharedHelper.getSharedUrl())
         var lines = [Line]()
         
-        let linesCount = db.scalar("SELECT count(*) FROM Lines where stopId = '\(stopId)'") as! Int64
+        let linesCount = try! db.scalar("SELECT count(*) FROM Lines where stopId = '\(stopId)'") as! Int64
         if(linesCount == 0){
             return lines
         }
@@ -92,7 +92,7 @@ class SqliteService {
     func addLine(line: Line, stop: Stop){
         let db = try! Connection(sharedHelper.getSharedUrl())
         
-        let stopsCount = db.scalar("SELECT count(*) FROM Stops where id = '\(stop.id)'") as! Int64
+        let stopsCount = try! db.scalar("SELECT count(*) FROM Stops where id = '\(stop.id)'") as! Int64
         if (stopsCount == 0){
             try! db.execute("INSERT INTO Stops VALUES ('\(stop.id)','\(stop.name)','\(stop.lat)','\(stop.long)')")
         }
@@ -105,7 +105,7 @@ class SqliteService {
         
         try! db.execute("DELETE FROM Lines WHERE id = '\(line.id)'")
         
-        let linesCount = db.scalar("SELECT count(*) FROM Lines where stopId = '\(stopId)'") as! Int64
+        let linesCount = try! db.scalar("SELECT count(*) FROM Lines where stopId = '\(stopId)'") as! Int64
         if (linesCount == 0){
             try! db.execute("DELETE FROM Stops WHERE id = '\(stopId)'")
         }
