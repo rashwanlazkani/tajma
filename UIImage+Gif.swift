@@ -40,7 +40,7 @@ extension UIImage {
             CFDictionaryGetValue(cfProperties,
                 unsafeAddressOf(kCGImagePropertyGIFDictionary)),
             CFDictionary.self)
-
+        
         // Get delay time
         var delayObject: AnyObject = unsafeBitCast(
             CFDictionaryGetValue(gifProperties,
@@ -60,7 +60,9 @@ extension UIImage {
         return delay
     }
     
-    class func gcdForPair(var a: Int?, var _ b: Int?) -> Int {
+    class func gcdForPair(a: Int?, b: Int?) -> Int {
+        var a = a
+        var b = b
         // Check if one of them is nil
         if b == nil || a == nil {
             if b != nil {
@@ -101,7 +103,7 @@ extension UIImage {
         var gcd = array[0]
         
         for val in array {
-            gcd = UIImage.gcdForPair(val, gcd)
+            gcd = UIImage.gcdForPair(val, b: gcd)
         }
         
         return gcd
@@ -121,7 +123,7 @@ extension UIImage {
             
             // At it's delay in cs
             let delaySeconds = UIImage.delayForImageAtIndex(Int(i),
-                source: source)
+                                                            source: source)
             delays.append(Int(delaySeconds * 1000.0)) // Seconds to ms
         }
         
@@ -134,7 +136,7 @@ extension UIImage {
             }
             
             return sum
-            }()
+        }()
         
         // Get frames
         let gcd = gcdForArray(delays)
@@ -153,7 +155,7 @@ extension UIImage {
         
         // Heyhey
         let animation = UIImage.animatedImageWithImages(frames,
-            duration: Double(duration) / 1000.0)
+                                                        duration: Double(duration) / 1000.0)
         
         return animation
     }

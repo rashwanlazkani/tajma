@@ -43,7 +43,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
 
         SqliteService.sharedInstance.updateOptionals()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         let loadData = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("LoadData")
         if(!loadData){

@@ -9,7 +9,8 @@
 import Foundation
 
 class StringHelper {
-    static func customVtStopId(var id: String) -> String {
+    static func customVtStopId(id: String) -> String {
+        var id = id
         id = (id as NSString).stringByReplacingCharactersInRange(NSRange(location: 3, length: 1), withString: "1")
         id = (id as NSString).stringByReplacingCharactersInRange(NSRange(location: id.characters.count - 2, length: 2), withString: "00")
         return id

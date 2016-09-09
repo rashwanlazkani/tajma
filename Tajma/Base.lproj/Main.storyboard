@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="b3Y-wY-JjN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="b3Y-wY-JjN">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -44,7 +44,7 @@
                     <navigationItem key="navigationItem" id="HKu-Xg-Gkl"/>
                     <connections>
                         <outlet property="tableView" destination="zeL-5m-Bll" id="JAD-w1-lrr"/>
-                        <segue destination="U96-Za-JNU" kind="push" identifier="ShowGuide" animates="NO" id="egI-j1-zh1"/>
+                        <segue destination="U96-Za-JNU" kind="push" identifier="ShowGuide" id="egI-j1-zh1"/>
                         <segue destination="zKK-1b-w2R" kind="push" identifier="ShowWebView" id="XoU-wA-p8Y"/>
                     </connections>
                 </viewController>
@@ -68,8 +68,8 @@
                     <navigationItem key="navigationItem" id="vIR-i8-hhV"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
-                        <segue destination="R3x-0W-ZXV" kind="push" identifier="ShowStops" animates="NO" id="BXL-uZ-VRB"/>
-                        <segue destination="7SI-it-BPf" kind="push" identifier="ShowInfo" animates="NO" id="1ac-6w-8ze"/>
+                        <segue destination="R3x-0W-ZXV" kind="push" identifier="ShowStops" id="BXL-uZ-VRB"/>
+                        <segue destination="7SI-it-BPf" kind="push" identifier="ShowInfo" id="1ac-6w-8ze"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vzo-CN-8Jk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -135,7 +135,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="7SI-it-BPf" kind="push" animates="NO" id="cKZ-WW-ghh"/>
+                                            <segue destination="7SI-it-BPf" kind="push" id="cKZ-WW-ghh"/>
                                         </connections>
                                     </button>
                                     <searchBar contentMode="redraw" searchBarStyle="minimal" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IX5-0P-IUT">
@@ -212,8 +212,8 @@
                         <outlet property="searchBar" destination="IX5-0P-IUT" id="XnN-FN-ToQ"/>
                         <outlet property="segmentedControl" destination="d8P-Ba-k8V" id="VaG-5F-WvZ"/>
                         <outlet property="tableView" destination="LDn-U8-IKL" id="seY-wp-XYL"/>
-                        <segue destination="JpN-E7-M05" kind="push" identifier="ShowLinesView" animates="NO" id="Ead-0C-VTu"/>
-                        <segue destination="U96-Za-JNU" kind="push" identifier="ShowGuide" animates="NO" id="Bgc-3U-Nlu"/>
+                        <segue destination="JpN-E7-M05" kind="push" identifier="ShowLinesView" id="Ead-0C-VTu"/>
+                        <segue destination="U96-Za-JNU" kind="push" identifier="ShowGuide" id="Bgc-3U-Nlu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RLX-9F-GkA" sceneMemberID="firstResponder"/>
@@ -278,8 +278,8 @@
         <image name="more-white" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="egI-j1-zh1"/>
-        <segue reference="1ac-6w-8ze"/>
+        <segue reference="cKZ-WW-ghh"/>
         <segue reference="BXL-uZ-VRB"/>
+        <segue reference="egI-j1-zh1"/>
     </inferredMetricsTieBreakers>
 </document>

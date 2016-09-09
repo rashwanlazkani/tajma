@@ -87,7 +87,8 @@ public class LineService{
         }
     }
     
-    func subStringSnameAndDirection(var lineAndDirection: String) -> String{
+    func subStringSnameAndDirection(lineAndDirection: String) -> String{
+        var lineAndDirection = lineAndDirection
         lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Buss", withString: "")
         lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Spårvagn", withString: "")
         lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("SVAR", withString: "SVART")
