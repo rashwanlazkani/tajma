@@ -25,11 +25,7 @@ class SqliteService {
         
         var stops = [Stop]()
         for row in try! db.prepare(data) {
-            let stop = Stop()
-            stop.id = row[Expression<String>("id")]
-            stop.name = row[Expression<String>("name")]
-            stop.lat = row[Expression<String>("lat")]
-            stop.long = row[Expression<String>("long")]
+            let stop = Stop(id: row[Expression<String>("id")], name: row[Expression<String>("name")], latitude: row[Expression<String>("lat")], longitude: row[Expression<String>("long")], distance: Int(), lines: [Line]())
             stops.append(stop)
         }
         stops.sortInPlace({ $0.name < $1.name })
@@ -75,7 +71,7 @@ class SqliteService {
         
         let stopsCount = try! db.scalar("SELECT count(*) FROM Stops where id = '\(stop.id)'") as! Int64
         if (stopsCount == 0){
-            try! db.execute("INSERT INTO Stops VALUES ('\(stop.id)','\(stop.name)','\(stop.lat)','\(stop.long)')")
+            try! db.execute("INSERT INTO Stops VALUES ('\(stop.id)','\(stop.name)','\(stop.latitude)','\(stop.longitude)')")
         }
         
          try! db.execute("INSERT INTO Lines VALUES ('\(line.id)','\(stop.id)','\(line.name)','\(line.sname)','\(line.direction)', '\(line.lineAndDirection)', '\(line.type)', '\(line.track)', '\(line.bgColor)', '\(line.fgColor)')")

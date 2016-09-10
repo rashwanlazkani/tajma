@@ -61,7 +61,7 @@ class StopsService{
     
     func calculateDistance(stop: Stop, lat: Double, long: Double) -> Int{
         let userLocation = CLLocation(latitude: lat, longitude: long)
-        let stopLocation = CLLocation(latitude: (stop.lat as NSString).doubleValue, longitude: (stop.long as NSString).doubleValue)
+        let stopLocation = CLLocation(latitude: (stop.latitude as NSString).doubleValue, longitude: (stop.longitude as NSString).doubleValue)
         let distance = userLocation.distanceFromLocation(stopLocation)
         
         return roundToFive(distance)
@@ -71,11 +71,7 @@ class StopsService{
         var stops = [Stop]()
         
         for (_,subJson):(String, JSON) in json {
-            let stop = Stop()
-            stop.id = subJson["id"].string ?? ""
-            stop.name = subJson["name"].string ?? ""
-            stop.lat = subJson["lat"].string ?? ""
-            stop.long = subJson["lon"].string ?? ""
+            let stop = Stop(id: subJson["id"].string ?? "", name: subJson["name"].string ?? "", latitude: subJson["lat"].string ?? "", longitude: subJson["lon"].string ?? "", distance: Int(), lines: [Line]())
             stops.append(stop)
         }
         return stops
