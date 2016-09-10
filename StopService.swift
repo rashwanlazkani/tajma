@@ -15,8 +15,7 @@ class StopsService{
         RestApiService.sharedInstance.getNearestStops(lat, long: long) { json in
             var error = json["LocationList"]
             if (String(error["error"]) == Constants.errorCode){
-                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
-                onError(error)
+                onError(NSError(domain: "Fel vid hämtning av närmaste stopp (V)", code: 0, userInfo: nil))
                 return
             }
             else{
@@ -38,8 +37,7 @@ class StopsService{
         RestApiService.sharedInstance.findStops(name) { json in
             var error = json["LocationList"]
             if (String(error["error"]) == Constants.errorCode){
-                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
-                onError(error)
+                onError(NSError(domain: "Fel vid hämtning av stopp efter sökning (V)", code: 0, userInfo: nil))
                 return
             }
             else{

@@ -137,7 +137,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             dispatch_async(dispatch_get_main_queue(),{
                 self.stops = json
                 if (self.stops.count == 0){
-                    self.displayError("Inga hållplatser i närheten.", type: Error.Nearest)
+                    self.display("Inga hållplatser i närheten.", type: Error.Nearest)
                 }
                 self.tableView!.reloadData()
                 
@@ -146,11 +146,11 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.activityIndicator.stopAnimating()
             })
             }, onError:{ error -> Void in
-                self.displayError("Ett fel har uppstått med hämtning av närmaste hållplatser.", type: Error.Location)
+                self.display("Ett fel har uppstått med hämtning av närmaste hållplatser.", type: Error.Location)
         })
     }
     
-    func displayError(error: String, type: Error){
+    func display(error: String, type: Error){
         let alert = UIAlertController(title: "Tajma", message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Försök igen", style: UIAlertActionStyle.Default, handler: { (alert) -> Void in
@@ -199,7 +199,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 UIApplication.sharedApplication().endIgnoringInteractionEvents()
             })
             }, onError:{ error -> Void in
-                self.displayError("Ett fel har uppstått med sökningen.", type: Error.Location)
+                self.display("Ett fel har uppstått med sökningen.", type: Error.Location)
         })
     }
     
@@ -220,7 +220,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        displayError("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.", type: Error.Location)
+        display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.", type: Error.Location)
     }
     
     // MARK: - TableView

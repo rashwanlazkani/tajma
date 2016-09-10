@@ -14,8 +14,7 @@ public class LineService{
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var error = json["LocationList"]
             if (String(error["error"]) == Constants.errorCode){
-                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
-                onError(error)
+                onError(NSError(domain: "Fel vid hämtning av linjer (V)", code: 0, userInfo: nil))
                 return
             }
             else{
@@ -27,9 +26,7 @@ public class LineService{
                     let direction = subJson["direction"].string
                     
                     if (sname == nil || direction == nil){
-                        let error = NSError(domain: "Kunde inte hämta id", code: 1000, userInfo: nil)
-                        onError(error)
-                        return
+                        return onError(NSError(domain: "Data till id är nil (linjer)", code: 2, userInfo: nil))
                     }
                     let id = "\(stopId)-\(sname!)-\(direction!)"
 
@@ -41,6 +38,7 @@ public class LineService{
                     }
                     else {
                         line.id = id
+                        line.stopId = stopId
                         line.name = subJson["name"].string ?? ""
                         line.sname = subJson["sname"].string ?? ""
                         line.direction = subJson["direction"].string ?? ""
@@ -54,6 +52,7 @@ public class LineService{
                     if (line.sname == "" && line.direction == ""){
                         continue
                     }
+                    
                     
                     let lineAndDirection = self.subStringSnameAndDirection(line.lineAndDirection)
                     if !lines.filter({$0.lineAndDirection == lineAndDirection}).isEmpty{
@@ -70,12 +69,12 @@ public class LineService{
                         lines.append(dbLine)
                     }
                 }
-                
+            
                 let numberLines = lines.filter({Int($0.sname) != nil})
                 let sortedNumberLines = numberLines.sort({Int($0.sname)! < Int($1.sname)})
                 let charLines = lines.filter({Int($0.sname) == nil})
                 let sortedCharLines = charLines.sort({Int($0.sname) < Int($1.sname)!})
-    
+                
                 var orderedList = [Line]()
                 for line in sortedNumberLines{
                     orderedList.append(line)

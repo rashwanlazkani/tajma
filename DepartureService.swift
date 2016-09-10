@@ -16,8 +16,7 @@ public class DepartureService {
         RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
             var error = json["DepartureBoard"]
             if (String(error["error"]) == Constants.errorCode){
-                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
-                onError(error)
+                onError(NSError(domain: "Fel vid hämtning av avgångar (V)", code: 0, userInfo: nil))
                 return
             }
             
@@ -30,7 +29,7 @@ public class DepartureService {
                 jsonDepartures = json["DepartureBoard"]["Departure"]
             }
             else{
-                onError(NSError(domain: "Fel vid hämtning av avgångar", code: 1, userInfo: nil))
+                onError(NSError(domain: "Fel vid hämtning av avgångar (JSON fel)", code: 1, userInfo: nil))
                 return
             }
 
@@ -39,7 +38,7 @@ public class DepartureService {
             
             for (_,subJson):(String, JSON) in jsonDepartures! {
                 if subJson["sname"].string == nil || subJson["direction"].string == nil {
-                    return onError(NSError(domain: "Id är nil", code: 2, userInfo: nil))
+                    return onError(NSError(domain: "Data till id är nil (avgångar)", code: 2, userInfo: nil))
                 }
                 
                 let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"
@@ -58,10 +57,10 @@ public class DepartureService {
                 }
                 
                 if subJson["rtTime"].string == nil && subJson["time"].string == nil {
-                    return onError(NSError(domain: "rtTime/time är nil", code: 2, userInfo: nil))
+                    return onError(NSError(domain: "Real time/time är nil", code: 0, userInfo: nil))
                 }
                 if subJson["rtDate"].string == nil && subJson["date"].string == nil{
-                    return onError(NSError(domain: "rtDate/date är nil", code: 2, userInfo: nil))
+                    return onError(NSError(domain: "Real date/date är nil", code: 0, userInfo: nil))
                 }
                 
                 let time = subJson["rtTime"].string ?? subJson["time"].string
