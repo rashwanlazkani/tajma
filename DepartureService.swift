@@ -35,7 +35,7 @@ public class DepartureService {
 
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var lines = [Line]()
-            
+
             for (_,subJson):(String, JSON) in jsonDepartures! {
                 if subJson["sname"].string == nil || subJson["direction"].string == nil {
                     return onError(NSError(domain: "Data till id är nil (avgångar)", code: 2, userInfo: nil))
@@ -57,10 +57,13 @@ public class DepartureService {
                 }
                 
                 if subJson["rtTime"].string == nil && subJson["time"].string == nil {
-                    return onError(NSError(domain: "Real time/time är nil", code: 0, userInfo: nil))
+                    //return onError(NSError(domain: "Real time/time är nil", code: 0, userInfo: nil))
+                    continue
                 }
+                
                 if subJson["rtDate"].string == nil && subJson["date"].string == nil{
-                    return onError(NSError(domain: "Real date/date är nil", code: 0, userInfo: nil))
+                    //return onError(NSError(domain: "Real date/date är nil", code: 0, userInfo: nil))
+                    continue
                 }
                 
                 let time = subJson["rtTime"].string ?? subJson["time"].string
