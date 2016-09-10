@@ -21,7 +21,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     static let sharedInstance = RestApiService()
     
     func getNearestStops(lat: String, long: String, onCompletion: (JSON) -> Void){
-        let url = "\(Constants.VTurl)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"
+        let url = "\(Constants.restURL)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"
         
         getToken(url, onCompletion: {json in
             onCompletion(json as JSON)
@@ -30,7 +30,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     
     func findStops(userInput: String, onCompletion: (JSON) -> Void){
         let escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-        let url = "\(Constants.VTurl)location.name?input=\(escapedUserInput)&format=json"
+        let url = "\(Constants.restURL)location.name?input=\(escapedUserInput)&format=json"
         
         getToken(url, onCompletion: {json in
             onCompletion(json as JSON)
@@ -52,7 +52,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         
         let dateString = formatterDate.stringFromDate(date) //Convert to String
         let timeString = formatterTime.stringFromDate(date)
-        var url = "\(Constants.VTurl)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
+        var url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
         
         getToken(url, onCompletion: {json in
             let result = json["DepartureBoard"]["Departure"]
@@ -61,7 +61,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                 date = DateHelper.get(DateHelper.SearchDirection.Next, "Monday")
                 dateString = formatterDate.stringFromDate(date)
                 
-                url = "\(Constants.VTurl)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
+                url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
                 self.makeHTTPGetRequest(url, onCompletion: { json, err in
                     onCompletion(json as JSON)
                 })
@@ -89,7 +89,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         
         let escapedString = timeString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         
-        let url = "\(Constants.VTurl)departureBoard?id=\(stopId)&date=\(dateString)&time=\(escapedString)&timeSpan=60&maxDeparturesPerLine=2&format=json"
+        let url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(escapedString)&timeSpan=60&maxDeparturesPerLine=2&format=json"
         
         getToken(url, onCompletion: {json in
             onCompletion(json as JSON)
@@ -106,10 +106,10 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
     
     private func getToken(url: String, onCompletion: (JSON) -> Void){
-        let data = Constants.VTkeysecret.dataUsingEncoding(NSUTF8StringEncoding)
+        let data = ("\(Constants.key):\(Constants.secret)").dataUsingEncoding(NSUTF8StringEncoding)
         let base64 = data!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.vasttrafik.se/token")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: Constants.tokenURL)!)
         request.HTTPMethod = "POST"
         let bodyData = "grant_type=client_credentials&scope=\(UIDevice.currentDevice().identifierForVendor!.UUIDString)"
         request.HTTPBody = bodyData.dataUsingEncoding(NSUTF8StringEncoding)

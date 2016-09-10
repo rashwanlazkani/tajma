@@ -15,7 +15,7 @@ public class DepartureService {
     func getDeparturesFromStop(stopId: String, onSuccess: ([Line]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
             var error = json["DepartureBoard"]
-            if (String(error["error"]) == Constants.VTerrorCode){
+            if (String(error["error"]) == Constants.errorCode){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
                 onError(error)
                 return

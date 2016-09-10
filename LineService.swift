@@ -13,7 +13,7 @@ public class LineService{
         RestApiService.sharedInstance.findAllLinesOnStop(stopId) { json in
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var error = json["LocationList"]
-            if (String(error["error"]) == Constants.VTerrorCode){
+            if (String(error["error"]) == Constants.errorCode){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
                 onError(error)
                 return

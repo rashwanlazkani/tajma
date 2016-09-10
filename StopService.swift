@@ -14,7 +14,7 @@ class StopsService{
     func getNearestStops(lat: String, long: String, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.getNearestStops(lat, long: long) { json in
             var error = json["LocationList"]
-            if (String(error["error"]) == Constants.VTerrorCode){
+            if (String(error["error"]) == Constants.errorCode){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
                 onError(error)
                 return
@@ -27,7 +27,7 @@ class StopsService{
                 let stops = self.mapToStop(jsonStops).sort{$0.0.name == $0.1.name}.orderedSetValue
 
                 for stop in stops{
-                    stop.id = StringHelper.customVtStopId(stop.id)
+                    stop.id = StringHelper.customizeStopID(stop.id)
                 }
                 onSuccess(stops)
             }
@@ -37,7 +37,7 @@ class StopsService{
     func getStopsByInput(name : String, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.findStops(name) { json in
             var error = json["LocationList"]
-            if (String(error["error"]) == Constants.VTerrorCode){
+            if (String(error["error"]) == Constants.errorCode){
                 let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
                 onError(error)
                 return
@@ -52,7 +52,7 @@ class StopsService{
                         }
                         continue
                     }
-                    stop.id = StringHelper.customVtStopId(stop.id)
+                    stop.id = StringHelper.customizeStopID(stop.id)
                 }
                 onSuccess(stops)
             }
