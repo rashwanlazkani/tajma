@@ -12,7 +12,6 @@
 		6BB802361D7D2289003506C2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB802341D7D2289003506C2 /* Extensions.swift */; };
 		7B101E2A30018C52673F8FB1 /* Pods_TajmaToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915A1D70E493D02167B53DB1 /* Pods_TajmaToday.framework */; };
 		F8020F6B1CB52F920060C0C8 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA48411C39BE010080E12B /* Reachability.swift */; };
-		F80667511B1D157C00A26B5D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 		F80667591B1E5CA100A26B5D /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F80667581B1E5CA100A26B5D /* NotificationCenter.framework */; };
 		F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806675D1B1E5CA100A26B5D /* TodayViewController.swift */; };
 		F80667601B1E5CA100A26B5D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */; };
@@ -55,9 +54,7 @@
 		F891B7C71C5572D600A00F15 /* tajma-gif-1.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C41C5572D600A00F15 /* tajma-gif-1.gif */; };
 		F891B7C81C5572D600A00F15 /* tajma-gif-2.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C51C5572D600A00F15 /* tajma-gif-2.gif */; };
 		F891B7C91C5572D600A00F15 /* tajma-gif-3.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C61C5572D600A00F15 /* tajma-gif-3.gif */; };
-		F891B7CB1C55730400A00F15 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = F891B7CA1C55730400A00F15 /* UIImage+Gif.swift */; };
 		F8A3D7701C14EAB500AEA7C3 /* GuideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */; };
-		F8B511691B22FA0400388866 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80667501B1D157C00A26B5D /* UIColor.swift */; };
 		F8CB7DE91C08B6A400EAF401 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */; };
 		F8CB7DEA1C08B6A400EAF401 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */; };
 		F8D853C91BE12F2C00E2C1E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D853C81BE12F2C00E2C1E2 /* Constants.swift */; };
@@ -112,7 +109,6 @@
 		915A1D70E493D02167B53DB1 /* Pods_TajmaToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TajmaToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCD40C0E70C3A27B45E7747D /* Pods-Tajma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.debug.xcconfig"; sourceTree = "<group>"; };
 		E598784A1A2B16B23A38357C /* Pods-TajmaToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.release.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.release.xcconfig"; sourceTree = "<group>"; };
-		F80667501B1D157C00A26B5D /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F80667561B1E5CA100A26B5D /* TajmaToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TajmaToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F80667581B1E5CA100A26B5D /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		F806675C1B1E5CA100A26B5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -159,7 +155,6 @@
 		F891B7C41C5572D600A00F15 /* tajma-gif-1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-1.gif"; sourceTree = "<group>"; };
 		F891B7C51C5572D600A00F15 /* tajma-gif-2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-2.gif"; sourceTree = "<group>"; };
 		F891B7C61C5572D600A00F15 /* tajma-gif-3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-3.gif"; sourceTree = "<group>"; };
-		F891B7CA1C55730400A00F15 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideController.swift; sourceTree = "<group>"; };
 		F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
 		F8D853C81BE12F2C00E2C1E2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -347,9 +342,9 @@
 		F87AFE661B1B89C100D3DAFC /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				6BB802331D7D227A003506C2 /* Extensions */,
 				F891B7C31C5572B700A00F15 /* Assets */,
 				F8E080FF1B35B1C500A96A45 /* Enums */,
+				6BB802331D7D227A003506C2 /* Extensions */,
 				F806674F1B1D156E00A26B5D /* Helpers */,
 				F8CFC4F61BEBD27800301E59 /* Libs */,
 				F87AFE6F1B1B8FE000D3DAFC /* Models */,
@@ -393,10 +388,8 @@
 		F8CFC4F61BEBD27800301E59 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				F891B7CA1C55730400A00F15 /* UIImage+Gif.swift */,
 				F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */,
 				F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */,
-				F80667501B1D157C00A26B5D /* UIColor.swift */,
 			);
 			name = Libs;
 			sourceTree = "<group>";
@@ -651,7 +644,6 @@
 				F82CB0851BD25B2C0015D3C5 /* SqliteService.swift in Sources */,
 				F8729F421BF77E57000E9C9C /* SharedHelper.swift in Sources */,
 				F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */,
-				F8B511691B22FA0400388866 /* UIColor.swift in Sources */,
 				F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */,
 				F8CB7DEA1C08B6A400EAF401 /* StringHelper.swift in Sources */,
 				F88F545C1B38AB3000F0D402 /* Row.swift in Sources */,
@@ -673,7 +665,6 @@
 			files = (
 				F843A3A81B1B04C2008F4505 /* StopsController.swift in Sources */,
 				F8D853C91BE12F2C00E2C1E2 /* Constants.swift in Sources */,
-				F891B7CB1C55730400A00F15 /* UIImage+Gif.swift in Sources */,
 				F8CB7DE91C08B6A400EAF401 /* StringHelper.swift in Sources */,
 				F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */,
 				F8E081011B35B1D000A96A45 /* Info.swift in Sources */,
@@ -687,7 +678,6 @@
 				F8FA48421C39BE010080E12B /* Reachability.swift in Sources */,
 				F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */,
 				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,
-				F80667511B1D157C00A26B5D /* UIColor.swift in Sources */,
 				F8FEC9A31C42B484008C615A /* OmOssViewController.swift in Sources */,
 				F87AFE751B1B902400D3DAFC /* Departure.swift in Sources */,
 				F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */,
