@@ -33,7 +33,8 @@ public class LineService{
                     }
                     let id = "\(stopId)-\(sname!)-\(direction!)"
 
-                    var line = Line()
+                    var line = Line(id: String(), stop: Stop(), stopId: String(), lineAndDirection: String(), name: String(), sname: String(), direction: String(), type: String(), track: String(), bgColor: String(), fgColor: String(), departures: Departure())
+                    
                     let dbLine = dbLines.firstOrDefault({$0.id == id})
                     if(dbLine != nil){
                         line = dbLine!
@@ -71,9 +72,9 @@ public class LineService{
                 }
                 
                 let numberLines = lines.filter({Int($0.sname) != nil})
-                let sortedNumberLines = numberLines.sort({Int($0.sname) < Int($1.sname)})
+                let sortedNumberLines = numberLines.sort({Int($0.sname)! < Int($1.sname)})
                 let charLines = lines.filter({Int($0.sname) == nil})
-                let sortedCharLines = charLines.sort({Int($0.sname) < Int($1.sname)})
+                let sortedCharLines = charLines.sort({Int($0.sname) < Int($1.sname)!})
     
                 var orderedList = [Line]()
                 for line in sortedNumberLines{
