@@ -24,53 +24,69 @@ public class DepartureService {
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
             let serverDate = dateFormatter.dateFromString(self.serverDateTime(json)) as NSDate!
-            let jsonDepartures = json["DepartureBoard"]["Departure"]
+            
+            let jsonDepartures: JSON?
+            if json["DepartureBoard"]["Departure"] != nil {
+                jsonDepartures = json["DepartureBoard"]["Departure"]
+            }
+            else{
+                onError(NSError(domain: "Fel vid hämtning av avgångar", code: 1, userInfo: nil))
+                return
+            }
 
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var lines = [Line]()
             
-            for (_,subJson):(String, JSON) in jsonDepartures {
-                if let sname = subJson["sname"].string, direction = subJson["direction"].string{
-                    let id = "\(stopId)-\(sname)-\(direction)"
+            for (_,subJson):(String, JSON) in jsonDepartures! {
+                if subJson["sname"].string == nil || subJson["direction"].string == nil {
+                    return onError(NSError(domain: "Id är nil", code: 2, userInfo: nil))
+                }
+                
+                let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"
                 
                 var line = lines.firstOrDefault {$0.id == id}
-                    if(line == nil){
-                        line = dbLines.firstOrDefault({$0.id == id})
-                        
-                        if(line != nil){
-                            lines.append(line!)
-                        }
+                if(line == nil){
+                    line = dbLines.firstOrDefault({$0.id == id})
+                    
+                    if(line != nil){
+                        lines.append(line!)
                     }
-                    
-                    if(line == nil){
-                        continue
-                    }
-                    
-                    let time = subJson["rtTime"].string ?? subJson["time"].string
-                    let date = subJson["rtDate"].string ?? subJson["date"].string
-                    let dateTime = "\(date!) \(time!)"
-                    
-                    let departureTime = dateFormatter.dateFromString(dateTime) as NSDate!
-                    let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverDate) / 60) - 1
-                    
-                    line!.departures.times.append(intervalBetweenDepartures)
                 }
-                else{
-                    print("Sname/Direction nil")
+                
+                if(line == nil){
+                    continue
                 }
+                
+                if subJson["rtTime"].string == nil && subJson["time"].string == nil {
+                    return onError(NSError(domain: "rtTime/time är nil", code: 2, userInfo: nil))
+                }
+                if subJson["rtDate"].string == nil && subJson["date"].string == nil{
+                    return onError(NSError(domain: "rtDate/date är nil", code: 2, userInfo: nil))
+                }
+                
+                let time = subJson["rtTime"].string ?? subJson["time"].string
+                let date = subJson["rtDate"].string ?? subJson["date"].string
+                let dateTime = "\(date!) \(time!)"
+                
+                let departureTime = dateFormatter.dateFromString(dateTime) as NSDate!
+                let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverDate) / 60) - 1
+                
+                line!.departures.times.append(intervalBetweenDepartures)
             }
             lines.sortInPlace({$0.departures.times.first < $1.departures.times.first})
             
             onSuccess(lines)
         }
     }
-    
-    func getMyDepartures(lat: Double, long: Double) -> [Stop] {
+
+    func getMyDepartures(coordinate: CLLocationCoordinate2D, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void) {
         let getDeparturesGroup = dispatch_group_create()
         var stops = SqliteService.sharedInstance.getStops()
         
+        print("getMyDepartures - antal stopp \(stops.count)")
+        
         for stop in stops{
-            stop.distance = self.stopService.calculateDistance(stop, lat: lat, long: long)
+            stop.distance = self.stopService.calculateDistance(stop, lat: coordinate.latitude, long: coordinate.longitude)
         }
         stops.sortInPlace({ $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
 
@@ -83,17 +99,15 @@ public class DepartureService {
                     closestStops.append(stop)
                     dispatch_group_leave(getDeparturesGroup)
                 }, onError:{ error -> Void in
-                    
+                    dispatch_group_leave(getDeparturesGroup)
+                    return onError(error)
                 })
-            }
-            else{
-                break
             }
         }
         
         dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
         
-        return closestStops.sort({ $0.distance < $1.distance})
+        onSuccess(closestStops.sort({ $0.distance < $1.distance}))
     }
     
     private func trimSname(sname: String) -> String{

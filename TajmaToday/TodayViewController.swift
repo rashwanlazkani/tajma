@@ -15,20 +15,18 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     @IBOutlet weak var infoText: UITextView!
     var departureService = DepartureService()
     var lineService = LineService()
-    var timer = NSTimer()
     let locationManager = CLLocationManager()
     
     var stops = [Stop]()
-    var lat  = ""
-    var long = ""
-    var timerCount = 0
-    var seconds = 0.0
+    var coordinate: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("viewDidLoad")
+        
         if Reachability.isConnectedToNetwork() != true {
-            displayMessage("Ingen anslutning, försök igen.")
+            display("Ingen anslutning, försök igen.")
             return
         }
         
@@ -49,103 +47,120 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
         }
         else{
-            displayMessage("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
+            display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
+        print("viewWillAppear")
+    
         if Reachability.isConnectedToNetwork() != true {
-            displayMessage("Ingen anslutning, försök igen.")
+            display("Ingen anslutning, försök igen.")
             return
         }
         
-        lat = ""
-        long = ""
-        
         if CLLocationManager.locationServicesEnabled() {
-            displayMessage("Laddar avgångar...")
+            display("Laddar avgångar...")
+            coordinate = CLLocationCoordinate2D()
+            locationManager.startUpdatingLocation()
         }
         else{
-            displayMessage("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
+            display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         }
-        
-        locationManager.startUpdatingLocation()
-        timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: #selector(getLocation), userInfo: nil, repeats: true)
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)
         
-        self.stops = [Stop]()
+        //stops = [Stop]()
         locationManager.stopUpdatingLocation()
-        timer.invalidate()
-        infoText.text = ""
+        //infoText.text = ""
     }
     
     // MARK: - Location
-    func getLocation(){
-        timerCount += 1
-        if timerCount == 1{
-            seconds = 10.0
-        }
-        else if timerCount <= 4{
-            seconds = 20.0
-        }
-        else{
-            timer.invalidate()
-            return
-        }
-    
-        timer.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: #selector(getLocation), userInfo: nil, repeats: true)
-        
-        lat = ""
-        long = ""
-        locationManager.startUpdatingLocation()
-    }
-    
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if (!lat.isEmpty && !long.isEmpty){
-            return
+        if coordinate?.latitude == 0 {
+            print("Hämtat coordinate")
+            coordinate = manager.location!.coordinate
+            fetch()
         }
-
-        let location:CLLocationCoordinate2D = manager.location!.coordinate
-        lat = String(location.latitude)
-        long = String(location.longitude)
-        getData()
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        displayMessage("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
+        display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch status {
         case CLAuthorizationStatus.Restricted:
-            displayMessage("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
+            display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         case CLAuthorizationStatus.Denied:
-            displayMessage("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
+            display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         default:
             break
         }
     }
     
-    func displayMessage(message: String){
+    func display(message: String){
         preferredContentSize = CGSizeMake(0, 60)
-        if (message == infoText.text){
+        if (message == self.infoText.text){
             return
         }
         infoText.text = message
         infoText.hidden = false
+        
+        tableView.reloadData()
     }
     
     // MARK: - Widget Delegate
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
-        displayMessage("Laddar avgångar...")
-        locationManager.startUpdatingLocation()
-        completionHandler(NCUpdateResult.NewData)
+        print("widgetPerformUpdateWithCompletionHandler")
+        
+//        if let coordinate = coordinate{
+//            departureService.getMyDepartures(coordinate, onSuccess: { stops -> Void in
+//                print("1")
+//                dispatch_async(dispatch_get_main_queue(),{
+//                    print("2")
+//                    self.stops = stops
+//                    self.preferredContentSize = CGSizeMake(0, self.contentHeight())
+//                    
+//                    if (stops.isEmpty){
+//                        self.display("Ingen vald hållplats i närheten.")
+//                        self.tableView.reloadData()
+//                        return
+//                    }
+//                    else{
+//                        self.infoText.hidden = true
+//                    }
+//                    
+//                    self.tableView.reloadData()
+//                    completionHandler(NCUpdateResult.NewData)
+//                    
+//                    print("NewData")
+//                    
+//                })
+//                }, onError:{ error -> Void in
+//                    print("3")
+//                    print("Error: \(error.domain)")
+//                    dispatch_async(dispatch_get_main_queue(),{
+//                        self.display(error.domain)
+//                        print(error.domain)
+//                        completionHandler(NCUpdateResult.Failed)
+//                        
+//                        self.tableView.reloadData()
+//                        
+//                        print("Failed 1")
+//                    })
+//            })
+//        }
+//        else{
+//            self.tableView.reloadData()
+//            completionHandler(NCUpdateResult.NoData)
+//            display("Kunde inte hämta din position")
+//            print("Failed 2")
+//        }
     }
 
     // MARK: - Table view data source
@@ -304,21 +319,49 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     // MARK: - Functions
-    func getData(){
-        stops = departureService.getMyDepartures((lat as NSString).doubleValue, long: (long as NSString).doubleValue)
-        
-        preferredContentSize = CGSizeMake(0, contentHeight())
-        
-        if (stops.isEmpty){
-            displayMessage("Ingen vald hållplats i närheten.")
-            tableView.reloadData()
-            return
+    func fetch(){
+        if let coordinate = coordinate{
+            print("Coordinate fetch - \(coordinate)")
+            departureService.getMyDepartures(coordinate, onSuccess: { stops -> Void in
+                print("1")
+                dispatch_async(dispatch_get_main_queue(),{
+                    print("2")
+                    self.stops = stops
+                    self.preferredContentSize = CGSizeMake(0, self.contentHeight())
+                    
+                    if (stops.isEmpty){
+                        self.display("Ingen vald hållplats i närheten.")
+                        self.tableView.reloadData()
+                        return
+                    }
+                    else{
+                        self.infoText.hidden = true
+                    }
+                    
+                    self.tableView.reloadData()
+                    
+                    print("NewData")
+                    
+                })
+                }, onError:{ error -> Void in
+                    print("3")
+                    print("Error: \(error.domain)")
+                    dispatch_async(dispatch_get_main_queue(),{
+                        self.display(error.domain)
+                        print("Today -----  \(error.domain)")
+                        
+                        self.tableView.reloadData()
+                        print("Failed 1")
+                    })
+                    
+                    return
+            })
         }
         else{
-            infoText.hidden = true
+            tableView.reloadData()
+            display("Kunde inte hämta din position")
+            print("Failed 2")
         }
-        
-        self.tableView.reloadData()
     }
     
     func contentHeight() -> CGFloat{
