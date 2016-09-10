@@ -70,19 +70,10 @@ public class LineService{
                     }
                 }
             
-                let numberLines = lines.filter({Int($0.sname) != nil})
-                let sortedNumberLines = numberLines.sort({Int($0.sname)! < Int($1.sname)})
-                let charLines = lines.filter({Int($0.sname) == nil})
-                let sortedCharLines = charLines.sort({Int($0.sname) < Int($1.sname)!})
+                let numberLines = lines.filter({Int($0.sname) != nil}).sort({Int($0.sname)! < Int($1.sname)})
+                let charLines = lines.filter({Int($0.sname) == nil}).sort({$0.sname < $1.sname})
                 
-                var orderedList = [Line]()
-                for line in sortedNumberLines{
-                    orderedList.append(line)
-                }
-                for line in sortedCharLines{
-                    orderedList.append(line)
-                }
-                onSuccess(orderedList)
+                onSuccess(numberLines + charLines)
             }
         }
     }
