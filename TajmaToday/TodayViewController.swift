@@ -192,8 +192,14 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         let distance = UILabel(frame: CGRectMake(tableView.bounds.width - 110, 15, 100, 30))
         distance.font = distance.font.fontWithSize(14)
         distance.textColor = UIColor.lightGrayColor()
-        distance.textAlignment = .Right;
-        distance.text = String(stops[section].distance) + " m"
+        distance.textAlignment = .Right
+        
+        if let d = stops[section].distance{
+            distance.text = ("\(d) m")
+        }
+        else{
+            distance.text = "- m"
+        }
         
         let separator = UIView(frame: CGRectMake(0, 45, tableView.frame.width, 1))
         separator.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
