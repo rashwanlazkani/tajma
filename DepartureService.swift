@@ -24,19 +24,19 @@ public class DepartureService {
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
             let serverDate = dateFormatter.dateFromString(self.serverDateTime(json)) as NSDate!
             
-            let jsonDepartures: JSON?
-            if json["DepartureBoard"]["Departure"] != nil {
-                jsonDepartures = json["DepartureBoard"]["Departure"]
-            }
-            else{
-                onError(NSError(domain: "Fel vid hämtning av avgångar (JSON fel)", code: 1, userInfo: nil))
-                return
-            }
+            let jsonDepartures = json["DepartureBoard"]["Departure"]
+//            if json["DepartureBoard"]["Departure"] != nil {
+//                jsonDepartures = json["DepartureBoard"]["Departure"]
+//            }
+//            else{
+//                onError(NSError(domain: "Fel vid hämtning av avgångar (JSON fel)", code: 1, userInfo: nil))
+//                return
+//            }
 
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var lines = [Line]()
 
-            for (_,subJson):(String, JSON) in jsonDepartures! {
+            for (_,subJson):(String, JSON) in jsonDepartures {
                 if subJson["sname"].string == nil || subJson["direction"].string == nil {
                     return onError(NSError(domain: "Data till id är nil (avgångar)", code: 2, userInfo: nil))
                 }
