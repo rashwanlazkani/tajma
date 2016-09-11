@@ -25,14 +25,6 @@ public class DepartureService {
             let serverDate = dateFormatter.dateFromString(self.serverDateTime(json)) as NSDate!
             
             let jsonDepartures = json["DepartureBoard"]["Departure"]
-//            if json["DepartureBoard"]["Departure"] != nil {
-//                jsonDepartures = json["DepartureBoard"]["Departure"]
-//            }
-//            else{
-//                onError(NSError(domain: "Fel vid hämtning av avgångar (JSON fel)", code: 1, userInfo: nil))
-//                return
-//            }
-
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var lines = [Line]()
             
@@ -57,12 +49,10 @@ public class DepartureService {
                 }
                 
                 if subJson["rtTime"].string == nil && subJson["time"].string == nil {
-                    //return onError(NSError(domain: "Real time/time är nil", code: 0, userInfo: nil))
                     continue
                 }
                 
                 if subJson["rtDate"].string == nil && subJson["date"].string == nil{
-                    //return onError(NSError(domain: "Real date/date är nil", code: 0, userInfo: nil))
                     continue
                 }
                 
@@ -84,9 +74,7 @@ public class DepartureService {
     func getMyDepartures(coordinate: CLLocationCoordinate2D, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void) {
         let getDeparturesGroup = dispatch_group_create()
         var stops = SqliteService.sharedInstance.getStops()
-        
-        print("getMyDepartures - antal stopp \(stops.count)")
-        
+
         for stop in stops{
             stop.distance = self.stopService.calculateDistance(stop, lat: coordinate.latitude, long: coordinate.longitude)
         }
