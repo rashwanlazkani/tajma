@@ -271,6 +271,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     func fetch(){
+        var hasError = false
+        var error: NSError?
         if let coordinate = coordinate{
             departureService.getMyDepartures(coordinate, onSuccess: { stops -> Void in
                 dispatch_async(dispatch_get_main_queue(),{
@@ -278,6 +280,11 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                     self.preferredContentSize = CGSizeMake(0, self.contentHeight())
                     
                     if (stops.isEmpty){
+                        if hasError{
+                            self.display(error!.domain)
+                            self.tableView.reloadData()
+                            return
+                        }
                         self.display("Ingen vald hållplats i närheten.")
                         self.tableView.reloadData()
                         return
@@ -288,10 +295,13 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                     
                     self.tableView.reloadData()
                 })
-                }, onError:{ error -> Void in
+                }, onError:{ e -> Void in
                     dispatch_async(dispatch_get_main_queue(),{
-                        self.display(error.domain)
+                        hasError = true
+                        error = e
+                        self.display(e.domain)
                         self.tableView.reloadData()
+                        return
                     })
                     
                     return
