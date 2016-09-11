@@ -38,6 +38,8 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
     
     func findAllLinesOnStop (stopId: String, onCompletion: (JSON) -> Void){
+        
+        
         var date = NSDate()
         let dateFormattera = NSDateFormatter()
         dateFormattera.dateFormat = "EEEE"

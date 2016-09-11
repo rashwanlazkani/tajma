@@ -35,10 +35,10 @@ public class DepartureService {
 
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var lines = [Line]()
-
+            
             for (_,subJson):(String, JSON) in jsonDepartures {
                 if subJson["sname"].string == nil || subJson["direction"].string == nil {
-                    return onError(NSError(domain: "Data till id är nil (avgångar)", code: 2, userInfo: nil))
+                    continue
                 }
                 
                 let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"
