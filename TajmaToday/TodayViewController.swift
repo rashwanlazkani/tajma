@@ -23,8 +23,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("viewDidLoad")
-        
         if Reachability.isConnectedToNetwork() != true {
             display("Ingen anslutning, försök igen.")
             return
@@ -54,8 +52,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
-        print("viewWillAppear")
-    
         if Reachability.isConnectedToNetwork() != true {
             display("Ingen anslutning, försök igen.")
             return
@@ -73,10 +69,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)
-        
-        //stops = [Stop]()
         locationManager.stopUpdatingLocation()
-        //infoText.text = ""
     }
     
     // MARK: - Location
@@ -114,56 +107,10 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         tableView.reloadData()
     }
     
-    // MARK: - Widget Delegate
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
-        print("widgetPerformUpdateWithCompletionHandler")
-        
-//        if let coordinate = coordinate{
-//            departureService.getMyDepartures(coordinate, onSuccess: { stops -> Void in
-//                print("1")
-//                dispatch_async(dispatch_get_main_queue(),{
-//                    print("2")
-//                    self.stops = stops
-//                    self.preferredContentSize = CGSizeMake(0, self.contentHeight())
-//                    
-//                    if (stops.isEmpty){
-//                        self.display("Ingen vald hållplats i närheten.")
-//                        self.tableView.reloadData()
-//                        return
-//                    }
-//                    else{
-//                        self.infoText.hidden = true
-//                    }
-//                    
-//                    self.tableView.reloadData()
-//                    completionHandler(NCUpdateResult.NewData)
-//                    
-//                    print("NewData")
-//                    
-//                })
-//                }, onError:{ error -> Void in
-//                    print("3")
-//                    print("Error: \(error.domain)")
-//                    dispatch_async(dispatch_get_main_queue(),{
-//                        self.display(error.domain)
-//                        print(error.domain)
-//                        completionHandler(NCUpdateResult.Failed)
-//                        
-//                        self.tableView.reloadData()
-//                        
-//                        print("Failed 1")
-//                    })
-//            })
-//        }
-//        else{
-//            self.tableView.reloadData()
-//            completionHandler(NCUpdateResult.NoData)
-//            display("Kunde inte hämta din position")
-//            print("Failed 2")
-//        }
+        // TODO: Behövs denna nu?
     }
 
-    // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return stops.count
     }
@@ -311,10 +258,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         openMainApp(nil)
     }
     
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-    }
-    
-    // MARK: - Events
     func openMainApp(sender: UIButton!) {
         if (infoText.text == "Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster."){
         }
@@ -324,14 +267,10 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         }
     }
     
-    // MARK: - Functions
     func fetch(){
         if let coordinate = coordinate{
-            print("Coordinate fetch - \(coordinate)")
             departureService.getMyDepartures(coordinate, onSuccess: { stops -> Void in
-                print("1")
                 dispatch_async(dispatch_get_main_queue(),{
-                    print("2")
                     self.stops = stops
                     self.preferredContentSize = CGSizeMake(0, self.contentHeight())
                     
@@ -345,19 +284,11 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                     }
                     
                     self.tableView.reloadData()
-                    
-                    print("NewData")
-                    
                 })
                 }, onError:{ error -> Void in
-                    print("3")
-                    print("Error: \(error.domain)")
                     dispatch_async(dispatch_get_main_queue(),{
                         self.display(error.domain)
-                        print("Today -----  \(error.domain)")
-                        
                         self.tableView.reloadData()
-                        print("Failed 1")
                     })
                     
                     return
@@ -366,7 +297,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         else{
             tableView.reloadData()
             display("Kunde inte hämta din position")
-            print("Failed 2")
         }
     }
     
