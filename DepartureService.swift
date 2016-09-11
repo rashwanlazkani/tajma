@@ -16,14 +16,20 @@ public class DepartureService {
         RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
             var error = json["DepartureBoard"]
             if (String(error["error"]) == Constants.errorCode){
-                onError(NSError(domain: "Fel vid hämtning av avgångar (V)", code: 0, userInfo: nil))
+                onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000001)", code: 1, userInfo: nil))
                 return
             }
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            if json["DepartureBoard"]["serverdate"] == nil || json["DepartureBoard"]["servertime"] == nil{
+                return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000002)", code: 2, userInfo: nil))
+            }
             let serverDate = dateFormatter.dateFromString(self.serverDateTime(json)) as NSDate!
             
+            if json["DepartureBoard"]["Departure"] == nil{
+                return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))
+            }
             let jsonDepartures = json["DepartureBoard"]["Departure"]
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var lines = [Line]()
@@ -90,7 +96,7 @@ public class DepartureService {
                     dispatch_group_leave(getDeparturesGroup)
                 }, onError:{ error -> Void in
                     dispatch_group_leave(getDeparturesGroup)
-                    return onError(error)
+                    return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000004)", code: 4, userInfo: nil))
                 })
             }
         }
