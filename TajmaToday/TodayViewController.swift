@@ -75,8 +75,12 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     // MARK: - Location
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if coordinate?.latitude == 0 {
-            print("Hämtat coordinate")
-            coordinate = manager.location!.coordinate
+            if let c = manager.location?.coordinate{
+                coordinate = c
+            }
+            else{
+                coordinate = CLLocationCoordinate2D()
+            }
             fetch()
         }
     }
@@ -191,8 +195,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         rightTwo.font = rightTwo.font.fontWithSize(14)
         rightTwo.textAlignment = .Right;
         mainLabel.textColor = UIColor.whiteColor()
-        mainLabel.text = currentLine.sname
-        mainLabel.text! += " " + currentLine.direction
+        mainLabel.text = ("\(currentLine.sname) \(currentLine.direction)")
         
         for (index, time) in currentLine.departures.times.enumerate(){
             if (index == 0 && time == 0){
@@ -258,7 +261,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         openMainApp(nil)
     }
     
-    func openMainApp(sender: UIButton!) {
+    func openMainApp(sender: UIButton?) {
         if (infoText.text == "Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster."){
         }
         else{
