@@ -16,7 +16,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     let lineService = LineService()
-    var stopService = StopsService()
+    var stopService = StopService()
     let deviceHelper = DeviceHelper()
     var stops = [Stop]()
     var lines = [Line]()

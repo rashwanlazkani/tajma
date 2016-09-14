@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-class StopsService{
+class StopService{
     let checkedStops = SqliteService.sharedInstance.getStops()
     
     func getNearestStops(lat: String, long: String, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
