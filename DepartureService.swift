@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 public class DepartureService {
-    var stopService = StopsService()
+    var stopService = StopService()
     
     func getDeparturesFromStop(stopId: String, onSuccess: ([Line]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
@@ -78,7 +78,7 @@ public class DepartureService {
     }
 
     func getMyDepartures(coordinate: CLLocationCoordinate2D, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void) {
-        let getDeparturesGroup = dispatch_group_create()
+        let group = dispatch_group_create()
         var stops = SqliteService.sharedInstance.getStops()
 
         for stop in stops{
@@ -89,21 +89,21 @@ public class DepartureService {
         var closestStops = [Stop]()
         for stop in stops {
             if (closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000){
-                dispatch_group_enter(getDeparturesGroup)
-                getDeparturesFromStop(stop.id, onSuccess: { lines -> Void in
+                dispatch_group_enter(group)
+                getDeparturesFromStop(stop.id, onSuccess: { lines -> Void in  defer { dispatch_group_leave(group) }
                     stop.lines = lines
                     closestStops.append(stop)
-                    dispatch_group_leave(getDeparturesGroup)
-                }, onError:{ error -> Void in
-                    dispatch_group_leave(getDeparturesGroup)
+                }, onError:{ error -> Void in defer { dispatch_group_leave(group) }
+                    //dispatch_group_leave(group)
                     return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000004)", code: 4, userInfo: nil))
                 })
             }
         }
         
-        dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
-        
-        onSuccess(closestStops.sort({ $0.distance < $1.distance}))
+        //dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
+        dispatch_group_notify(group, dispatch_get_main_queue(), {
+            onSuccess(closestStops.sort({ $0.distance < $1.distance}))
+        })
     }
     
     private func trimSname(sname: String) -> String{
