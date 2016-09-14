@@ -221,3 +221,9 @@ extension UIColor {
         self.init(red:red, green:green, blue:blue, alpha:alpha)
     }
 }
+
+extension Int  {
+    var day: (Int, NSCalendarUnit) {
+        return (self, NSCalendarUnit.Calendar.union(.Day))
+    }
+}
