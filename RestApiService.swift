@@ -88,7 +88,6 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         let url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(escapedString)&timeSpan=60&maxDeparturesPerLine=2&format=json"
         
         getToken(url, onCompletion: {json in
-            print(json)
             onCompletion(json as JSON)
         })
         
@@ -122,8 +121,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
             .responseJSON { response in
                 if let json = response.result.value {
                     if let token = json["access_token"]!{
-                        print(token)
-                        
+
                         let headers = [
                             "Authorization": "Bearer \(token)",
                             "Content-Type": "application/x-www-form-urlencoded"
@@ -134,7 +132,6 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                                 switch response.result {
                                 case .Success:
                                     let json = JSON(data: response.data!)
-                                    print(json)
                                     onCompletion(json)
                                 case .Failure(let error):
                                     print(error)
