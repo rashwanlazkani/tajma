@@ -889,6 +889,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "754b457e-07c8-4cdf-9130-35c6a1292760";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -913,6 +914,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "bdc4a365-5b2f-4bfc-9c7c-2d584e70598a";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

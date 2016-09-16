@@ -83,11 +83,12 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         let dateString = formatterDate.stringFromDate(date) //Convert to String
         let timeString = formatterTime.stringFromDate(date)
         
-        let escapedString = timeString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        let escapedString = timeString.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
         
         let url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(escapedString)&timeSpan=60&maxDeparturesPerLine=2&format=json"
         
         getToken(url, onCompletion: {json in
+            print(json)
             onCompletion(json as JSON)
         })
         
