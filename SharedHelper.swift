@@ -12,7 +12,7 @@ class SharedHelper {
     func getSharedUrl() -> String{
         setSharedFolders()
         let url = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.tajma.today")!
-        let urlSubString = url.absoluteString.stringByReplacingOccurrencesOfString("file:///", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        let urlSubString = url.absoluteString!.stringByReplacingOccurrencesOfString("file:///", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         return "\(urlSubString)db.sqlite"
     }
@@ -20,7 +20,7 @@ class SharedHelper {
     func setSharedFolders(){
         // Hämta Shared URL
         let url = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.tajma.today")!
-        var urlSubString = url.absoluteString.stringByReplacingOccurrencesOfString("file:///", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        var urlSubString = url.absoluteString!.stringByReplacingOccurrencesOfString("file:///", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         // skapa en file manager för att hanera filerna
         let filemgr = NSFileManager.defaultManager()

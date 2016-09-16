@@ -11,7 +11,6 @@ post_install do |installer|
   end
 end
 
-
 target 'Tajma' do
 pod 'SQLite.swift',
   git: 'https://github.com/stephencelis/SQLite.swift.git'

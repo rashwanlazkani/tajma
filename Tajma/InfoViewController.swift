@@ -123,11 +123,11 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
         switch (result.rawValue) {
-        case MessageComposeResultCancelled.rawValue:
+        case MessageComposeResult.Cancelled.rawValue:
             self.dismissViewControllerAnimated(true, completion: nil)
-        case MessageComposeResultFailed.rawValue:
+        case MessageComposeResult.Failed.rawValue:
             self.dismissViewControllerAnimated(true, completion: nil)
-        case MessageComposeResultSent.rawValue:
+        case MessageComposeResult.Sent.rawValue:
             self.dismissViewControllerAnimated(true, completion: nil)
         default:
             break;

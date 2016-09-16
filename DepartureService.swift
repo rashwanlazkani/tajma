@@ -41,15 +41,16 @@ public class DepartureService {
             }
             
             
-            let jsonDepartures = json["DepartureBoard"]["Departure"].arrayValue
-            print("jsonDeparturesArrayValue:", jsonDeparturesDictArray)
+            let jsonDeparturesArrayValue = json["DepartureBoard"]["Departure"].arrayValue
+            print("jsonDeparturesArrayValue:", jsonDeparturesArrayValue)
             
             
             let jsonDepartures = json["DepartureBoard"]["Departure"]
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             var lines = [Line]()
             
-            for departure in jsonDeparturesDictArray {
+            //for departure in jsonDepartures {
+            for (_,subJson):(String, JSON) in jsonDepartures {
                 if subJson["sname"].string == nil || subJson["direction"].string == nil {
                     continue
                 }

@@ -14,13 +14,13 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SQLite.swift:
-    :commit: abab39b4925abde7015d6b2507902a6fe3d65967
+    :commit: d06ea8147661144cb7bffc598729ea0de6ddf691
     :git: https://github.com/stephencelis/SQLite.swift.git
 
 SPEC CHECKSUMS:
   Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
   SQLite.swift: 0578a150c39c9a8a0045c80430bb2d1cc586c16c
 
-PODFILE CHECKSUM: ea969e379b33416b7847e545e01190e434751039
+PODFILE CHECKSUM: cfed1063aad065b5ff4e841ba2815890a78aeb73
 
 COCOAPODS: 1.0.1
