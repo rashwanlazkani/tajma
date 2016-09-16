@@ -10,30 +10,31 @@ import Alamofire
 import Foundation
 import UIKit
 
-typealias ServiceResponse = (JSON, NSError?) -> Void
+typealias ServiceResponse = (NSData, NSError?) -> Void
 
 class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     static let sharedInstance = RestApiService()
 
-    func getNearestStops(lat: String, long: String, onCompletion: (JSON) -> Void){
-        let url = "\(Constants.restURL)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"
+    func getNearestStops(lat: String, long: String, onCompletion: ([String: AnyObject]) -> Void){
+        let link = "\(Constants.restURL)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"
         
-        getToken(url, onCompletion: {json in
-            onCompletion(json as JSON)
+        getToken(link, onCompletion: {jsonDic in
+            print("jsonDic:", jsonDic)
+            onCompletion(jsonDic)
         })
     }
     
-    func findStops(userInput: String, onCompletion: (JSON) -> Void){
+    func findStops(userInput: String, onCompletion: ([String: AnyObject]) -> Void){
         let escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         let url = "\(Constants.restURL)location.name?input=\(escapedUserInput)&format=json"
         
         getToken(url, onCompletion: {json in
-            onCompletion(json as JSON)
+            onCompletion(json)
         })
     }
     
-    func findAllLinesOnStop (stopId: String, onCompletion: (JSON) -> Void){
-        var date = NSDate()
+    func findAllLinesOnStop (stopId: String, onCompletion: ([String: AnyObject]) -> Void){
+        let date = NSDate()
         let dateFormattera = NSDateFormatter()
         dateFormattera.dateFormat = "EEEE"
         
@@ -47,27 +48,30 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         
         let dateString = formatterDate.stringFromDate(date) //Convert to String
         let timeString = formatterTime.stringFromDate(date)
-        var url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
+        let url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
         
-        getToken(url, onCompletion: {json in
-            let result = json["DepartureBoard"]["Departure"]
-            if (result.count == 0){
-                var dateString = formatterDate.stringFromDate(date)
-                date = DateHelper.get(DateHelper.SearchDirection.Next, "Monday")
-                dateString = formatterDate.stringFromDate(date)
-                
-                url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
-                
-                self.getToken(url, onCompletion: {json in
-                    onCompletion(json as JSON)
-                })
-                return
-            }
-            onCompletion(json as JSON)
+        getToken(url, onCompletion: {data in
+            onCompletion(data)
+            
+            
+//            let result = json["DepartureBoard"]["Departure"]
+//            if (result.count == 0){
+//                var dateString = formatterDate.stringFromDate(date)
+//                date = DateHelper.get(DateHelper.SearchDirection.Next, "Monday")
+//                dateString = formatterDate.stringFromDate(date)
+//                
+//                url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
+//                
+//                self.getToken(url, onCompletion: {json in
+//                    onCompletion(json as NSData)
+//                })
+//                return
+//            }
+            
         })
     }
     
-    func getDeparturesAtStop (stopId: String, onCompletion: (JSON) -> Void){
+    func getDeparturesAtStop (stopId: String, onCompletion: ([String: AnyObject]) -> Void){
         let date = NSDate()
         let dateFormattera = NSDateFormatter()
         dateFormattera.dateFormat = "EEEE"
@@ -89,7 +93,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         
         getToken(url, onCompletion: {json in
             print(json)
-            onCompletion(json as JSON)
+            onCompletion(json)
         })
         
         
@@ -104,7 +108,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         return futureDate!
     }
     
-    private func getToken(url: String, onCompletion: (JSON) -> Void){
+    private func getToken(url: String, onCompletion: ([String: AnyObject]) -> Void){
         let data = ("\(Constants.key):\(Constants.secret)").dataUsingEncoding(NSUTF8StringEncoding)
         let base64 = data!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
@@ -128,12 +132,14 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                             "Content-Type": "application/x-www-form-urlencoded"
                         ]
                         
-                        Alamofire.request(.GET, url, headers: headers)
+                        Alamofire.request(.GET, url, headers: headers, encoding: .JSON)
                             .responseJSON { response in
                                 switch response.result {
                                 case .Success:
-                                    let json = JSON(data: response.data!)
-                                    onCompletion(json)
+                                    print("data:\n", response.data?.json.dictionary?["LocationList"] )
+                                    guard let dic = response.data?.json.dictionary?["LocationList"] as? [String:AnyObject] else { return }
+                                    print("dic:", dic)
+                                    onCompletion(dic)
                                 case .Failure(let error):
                                     print(error)
                                     //onCompletion(error)
@@ -144,6 +150,23 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                 else{
                     print(response.description)
                 }
+        }
+    }
+}
+
+extension NSData {
+    var string: String {
+        return String(data: self, encoding: NSUTF8StringEncoding) ?? ""
+    }
+    var json: (dictionary: [String: AnyObject]?, array: [AnyObject]?) {
+        do {
+            let jsonObject = try NSJSONSerialization.JSONObjectWithData(self, options: .AllowFragments)
+            return (jsonObject as? [String: AnyObject], jsonObject as? [AnyObject])
+        } catch let error as NSError {
+            print("JSONSerialization error")
+            print("error.code = ",error.code)
+            print("error.domain = ",error.domain)
+            return (nil,nil)
         }
     }
 }

@@ -20,7 +20,6 @@
 		F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
 		F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
 		F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
-		F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
 		F80667721B1E5D7900A26B5D /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* Departure.swift */; };
 		F80667751B1E5D7900A26B5D /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
 		F80667781B1E5D7900A26B5D /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
@@ -48,7 +47,6 @@
 		F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
 		F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
 		F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
-		F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */; };
 		F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */; };
 		F88F545C1B38AB3000F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
 		F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
@@ -148,7 +146,6 @@
 		F87AFE881B1B906400D3DAFC /* LineService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineService.swift; sourceTree = "<group>"; };
 		F87AFE891B1B906400D3DAFC /* RestApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiService.swift; sourceTree = "<group>"; };
 		F87AFE8A1B1B906400D3DAFC /* StopService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopService.swift; sourceTree = "<group>"; };
-		F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSONService.swift; sourceTree = "<group>"; };
 		F87AFE901B1B90AB00D3DAFC /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F87AFE931B1B930700D3DAFC /* Tajma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tajma.entitlements; sourceTree = "<group>"; };
 		F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateMyApp.swift; sourceTree = "<group>"; };
@@ -390,7 +387,6 @@
 			isa = PBXGroup;
 			children = (
 				F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */,
-				F87AFE8B1B1B906400D3DAFC /* SwiftyJSONService.swift */,
 			);
 			name = Libs;
 			sourceTree = "<group>";
@@ -645,7 +641,6 @@
 				F82CB0851BD25B2C0015D3C5 /* SqliteService.swift in Sources */,
 				F8729F421BF77E57000E9C9C /* SharedHelper.swift in Sources */,
 				F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */,
-				F806676F1B1E5D7200A26B5D /* SwiftyJSONService.swift in Sources */,
 				F8CB7DEA1C08B6A400EAF401 /* StringHelper.swift in Sources */,
 				F88F545C1B38AB3000F0D402 /* Row.swift in Sources */,
 				F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */,
@@ -677,7 +672,6 @@
 				F8A3D7701C14EAB500AEA7C3 /* GuideController.swift in Sources */,
 				F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */,
 				F8FA48421C39BE010080E12B /* Reachability.swift in Sources */,
-				F87AFE8F1B1B906400D3DAFC /* SwiftyJSONService.swift in Sources */,
 				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,
 				F8FEC9A31C42B484008C615A /* OmOssViewController.swift in Sources */,
 				F87AFE751B1B902400D3DAFC /* Departure.swift in Sources */,
