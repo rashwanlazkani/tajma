@@ -16,11 +16,10 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     static let sharedInstance = RestApiService()
 
     func getNearestStops(lat: String, long: String, onCompletion: ([String: AnyObject]) -> Void){
-        let link = "\(Constants.restURL)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"
+        let url = "\(Constants.restURL)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"
         
-        getToken(link, onCompletion: {jsonDic in
-            print("jsonDic:", jsonDic)
-            onCompletion(jsonDic)
+        getToken(url, onCompletion: {jsonDictionary in
+            onCompletion(jsonDictionary)
         })
     }
     
@@ -28,13 +27,13 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         let escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         let url = "\(Constants.restURL)location.name?input=\(escapedUserInput)&format=json"
         
-        getToken(url, onCompletion: {json in
-            onCompletion(json)
+        getToken(url, onCompletion: {jsonDictionary in
+            onCompletion(jsonDictionary)
         })
     }
     
     func findAllLinesOnStop (stopId: String, onCompletion: ([String: AnyObject]) -> Void){
-        let date = NSDate()
+        var date = NSDate()
         let dateFormattera = NSDateFormatter()
         dateFormattera.dateFormat = "EEEE"
         
@@ -48,26 +47,27 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         
         let dateString = formatterDate.stringFromDate(date) //Convert to String
         let timeString = formatterTime.stringFromDate(date)
-        let url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
+        var url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
         
-        getToken(url, onCompletion: {data in
-            onCompletion(data)
+        getToken(url, onCompletion: {jsonDictionary in
+            guard let jsonStops = jsonDictionary["DepartureBoard"]?["Departure"] as? [[String:AnyObject]]
+                else { return }
             
-            
-//            let result = json["DepartureBoard"]["Departure"]
-//            if (result.count == 0){
-//                var dateString = formatterDate.stringFromDate(date)
-//                date = DateHelper.get(DateHelper.SearchDirection.Next, "Monday")
-//                dateString = formatterDate.stringFromDate(date)
-//                
-//                url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
-//                
-//                self.getToken(url, onCompletion: {json in
-//                    onCompletion(json as NSData)
-//                })
-//                return
-//            }
-            
+            if jsonStops.count == 0{
+                var dateString = formatterDate.stringFromDate(date)
+                date = DateHelper.get(DateHelper.SearchDirection.Next, "Monday")
+                dateString = formatterDate.stringFromDate(date)
+                
+                url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
+                
+                self.getToken(url, onCompletion: {jsonDictionary in
+                    onCompletion(jsonDictionary)
+                })
+                return
+            }
+            else{
+                onCompletion(jsonDictionary)
+            }
         })
     }
     
@@ -91,9 +91,8 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         
         let url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(escapedString)&timeSpan=60&maxDeparturesPerLine=2&format=json"
         
-        getToken(url, onCompletion: {json in
-            print(json)
-            onCompletion(json)
+        getToken(url, onCompletion: {jsonDictionary in
+            onCompletion(jsonDictionary)
         })
         
         
