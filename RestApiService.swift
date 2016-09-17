@@ -18,7 +18,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     func getNearestStops(lat: String, long: String, onCompletion: ([String: AnyObject]) -> Void){
         let url = "\(Constants.restURL)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"
         
-        getToken(url, onCompletion: {jsonDictionary in
+        getToken(url, isDeparture: false, onCompletion: {jsonDictionary in
             onCompletion(jsonDictionary)
         })
     }
@@ -27,7 +27,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         let escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         let url = "\(Constants.restURL)location.name?input=\(escapedUserInput)&format=json"
         
-        getToken(url, onCompletion: {jsonDictionary in
+        getToken(url, isDeparture: false, onCompletion: {jsonDictionary in
             onCompletion(jsonDictionary)
         })
     }
@@ -48,9 +48,9 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         let dateString = formatterDate.stringFromDate(date) //Convert to String
         let timeString = formatterTime.stringFromDate(date)
         var url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
-        
-        getToken(url, onCompletion: {jsonDictionary in
-            guard let jsonStops = jsonDictionary["DepartureBoard"]?["Departure"] as? [[String:AnyObject]]
+        // here we wnt to get the stops so departure is true
+        getToken(url, isDeparture: true, onCompletion: {jsonDictionary in
+            guard let jsonStops = jsonDictionary["Departure"] as? [[String:AnyObject]]
                 else { return }
             
             if jsonStops.count == 0{
@@ -59,13 +59,14 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                 dateString = formatterDate.stringFromDate(date)
                 
                 url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
-                
-                self.getToken(url, onCompletion: {jsonDictionary in
+                //okdo you need to pass on completion if it isDeparture? I think would be easier to detect the key
+                self.getToken(url, isDeparture: true, onCompletion: {jsonDictionary in
                     onCompletion(jsonDictionary)
                 })
                 return
             }
             else{
+                //print("findAllLinesOnStop:", jsonStops)
                 onCompletion(jsonDictionary)
             }
         })
@@ -107,7 +108,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         return futureDate!
     }
     
-    private func getToken(url: String, onCompletion: ([String: AnyObject]) -> Void){
+    private func getToken(url: String, isDeparture: Bool = true, onCompletion: ([String: AnyObject]) -> Void){
         let data = ("\(Constants.key):\(Constants.secret)").dataUsingEncoding(NSUTF8StringEncoding)
         let base64 = data!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
@@ -135,10 +136,33 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                             .responseJSON { response in
                                 switch response.result {
                                 case .Success:
-                                    print("data:\n", response.data?.json.dictionary?["LocationList"] )
-                                    guard let dic = response.data?.json.dictionary?["LocationList"] as? [String:AnyObject] else { return }
-                                    print("dic:", dic)
-                                    onCompletion(dic)
+                                    guard let keys = response.data?.json.dictionary?.keys else { return }
+                                    let keysArray = keys.map{String($0) }
+                                    //print("keys:",keysArray)
+                                    //print("LoopLoop")
+                                    for k in keys {
+                                        //print(k)
+                                    }
+//                                   print("data:\n", response.data?.json.dictionary?["LocationList"] )
+                                    var dic:[String:AnyObject]?
+                                    // Should I or you write the code here?
+                                    // Now it´s not working at all hmm
+                                    print("isDeparture:", isDeparture)
+                                    
+                                    if isDeparture {
+                                        dic = response.data?.json.dictionary?["DepartureBoard"] as? [String:AnyObject]
+                                        //print("departureDic:", dic)  //  1 sec Optional(["Departure"
+                                      } else {
+                                        dic = response.data?.json.dictionary?["LocationList"] as? [String:AnyObject]
+                                    }
+                                    
+                                    if let dic = dic  {
+                                        print("Returning dic")
+                                        onCompletion(dic)
+                                    } else {
+                                        print("failed with returning dic:")
+                                        return
+                                    }
                                 case .Failure(let error):
                                     print(error)
                                     //onCompletion(error)

@@ -20,6 +20,21 @@ public class Line {
     var fgColor : String
     var departures = Departure()
     
+    init(){
+        self.id = ""
+        self.stop = Stop()
+        self.stopId = ""
+        self.lineAndDirection = ""
+        self.name = ""
+        self.sname = ""
+        self.direction = ""
+        self.type = ""
+        self.track = ""
+        self.bgColor = ""
+        self.fgColor = ""
+        self.departures = Departure()
+    }
+    
     init(id: String, stop: Stop, stopId: String, lineAndDirection: String, name: String, sname: String, direction: String, type: String, track: String, bgColor: String, fgColor: String, departures: Departure){
         self.id = id
         self.stop = stop

@@ -11,98 +11,64 @@ import UIKit
 
 public class DepartureService {
     var stopService = StopService()
-    
-    func convertStringToDictionary(text: String) -> [String:AnyObject]? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            do {
-                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
-            } catch let error as NSError {
-                print(error)
-            }
-        }
-        return nil
-    }
 
     func getDeparturesFromStop(stopId: String, onSuccess: ([Line]) -> Void, onError: (NSError) -> Void){
-        RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
-//            var error = json["DepartureBoard"]
-//            if (String(error["error"]) == Constants.errorCode){
-//                onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000001)", code: 1, userInfo: nil))
-//                return
-//            }
-//            
+        RestApiService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
+            var lines = [Line]()
+            let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             
+            guard let jsonDepartures = jsonDictionary["Departure"] as? [[String:AnyObject]]
+                else {return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))}
             
-//            if json["DepartureBoard"]["serverdate"] == nil || json["DepartureBoard"]["servertime"] == nil{
-//                return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000002)", code: 2, userInfo: nil))
-//            }
-//            
-//            guard let serverDate = json.serverDate where json["DepartureBoard"]["serverdate"] != nil  || json["DepartureBoard"]["servertime"] != nil
-//            else {
-//                
-//                return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000002)", code: 2, userInfo: nil))
-//            }
+
+            guard let serverDate = jsonDictionary["serverdate"] as? String,
+                let serverTime = jsonDictionary["servertime"] as? String
+                else { return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000002)", code: 2, userInfo: nil)) }
             
-//           if json["DepartureBoard"]["Departure"] == nil{
-//                return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))
-//            }
+            for departure in jsonDepartures{
+                if departure["rtTime"] == nil && departure["time"] == nil{
+                    continue
+                }
+                if departure["rtDate"] == nil && departure["date"] == nil{
+                    continue
+                }
+                
+                guard let sname = departure["sname"],
+                    let direction = departure["direction"] else {continue}
+                
+                let id = "\(stopId)-\(sname)-\(direction)"
+                
+                // TODO: Guard istället?
+                var line = lines.firstOrDefault {$0.id == id}
+                if(line == nil){
+                    line = dbLines.firstOrDefault({$0.id == id})
+                    
+                    if(line != nil){
+                        lines.append(line!)
+                    }
+                }
+                
+                if(line == nil){
+                    continue
+                }
+                
+                let time = departure["rtTime"] ?? departure["time"]
+                let date = departure["rtDate"] ?? departure["date"]
+                let dateTime = "\(date!) \(time!)"
+
+                let serverDateTime = "\(serverDate) \(serverTime)"
+                
+                
+                
+                guard let departureTime = Formatter.instance.dateFromString(dateTime) else { continue }
+                guard let serverTime = Formatter.instance.dateFromString(serverDateTime) else { continue }
+                let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverTime) / 60) - 1
+                
+                line!.departures.times.append(intervalBetweenDepartures)
+            }
             
-//            guard json["DepartureBoard"]["Departure"] != nil else {
-//                return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))
-//            }
-//            
-//            
-//            let jsonDeparturesArrayValue = json["DepartureBoard"]["Departure"].arrayValue
-//            print("jsonDeparturesArrayValue:", jsonDeparturesArrayValue)
-//            
-//            let result = self.convertStringToDictionary(json.string!)
-//            print(result)
-//            
-//            let jsonDepartures = json["DepartureBoard"]["Departure"]
-//            let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
-//            var lines = [Line]()
-//            
-//            //for departure in jsonDepartures {
-//            for (_,subJson):(String, JSON) in jsonDepartures {
-//                if subJson["sname"].string == nil || subJson["direction"].string == nil {
-//                    continue
-//                }
-//                
-//                let id = "\(stopId)-\(subJson["sname"].string!)-\(subJson["direction"].string!)"
-//                
-//                var line = lines.firstOrDefault {$0.id == id}
-//                if(line == nil){
-//                    line = dbLines.firstOrDefault({$0.id == id})
-//                    
-//                    if(line != nil){
-//                        lines.append(line!)
-//                    }
-//                }
-//                
-//                if(line == nil){
-//                    continue
-//                }
-//                
-//                if subJson["rtTime"].string == nil && subJson["time"].string == nil {
-//                    continue
-//                }
-//                
-//                if subJson["rtDate"].string == nil && subJson["date"].string == nil{
-//                    continue
-//                }
-//                
-//                let time = subJson["rtTime"].string ?? subJson["time"].string
-//                let date = subJson["rtDate"].string ?? subJson["date"].string
-//                let dateTime = "\(date!) \(time!)"
-//                
-//                guard let departureTime = Formatter.instance.dateFromString(dateTime) else { return }
-//                let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverDate) / 60) - 1
-//                
-//                line!.departures.times.append(intervalBetweenDepartures)
-//            }
-//            lines.sortInPlace({$0.departures.times.first < $1.departures.times.first})
-//            
-//            onSuccess(lines)
+            lines.sortInPlace({$0.departures.times.first < $1.departures.times.first})
+            onSuccess(lines)
         }
     }
 
@@ -111,7 +77,7 @@ public class DepartureService {
         var stops = SqliteService.sharedInstance.getStops()
 
         for stop in stops{
-            stop.distance = 0//self.stopService.calculateDistance(stop, lat: coordinate.latitude, long: coordinate.longitude)
+            stop.distance = self.stopService.calculateDistance(stop, lat: coordinate.latitude, long: coordinate.longitude)
         }
         stops.sortInPlace({ $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
 
@@ -138,17 +104,13 @@ public class DepartureService {
     private func trimSname(sname: String) -> String{
        return sname.stringByReplacingOccurrencesOfString("SVAR", withString: "SVART")
     }
-    
-//    private func serverDateTime(json: JSON) -> String{
-//        
-//    }
 }
 
-extension NSData {
-    var serverDate: NSDate? {
-        return NSDate()//Formatter.instance.dateFromString("\(self["DepartureBoard"]["serverdate"]) \(self["DepartureBoard"]["servertime"])")
-    }
-}
+//extension NSData {
+//    var serverDate: NSDate? {
+//        return Formatter.instance.dateFromString("\(self["DepartureBoard"]["serverdate"]) \(self["DepartureBoard"]["servertime"])")
+//    }
+//}
 
 struct Formatter {
     static let instance = NSDateFormatter(dateFormat: "yyyy-MM-dd HH:mm")
