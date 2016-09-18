@@ -11,11 +11,12 @@ import NotificationCenter
 import CoreLocation
 
 class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLocationManagerDelegate {
-
+    
     @IBOutlet weak var infoText: UITextView!
     var departureService = DepartureService()
     var lineService = LineService()
     let locationManager = CLLocationManager()
+    var grayColor = UIColor.darkGrayColor()
     
     var stops = [Stop]()
     var coordinate: CLLocationCoordinate2D?
@@ -52,6 +53,12 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
+        if #available(iOS 10.0, *) {
+            grayColor = UIColor.darkGrayColor()
+        } else {
+            grayColor = UIColor.lightGrayColor()
+        }
+
         if Reachability.isConnectedToNetwork() != true {
             display("Ingen anslutning, försök igen.")
             return
@@ -114,7 +121,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
         // TODO: Behövs denna nu?
     }
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return stops.count
     }
@@ -136,13 +143,13 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         let name = UILabel(frame: CGRectMake(8, 15, DeviceHelper.getLabelWidth(), 30))
         name.font = name.font.fontWithSize(14)
-        name.textColor = UIColor.lightGrayColor()
+        name.textColor = grayColor
         
         name.text = stops[section].name.componentsSeparatedByString(",")[0]
-
+        
         let distance = UILabel(frame: CGRectMake(tableView.bounds.width - 110, 15, 100, 30))
         distance.font = distance.font.fontWithSize(14)
-        distance.textColor = UIColor.lightGrayColor()
+        distance.textColor = grayColor
         distance.textAlignment = .Right
         
         if let d = stops[section].distance{
@@ -154,7 +161,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         let separator = UIView(frame: CGRectMake(0, 45, tableView.frame.width, 1))
         separator.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
-    
+        
         view.addSubview(separator)
         view.addSubview(name)
         view.addSubview(distance)
@@ -186,14 +193,14 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         let currentLine = currentStop.lines[indexPath.row]
         
-        rightOne.frame = CGRectMake(tableView.bounds.width - 70, 4, 30, 30)
+        rightOne.frame = CGRectMake(tableView.bounds.width - 75, 4, 30, 30)
         rightOne.textColor = UIColor.whiteColor()
         rightOne.font = rightOne.font.fontWithSize(14)
-        rightOne.textAlignment = .Right;
-        rightTwo.frame = CGRectMake(tableView.bounds.width - 30, 4, 25, 30)
-        rightTwo.textColor = UIColor.lightGrayColor()
+        rightOne.textAlignment = .Right
+        rightTwo.frame = CGRectMake(tableView.bounds.width - 35, 4, 25, 30)
+        rightTwo.textColor = grayColor
         rightTwo.font = rightTwo.font.fontWithSize(14)
-        rightTwo.textAlignment = .Right;
+        rightTwo.textAlignment = .Right
         mainLabel.textColor = UIColor.whiteColor()
         mainLabel.text = ("\(currentLine.sname) \(currentLine.direction)")
         
@@ -268,6 +275,17 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             let url = NSURL(fileURLWithPath: "Tajma://home")
             self.extensionContext?.openURL(url, completionHandler: nil)
         }
+    }
+    
+    @available(iOSApplicationExtension 10.0, *)
+    func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        if activeDisplayMode == NCWidgetDisplayMode.Compact {
+            self.preferredContentSize = CGSizeMake(0.0, 200.0)
+        }
+        else if activeDisplayMode == NCWidgetDisplayMode.Expanded {
+            self.preferredContentSize = CGSizeMake(0, contentHeight())
+        }
+        
     }
     
     func fetch(){
