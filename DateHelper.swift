@@ -10,55 +10,55 @@ import Foundation
 
 class DateHelper {
     enum SearchDirection {
-        case Next
-        case Previous
+        case next
+        case previous
         
-        var calendarOptions: NSCalendarOptions {
+        var calendarOptions: NSCalendar.Options {
             switch self {
-            case .Next:
-                return .MatchNextTime
-            case .Previous:
-                return [.SearchBackwards, .MatchNextTime]
+            case .next:
+                return .matchNextTime
+            case .previous:
+                return [.searchBackwards, .matchNextTime]
             }
         }
     }
     
-    static func get(direction: SearchDirection, _ dayName: String, considerToday consider: Bool = false) -> NSDate {
+    static func get(_ direction: SearchDirection, _ dayName: String, considerToday consider: Bool = false) -> Date {
         let weekdaysName = getWeekDaysInEnglish()
         
         assert(weekdaysName.contains(dayName), "weekday symbol should be in form \(weekdaysName)")
         
         // weekday is in form 1 ... 7 where as index is 0 ... 6
-        let nextWeekDayIndex = weekdaysName.indexOf(dayName)! + 1
-        let today = NSDate()
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let nextWeekDayIndex = weekdaysName.index(of: dayName)! + 1
+        let today = Date()
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         
-        if consider && calendar.component(.Weekday, fromDate: today) == nextWeekDayIndex {
+        if consider && (calendar as NSCalendar).component(.weekday, from: today) == nextWeekDayIndex {
             return today
         }
         
-        let nextDateComponent = NSDateComponents()
+        var nextDateComponent = DateComponents()
         nextDateComponent.weekday = nextWeekDayIndex
         
         
-        let date = calendar.nextDateAfterDate(today, matchingComponents: nextDateComponent, options: direction.calendarOptions)
+        let date = (calendar as NSCalendar).nextDate(after: today, matching: nextDateComponent, options: direction.calendarOptions)
         return date!
     }
     
     static func getWeekDaysInEnglish() -> [String] {
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        calendar.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        var calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         return calendar.weekdaySymbols
     }
     
-    static func getDayOfWeek(today:String)->Int {
-        let formatter  = NSDateFormatter()
+    static func getDayOfWeek(_ today:String)->Int {
+        let formatter  = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        let todayDate = formatter.dateFromString(today)!
-        let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        myCalendar.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
+        let todayDate = formatter.date(from: today)!
+        var myCalendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        myCalendar.locale = Locale(identifier: "en_US_POSIX")
+        let myComponents = (myCalendar as NSCalendar).components(.weekday, from: todayDate)
         let weekDay = myComponents.weekday
-        return weekDay
+        return weekDay!
     }
 }

@@ -16,7 +16,7 @@ class SqliteService {
     let sharedHelper = SharedHelper()
     
     func getStops() -> [Stop]{
-        let dbExists = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("DbExists")
+        let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")
         if (!dbExists){
             createTables()
         }
@@ -28,12 +28,12 @@ class SqliteService {
             let stop = Stop(id: row[Expression<String>("id")], name: row[Expression<String>("name")], latitude: row[Expression<String>("lat")], longitude: row[Expression<String>("long")], distance: Int(), lines: [Line]())
             stops.append(stop)
         }
-        stops.sortInPlace({ $0.name < $1.name })
+        stops.sort(by: { $0.name < $1.name })
         return stops
     }
     
     func getLines() -> [Line]{
-        let dbExists = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("DbExists")
+        let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")
         if (!dbExists){
             createTables()
         }
@@ -49,7 +49,7 @@ class SqliteService {
         return lines
     }
     
-    func getLinesAtStop(stopId : String) -> [Line]{
+    func getLinesAtStop(_ stopId : String) -> [Line]{
         let db = try! Connection(sharedHelper.getSharedUrl())
         var lines = [Line]()
         
@@ -66,7 +66,7 @@ class SqliteService {
         return lines
     }
     
-    func addLine(line: Line, stop: Stop){
+    func addLine(_ line: Line, stop: Stop){
         let db = try! Connection(sharedHelper.getSharedUrl())
         
         let stopsCount = try! db.scalar("SELECT count(*) FROM Stops where id = '\(stop.id)'") as! Int64
@@ -77,7 +77,7 @@ class SqliteService {
          try! db.execute("INSERT INTO Lines VALUES ('\(line.id)','\(stop.id)','\(line.name)','\(line.sname)','\(line.direction)', '\(line.lineAndDirection)', '\(line.type)', '\(line.track)', '\(line.bgColor)', '\(line.fgColor)')")
     }
     
-    func removeLine(line: Line, stopId: String){
+    func removeLine(_ line: Line, stopId: String){
         let db = try! Connection(sharedHelper.getSharedUrl())
         
         try! db.execute("DELETE FROM Lines WHERE id = '\(line.id)'")
@@ -93,12 +93,12 @@ class SqliteService {
         try! db.execute("UPDATE lines SET id = replace(replace(id, 'Optional(\"',''), '\")', '') WHERE id LIKE '%Optional%';")
     }
     
-    private func createTables(){
+    fileprivate func createTables(){
         let db = try! Connection(sharedHelper.getSharedUrl())
         
-        let dbExists = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("DbExists")
+        let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")
         if !dbExists {
-            NSUserDefaults(suiteName: "group.tajma.today")!.setBool(true, forKey: "DbExists")
+            UserDefaults(suiteName: "group.tajma.today")!.set(true, forKey: "DbExists")
             
             try! db.run("CREATE TABLE 'Stops' ('id' VARCHAR NOT NULL  UNIQUE, 'name' VARCHAR, 'lat' VARCHAR, 'long' VARCHAR)")
             

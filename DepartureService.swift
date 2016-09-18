@@ -8,11 +8,31 @@
 
 import CoreLocation
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
-public class DepartureService {
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
+
+open class DepartureService {
     var stopService = StopService()
 
-    func getDeparturesFromStop(stopId: String, onSuccess: ([Line]) -> Void, onError: (NSError) -> Void){
+    func getDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
         RestApiService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
             var lines = [Line]()
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
@@ -60,35 +80,35 @@ public class DepartureService {
                 
                 
                 
-                guard let departureTime = Formatter.instance.dateFromString(dateTime) else { continue }
-                guard let serverTime = Formatter.instance.dateFromString(serverDateTime) else { continue }
-                let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverTime) / 60) - 1
+                guard let departureTime = Formatter.instance.date(from: dateTime) else { continue }
+                guard let serverTime = Formatter.instance.date(from: serverDateTime) else { continue }
+                let intervalBetweenDepartures = Int(departureTime.timeIntervalSince(serverTime) / 60) - 1
                 
                 line!.departures.times.append(intervalBetweenDepartures)
             }
             
-            lines.sortInPlace({$0.departures.times.first < $1.departures.times.first})
+            lines.sort(by: {$0.departures.times.first < $1.departures.times.first})
             onSuccess(lines)
         }
     }
 
-    func getMyDepartures(coordinate: CLLocationCoordinate2D, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void) {
-        let group = dispatch_group_create()
+    func getMyDepartures(_ coordinate: CLLocationCoordinate2D, onSuccess: @escaping ([Stop]) -> Void, onError: @escaping (NSError) -> Void) {
+        let group = DispatchGroup()
         var stops = SqliteService.sharedInstance.getStops()
 
         for stop in stops{
             stop.distance = self.stopService.calculateDistance(stop, lat: coordinate.latitude, long: coordinate.longitude)
         }
-        stops.sortInPlace({ $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
+        stops.sort(by: { $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
 
         var closestStops = [Stop]()
         for stop in stops {
             if (closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000){
-                dispatch_group_enter(group)
-                getDeparturesFromStop(stop.id, onSuccess: { lines -> Void in  defer { dispatch_group_leave(group) }
+                group.enter()
+                getDeparturesFromStop(stop.id, onSuccess: { lines -> Void in  defer { group.leave() }
                     stop.lines = lines
                     closestStops.append(stop)
-                }, onError:{ error -> Void in defer { dispatch_group_leave(group) }
+                }, onError:{ error -> Void in defer { group.leave() }
                     //dispatch_group_leave(group)
                     return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000004)", code: 4, userInfo: nil))
                 })
@@ -96,13 +116,13 @@ public class DepartureService {
         }
         
         //dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
-        dispatch_group_notify(group, dispatch_get_main_queue(), {
-            onSuccess(closestStops.sort({ $0.distance < $1.distance}))
+        group.notify(queue: DispatchQueue.main, execute: {
+            onSuccess(closestStops.sorted(by: { $0.distance < $1.distance}))
         })
     }
     
-    private func trimSname(sname: String) -> String{
-       return sname.stringByReplacingOccurrencesOfString("SVAR", withString: "SVART")
+    fileprivate func trimSname(_ sname: String) -> String{
+       return sname.replacingOccurrences(of: "SVAR", with: "SVART")
     }
 }
 
@@ -113,10 +133,10 @@ public class DepartureService {
 //}
 
 struct Formatter {
-    static let instance = NSDateFormatter(dateFormat: "yyyy-MM-dd HH:mm")
+    static let instance = DateFormatter(dateFormat: "yyyy-MM-dd HH:mm")
 }
 
-extension NSDateFormatter {
+extension DateFormatter {
     convenience init(dateFormat: String) {
         self.init()
         self.dateFormat = dateFormat

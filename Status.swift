@@ -9,8 +9,8 @@
 import Foundation
 
 public enum Status {
-    case OK
-    case Empty
-    case Error
-    case Info
+    case ok
+    case empty
+    case error
+    case info
 }

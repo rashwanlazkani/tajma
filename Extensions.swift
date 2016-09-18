@@ -8,9 +8,20 @@
 
 import ImageIO
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 extension Array {
-    func firstOrDefault(fn: (Element) -> Bool) -> Element? {
+    func firstOrDefault(_ fn: (Element) -> Bool) -> Element? {
         var to = self.filter(fn)
         if(to.count > 0){
             return to[0]
@@ -28,44 +39,44 @@ extension Array where Element: Equatable {
 
 extension UIImage {
     
-    public class func gifWithData(data: NSData) -> UIImage? {
-        guard let source = CGImageSourceCreateWithData(data, nil) else {
+    public class func gifWithData(_ data: Data) -> UIImage? {
+        guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
             print("SwiftGif: Source for the image does not exist")
             return nil
         }
         return UIImage.animatedImageWithSource(source)
     }
     
-    public class func gifWithName(name: String) -> UIImage? {
-        guard let bundleURL = NSBundle.mainBundle().URLForResource(name, withExtension: "gif") else {
+    public class func gifWithName(_ name: String) -> UIImage? {
+        guard let bundleURL = Bundle.main.url(forResource: name, withExtension: "gif") else {
             print("SwiftGif: This image named \"\(name)\" does not exist")
             return nil
         }
-        guard let imageData = NSData(contentsOfURL: bundleURL) else {
+        guard let imageData = try? Data(contentsOf: bundleURL) else {
             print("SwiftGif: Cannot turn image named \"\(name)\" into NSData")
             return nil
         }
         return gifWithData(imageData)
     }
     
-    class func delayForImageAtIndex(index: Int, source: CGImageSource!) -> Double {
+    class func delayForImageAtIndex(_ index: Int, source: CGImageSource!) -> Double {
         var delay = 0.1
         
         // Get dictionaries
         let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil)
-        let gifProperties: CFDictionaryRef = unsafeBitCast(
+        let gifProperties: CFDictionary = unsafeBitCast(
             CFDictionaryGetValue(cfProperties,
-                unsafeAddressOf(kCGImagePropertyGIFDictionary)),
-            CFDictionary.self)
+                Unmanaged.passUnretained(kCGImagePropertyGIFDictionary).toOpaque()),
+            to: CFDictionary.self)
         
         // Get delay time
         var delayObject: AnyObject = unsafeBitCast(
             CFDictionaryGetValue(gifProperties,
-                unsafeAddressOf(kCGImagePropertyGIFUnclampedDelayTime)),
-            AnyObject.self)
+                Unmanaged.passUnretained(kCGImagePropertyGIFUnclampedDelayTime).toOpaque()),
+            to: AnyObject.self)
         if delayObject.doubleValue == 0 {
             delayObject = unsafeBitCast(CFDictionaryGetValue(gifProperties,
-                unsafeAddressOf(kCGImagePropertyGIFDelayTime)), AnyObject.self)
+                Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()), to: AnyObject.self)
         }
         
         delay = delayObject as! Double
@@ -77,7 +88,7 @@ extension UIImage {
         return delay
     }
     
-    class func gcdForPair(a: Int?, b: Int?) -> Int {
+    class func gcdForPair(_ a: Int?, b: Int?) -> Int {
         var a = a
         var b = b
         // Check if one of them is nil
@@ -112,7 +123,7 @@ extension UIImage {
         }
     }
     
-    class func gcdForArray(array: Array<Int>) -> Int {
+    class func gcdForArray(_ array: Array<Int>) -> Int {
         if array.isEmpty {
             return 1
         }
@@ -126,9 +137,9 @@ extension UIImage {
         return gcd
     }
     
-    class func animatedImageWithSource(source: CGImageSource) -> UIImage? {
+    class func animatedImageWithSource(_ source: CGImageSource) -> UIImage? {
         let count = CGImageSourceGetCount(source)
-        var images = [CGImageRef]()
+        var images = [CGImage]()
         var delays = [Int]()
         
         // Fill arrays
@@ -162,7 +173,7 @@ extension UIImage {
         var frame: UIImage
         var frameCount: Int
         for i in 0..<count {
-            frame = UIImage(CGImage: images[Int(i)])
+            frame = UIImage(cgImage: images[Int(i)])
             frameCount = Int(delays[Int(i)] / gcd)
             
             for _ in 0..<frameCount {
@@ -171,7 +182,7 @@ extension UIImage {
         }
         
         // Heyhey
-        let animation = UIImage.animatedImageWithImages(frames,
+        let animation = UIImage.animatedImage(with: frames,
                                                         duration: Double(duration) / 1000.0)
         
         return animation
@@ -187,11 +198,11 @@ extension UIColor {
         var alpha: CGFloat = 1.0
         
         if rgba.hasPrefix("#") {
-            let index   = rgba.startIndex.advancedBy(1)
-            let hex     = rgba.substringFromIndex(index)
-            let scanner = NSScanner(string: hex)
+            let index   = rgba.characters.index(rgba.startIndex, offsetBy: 1)
+            let hex     = rgba.substring(from: index)
+            let scanner = Scanner(string: hex)
             var hexValue: CUnsignedLongLong = 0
-            if scanner.scanHexLongLong(&hexValue) {
+            if scanner.scanHexInt64(&hexValue) {
                 switch (hex.characters.count) {
                 case 3:
                     red   = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
@@ -223,7 +234,7 @@ extension UIColor {
 }
 
 extension Int  {
-    var day: (Int, NSCalendarUnit) {
-        return (self, NSCalendarUnit.Calendar.union(.Day))
+    var day: (Int, NSCalendar.Unit) {
+        return (self, NSCalendar.Unit.calendar.union(.day))
     }
 }

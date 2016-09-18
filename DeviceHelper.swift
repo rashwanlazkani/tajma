@@ -9,7 +9,7 @@
 import UIKit
 
 class DeviceHelper {
-    private let screenSize: CGRect = UIScreen.mainScreen().bounds
+    fileprivate let screenSize: CGRect = UIScreen.main.bounds
     var screenHeight: Int {
         get {
             return Int(screenSize.height)
@@ -22,7 +22,7 @@ class DeviceHelper {
     }
     
     static func iPhoneModelSize() -> Int{
-        switch UIDevice.currentDevice().modelName {
+        switch UIDevice.current.modelName {
         case "iPhone 4", "iPhone 4S" :
             return 8
         case "iPhone 5", "iPhone 5C", "iPhone 5S" :
@@ -57,7 +57,7 @@ class DeviceHelper {
     }
     
     static func showGuideY() -> CGFloat{
-        switch UIScreen.mainScreen().bounds.height {
+        switch UIScreen.main.bounds.height {
             // 4, 4s
         case 480 :
             return 100
@@ -77,7 +77,7 @@ class DeviceHelper {
     }
 
     static func gifY() -> CGFloat{
-        switch UIScreen.mainScreen().bounds.height {
+        switch UIScreen.main.bounds.height {
             // 4, 4s
         case 480 :
             return 100.0
@@ -97,7 +97,7 @@ class DeviceHelper {
     }
     
     static func gifHeight() -> CGFloat{
-        switch UIScreen.mainScreen().bounds.height {
+        switch UIScreen.main.bounds.height {
         // 4, 4s
         case 480 :
             return 300.0
@@ -117,7 +117,7 @@ class DeviceHelper {
     }
     
     static func labelWidth() -> CGFloat{
-        switch UIScreen.mainScreen().bounds.height {
+        switch UIScreen.main.bounds.height {
             // 4, 4s, 5, 5s
         case 480, 568 :
             return 220.0
@@ -134,7 +134,7 @@ class DeviceHelper {
     }
     
     static func currentDevice() -> String{
-        switch UIScreen.mainScreen().bounds.height {
+        switch UIScreen.main.bounds.height {
         case 480 :
             return "iPhone 4/S"
         case 568 :
@@ -164,7 +164,7 @@ extension UIDevice {
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
         let identifier = machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8 where value != 0 else { return identifier }
+            guard let value = element.value as? Int8 , value != 0 else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
         

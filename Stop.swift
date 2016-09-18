@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-public class Stop : Equatable {
+open class Stop : Equatable {
     var id : String
     var name : String
     var latitude : String

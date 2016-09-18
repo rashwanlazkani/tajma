@@ -7,9 +7,20 @@
 //
 
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
-public class LineService{
-    func getAllLinesAtStop(stopId: String, onSuccess: ([Line]) -> Void, onError: (NSError) -> Void){
+
+open class LineService{
+    func getAllLinesAtStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.findAllLinesOnStop(stopId) { jsonDictionary in
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             
@@ -62,8 +73,8 @@ public class LineService{
                     }
                 }
                 
-                let numberLines = lines.filter({Int($0.sname) != nil}).sort({Int($0.sname)! < Int($1.sname)})
-                let charLines = lines.filter({Int($0.sname) == nil}).sort({$0.sname < $1.sname})
+                let numberLines = lines.filter({Int($0.sname) != nil}).sorted(by: {Int($0.sname)! < Int($1.sname)})
+                let charLines = lines.filter({Int($0.sname) == nil}).sorted(by: {$0.sname < $1.sname})
                 
                 onSuccess(numberLines + charLines)
             }
@@ -71,11 +82,11 @@ public class LineService{
         }
     }
     
-    func subStringSnameAndDirection(lineAndDirection: String) -> String{
+    func subStringSnameAndDirection(_ lineAndDirection: String) -> String{
         var lineAndDirection = lineAndDirection
-        lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Buss", withString: "")
-        lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("Spårvagn", withString: "")
-        lineAndDirection = lineAndDirection.stringByReplacingOccurrencesOfString("SVAR", withString: "SVART")
+        lineAndDirection = lineAndDirection.replacingOccurrences(of: "Buss", with: "")
+        lineAndDirection = lineAndDirection.replacingOccurrences(of: "Spårvagn", with: "")
+        lineAndDirection = lineAndDirection.replacingOccurrences(of: "SVAR", with: "SVART")
         return lineAndDirection
     }
 }

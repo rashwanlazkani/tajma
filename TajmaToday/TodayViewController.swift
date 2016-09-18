@@ -16,7 +16,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     var departureService = DepartureService()
     var lineService = LineService()
     let locationManager = CLLocationManager()
-    var grayColor = UIColor.darkGrayColor()
+    var grayColor = UIColor.darkGray
     
     var stops = [Stop]()
     var coordinate: CLLocationCoordinate2D?
@@ -31,7 +31,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         SqliteService.sharedInstance.updateOptionals()
         
-        infoText.userInteractionEnabled = true
+        infoText.isUserInteractionEnabled = true
         let aSelector : Selector = #selector(lblTapped)
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
         tapGesture.numberOfTapsRequired = 1
@@ -50,13 +50,13 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         if #available(iOS 10.0, *) {
-            grayColor = UIColor.darkGrayColor()
+            grayColor = UIColor.darkGray
         } else {
-            grayColor = UIColor.lightGrayColor()
+            grayColor = UIColor.lightGray
         }
 
         if Reachability.isConnectedToNetwork() != true {
@@ -74,13 +74,13 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         }
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         locationManager.stopUpdatingLocation()
     }
     
     // MARK: - Location
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if coordinate?.latitude == 0 {
             if let c = manager.location?.coordinate{
                 coordinate = c
@@ -92,65 +92,65 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         }
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
     }
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
-        case CLAuthorizationStatus.Restricted:
+        case CLAuthorizationStatus.restricted:
             display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
-        case CLAuthorizationStatus.Denied:
+        case CLAuthorizationStatus.denied:
             display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         default:
             break
         }
     }
     
-    func display(message: String){
-        preferredContentSize = CGSizeMake(0, 60)
+    func display(_ message: String){
+        preferredContentSize = CGSize(width: 0, height: 60)
         if (message == self.infoText.text){
             return
         }
         infoText.text = message
-        infoText.hidden = false
+        infoText.isHidden = false
         
         tableView.reloadData()
     }
     
-    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
+    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // TODO: Behövs denna nu?
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return stops.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stops[section].lines.count == 0 ? 1 : stops[section].lines.count
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return ("\(stops[section].name) \(stops[section].distance)m")
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear
         
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         
-        let name = UILabel(frame: CGRectMake(8, 15, DeviceHelper.getLabelWidth(), 30))
-        name.font = name.font.fontWithSize(14)
+        let name = UILabel(frame: CGRect(x: 8, y: 15, width: DeviceHelper.getLabelWidth(), height: 30))
+        name.font = name.font.withSize(14)
         name.textColor = grayColor
         
-        name.text = stops[section].name.componentsSeparatedByString(",")[0]
+        name.text = stops[section].name.components(separatedBy: ",")[0]
         
-        let distance = UILabel(frame: CGRectMake(tableView.bounds.width - 110, 15, 100, 30))
-        distance.font = distance.font.fontWithSize(14)
+        let distance = UILabel(frame: CGRect(x: tableView.bounds.width - 110, y: 15, width: 100, height: 30))
+        distance.font = distance.font.withSize(14)
         distance.textColor = grayColor
-        distance.textAlignment = .Right
+        distance.textAlignment = .right
         
         if let d = stops[section].distance{
             distance.text = ("\(d) m")
@@ -159,7 +159,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             distance.text = "- m"
         }
         
-        let separator = UIView(frame: CGRectMake(0, 45, tableView.frame.width, 1))
+        let separator = UIView(frame: CGRect(x: 0, y: 45, width: tableView.frame.width, height: 1))
         separator.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
         
         view.addSubview(separator)
@@ -169,42 +169,42 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         return view
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         for view in cell.subviews{
             view.removeFromSuperview()
         }
         
-        let mainLabel = UILabel(frame: CGRectMake(8, 4, DeviceHelper.labelWidth() - 30, 30))
-        mainLabel.font = mainLabel.font.fontWithSize(14)
-        let rightOne = UILabel(frame: CGRectMake(tableView.bounds.width - 150, 4, 100, 30))
-        rightOne.font = rightOne.font.fontWithSize(14)
-        let rightTwo = UILabel(frame: CGRectMake(tableView.bounds.width - 60, 4, 30, 30))
-        rightTwo.font = rightTwo.font.fontWithSize(14)
+        let mainLabel = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceHelper.labelWidth() - 30, height: 30))
+        mainLabel.font = mainLabel.font.withSize(14)
+        let rightOne = UILabel(frame: CGRect(x: tableView.bounds.width - 150, y: 4, width: 100, height: 30))
+        rightOne.font = rightOne.font.withSize(14)
+        let rightTwo = UILabel(frame: CGRect(x: tableView.bounds.width - 60, y: 4, width: 30, height: 30))
+        rightTwo.font = rightTwo.font.withSize(14)
         
-        let currentStop = stops[indexPath.section]
+        let currentStop = stops[(indexPath as NSIndexPath).section]
         if (currentStop.lines.isEmpty) {
             mainLabel.text = "Inga avgångar hittades"
-            mainLabel.textColor = UIColor.whiteColor()
+            mainLabel.textColor = UIColor.white
             cell.addSubview(mainLabel)
             return cell
         }
         
-        let currentLine = currentStop.lines[indexPath.row]
+        let currentLine = currentStop.lines[(indexPath as NSIndexPath).row]
         
-        rightOne.frame = CGRectMake(tableView.bounds.width - 75, 4, 30, 30)
-        rightOne.textColor = UIColor.whiteColor()
-        rightOne.font = rightOne.font.fontWithSize(14)
-        rightOne.textAlignment = .Right
-        rightTwo.frame = CGRectMake(tableView.bounds.width - 35, 4, 25, 30)
+        rightOne.frame = CGRect(x: tableView.bounds.width - 75, y: 4, width: 30, height: 30)
+        rightOne.textColor = UIColor.white
+        rightOne.font = rightOne.font.withSize(14)
+        rightOne.textAlignment = .right
+        rightTwo.frame = CGRect(x: tableView.bounds.width - 35, y: 4, width: 25, height: 30)
         rightTwo.textColor = grayColor
-        rightTwo.font = rightTwo.font.fontWithSize(14)
-        rightTwo.textAlignment = .Right
-        mainLabel.textColor = UIColor.whiteColor()
+        rightTwo.font = rightTwo.font.withSize(14)
+        rightTwo.textAlignment = .right
+        mainLabel.textColor = UIColor.white
         mainLabel.text = ("\(currentLine.sname) \(currentLine.direction)")
         
-        for (index, time) in currentLine.departures.times.enumerate(){
+        for (index, time) in currentLine.departures.times.enumerated(){
             if (index == 0 && time == 0){
                 rightOne.text = "Nu"
             }
@@ -242,48 +242,48 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         return cell
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.layer.backgroundColor = UIColor.clearColor().CGColor
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.layer.backgroundColor = UIColor.clear.cgColor
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
     }
     
-    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let table = UIView(frame: CGRectZero)
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let table = UIView(frame: CGRect.zero)
         tableView.tableFooterView = table
-        table.hidden = true
-        tableView.tableFooterView?.hidden = true
-        self.tableView.backgroundColor = UIColor.clearColor()
+        table.isHidden = true
+        tableView.tableFooterView?.isHidden = true
+        self.tableView.backgroundColor = UIColor.clear
         
         return table
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         openMainApp(nil)
     }
     
-    func openMainApp(sender: UIButton?) {
+    func openMainApp(_ sender: UIButton?) {
         if (infoText.text == "Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster."){
         }
         else{
-            let url = NSURL(fileURLWithPath: "Tajma://home")
-            self.extensionContext?.openURL(url, completionHandler: nil)
+            let url = URL(fileURLWithPath: "Tajma://home")
+            self.extensionContext?.open(url, completionHandler: nil)
         }
     }
     
     @available(iOSApplicationExtension 10.0, *)
-    func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        if activeDisplayMode == NCWidgetDisplayMode.Compact {
-            self.preferredContentSize = CGSizeMake(0.0, 200.0)
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        if activeDisplayMode == NCWidgetDisplayMode.compact {
+            self.preferredContentSize = CGSize(width: 0.0, height: 200.0)
         }
-        else if activeDisplayMode == NCWidgetDisplayMode.Expanded {
-            self.preferredContentSize = CGSizeMake(0, contentHeight())
+        else if activeDisplayMode == NCWidgetDisplayMode.expanded {
+            self.preferredContentSize = CGSize(width: 0, height: contentHeight())
         }
         
     }
@@ -293,9 +293,9 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         var error: NSError?
         if let coordinate = coordinate{
             departureService.getMyDepartures(coordinate, onSuccess: { stops -> Void in
-                dispatch_async(dispatch_get_main_queue(),{
+                DispatchQueue.main.async(execute: {
                     self.stops = stops
-                    self.preferredContentSize = CGSizeMake(0, self.contentHeight())
+                    self.preferredContentSize = CGSize(width: 0, height: self.contentHeight())
                     
                     if (stops.isEmpty){
                         if hasError{
@@ -308,13 +308,13 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                         return
                     }
                     else{
-                        self.infoText.hidden = true
+                        self.infoText.isHidden = true
                     }
                     
                     self.tableView.reloadData()
                 })
                 }, onError:{ e -> Void in
-                    dispatch_async(dispatch_get_main_queue(),{
+                    DispatchQueue.main.async(execute: {
                         hasError = true
                         error = e
                         self.display(e.domain)

@@ -1,26 +1,27 @@
 PODS:
-  - Alamofire (3.5.0)
+  - Alamofire (4.0.0)
   - SQLite.swift (0.10.1):
     - SQLite.swift/standard (= 0.10.1)
   - SQLite.swift/standard (0.10.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.4)
-  - SQLite.swift (from `https://github.com/stephencelis/SQLite.swift.git`)
+  - Alamofire (~> 4.0)
+  - SQLite.swift (from `https://github.com/stephencelis/SQLite.swift.git`, branch `swift3-mariotaku`)
 
 EXTERNAL SOURCES:
   SQLite.swift:
+    :branch: swift3-mariotaku
     :git: https://github.com/stephencelis/SQLite.swift.git
 
 CHECKOUT OPTIONS:
   SQLite.swift:
-    :commit: d06ea8147661144cb7bffc598729ea0de6ddf691
+    :commit: 8f08796afc608322797a3b699e7d2abcc3e26c0f
     :git: https://github.com/stephencelis/SQLite.swift.git
 
 SPEC CHECKSUMS:
-  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
-  SQLite.swift: 0578a150c39c9a8a0045c80430bb2d1cc586c16c
+  Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
+  SQLite.swift: c54b2cb32c2ec77cd52bc7442d05dd51b0623861
 
-PODFILE CHECKSUM: cfed1063aad065b5ff4e841ba2815890a78aeb73
+PODFILE CHECKSUM: 94749228834053d2d3407a74feb5154da1c2e017
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.2

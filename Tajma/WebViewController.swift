@@ -15,22 +15,22 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     var titleForView = ""
     
     override func viewDidLoad() {
-        let titleLabel = UILabel(frame: CGRectMake(0, 7, 200, 30))
-        titleLabel.textAlignment = NSTextAlignment.Center
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.font = titleLabel.font.fontWithSize(19)
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 7, width: 200, height: 30))
+        titleLabel.textAlignment = NSTextAlignment.center
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = titleLabel.font.withSize(19)
         titleLabel.text = titleForView
         
         let titleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
-        titleView.backgroundColor = UIColor.clearColor()
+        titleView.backgroundColor = UIColor.clear
         self.navigationItem.titleView = titleView
         titleView.addSubview(titleLabel)
         
         webView.delegate = self
         webView.scalesPageToFit = true
         
-        let requestURL = NSURL(string: url)
-        let request = NSURLRequest(URL: requestURL!)
+        let requestURL = URL(string: url)
+        let request = URLRequest(url: requestURL!)
         webView.loadRequest(request)
     }
 }

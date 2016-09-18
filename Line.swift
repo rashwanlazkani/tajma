@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-public class Line {
+open class Line {
     var id: String
     var stop = Stop()
     var stopId : String

@@ -11,13 +11,13 @@ import CoreLocation
 class StopService{
     let checkedStops = SqliteService.sharedInstance.getStops()
     
-    func getNearestStops(lat: String, long: String, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
+    func getNearestStops(_ lat: String, long: String, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.getNearestStops(lat, long: long) { jsonDic in
             guard let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]]
             // TODO: Lägg till onError
             else { return }
 
-            let stops = self.mapToStop(jsonStops).sort{$0.0.name == $0.1.name}.orderedSetValue
+            let stops = self.mapToStop(jsonStops).sorted{$0.0.name == $0.1.name}.orderedSetValue
         
             for stop in stops{
                 stop.id = StringHelper.customizeStopID(stop.id)
@@ -26,12 +26,12 @@ class StopService{
         }
     }
     
-    func getStopsByInput(name : String, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
+    func getStopsByInput(_ name : String, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
         RestApiService.sharedInstance.findStops(name) { jsonDic in
             guard let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]]
             else { return }
             
-            var stops = self.mapToStop(jsonStops).sort{$0.0.name == $0.1.name}.orderedSetValue
+            var stops = self.mapToStop(jsonStops).sorted{$0.0.name == $0.1.name}.orderedSetValue
             
             for stop in stops{
                 if (stop.id.isEmpty){
@@ -46,15 +46,15 @@ class StopService{
         }
     }
     
-    func calculateDistance(stop: Stop, lat: Double, long: Double) -> Int{
+    func calculateDistance(_ stop: Stop, lat: Double, long: Double) -> Int{
         let userLocation = CLLocation(latitude: lat, longitude: long)
         let stopLocation = CLLocation(latitude: (stop.latitude as NSString).doubleValue, longitude: (stop.longitude as NSString).doubleValue)
-        let distance = userLocation.distanceFromLocation(stopLocation)
+        let distance = userLocation.distance(from: stopLocation)
         
         return roundToFive(distance)
     }
     
-    private func mapToStop(json: [[String:AnyObject]]) -> [Stop]{
+    fileprivate func mapToStop(_ json: [[String:AnyObject]]) -> [Stop]{
         var stops = [Stop]()
 
         for stop in json {
@@ -72,7 +72,7 @@ class StopService{
         return stops
     }
     
-    private func roundToFive(x : Double) -> Int {
+    fileprivate func roundToFive(_ x : Double) -> Int {
         return 5 * Int(round(x / 5.0))
     }
 }

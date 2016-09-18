@@ -10,12 +10,12 @@ import Alamofire
 import Foundation
 import UIKit
 
-typealias ServiceResponse = (NSData, NSError?) -> Void
+typealias ServiceResponse = (Data, NSError?) -> Void
 
-class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
+class RestApiService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     static let sharedInstance = RestApiService()
 
-    func getNearestStops(lat: String, long: String, onCompletion: ([String: AnyObject]) -> Void){
+    func getNearestStops(_ lat: String, long: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
         let url = "\(Constants.restURL)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"
         
         getToken(url, isDeparture: false, onCompletion: {jsonDictionary in
@@ -23,8 +23,8 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         })
     }
     
-    func findStops(userInput: String, onCompletion: ([String: AnyObject]) -> Void){
-        let escapedUserInput = userInput.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+    func findStops(_ userInput: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
+        let escapedUserInput = userInput.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         let url = "\(Constants.restURL)location.name?input=\(escapedUserInput)&format=json"
         
         getToken(url, isDeparture: false, onCompletion: {jsonDictionary in
@@ -32,21 +32,21 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         })
     }
     
-    func findAllLinesOnStop (stopId: String, onCompletion: ([String: AnyObject]) -> Void){
-        var date = NSDate()
-        let dateFormattera = NSDateFormatter()
+    func findAllLinesOnStop (_ stopId: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
+        var date = Date()
+        let dateFormattera = DateFormatter()
         dateFormattera.dateFormat = "EEEE"
         
-        let formatterTime = NSDateFormatter()
-        formatterTime.timeStyle = .ShortStyle //Set style of time
+        let formatterTime = DateFormatter()
+        formatterTime.timeStyle = .short //Set style of time
         formatterTime.dateFormat = "HH:mm"
         
-        let formatterDate = NSDateFormatter()
-        formatterDate.dateStyle = .ShortStyle //Set style of date
+        let formatterDate = DateFormatter()
+        formatterDate.dateStyle = .short //Set style of date
         formatterDate.dateFormat = "yyyy-MM-dd"
         
-        let dateString = formatterDate.stringFromDate(date) //Convert to String
-        let timeString = formatterTime.stringFromDate(date)
+        let dateString = formatterDate.string(from: date) //Convert to String
+        let timeString = formatterTime.string(from: date)
         var url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
         // here we wnt to get the stops so departure is true
         getToken(url, isDeparture: true, onCompletion: {jsonDictionary in
@@ -54,9 +54,9 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                 else { return }
             
             if jsonStops.count == 0{
-                var dateString = formatterDate.stringFromDate(date)
-                date = DateHelper.get(DateHelper.SearchDirection.Next, "Monday")
-                dateString = formatterDate.stringFromDate(date)
+                var dateString = formatterDate.string(from: date)
+                date = DateHelper.get(DateHelper.SearchDirection.next, "Monday")
+                dateString = formatterDate.string(from: date)
                 
                 url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
                 //okdo you need to pass on completion if it isDeparture? I think would be easier to detect the key
@@ -72,23 +72,23 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         })
     }
     
-    func getDeparturesAtStop (stopId: String, onCompletion: ([String: AnyObject]) -> Void){
-        let date = NSDate()
-        let dateFormattera = NSDateFormatter()
+    func getDeparturesAtStop (_ stopId: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
+        let date = Date()
+        let dateFormattera = DateFormatter()
         dateFormattera.dateFormat = "EEEE"
         
-        let formatterTime = NSDateFormatter()
-        formatterTime.timeStyle = .ShortStyle //Set style of time
+        let formatterTime = DateFormatter()
+        formatterTime.timeStyle = .short //Set style of time
         formatterTime.dateFormat = "HH:mm"
         
-        let formatterDate = NSDateFormatter()
-        formatterDate.dateStyle = .ShortStyle //Set style of date
+        let formatterDate = DateFormatter()
+        formatterDate.dateStyle = .short //Set style of date
         formatterDate.dateFormat = "yyyy-MM-dd"
         
-        let dateString = formatterDate.stringFromDate(date) //Convert to String
-        let timeString = formatterTime.stringFromDate(date)
+        let dateString = formatterDate.string(from: date) //Convert to String
+        let timeString = formatterTime.string(from: date)
         
-        let escapedString = timeString.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+        let escapedString = timeString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         
         let url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(escapedString)&timeSpan=60&maxDeparturesPerLine=2&format=json"
         
@@ -99,22 +99,22 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
         
     }
     
-    private func addDays(date: NSDate, additionalDays: Int) -> NSDate {
-        let components = NSDateComponents()
+    fileprivate func addDays(_ date: Date, additionalDays: Int) -> Date {
+        var components = DateComponents()
         components.day = additionalDays
         
-        let futureDate = NSCalendar.currentCalendar()
-            .dateByAddingComponents(components, toDate: date, options: NSCalendarOptions(rawValue: 0))
+        let futureDate = (Calendar.current as NSCalendar)
+            .date(byAdding: components, to: date, options: NSCalendar.Options(rawValue: 0))
         return futureDate!
     }
     
-    private func getToken(url: String, isDeparture: Bool = true, onCompletion: ([String: AnyObject]) -> Void){
-        let data = ("\(Constants.key):\(Constants.secret)").dataUsingEncoding(NSUTF8StringEncoding)
-        let base64 = data!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+    fileprivate func getToken(_ url: String, isDeparture: Bool = true, onCompletion: @escaping ([String: AnyObject]) -> Void){
+        let data = ("\(Constants.key):\(Constants.secret)").data(using: String.Encoding.utf8)
+        let base64 = data!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         
         let parameters = [
             "grant_type": "client_credentials",
-            "scope": "\(UIDevice.currentDevice().identifierForVendor!.UUIDString)"
+            "scope": "\(UIDevice.current.identifierForVendor!.uuidString)"
         ]
         
         let headers = [
@@ -122,25 +122,24 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
             "Content-Type": "application/x-www-form-urlencoded"
         ]
 
-        Alamofire.request(.POST, Constants.tokenURL, parameters: parameters, headers: headers, encoding: .URLEncodedInURL)
+        Alamofire.request(Constants.tokenURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers)
             .responseJSON { response in
-                if let json = response.result.value {
-                    if let token = json["access_token"]!{
-
+                if let json = response.result.value as? [String: AnyObject]{
+                    if let token = json["access_token"]{
                         let headers = [
                             "Authorization": "Bearer \(token)",
                             "Content-Type": "application/x-www-form-urlencoded"
                         ]
                         
-                        Alamofire.request(.GET, url, headers: headers, encoding: .JSON)
+                        Alamofire.request(url, method: .get, encoding: JSONEncoding.default, headers: headers)
                             .responseJSON { response in
                                 switch response.result {
-                                case .Success:
+                                case .success:
                                     guard let keys = response.data?.json.dictionary?.keys else { return }
-                                    let keysArray = keys.map{String($0) }
+                                    _ = keys.map{String($0) }
                                     //print("keys:",keysArray)
                                     //print("LoopLoop")
-                                    for k in keys {
+                                    for _ in keys {
                                         //print(k)
                                     }
 //                                   print("data:\n", response.data?.json.dictionary?["LocationList"] )
@@ -163,7 +162,7 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
                                         print("failed with returning dic:")
                                         return
                                     }
-                                case .Failure(let error):
+                                case .failure(let error):
                                     print(error)
                                     //onCompletion(error)
                                 }
@@ -177,13 +176,13 @@ class RestApiService: NSObject, NSURLSessionDelegate, NSURLSessionDataDelegate {
     }
 }
 
-extension NSData {
+extension Data {
     var string: String {
-        return String(data: self, encoding: NSUTF8StringEncoding) ?? ""
+        return String(data: self, encoding: String.Encoding.utf8) ?? ""
     }
     var json: (dictionary: [String: AnyObject]?, array: [AnyObject]?) {
         do {
-            let jsonObject = try NSJSONSerialization.JSONObjectWithData(self, options: .AllowFragments)
+            let jsonObject = try JSONSerialization.jsonObject(with: self, options: .allowFragments)
             return (jsonObject as? [String: AnyObject], jsonObject as? [AnyObject])
         } catch let error as NSError {
             print("JSONSerialization error")

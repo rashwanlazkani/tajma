@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '8.0'
+platform :ios, '9.0'
 # Uncomment this line if you're using Swift
 use_frameworks!
 
@@ -12,13 +12,13 @@ post_install do |installer|
 end
 
 target 'Tajma' do
-pod 'SQLite.swift',
-  git: 'https://github.com/stephencelis/SQLite.swift.git'
-  pod 'Alamofire', '~> 3.4'
+pod 'SQLite.swift', :git => 'https://github.com/stephencelis/SQLite.swift.git',
+       :branch => 'swift3-mariotaku'
+  pod 'Alamofire', '~> 4.0'
 end
 
 target 'TajmaToday' do
-pod 'SQLite.swift',
-  git: 'https://github.com/stephencelis/SQLite.swift.git'
-  pod 'Alamofire', '~> 3.4'
+pod 'SQLite.swift', :git => 'https://github.com/stephencelis/SQLite.swift.git',
+       :branch => 'swift3-mariotaku'
+  pod 'Alamofire', '~> 4.0'
 end
