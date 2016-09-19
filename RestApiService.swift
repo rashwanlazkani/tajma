@@ -134,7 +134,7 @@ class RestApiService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
                         Alamofire.request(url, method: .get, encoding: JSONEncoding.default, headers: headers)
                             .responseJSON { response in
                                 switch response.result {
-                                case .success:
+                                case .success:  
                                     guard let keys = response.data?.json.dictionary?.keys else { return }
                                     _ = keys.map{String($0) }
                                     //print("keys:",keysArray)

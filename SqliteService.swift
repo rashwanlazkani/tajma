@@ -100,9 +100,9 @@ class SqliteService {
         if !dbExists {
             UserDefaults(suiteName: "group.tajma.today")!.set(true, forKey: "DbExists")
             
-            try! db.run("CREATE TABLE 'Stops' ('id' VARCHAR NOT NULL  UNIQUE, 'name' VARCHAR, 'lat' VARCHAR, 'long' VARCHAR)")
+            _ = try! db.run("CREATE TABLE 'Stops' ('id' VARCHAR NOT NULL  UNIQUE, 'name' VARCHAR, 'lat' VARCHAR, 'long' VARCHAR)")
             
-            try! db.run("CREATE TABLE 'Lines' ('id' VARCHAR NOT NULL, 'stopId' VARCHAR NOT NULL, 'name' VARCHAR NOT NULL, 'sname' VARCHAR NOT NULL,  'direction' VARCHAR NOT NULL, 'lineAndDirection' VARCHAR, 'type' VARCHAR, 'track' VARCHAR NOT NULL, 'bgColor' VARCHAR, 'fgColor' VARCHAR)")
+            _ = try! db.run("CREATE TABLE 'Lines' ('id' VARCHAR NOT NULL, 'stopId' VARCHAR NOT NULL, 'name' VARCHAR NOT NULL, 'sname' VARCHAR NOT NULL,  'direction' VARCHAR NOT NULL, 'lineAndDirection' VARCHAR, 'type' VARCHAR, 'track' VARCHAR NOT NULL, 'bgColor' VARCHAR, 'fgColor' VARCHAR)")
         }
     }
 }

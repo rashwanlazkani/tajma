@@ -47,8 +47,8 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         let title = UILabel(frame: CGRect(x: 0, y: 7, width: 200, height: 30))
         title.textAlignment = NSTextAlignment.center
         title.textColor = UIColor.white
-        title.font = title.font.withSize(19)
         title.text = stop.name.components(separatedBy: ",").first
+        title.font = UIFont.boldSystemFont(ofSize: 20)
         
         let titleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
         titleView.backgroundColor = UIColor.clear
