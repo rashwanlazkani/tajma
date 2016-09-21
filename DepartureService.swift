@@ -109,13 +109,12 @@ open class DepartureService {
                     stop.lines = lines
                     closestStops.append(stop)
                 }, onError:{ error -> Void in defer { group.leave() }
-                    //dispatch_group_leave(group)
+
                     return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000004)", code: 4, userInfo: nil))
                 })
             }
         }
         
-        //dispatch_group_wait(group, DISPATCH_TIME_FOREVER)
         group.notify(queue: DispatchQueue.main, execute: {
             onSuccess(closestStops.sorted(by: { $0.distance < $1.distance}))
         })
@@ -125,9 +124,3 @@ open class DepartureService {
        return sname.replacingOccurrences(of: "SVAR", with: "SVART")
     }
 }
-
-//extension NSData {
-//    var serverDate: NSDate? {
-//        return Formatter.instance.dateFromString("\(self["DepartureBoard"]["serverdate"]) \(self["DepartureBoard"]["servertime"])")
-//    }
-//}

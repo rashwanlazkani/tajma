@@ -6,8 +6,6 @@
 //  Copyright © 2015 Rashwan Lazkani. All rights reserved.
 //
 
-// Singleton class
-
 import Foundation
 import SQLite
 
