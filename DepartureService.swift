@@ -80,8 +80,8 @@ open class DepartureService {
                 
                 
                 
-                guard let departureTime = Formatter.instance.date(from: dateTime) else { continue }
-                guard let serverTime = Formatter.instance.date(from: serverDateTime) else { continue }
+                guard let departureTime = DateAndTimeFormat.instance.date(from: dateTime) else { continue }
+                guard let serverTime = DateAndTimeFormat.instance.date(from: serverDateTime) else { continue }
                 let intervalBetweenDepartures = Int(departureTime.timeIntervalSince(serverTime) / 60) - 1
                 
                 line!.departures.times.append(intervalBetweenDepartures)
@@ -131,14 +131,3 @@ open class DepartureService {
 //        return Formatter.instance.dateFromString("\(self["DepartureBoard"]["serverdate"]) \(self["DepartureBoard"]["servertime"])")
 //    }
 //}
-
-struct Formatter {
-    static let instance = DateFormatter(dateFormat: "yyyy-MM-dd HH:mm")
-}
-
-extension DateFormatter {
-    convenience init(dateFormat: String) {
-        self.init()
-        self.dateFormat = dateFormat
-    }
-}
