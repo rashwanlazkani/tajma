@@ -8,6 +8,7 @@
 
 import ImageIO
 import UIKit
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -17,6 +18,85 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   default:
     return false
   }
+}
+
+extension Date {
+    func DateFormat() -> String {
+        return DateFormatter.Date.string(from: self)
+    }
+    
+    func DateAndTimeFormat() -> String {
+        return DateFormatter.DateAndTime.string(from: self)
+    }
+    
+    func TimeFormat() -> String{
+        return DateFormatter.Time.string(from: self)
+    }
+}
+
+extension DateFormatter {
+    @nonobjc static let Date: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+    @nonobjc static let DateAndTime: DateFormatter = {
+        let formatter = DateFormatter()
+        let timeZone = NSTimeZone(name:"UTC")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.timeZone = timeZone as TimeZone!
+        return formatter
+    }()
+    @nonobjc static let Time: DateFormatter = {
+        let formatter = DateFormatter()
+        let timeZone = NSTimeZone(name:"UTC+02:00")
+        formatter.dateFormat = "HH:mm"
+        formatter.timeZone = timeZone as TimeZone!
+        return formatter
+    }()
+}
+
+struct DateAndTimeFormat {
+    static let instance = DateFormatter(dateFormat: "yyyy-MM-dd HH:mm")
+}
+
+
+struct DateFormat {
+    static let instance = DateFormatter(dateFormat: "yyyy-MM-dd")
+}
+
+struct TimeFormat {
+    static let instance = DateFormatter(dateFormat: "HH:mm")
+}
+
+extension DateFormatter {
+    convenience init(dateFormat: String) {
+        self.init()
+        self.dateFormat = dateFormat
+    }
+}
+//
+extension Date{
+    var currentToString: String{
+        return String(describing: Date())
+    }
+}
+
+extension Data {
+    var string: String {
+        return String(data: self, encoding: String.Encoding.utf8) ?? ""
+    }
+    var json: (dictionary: [String: AnyObject]?, array: [AnyObject]?) {
+        do {
+            let jsonObject = try JSONSerialization.jsonObject(with: self, options: .allowFragments)
+            return (jsonObject as? [String: AnyObject], jsonObject as? [AnyObject])
+        } catch let error as NSError {
+            print("JSONSerialization error")
+            print("error.code = ",error.code)
+            print("error.domain = ",error.domain)
+            return (nil,nil)
+        }
+    }
 }
 
 
