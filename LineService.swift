@@ -20,24 +20,32 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 open class LineService{
-    func getAllLinesAtStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: (NSError) -> Void){
+    func getAllLinesAtStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
         RestApiService.sharedInstance.findAllLinesOnStop(stopId) { jsonDictionary in
             let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
             
-            guard let jsonLines = jsonDictionary["Departure"] as? [[String:AnyObject]] else {return}
+            guard let jsonLines = jsonDictionary["Departure"] as? [[String:AnyObject]] else {return onError(NSError(domain: "Inga stopp kunde hittas", code: 1, userInfo: nil))}
+            print(jsonLines)
             var lines = [Line]()
             
-            for line in jsonLines{
-                guard let name = line["name"] as? String,
-                    let sname = line["sname"] as? String,
-                    let direction = line["direction"] as? String,
-                    let type = line["type"] as? String,
-                    let track = line["track"] as? String,
-                    let fgColor  = line["fgColor"] as? String,
-                    let bgColor  = line["bgColor"] as? String
+            for json in jsonLines{
+                var line = Line()
+                
+                guard let name = json["name"] as? String,
+                    let sname = json["sname"] as? String,
+                    let direction = json["direction"] as? String,
+                    let type = json["type"] as? String,
+                    let fgColor  = json["fgColor"] as? String,
+                    let bgColor  = json["bgColor"] as? String
                 else { continue }
                 
-                var line = Line()
+                if type != "VAS"{
+                    guard let track = json["track"] as? String else { continue }
+                    line.track = track
+                }
+                else{
+                    line.track = "VAS"
+                }
                 
                 let id = "\(stopId)-\(sname)-\(direction)"
                 
@@ -52,7 +60,7 @@ open class LineService{
                     line.sname = sname
                     line.direction = direction
                     line.type = type
-                    line.track = track
+                    //line.track = track
                     line.fgColor = fgColor
                     line.bgColor = bgColor
                     line.lineAndDirection = "\(line.sname) \(line.direction)"
