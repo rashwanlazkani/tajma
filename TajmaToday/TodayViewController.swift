@@ -29,6 +29,14 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             return
         }
         
+        self.preferredContentSize = CGSize(width: 0, height: 200)
+        
+        if #available(iOSApplicationExtension 10.0, *) {
+            self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        } else {
+            // Fallback on earlier versions
+        }
+        
         SqliteService.sharedInstance.updateOptionals()
         
         infoText.isUserInteractionEnabled = true
@@ -175,6 +183,9 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         for view in cell.subviews{
             view.removeFromSuperview()
         }
+        
+        
+
         
         let mainLabel = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceHelper.labelWidth() - 30, height: 30))
         mainLabel.font = mainLabel.font.withSize(14)
