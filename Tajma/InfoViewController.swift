@@ -30,7 +30,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         tableView.delegate = self
         tableView.dataSource = self
         
-        items = ["Lämna feedback","Gilla oss på Facebook","Tipsa en vän", "Betygsätt Tajma", "Guide: Så här kommer du igång", "Vanliga frågor", "Om oss"]
+        items = ["Lämna feedback","Tajma på Facebook","Tipsa en vän", "Betygsätt Tajma", "Guide: Så här kommer du igång", "Vanliga frågor", "Om oss"]
     }
     
     override func willMove(toParentViewController parent: UIViewController?) {
@@ -53,7 +53,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         title.textAlignment = NSTextAlignment.center
         title.textColor = UIColor.white
         title.font = title.font.withSize(19)
-        title.text = "Information"
+        title.text = "Tajma"
         
         let navBarTitleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
         navBarTitleView.backgroundColor = UIColor.clear
@@ -192,7 +192,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any!){
         if (segue.identifier == "ShowWebView"){
             let web = segue.destination as! WebViewController
-            web.url = String(describing: sender)
+            web.url = String(describing: sender!)
             
             if String(describing: sender) == "http://www.tajma.about.golazo.nu"{
                 web.titleForView = "Om oss"
