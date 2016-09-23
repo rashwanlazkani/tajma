@@ -17,6 +17,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     var lineService = LineService()
     let locationManager = CLLocationManager()
     var grayColor = UIColor.darkGray
+    var grayColorOpacity = UIColor.darkGray
+    var separatorColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.1)
     
     var stops = [Stop]()
     var coordinate: CLLocationCoordinate2D?
@@ -24,19 +26,27 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if Reachability.isConnectedToNetwork() != true {
+        if #available(iOS 10.0, *) {
+            grayColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
+            grayColorOpacity = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.7)
+            separatorColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.1)
+            infoText.textColor = grayColorOpacity
+            infoText.frame = CGRect(x: 15, y: 15, width: 400, height: 100)
+        } else {
+            grayColor = UIColor.white
+            grayColorOpacity = UIColor.lightGray
+            separatorColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
+            infoText.textColor = UIColor.white
+            
+            self.preferredContentSize = CGSize(width: 0, height: 60)
+        }
+        
+        if !Reachability.isConnectedToNetwork() {
+            locationManager.stopUpdatingLocation()
             display("Ingen anslutning, försök igen.")
             return
         }
-        
-        self.preferredContentSize = CGSize(width: 0, height: 200)
-        
-        if #available(iOSApplicationExtension 10.0, *) {
-            self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        } else {
-            // Fallback on earlier versions
-        }
-        
+
         SqliteService.sharedInstance.updateOptionals()
         
         infoText.isUserInteractionEnabled = true
@@ -62,12 +72,22 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         super.viewWillAppear(true)
         
         if #available(iOS 10.0, *) {
-            grayColor = UIColor.darkGray
+            grayColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
+            grayColorOpacity = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.7)
+            separatorColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.1)
+            infoText.textColor = grayColorOpacity
+            infoText.frame = CGRect(x: 15, y: 15, width: 400, height: 100)
         } else {
-            grayColor = UIColor.lightGray
+            grayColor = UIColor.white
+            grayColorOpacity = UIColor.lightGray
+            separatorColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
+            infoText.textColor = UIColor.white
+            
+            self.preferredContentSize = CGSize(width: 0, height: 60)
         }
-
-        if Reachability.isConnectedToNetwork() != true {
+        
+        if !Reachability.isConnectedToNetwork() {
+            locationManager.stopUpdatingLocation()
             display("Ingen anslutning, försök igen.")
             return
         }
@@ -116,7 +136,11 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     func display(_ message: String){
-        preferredContentSize = CGSize(width: 0, height: 60)
+        if #available(iOSApplicationExtension 10.0, *) {
+            self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        } else {
+            preferredContentSize = CGSize(width: 0, height: 60)
+        }
         if (message == self.infoText.text){
             return
         }
@@ -141,7 +165,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return ("\(stops[section].name) \(stops[section].distance)m")
     }
-    
+
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = UIColor.clear
@@ -149,15 +173,16 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         
-        let name = UILabel(frame: CGRect(x: 8, y: 15, width: DeviceHelper.getLabelWidth(), height: 30))
+        
+        let name = UILabel(frame: CGRect(x: 15, y: 15, width: DeviceHelper.getLabelWidth(), height: 30))
         name.font = name.font.withSize(14)
-        name.textColor = grayColor
+        name.textColor = grayColorOpacity //grayColor
         
         name.text = stops[section].name.components(separatedBy: ",")[0]
         
-        let distance = UILabel(frame: CGRect(x: tableView.bounds.width - 110, y: 15, width: 100, height: 30))
+        let distance = UILabel(frame: CGRect(x: tableView.bounds.width - 110, y: 15, width: 95, height: 30))
         distance.font = distance.font.withSize(14)
-        distance.textColor = grayColor
+        distance.textColor = grayColorOpacity //grayColor
         distance.textAlignment = .right
         
         if let d = stops[section].distance{
@@ -168,7 +193,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         }
         
         let separator = UIView(frame: CGRect(x: 0, y: 45, width: tableView.frame.width, height: 1))
-        separator.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
+        separator.backgroundColor = separatorColor
         
         view.addSubview(separator)
         view.addSubview(name)
@@ -184,10 +209,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             view.removeFromSuperview()
         }
         
-        
-
-        
-        let mainLabel = UILabel(frame: CGRect(x: 8, y: 4, width: DeviceHelper.labelWidth() - 30, height: 30))
+        let mainLabel = UILabel(frame: CGRect(x: 15, y: 4, width: DeviceHelper.labelWidth() - 30, height: 30))
         mainLabel.font = mainLabel.font.withSize(14)
         let rightOne = UILabel(frame: CGRect(x: tableView.bounds.width - 150, y: 4, width: 100, height: 30))
         rightOne.font = rightOne.font.withSize(14)
@@ -197,22 +219,22 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         let currentStop = stops[(indexPath as NSIndexPath).section]
         if (currentStop.lines.isEmpty) {
             mainLabel.text = "Inga avgångar hittades"
-            mainLabel.textColor = UIColor.white
+            mainLabel.textColor = grayColor//UIColor.white
             cell.addSubview(mainLabel)
             return cell
         }
         
         let currentLine = currentStop.lines[(indexPath as NSIndexPath).row]
         
-        rightOne.frame = CGRect(x: tableView.bounds.width - 75, y: 4, width: 30, height: 30)
-        rightOne.textColor = UIColor.white
+        rightOne.frame = CGRect(x: tableView.bounds.width - 75, y: 4, width: 25, height: 30)
+        rightOne.textColor = grayColor//UIColor.white
         rightOne.font = rightOne.font.withSize(14)
         rightOne.textAlignment = .right
-        rightTwo.frame = CGRect(x: tableView.bounds.width - 35, y: 4, width: 25, height: 30)
-        rightTwo.textColor = grayColor
+        rightTwo.frame = CGRect(x: tableView.bounds.width - 35, y: 4, width: 20, height: 30)
+        rightTwo.textColor = grayColorOpacity //grayColor
         rightTwo.font = rightTwo.font.withSize(14)
         rightTwo.textAlignment = .right
-        mainLabel.textColor = UIColor.white
+        mainLabel.textColor = grayColor //UIColor.white
         mainLabel.text = ("\(currentLine.sname) \(currentLine.direction)")
         
         for (index, time) in currentLine.departures.times.enumerated(){
@@ -241,9 +263,13 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         }
         
         let separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
-        separatorView.backgroundColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.1)
+        separatorView.backgroundColor = separatorColor
         
-        cell.addSubview(separatorView)
+        let totalRow = tableView.numberOfRows(inSection: indexPath.section)
+        if indexPath.row != totalRow - 1 {
+            cell.addSubview(separatorView)
+        }
+        
         cell.addSubview(mainLabel)
         cell.addSubview(rightOne)
         cell.addSubview(rightTwo)
@@ -272,6 +298,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         tableView.tableFooterView?.isHidden = true
         self.tableView.backgroundColor = UIColor.clear
         
+        table.backgroundColor = UIColor.green
+        
         return table
     }
     
@@ -291,7 +319,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == NCWidgetDisplayMode.compact {
-            self.preferredContentSize = CGSize(width: 0.0, height: 200.0)
+            self.preferredContentSize = CGSize(width: 0.0, height: 300.0)
         }
         else if activeDisplayMode == NCWidgetDisplayMode.expanded {
             self.preferredContentSize = CGSize(width: 0, height: contentHeight())
@@ -306,6 +334,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             departureService.getMyDepartures(coordinate, onSuccess: { stops -> Void in
                 DispatchQueue.main.async(execute: {
                     self.stops = stops
+
                     self.preferredContentSize = CGSize(width: 0, height: self.contentHeight())
                     
                     if (stops.isEmpty){
@@ -322,6 +351,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                         self.infoText.isHidden = true
                     }
                     
+                    self.locationManager.stopUpdatingLocation()
                     self.tableView.reloadData()
                 })
                 }, onError:{ e -> Void in
@@ -338,7 +368,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         }
         else{
             tableView.reloadData()
-            display("Kunde inte hämta din position")
+            display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         }
     }
     
