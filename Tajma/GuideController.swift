@@ -91,7 +91,7 @@ class GuideController: UIViewController{
             button2.layer.borderWidth = 2
             button2.layer.cornerRadius = 22
             button2.setTitle(" Visa mig  ", for: UIControlState())
-            button2.addTarget(self, action: #selector(getter: next), for: .touchUpInside)
+            button2.addTarget(self, action: #selector(GuideController.next as (GuideController) -> () -> ()), for: .touchUpInside)
             button2.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             button2.titleLabel!.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             button2.imageView!.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
@@ -111,7 +111,7 @@ class GuideController: UIViewController{
             button1.backgroundColor = UIColor.white
             
             button2.setTitle("Nästa  ", for: UIControlState())
-            button2.addTarget(self, action: #selector(getter: next), for: .touchUpInside)
+            button2.addTarget(self, action: #selector(GuideController.next as (GuideController) -> () -> ()), for: .touchUpInside)
             
             button2.setImage(UIImage(named: "right"), for: UIControlState())
             button2.backgroundColor = UIColor.white
