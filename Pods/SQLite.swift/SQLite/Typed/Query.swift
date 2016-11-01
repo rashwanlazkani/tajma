@@ -221,7 +221,7 @@ extension QueryType {
     ///
     /// - Returns: A query with the given `JOIN` clause applied.
     public func join(_ table: QueryType, on condition: Expression<Bool?>) -> Self {
-        return join(.Inner, table, on: condition)
+        return join(.inner, table, on: condition)
     }
 
     /// Adds a `JOIN` clause to the query.
@@ -401,7 +401,7 @@ extension QueryType {
     public func order(_ by: Expressible...) -> Self {
         return order(by)
     }
-    
+
     /// Sets an `ORDER BY` clause on the query.
     ///
     ///     let users = Table("users")
@@ -886,7 +886,7 @@ extension Connection {
 
         let columnNames: [String: Int] = try {
             var (columnNames, idx) = ([String: Int](), 0)
-            column: for each in query.clauses.select.columns ?? [Expression<Void>(literal: "*")] {
+            column: for each in query.clauses.select.columns {
                 var names = each.expression.template.characters.split { $0 == "." }.map(String.init)
                 let column = names.removeLast()
                 let namespace = names.joined(separator: ".")
@@ -971,7 +971,7 @@ extension Connection {
     public func run(_ query: Insert) throws -> Int64 {
         let expression = query.expression
         return try sync {
-            _ = try self.run(expression.template, expression.bindings)
+            try self.run(expression.template, expression.bindings)
             return self.lastInsertRowid!
         }
     }
@@ -987,7 +987,7 @@ extension Connection {
     public func run(_ query: Update) throws -> Int {
         let expression = query.expression
         return try sync {
-            _ = try self.run(expression.template, expression.bindings)
+            try self.run(expression.template, expression.bindings)
             return self.changes
         }
     }
@@ -1002,7 +1002,7 @@ extension Connection {
     public func run(_ query: Delete) throws -> Int {
         let expression = query.expression
         return try sync {
-            _ = try self.run(expression.template, expression.bindings)
+            try self.run(expression.template, expression.bindings)
             return self.changes
         }
     }
@@ -1100,28 +1100,28 @@ public struct Row {
 public enum JoinType : String {
 
     /// A `CROSS` join.
-    case Cross = "CROSS"
+    case cross = "CROSS"
 
     /// An `INNER` join.
-    case Inner = "INNER"
+    case inner = "INNER"
 
     /// A `LEFT OUTER` join.
-    case LeftOuter = "LEFT OUTER"
+    case leftOuter = "LEFT OUTER"
 
 }
 
 /// ON CONFLICT resolutions.
 public enum OnConflict: String {
 
-    case Replace = "REPLACE"
+    case replace = "REPLACE"
 
-    case Rollback = "ROLLBACK"
+    case rollback = "ROLLBACK"
 
-    case Abort = "ABORT"
+    case abort = "ABORT"
 
-    case Fail = "FAIL"
+    case fail = "FAIL"
 
-    case Ignore = "IGNORE"
+    case ignore = "IGNORE"
 
 }
 

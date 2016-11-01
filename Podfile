@@ -12,13 +12,11 @@ post_install do |installer|
 end
 
 target 'Tajma' do
-pod 'SQLite.swift', :git => 'https://github.com/stephencelis/SQLite.swift.git',
-       :branch => 'swift3-mariotaku'
+pod 'SQLite.swift'
   pod 'Alamofire', '~> 4.0'
 end
 
 target 'TajmaToday' do
-pod 'SQLite.swift', :git => 'https://github.com/stephencelis/SQLite.swift.git',
-       :branch => 'swift3-mariotaku'
+pod 'SQLite.swift'
   pod 'Alamofire', '~> 4.0'
 end
