@@ -39,7 +39,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func initiateViews(){
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         self.navigationController?.navigationBar.isTranslucent = false
@@ -92,7 +92,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func updateMyLines(){
-        stop.lines = SqliteService.sharedInstance.getLinesAtStop(stop.id)
+        stop.lines = DbService.sharedInstance.getLinesAtStop(stop.id)
         tableView.reloadData()
     }
     
@@ -173,16 +173,24 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         let currentLine = lines[(indexPath as NSIndexPath).row]
         currentLine.stopId = stop.id
         if (stop.lines.filter({$0.id == currentLine.id}).isEmpty){
-            SqliteService.sharedInstance.addLine(currentLine, stop: stop)
+            DbService.sharedInstance.addLine(currentLine, stop: stop)
         }
         else{
-            SqliteService.sharedInstance.removeLine(currentLine, stopId: stop.id)
+            DbService.sharedInstance.removeLine(currentLine, stopId: stop.id)
         }
         updateMyLines()
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         activityIndicator.stopAnimating()
+        
+//        if indexPath.row <= 0 && indexPath.section == 0 {
+//            self.navigationController?.hidesBarsOnSwipe = false
+//            self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        }
+//        else {
+//            self.navigationController?.hidesBarsOnSwipe = true
+//        }
     }
 
     override func didReceiveMemoryWarning() {

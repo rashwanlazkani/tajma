@@ -47,7 +47,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             return
         }
 
-        SqliteService.sharedInstance.updateOptionals()
+        DbService.sharedInstance.updateOptionals()
         
         infoText.isUserInteractionEnabled = true
         let aSelector : Selector = #selector(lblTapped)
@@ -62,6 +62,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.distanceFilter = kCLLocationAccuracyBest
         }
         else{
             display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
@@ -308,9 +309,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     func openMainApp(_ sender: UIButton?) {
-        if (infoText.text == "Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster."){
-        }
-        else{
+        if (infoText.text != "Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster."){
             let url = URL(fileURLWithPath: "Tajma://home")
             self.extensionContext?.open(url, completionHandler: nil)
         }

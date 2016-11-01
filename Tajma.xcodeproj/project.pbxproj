@@ -18,19 +18,17 @@
 		F80667601B1E5CA100A26B5D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */; };
 		F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F80667561B1E5CA100A26B5D /* TajmaToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
-		F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
+		F806676D1B1E5D7200A26B5D /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* ApiService.swift */; };
 		F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
 		F80667721B1E5D7900A26B5D /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* Departure.swift */; };
 		F80667751B1E5D7900A26B5D /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
 		F80667781B1E5D7900A26B5D /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
 		F806677F1B1E5DC600A26B5D /* DepartureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806677E1B1E5DC600A26B5D /* DepartureService.swift */; };
-		F807230C1BE290BA00749E76 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807230B1BE290BA00749E76 /* Status.swift */; };
-		F807230D1BE2917E00749E76 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = F807230B1BE290BA00749E76 /* Status.swift */; };
 		F818619F1B41D52A005DDA3A /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceHelper.swift */; };
 		F81861A01B41D52A005DDA3A /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceHelper.swift */; };
 		F81D4E791C5EBB3F0024B798 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81D4E781C5EBB3F0024B798 /* WebViewController.swift */; };
-		F82CB0841BD25B2C0015D3C5 /* SqliteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */; };
-		F82CB0851BD25B2C0015D3C5 /* SqliteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */; };
+		F82CB0841BD25B2C0015D3C5 /* DbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* DbService.swift */; };
+		F82CB0851BD25B2C0015D3C5 /* DbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* DbService.swift */; };
 		F82D34171C0A552000E03703 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82D34161C0A552000E03703 /* DateHelper.swift */; };
 		F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A21B1B04C2008F4505 /* AppDelegate.swift */; };
 		F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */; };
@@ -45,11 +43,9 @@
 		F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
 		F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
 		F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
-		F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* RestApiService.swift */; };
+		F87AFE8D1B1B906400D3DAFC /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* ApiService.swift */; };
 		F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
 		F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */; };
-		F88F545C1B38AB3000F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
-		F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F545B1B38AB3000F0D402 /* Row.swift */; };
 		F891B7C71C5572D600A00F15 /* tajma-gif-1.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C41C5572D600A00F15 /* tajma-gif-1.gif */; };
 		F891B7C81C5572D600A00F15 /* tajma-gif-2.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C51C5572D600A00F15 /* tajma-gif-2.gif */; };
 		F891B7C91C5572D600A00F15 /* tajma-gif-3.gif in Resources */ = {isa = PBXBuildFile; fileRef = F891B7C61C5572D600A00F15 /* tajma-gif-3.gif */; };
@@ -116,10 +112,9 @@
 		F80667681B1E5CBA00A26B5D /* TajmaToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TajmaToday.entitlements; sourceTree = "<group>"; };
 		F806676A1B1E5D2200A26B5D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F806677E1B1E5DC600A26B5D /* DepartureService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepartureService.swift; sourceTree = "<group>"; };
-		F807230B1BE290BA00749E76 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		F818619E1B41D52A005DDA3A /* DeviceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
 		F81D4E781C5EBB3F0024B798 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqliteService.swift; sourceTree = "<group>"; };
+		F82CB0831BD25B2C0015D3C5 /* DbService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DbService.swift; sourceTree = "<group>"; };
 		F82D34161C0A552000E03703 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		F843A39D1B1B04C2008F4505 /* Tajma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tajma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F843A3A11B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -144,12 +139,11 @@
 		F87AFE781B1B903F00D3DAFC /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		F87AFE7C1B1B903F00D3DAFC /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		F87AFE881B1B906400D3DAFC /* LineService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineService.swift; sourceTree = "<group>"; };
-		F87AFE891B1B906400D3DAFC /* RestApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiService.swift; sourceTree = "<group>"; };
+		F87AFE891B1B906400D3DAFC /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		F87AFE8A1B1B906400D3DAFC /* StopService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopService.swift; sourceTree = "<group>"; };
 		F87AFE901B1B90AB00D3DAFC /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F87AFE931B1B930700D3DAFC /* Tajma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tajma.entitlements; sourceTree = "<group>"; };
 		F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateMyApp.swift; sourceTree = "<group>"; };
-		F88F545B1B38AB3000F0D402 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 		F891B7C41C5572D600A00F15 /* tajma-gif-1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-1.gif"; sourceTree = "<group>"; };
 		F891B7C51C5572D600A00F15 /* tajma-gif-2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-2.gif"; sourceTree = "<group>"; };
 		F891B7C61C5572D600A00F15 /* tajma-gif-3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-3.gif"; sourceTree = "<group>"; };
@@ -184,14 +178,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6BB802331D7D227A003506C2 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				6BB802341D7D2289003506C2 /* Extensions.swift */,
-			);
-			name = Extensions;
-			sourceTree = "<group>";
-		};
 		E1BA6055E6B616253A92F501 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,12 +192,13 @@
 		F806674F1B1D156E00A26B5D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				F818619E1B41D52A005DDA3A /* DeviceHelper.swift */,
 				F8D853C81BE12F2C00E2C1E2 /* Constants.swift */,
+				F82D34161C0A552000E03703 /* DateHelper.swift */,
+				F818619E1B41D52A005DDA3A /* DeviceHelper.swift */,
+				6BB802341D7D2289003506C2 /* Extensions.swift */,
+				F8FA48411C39BE010080E12B /* Reachability.swift */,
 				F8729F401BF77E57000E9C9C /* SharedHelper.swift */,
 				F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */,
-				F82D34161C0A552000E03703 /* DateHelper.swift */,
-				F8FA48411C39BE010080E12B /* Reachability.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -342,7 +329,6 @@
 			children = (
 				F891B7C31C5572B700A00F15 /* Assets */,
 				F8E080FF1B35B1C500A96A45 /* Enums */,
-				6BB802331D7D227A003506C2 /* Extensions */,
 				F806674F1B1D156E00A26B5D /* Helpers */,
 				F8CFC4F61BEBD27800301E59 /* Libs */,
 				F87AFE6F1B1B8FE000D3DAFC /* Models */,
@@ -354,10 +340,10 @@
 		F87AFE691B1B8F7A00D3DAFC /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F87AFE891B1B906400D3DAFC /* ApiService.swift */,
+				F82CB0831BD25B2C0015D3C5 /* DbService.swift */,
 				F806677E1B1E5DC600A26B5D /* DepartureService.swift */,
 				F87AFE881B1B906400D3DAFC /* LineService.swift */,
-				F82CB0831BD25B2C0015D3C5 /* SqliteService.swift */,
-				F87AFE891B1B906400D3DAFC /* RestApiService.swift */,
 				F87AFE8A1B1B906400D3DAFC /* StopService.swift */,
 			);
 			name = Services;
@@ -395,8 +381,6 @@
 			isa = PBXGroup;
 			children = (
 				F8E081001B35B1D000A96A45 /* Info.swift */,
-				F88F545B1B38AB3000F0D402 /* Row.swift */,
-				F807230B1BE290BA00749E76 /* Status.swift */,
 				F8F6683F1C18D41000F6B15A /* Error.swift */,
 			);
 			name = Enums;
@@ -620,15 +604,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F807230D1BE2917E00749E76 /* Status.swift in Sources */,
 				F80667781B1E5D7900A26B5D /* Stop.swift in Sources */,
 				F8020F6B1CB52F920060C0C8 /* Reachability.swift in Sources */,
 				F81861A01B41D52A005DDA3A /* DeviceHelper.swift in Sources */,
-				F82CB0851BD25B2C0015D3C5 /* SqliteService.swift in Sources */,
+				F82CB0851BD25B2C0015D3C5 /* DbService.swift in Sources */,
 				F8729F421BF77E57000E9C9C /* SharedHelper.swift in Sources */,
-				F806676D1B1E5D7200A26B5D /* RestApiService.swift in Sources */,
+				F806676D1B1E5D7200A26B5D /* ApiService.swift in Sources */,
 				F8CB7DEA1C08B6A400EAF401 /* StringHelper.swift in Sources */,
-				F88F545C1B38AB3000F0D402 /* Row.swift in Sources */,
 				F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */,
 				F8D853CA1BE132F000E2C1E2 /* Constants.swift in Sources */,
 				F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */,
@@ -654,18 +636,16 @@
 				F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */,
 				F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */,
 				F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */,
-				F807230C1BE290BA00749E76 /* Status.swift in Sources */,
 				F8A3D7701C14EAB500AEA7C3 /* GuideController.swift in Sources */,
 				F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */,
 				F8FA48421C39BE010080E12B /* Reachability.swift in Sources */,
 				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,
 				F8FEC9A31C42B484008C615A /* OmOssViewController.swift in Sources */,
 				F87AFE751B1B902400D3DAFC /* Departure.swift in Sources */,
-				F88F545D1B38AE5E00F0D402 /* Row.swift in Sources */,
 				F81D4E791C5EBB3F0024B798 /* WebViewController.swift in Sources */,
-				F87AFE8D1B1B906400D3DAFC /* RestApiService.swift in Sources */,
+				F87AFE8D1B1B906400D3DAFC /* ApiService.swift in Sources */,
 				F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */,
-				F82CB0841BD25B2C0015D3C5 /* SqliteService.swift in Sources */,
+				F82CB0841BD25B2C0015D3C5 /* DbService.swift in Sources */,
 				F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */,
 				6BB802351D7D2289003506C2 /* Extensions.swift in Sources */,
 				F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */,

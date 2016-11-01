@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class StopsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
+class StopsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
     @IBOutlet var navController: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -32,16 +32,20 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         initiateViews()
 
         if (segmentedControl.selectedSegmentIndex == 1){
-            stops = SqliteService.sharedInstance.getStops()
+            stops = DbService.sharedInstance.getStops()
         }
-        lines = SqliteService.sharedInstance.getLines()
+        lines = DbService.sharedInstance.getLines()
         tableView.reloadData()
+    }
+    
+    func longPressAction(gestureRecognizer: UIGestureRecognizer) {
+        print("Gesture recognized")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        SqliteService.sharedInstance.updateOptionals()
+        
+        DbService.sharedInstance.updateOptionals()
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         
@@ -58,6 +62,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 locationManager.startUpdatingLocation()
             }
             
+            UserDefaults.standard.object(forKey: "LoadData") != nil
+            
             self.title = "Bakåt"
             
             searchBar!.delegate = self
@@ -67,7 +73,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             initiateViews()
             setRateSettings()
             
-            lines = SqliteService.sharedInstance.getLines()
+            lines = DbService.sharedInstance.getLines()
         }
     }
 
@@ -171,11 +177,11 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             self.locationManager.startUpdatingLocation()
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
-            stops = SqliteService.sharedInstance.getStops()
+            stops = DbService.sharedInstance.getStops()
         }
         self.segmentedControl.setTitle("Nära mig", forSegmentAt: 0)
         self.searchBar.text = ""
-        lines = SqliteService.sharedInstance.getLines()
+        lines = DbService.sharedInstance.getLines()
         searchBar.resignFirstResponder()
         tableView.reloadData()
     }
@@ -189,7 +195,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         stopService.getStopsByInput(searchBar.text!, onSuccess: { json -> Void in
             DispatchQueue.main.async(execute: {
                 self.stops = json
-                self.lines = SqliteService.sharedInstance.getLines()
+                self.lines = DbService.sharedInstance.getLines()
                 if (self.stops.count > 0){
                     self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)
                 }
@@ -219,6 +225,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         getNearestStops()
     }
     
+
+    
     private func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.", type: Error.location)
     }
@@ -231,6 +239,14 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let currentStop = stops[(indexPath as NSIndexPath).row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    
+        
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gestureRecognizer:)))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        
+        cell.addGestureRecognizer(lpgr)
         
         cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator

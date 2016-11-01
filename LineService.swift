@@ -21,8 +21,10 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 open class LineService{
     func getAllLinesAtStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
-        RestApiService.sharedInstance.findAllLinesOnStop(stopId) { jsonDictionary in
-            let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
+        ApiService.sharedInstance.findAllLinesOnStop(stopId) { jsonDictionary in
+            let dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
+            
+            print(jsonDictionary)
             
             guard let jsonLines = jsonDictionary["Departure"] as? [[String:AnyObject]] else {return onError(NSError(domain: "Inga stopp kunde hittas", code: 1, userInfo: nil))}
             print(jsonLines)

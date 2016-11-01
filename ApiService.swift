@@ -12,8 +12,8 @@ import UIKit
 
 typealias ServiceResponse = (Data, NSError?) -> Void
 
-class RestApiService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
-    static let sharedInstance = RestApiService()
+class ApiService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
+    static let sharedInstance = ApiService()
 
     func getNearestStops(_ lat: String, long: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
         let url = "\(Constants.restURL)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"

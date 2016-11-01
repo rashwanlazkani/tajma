@@ -9,8 +9,8 @@
 import Foundation
 import SQLite
 
-class SqliteService {
-    static let sharedInstance = SqliteService()
+class DbService {
+    static let sharedInstance = DbService()
     let sharedHelper = SharedHelper()
     
     func getStops() -> [Stop]{

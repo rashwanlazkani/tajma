@@ -9,10 +9,10 @@
 import CoreLocation
 
 class StopService{
-    let checkedStops = SqliteService.sharedInstance.getStops()
+    let checkedStops = DbService.sharedInstance.getStops()
     
     func getNearestStops(_ lat: String, long: String, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
-        RestApiService.sharedInstance.getNearestStops(lat, long: long) { jsonDic in
+        ApiService.sharedInstance.getNearestStops(lat, long: long) { jsonDic in
             guard let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]]
             // TODO: Lägg till onError
             else { return }
@@ -27,7 +27,7 @@ class StopService{
     }
     
     func getStopsByInput(_ name : String, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
-        RestApiService.sharedInstance.findStops(name) { jsonDic in
+        ApiService.sharedInstance.findStops(name) { jsonDic in
             guard let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]]
             else { return }
             

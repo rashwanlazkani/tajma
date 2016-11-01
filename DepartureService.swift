@@ -33,14 +33,13 @@ open class DepartureService {
     var stopService = StopService()
 
     func getDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
-        RestApiService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
+        ApiService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
             var lines = [Line]()
-            let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
+            let dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
             
             guard let jsonDepartures = jsonDictionary["Departure"] as? [[String:AnyObject]]
                 else {return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))}
             
-
             guard let serverDate = jsonDictionary["serverdate"] as? String,
                 let serverTime = jsonDictionary["servertime"] as? String
                 else { return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000002)", code: 2, userInfo: nil)) }
@@ -78,11 +77,28 @@ open class DepartureService {
 
                 let serverDateTime = "\(serverDate) \(serverTime)"
                 
-                
+                // TODO: Lägg till i Extension
+                let d = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.timeZone = TimeZone(identifier: "sv_SE")
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let localDate = dateFormatter.string(from: d)
                 
                 guard let departureTime = DateAndTimeFormat.instance.date(from: dateTime) else { continue }
                 guard let serverTime = DateAndTimeFormat.instance.date(from: serverDateTime) else { continue }
-                let intervalBetweenDepartures = Int(departureTime.timeIntervalSince(serverTime) / 60) - 1
+                
+                guard let localDateTime = DateAndTimeFormat.instance.date(from: localDate) else { continue }
+                
+                print(departureTime)
+                print(serverTime)
+                print(localDate)
+                print(localDateTime)
+                
+                let intervalBetweenDepartures = Int(departureTime.timeIntervalSince(localDateTime) / 60) - 1
+                let intervalBetweenDeparturesServerTime = Int(departureTime.timeIntervalSince(serverTime) / 60) - 1
+                
+                print(intervalBetweenDepartures)
+                print(intervalBetweenDeparturesServerTime)
                 
                 line!.departures.times.append(intervalBetweenDepartures)
             }
@@ -94,7 +110,7 @@ open class DepartureService {
 
     func getMyDepartures(_ coordinate: CLLocationCoordinate2D, onSuccess: @escaping ([Stop]) -> Void, onError: @escaping (NSError) -> Void) {
         let group = DispatchGroup()
-        var stops = SqliteService.sharedInstance.getStops()
+        var stops = DbService.sharedInstance.getStops()
 
         for stop in stops{
             stop.distance = self.stopService.calculateDistance(stop, lat: coordinate.latitude, long: coordinate.longitude)

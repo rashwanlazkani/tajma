@@ -42,14 +42,14 @@ extension DateFormatter {
     }()
     @nonobjc static let DateAndTime: DateFormatter = {
         let formatter = DateFormatter()
-        let timeZone = NSTimeZone(name:"UTC")
+        let timeZone = NSTimeZone(name:"UTC+01:00")
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.timeZone = timeZone as TimeZone!
         return formatter
     }()
     @nonobjc static let Time: DateFormatter = {
         let formatter = DateFormatter()
-        let timeZone = NSTimeZone(name:"UTC+02:00")
+        let timeZone = NSTimeZone(name:"UTC+01:00")
         formatter.dateFormat = "HH:mm"
         formatter.timeZone = timeZone as TimeZone!
         return formatter
