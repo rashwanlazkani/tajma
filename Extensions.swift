@@ -75,6 +75,7 @@ extension DateFormatter {
         self.dateFormat = dateFormat
     }
 }
+
 //
 extension Date{
     var currentToString: String{
@@ -318,3 +319,30 @@ extension Int  {
         return (self, NSCalendar.Unit.calendar.union(.day))
     }
 }
+
+
+
+
+
+extension Date {
+    struct Formatter {
+        static let custom: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.calendar = Calendar(identifier: .iso8601)
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            return formatter
+        }()
+    }
+    var customLocal: String {
+        return Formatter.custom.string(from: self)
+    }
+}
+
+extension String {
+    var date: Date? {
+        return Date.Formatter.custom.date(from: self)
+    }
+}
+
+

@@ -77,30 +77,22 @@ open class DepartureService {
 
                 let serverDateTime = "\(serverDate) \(serverTime)"
                 
-                // TODO: Lägg till i Extension
-                let d = Date()
-                let dateFormatter = DateFormatter()
-                dateFormatter.timeZone = TimeZone(identifier: "sv_SE")
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-                let localDate = dateFormatter.string(from: d)
+                guard
+                    let departureTime = dateTime.date,
+                    let serverTime = serverDateTime.date
+                else { continue }
                 
-                guard let departureTime = DateAndTimeFormat.instance.date(from: dateTime) else { continue }
-                guard let serverTime = DateAndTimeFormat.instance.date(from: serverDateTime) else { continue }
-                
-                guard let localDateTime = DateAndTimeFormat.instance.date(from: localDate) else { continue }
-                
-                print(departureTime)
-                print(serverTime)
-                print(localDate)
-                print(localDateTime)
-                
-                let intervalBetweenDepartures = Int(departureTime.timeIntervalSince(localDateTime) / 60) - 1
-                let intervalBetweenDeparturesServerTime = Int(departureTime.timeIntervalSince(serverTime) / 60) - 1
-                
+                let intervalBetweenDepartures = departureTime.timeIntervalSince(serverTime) / 60
+                print("departureTime.customLocal:", departureTime.customLocal)
+                print(serverTime.customLocal)
                 print(intervalBetweenDepartures)
-                print(intervalBetweenDeparturesServerTime)
                 
-                line!.departures.times.append(intervalBetweenDepartures)
+//                guard let departureTime = DateAndTimeFormat.instance.date(from: dateTime) else { continue }
+//                guard let serverTime = DateAndTimeFormat.instance.date(from: serverDateTime) else { continue }
+//
+//                let intervalBetweenDepartures = Int(departureTime.timeIntervalSince(serverTime) / 60) - 1
+
+                line!.departures.times.append(Int(intervalBetweenDepartures))
             }
             
             lines.sort(by: {$0.departures.times.first < $1.departures.times.first})
