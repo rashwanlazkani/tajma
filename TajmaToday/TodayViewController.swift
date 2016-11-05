@@ -140,6 +140,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         if #available(iOSApplicationExtension 10.0, *) {
             self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         } else {
+            infoText.textColor = UIColor.white
             preferredContentSize = CGSize(width: 0, height: 60)
         }
         if (message == self.infoText.text){

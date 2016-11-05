@@ -70,7 +70,6 @@ class GuideController: UIViewController{
         closeButton.setImage(img, for: UIControlState())
         closeButton.addTarget(self, action: #selector(startApp), for: .touchUpInside)
         closeButton.frame = CGRect(x: view.frame.width - 45, y: 25, width: 40, height: 40)
-        self.view.addSubview(closeButton)
         
         let button1 = UIButton()
         button1.layer.borderColor = UIColor.white.cgColor
@@ -102,6 +101,7 @@ class GuideController: UIViewController{
             button2.frame = CGRect(x: 0, y: DeviceHelper.showGuideY(), width: 170, height: 45)
             button2.center.x = self.view.center.x
             view.addSubview(button2)
+            self.view.addSubview(closeButton)
         case 1, 2 :
             gifImageView.image = UIImage.gifWithName("tajma-gif-\(index)")
             view.addSubview(gifImageView)
@@ -127,6 +127,7 @@ class GuideController: UIViewController{
             
             view.addSubview(button1)
             view.addSubview(button2)
+            view.willRemoveSubview(closeButton)
             
         case 3 :
             let gif = UIImage.gifWithName("tajma-gif-3")
@@ -152,7 +153,7 @@ class GuideController: UIViewController{
             
             view.addSubview(button1)
             view.addSubview(button2)
-            
+            view.willRemoveSubview(closeButton)
         default:
             return
         }

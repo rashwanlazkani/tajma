@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var navController: UINavigationItem!
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
