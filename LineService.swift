@@ -18,77 +18,89 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
 open class LineService{
+    var lines = [Line]()
+    var dbLines = [Line]()
+    
     func getAllLinesAtStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
         ApiService.sharedInstance.findAllLinesOnStop(stopId) { jsonDictionary in
-            let dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
+            self.dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
             
-            print(jsonDictionary)
-            
-            guard let jsonLines = jsonDictionary["Departure"] as? [[String:AnyObject]] else {return onError(NSError(domain: "Inga stopp kunde hittas", code: 1, userInfo: nil))}
-            print(jsonLines)
-            var lines = [Line]()
-            
-            for json in jsonLines{
-                var line = Line()
-                
-                guard let name = json["name"] as? String,
-                    let sname = json["sname"] as? String,
-                    let direction = json["direction"] as? String,
-                    let type = json["type"] as? String,
-                    let fgColor  = json["fgColor"] as? String,
-                    let bgColor  = json["bgColor"] as? String
-                else { continue }
-                
-                if type != "VAS"{
-                    guard let track = json["track"] as? String else { continue }
-                    line.track = track
+            if let jsonLines = jsonDictionary["Departure"] as? [[String:AnyObject]] {
+                for json in jsonLines{
+                    self.getLine(stopId: stopId, json: json)
                 }
-                else{
-                    line.track = "VAS"
-                }
-                
-                let id = "\(stopId)-\(sname)-\(direction)"
-                
-                let dbLine = dbLines.firstOrDefault({$0.id == id})
-                if(dbLine != nil){
-                    line = dbLine!
-                }
-                else{
-                    line.id = id
-                    line.stopId = stopId
-                    line.name = name
-                    line.sname = sname
-                    line.direction = direction
-                    line.type = type
-                    //line.track = track
-                    line.fgColor = fgColor
-                    line.bgColor = bgColor
-                    line.lineAndDirection = "\(line.sname) \(line.direction)"
-                }
-                
-                let lineAndDirection = self.subStringSnameAndDirection(line.lineAndDirection)
-                if !lines.filter({$0.lineAndDirection == lineAndDirection}).isEmpty{
-                    continue
-                }
-                
-                lines.append(line)
-                
-                // om en linje inte går för tillfället så ska vi ändå lägga till den om den är tillagd sedan tidigare
-                for dbLine in dbLines{
-                    let line = lines.firstOrDefault({$0.id == dbLine.id})
-                    if line == nil{
-                        lines.append(dbLine)
-                    }
-                }
-                
-                let numberLines = lines.filter({Int($0.sname) != nil}).sorted(by: {Int($0.sname)! < Int($1.sname)})
-                let charLines = lines.filter({Int($0.sname) == nil}).sorted(by: {$0.sname < $1.sname})
-                
-                onSuccess(numberLines + charLines)
+            }
+            else if let jsonLine = jsonDictionary["Departure"] as? [String:AnyObject] {
+                self.getLine(stopId: stopId, json: jsonLine)
+            }
+            else {
+                return onError(NSError(domain: "Inga stopp hittades", code: 1, userInfo: nil))
             }
             
+            let numberLines = self.lines.filter({Int($0.sname) != nil}).sorted(by: {Int($0.sname)! < Int($1.sname)})
+            let charLines = self.lines.filter({Int($0.sname) == nil}).sorted(by: {$0.sname < $1.sname})
+            
+            if !numberLines.isEmpty || !charLines.isEmpty {
+                return onSuccess(numberLines + charLines)
+            }
+            else {
+                return onError(NSError(domain: "Inga stopp hittades", code: 1, userInfo: nil))
+            }
+        }
+    }
+    
+    func getLine(stopId: String, json: [String:Any]) {
+        var line = Line()
+        
+        guard let name = json["name"] as? String,
+            let sname = json["sname"] as? String,
+            let direction = json["direction"] as? String,
+            let type = json["type"] as? String,
+            let fgColor  = json["fgColor"] as? String,
+            let bgColor  = json["bgColor"] as? String
+            else { return }
+        
+        if type != "VAS"{
+            guard let track = json["track"] as? String else { return }
+            line.track = track
+        }
+        else{
+            line.track = "VAS"
+        }
+        
+        let id = "\(stopId)-\(sname)-\(direction)"
+        
+        let dbLine = dbLines.firstOrDefault({$0.id == id})
+        if(dbLine != nil){
+            line = dbLine!
+        }
+        else{
+            line.id = id
+            line.stopId = stopId
+            line.name = name
+            line.sname = sname
+            line.direction = direction
+            line.type = type
+            //line.track = track
+            line.fgColor = fgColor
+            line.bgColor = bgColor
+            line.lineAndDirection = "\(line.sname) \(line.direction)"
+        }
+        
+        let lineAndDirection = self.subStringSnameAndDirection(line.lineAndDirection)
+        if !lines.filter({$0.lineAndDirection == lineAndDirection}).isEmpty{
+            return
+        }
+        
+        lines.append(line)
+        
+        // om en linje inte går för tillfället så ska vi ändå lägga till den om den är tillagd sedan tidigare
+        for dbLine in dbLines{
+            let line = lines.firstOrDefault({$0.id == dbLine.id})
+            if line == nil{
+                lines.append(dbLine)
+            }
         }
     }
     
