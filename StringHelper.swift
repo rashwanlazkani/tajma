@@ -15,4 +15,12 @@ class StringHelper {
         id = (id as NSString).replacingCharacters(in: NSRange(location: id.characters.count - 2, length: 2), with: "00")
         return id
     }
+    
+    static func subStringSnameAndDirection(_ lineAndDirection: String) -> String{
+        var lineAndDirection = lineAndDirection
+        lineAndDirection = lineAndDirection.replacingOccurrences(of: "Buss", with: "")
+        lineAndDirection = lineAndDirection.replacingOccurrences(of: "Spårvagn", with: "")
+        lineAndDirection = lineAndDirection.replacingOccurrences(of: "SVAR", with: "SVART")
+        return lineAndDirection
+    }
 }

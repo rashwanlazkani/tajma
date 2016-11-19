@@ -88,7 +88,7 @@ open class LineService{
             line.lineAndDirection = "\(line.sname) \(line.direction)"
         }
         
-        let lineAndDirection = self.subStringSnameAndDirection(line.lineAndDirection)
+        let lineAndDirection = StringHelper.subStringSnameAndDirection(line.lineAndDirection)
         if !lines.filter({$0.lineAndDirection == lineAndDirection}).isEmpty{
             return
         }
@@ -102,13 +102,5 @@ open class LineService{
                 lines.append(dbLine)
             }
         }
-    }
-    
-    func subStringSnameAndDirection(_ lineAndDirection: String) -> String{
-        var lineAndDirection = lineAndDirection
-        lineAndDirection = lineAndDirection.replacingOccurrences(of: "Buss", with: "")
-        lineAndDirection = lineAndDirection.replacingOccurrences(of: "Spårvagn", with: "")
-        lineAndDirection = lineAndDirection.replacingOccurrences(of: "SVAR", with: "SVART")
-        return lineAndDirection
     }
 }

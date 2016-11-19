@@ -74,8 +74,6 @@ class ApiService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         getToken(url, onCompletion: {jsonDictionary in
             onCompletion(jsonDictionary)
         })
-        
-        
     }
     
     fileprivate func addDays(_ date: Date, additionalDays: Int) -> Date {

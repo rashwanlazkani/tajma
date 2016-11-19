@@ -31,11 +31,78 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 open class DepartureService {
     var stopService = StopService()
+    
+    // TODO: Fixa så att det är en metod istället
+    func getAllDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
+        ApiService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
+            var lines = [Line]()
+            let departures = Departure()
+
+            guard let jsonDepartures = jsonDictionary["Departure"] as? [[String:AnyObject]]
+                else {return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))}
+            
+            guard let serverDate = jsonDictionary["serverdate"] as? String,
+                let serverTime = jsonDictionary["servertime"] as? String
+                else { return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000002)", code: 2, userInfo: nil)) }
+            
+            for json in jsonDepartures{
+                if json["rtTime"] == nil && json["time"] == nil{
+                    continue
+                }
+                if json["rtDate"] == nil && json["date"] == nil{
+                    continue
+                }
+                
+                guard
+                    let name = json["name"] as? String,
+                    let track = json["track"] as? String,
+                    let sname = json["sname"] as? String,
+                    let direction = json["direction"] as? String,
+                    let type = json["type"] as? String,
+                    let fgColor  = json["fgColor"] as? String,
+                    let bgColor  = json["bgColor"] as? String
+                else { return }
+                let time = json["rtTime"] ?? json["time"]
+                let date = json["rtDate"] ?? json["date"]
+                let dateTime = "\(date!) \(time!)"
+                
+                let serverDateTime = "\(serverDate) \(serverTime)"
+                
+                guard
+                    let departureTime = dateTime.date,
+                    let serverTime = serverDateTime.date
+                    else { continue }
+                
+                let intervalBetweenDepartures = departureTime.timeIntervalSince(serverTime) / 60
+                departures.times.append(Int(intervalBetweenDepartures))
+                
+                let id = "\(stopId)-\(sname)-\(direction)"
+                let lineAndDirection = StringHelper.subStringSnameAndDirection("\(sname) \(direction)")
+                let line = Line(id: id, stop: Stop(), stopId: stopId, lineAndDirection: lineAndDirection, name: name, sname: sname, direction: direction, type: type, track: track, bgColor: bgColor, fgColor: fgColor, departures: Departure())
+                
+                let x = lines.filter({$0.id == id })
+                if  x.isEmpty {
+                    line.departures.times.append(Int(intervalBetweenDepartures))
+                    lines.append(line)
+                }
+                else {
+                    x[0].departures.times.append(Int(intervalBetweenDepartures))
+                }
+            }
+            
+            //lines.sort(by: {$0.departures.times.first < $1.departures.times.first})
+            let numberLines = lines.filter({Int($0.sname) != nil}).sorted(by: {Int($0.sname)! < Int($1.sname)})
+            let charLines = lines.filter({Int($0.sname) == nil}).sorted(by: {$0.sname < $1.sname})
+            onSuccess(numberLines + charLines)
+        }
+    }
 
     func getDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
         ApiService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
             var lines = [Line]()
             let dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
+            
+            print(jsonDictionary)
             
             guard let jsonDepartures = jsonDictionary["Departure"] as? [[String:AnyObject]]
                 else {return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))}

@@ -16,17 +16,17 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     var lines = [Line]()
     var stop : Stop!
     let deviceHelper = DeviceHelper()
+    let departureService = DepartureService()
     let lineService = LineService()
     var activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0, width: 50, height: 50)) as UIActivityIndicatorView
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        initiateViews()
         activityIndicator.startAnimating()
-        
         updateMyLines()
         tableView.delegate = self
         tableView.dataSource = self
-        initiateViews()
     }
     
     override func willMove(toParentViewController parent: UIViewController?){
@@ -48,7 +48,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         title.textAlignment = NSTextAlignment.center
         title.textColor = UIColor.white
         title.text = stop.name.components(separatedBy: ",").first
-        title.font = UIFont.boldSystemFont(ofSize: 20)
+        title.font = title.font.withSize(17)
         
         let titleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
         titleView.backgroundColor = UIColor.clear
@@ -66,15 +66,13 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func updateLines(){
-        activityIndicator.startAnimating()
         // Låser vyn
         UIApplication.shared.beginIgnoringInteractionEvents()
-        lineService.getAllLinesAtStop(stop.id, onSuccess: { json -> Void in
+        departureService.getAllDeparturesFromStop(stop.id, onSuccess: { lines -> Void in
             DispatchQueue.main.async(execute: {
-                self.lines = json
+                self.lines = lines
                 self.tableView.reloadData()
-            })
-            DispatchQueue.main.async(execute: {
+                
                 self.activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
             })
@@ -96,102 +94,103 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.reloadData()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return lines.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return lines.count + 1
     }
     
     func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let currentLine = lines[(indexPath as NSIndexPath).row]
-        let cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.selectionStyle = .none
-
-        for view in cell.subviews{
-            if(view.isKind(of: UILabel.self) || view.isKind(of: UIImage.self) || view.isKind(of: UIView.self)){
-                view.removeFromSuperview()
-            }
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            cell.selectionStyle = .none
+            return cell
         }
         
-        var image = UIImage(named: "unchecked-box")
+        let currentLine = lines[(indexPath as NSIndexPath).row - 1]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LineCell", for: indexPath) as! LineCell
+        cell.selectionStyle = .none
+        
         if(stop.lines.filter({$0.id == currentLine.id}).isEmpty){
-            cell.backgroundColor = UIColor.clear
+            cell.checkbox.image = UIImage(named: "unchecked-box")
         }
         else{
-            image = UIImage(named: "check-box-red")
-            cell.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 0.5)
+            cell.checkbox.image = UIImage(named: "check-box-red")
         }
         
-        let checkbox = UIImageView(image: image!)
-        checkbox.frame = CGRect(x: 50, y: 50, width: 28, height: 28)
-        checkbox.center = CGPoint(x: tableView.bounds.width - 25, y: 44 / 2.0)
-        
-        var fontSize = CGFloat(16)
         var sname = ""
         if ((Int(currentLine.sname.substring(to: currentLine.sname.characters.index(currentLine.sname.startIndex, offsetBy: 1)))) == nil){
-            fontSize = CGFloat(12)
             let snameArr = Array(currentLine.sname.characters)
             sname = String(snameArr[0]) + String(snameArr[1]) + String(snameArr[2])
+            cell.snameLabel.font = cell.snameLabel.font.withSize(12)
         }
         else if (currentLine.sname.characters.count > 2){
-            fontSize = CGFloat(12)
             sname = currentLine.sname
+            cell.snameLabel.font = cell.snameLabel.font.withSize(12)
         }
         else{
             sname = currentLine.sname
         }
         
-        let snameView = UIView()
-        snameView.frame = CGRect(x: 30, y: 30, width: 30, height: 30)
-        snameView.layer.cornerRadius = 5
-        snameView.center = CGPoint(x: 25, y: 23)
-        snameView.backgroundColor = UIColor(rgba: currentLine.fgColor)
-        
-        let snameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        snameLabel.textAlignment = NSTextAlignment.center
-        snameLabel.text = sname
-        snameLabel.textColor = UIColor(rgba: currentLine.bgColor)
-        snameLabel.font = snameLabel.font.withSize(fontSize)
-        
-        let directionLabel = UILabel(frame: CGRect(x: 0, y: 8, width: DeviceHelper.labelWidth() + 40, height: 30))
-        directionLabel.textAlignment = NSTextAlignment.left
-        directionLabel.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        directionLabel.text = "\t     \(currentLine.direction)"
-        directionLabel.font = directionLabel.font.withSize(16)
-        
-        let separator = UIView(frame: CGRect(x: 0, y: cell.frame.height - 1, width: cell.frame.width, height: 0.5))
-        separator.backgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
-        
-        snameView.addSubview(snameLabel)
-        cell.addSubview(checkbox)
-        cell.addSubview(snameView)
-        cell.addSubview(directionLabel)
-        cell.addSubview(separator)
-        
+        cell.snameLabel.text = sname
+        cell.snameLabel.textColor = UIColor(rgba: currentLine.bgColor)
+        cell.snameView.backgroundColor = UIColor(rgba: currentLine.fgColor)
+        cell.directionLabel.text = "\(currentLine.direction)"
+        for (index, departure) in currentLine.departures.times.enumerated() {
+            if index == 0 {
+                if departure < 1 {
+                    cell.firstDeparture.text = "Nu"
+                }
+                else {
+                    cell.firstDeparture.text = String(departure)
+                }
+            }
+            else if index == 1 {
+                if departure < 1 {
+                    cell.secondDeparture.text = "Nu"
+                }
+                else {
+                    cell.secondDeparture.text = String(departure)
+                }
+            }
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        let cell = tableView.cellForRow(at: indexPath) as! LineCell
         let currentLine = lines[(indexPath as NSIndexPath).row]
         currentLine.stopId = stop.id
         if (stop.lines.filter({$0.id == currentLine.id}).isEmpty){
             DbService.sharedInstance.addLine(currentLine, stop: stop)
+            cell.checkbox.image = UIImage(named: "check-box-red")
         }
         else{
             DbService.sharedInstance.removeLine(currentLine, stopId: stop.id)
+            cell.checkbox.image = UIImage(named: "unchecked-box")
+
         }
         updateMyLines()
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        activityIndicator.stopAnimating()
-        
-//        if indexPath.row <= 0 && indexPath.section == 0 {
-//            self.navigationController?.hidesBarsOnSwipe = false
-//            self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        }
-//        else {
-//            self.navigationController?.hidesBarsOnSwipe = true
-//        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 28
+        }
+        else {
+            return 44
+        }
     }
+    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        activityIndicator.stopAnimating()
+//        
+////        if indexPath.row <= 0 && indexPath.section == 0 {
+////            self.navigationController?.hidesBarsOnSwipe = false
+////            self.navigationController?.setNavigationBarHidden(false, animated: true)
+////        }
+////        else {
+////            self.navigationController?.hidesBarsOnSwipe = true
+////        }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
