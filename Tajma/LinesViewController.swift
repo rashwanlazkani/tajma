@@ -12,6 +12,9 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var navController: UINavigationItem!
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var infoHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var infoLabel: UILabel!
     
     var lines = [Line]()
     var stop : Stop!
@@ -20,33 +23,33 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     let lineService = LineService()
     var activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0, width: 50, height: 50)) as UIActivityIndicatorView
     
+    var timer = Timer()
+    
     override func viewDidLoad(){
         super.viewDidLoad()
-        initiateViews()
+        
+        infoHeightConstant.constant = 0
         activityIndicator.startAnimating()
         updateMyLines()
         tableView.delegate = self
         tableView.dataSource = self
-    }
-    
-    override func willMove(toParentViewController parent: UIViewController?){
-        super.willMove(toParentViewController: parent)
-        if parent == nil {
-            self.navigationController?.navigationBar.isTranslucent = true
-            self.navigationController?.navigationBar.layer.zPosition = -1
-        }
-    }
-    
-    func initiateViews(){
-        self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.barStyle = .black
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        self.navigationController?.navigationBar.isTranslucent = false
+        initiateViews()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLines), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = false
+        UIApplication.shared.statusBarStyle = .default
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+    }
+
+    func initiateViews(){
         let title = UILabel(frame: CGRect(x: 0, y: 7, width: 200, height: 30))
         title.textAlignment = NSTextAlignment.center
-        title.textColor = UIColor.white
+        title.textColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         title.text = stop.name.components(separatedBy: ",").first
         title.font = title.font.withSize(17)
         
@@ -66,7 +69,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func updateLines(){
-        // Låser vyn
         UIApplication.shared.beginIgnoringInteractionEvents()
         departureService.getAllDeparturesFromStop(stop.id, onSuccess: { lines -> Void in
             DispatchQueue.main.async(execute: {
@@ -157,13 +159,18 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         let cell = tableView.cellForRow(at: indexPath) as! LineCell
-        let currentLine = lines[(indexPath as NSIndexPath).row]
+        let currentLine = lines[(indexPath as NSIndexPath).row - 1]
         currentLine.stopId = stop.id
         if (stop.lines.filter({$0.id == currentLine.id}).isEmpty){
+            timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(closeInfoView), userInfo: nil, repeats: false)
+            infoLabel.text = "\(currentLine.sname) \(currentLine.direction) tillagd i widget"
+            self.infoHeightConstant.constant = 75
             DbService.sharedInstance.addLine(currentLine, stop: stop)
             cell.checkbox.image = UIImage(named: "check-box-red")
         }
         else{
+            timer.invalidate()
+            self.infoHeightConstant.constant = 0
             DbService.sharedInstance.removeLine(currentLine, stopId: stop.id)
             cell.checkbox.image = UIImage(named: "unchecked-box")
 
@@ -178,6 +185,19 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         else {
             return 44
         }
+    }
+
+    @IBAction func readMoreClicked(_ sender: Any) {
+        
+    }
+    
+    func closeInfoView() {
+        infoHeightConstant.constant = 0
+    }
+    
+    @IBAction func closeInfoClicked(_ sender: Any) {
+        timer.invalidate()
+        self.infoHeightConstant.constant = 0
     }
     
 //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

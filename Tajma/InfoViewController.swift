@@ -33,25 +33,19 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         items = ["Lämna feedback","Tajma på Facebook","Tipsa en vän", "Betygsätt Tajma", "Guide: Så här kommer du igång", "Vanliga frågor", "Om oss"]
     }
     
-    override func willMove(toParentViewController parent: UIViewController?) {
-        super.willMove(toParentViewController: parent)
-        if parent == nil {
-            self.navigationController?.navigationBar.isTranslucent = true
-            self.navigationController?.navigationBar.layer.zPosition = -1
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = false
+        UIApplication.shared.statusBarStyle = .default
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
     }
     
     // MARK: - Functions
     func initiateViews(){
-        self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        self.navigationController?.navigationBar.isTranslucent = false
-        
         let title = UILabel(frame: CGRect(x: 0, y: 6, width: 200, height: 30))
         title.textAlignment = NSTextAlignment.center
-        title.textColor = UIColor.white
+        title.textColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         title.font = title.font.withSize(19)
         title.text = "Tajma"
         

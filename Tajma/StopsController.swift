@@ -28,23 +28,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     let guideController = GuideController()
     
-    override func viewDidAppear(_ animated: Bool) {
-        initiateViews()
-
-        if (segmentedControl.selectedSegmentIndex == 1){
-            stops = DbService.sharedInstance.getStops()
-        }
-        lines = DbService.sharedInstance.getLines()
-        tableView.reloadData()
-    }
-    
-    func longPressAction(gestureRecognizer: UIGestureRecognizer) {
-        print("Gesture recognized")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         DbService.sharedInstance.updateOptionals()
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
@@ -62,8 +48,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 locationManager.startUpdatingLocation()
             }
             
-            UserDefaults.standard.object(forKey: "LoadData") != nil
-            
             self.title = "Bakåt"
             
             searchBar!.delegate = self
@@ -75,19 +59,31 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             
             lines = DbService.sharedInstance.getLines()
         }
+        initiateViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.navigationBar.isHidden = true
+        navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if (segmentedControl.selectedSegmentIndex == 1){
+            stops = DbService.sharedInstance.getStops()
+        }
+        lines = DbService.sharedInstance.getLines()
+        tableView.reloadData()
+    }
+    
+    func longPressAction(gestureRecognizer: UIGestureRecognizer) {
+        print("Gesture recognized")
     }
 
     // MARK: - Functions
     func initiateViews(){
         self.view.backgroundColor = UIColor.white
-        
-        navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        
-        self.navigationController?.navigationBar.layer.zPosition = 1
-        navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
-        navigationController?.navigationBar.tintColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 0)]
-        navigationController?.navigationBar.isHidden = true
         
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.white
