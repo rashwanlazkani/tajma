@@ -7,79 +7,72 @@
 //
 
 import CoreLocation
-import SINQ
 
-class StopsService{
-    let checkedStops = SqliteService.sharedInstance.getStops()
+class StopService{
+    let checkedStops = DbService.sharedInstance.getStops()
     
-    func getNearestStops(lat: String, long: String, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
-        RestApiService.sharedInstance.getNearestStops(lat, long: long) { json in
-            var error = json["LocationList"]
-            if (String(error["error"]) == Constants.VTerrorCode){
-                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
-                onError(error)
-                return
+    func getNearestStops(_ lat: String, long: String, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
+        ApiService.sharedInstance.getNearestStops(lat, long: long) { jsonDic in
+            guard let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]]
+            // TODO: Lägg till onError
+            else { return }
+
+            let stops = self.mapToStop(jsonStops).sorted{$0.0.name == $0.1.name}.orderedSetValue
+        
+            for stop in stops{
+                stop.id = StringHelper.customizeStopID(stop.id)
             }
-            else{
-                let jsonStops = json["LocationList"]["StopLocation"]
-                let     stops = from(self.mapToStop(jsonStops)).distinct{$0.0.name == $0.1.name}.toArray()
-                for stop in stops{
-                    stop.id = StringHelper.customVtStopId(stop.id)
-                }
-                
-                onSuccess(stops)
-            }
+            onSuccess(stops)
         }
     }
     
-    func getStopsByInput(name : String, onSuccess: ([Stop]) -> Void, onError: (NSError) -> Void){
-        RestApiService.sharedInstance.findStops(name) { json in
-            var error = json["LocationList"]
-            if (String(error["error"]) == Constants.VTerrorCode){
-                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
-                onError(error)
-                return
-            }
-            else{
-                let jsonStops = json["LocationList"]["StopLocation"]
-                var stops = from(self.mapToStop(jsonStops)).distinct{$0.0.name == $0.1.name}.toArray()
-                for stop in stops{
-                    if (stop.id.isEmpty){
-                        if (stops.count == 1){
-                            stops.removeAll()
-                        }
-                        continue
+    func getStopsByInput(_ name : String, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
+        ApiService.sharedInstance.findStops(name) { jsonDic in
+            guard let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]]
+            else { return }
+            
+            var stops = self.mapToStop(jsonStops).sorted{$0.0.name == $0.1.name}.orderedSetValue
+            
+            for stop in stops{
+                if (stop.id.isEmpty){
+                    if (stops.count == 1){
+                        stops.removeAll()
                     }
-                    stop.id = StringHelper.customVtStopId(stop.id)
+                    continue
                 }
-                onSuccess(stops)
+                stop.id = StringHelper.customizeStopID(stop.id)
             }
+            onSuccess(stops)
         }
     }
     
-    func calculateDistance(stop: Stop, lat: Double, long: Double) -> Int{
+    func calculateDistance(_ stop: Stop, lat: Double, long: Double) -> Int{
         let userLocation = CLLocation(latitude: lat, longitude: long)
-        let stopLocation = CLLocation(latitude: (stop.lat as NSString).doubleValue, longitude: (stop.long as NSString).doubleValue)
-        let distance = userLocation.distanceFromLocation(stopLocation)
+        let stopLocation = CLLocation(latitude: (stop.latitude as NSString).doubleValue, longitude: (stop.longitude as NSString).doubleValue)
+        let distance = userLocation.distance(from: stopLocation)
         
         return roundToFive(distance)
     }
     
-    private func mapToStop(json: JSON) -> [Stop]{
+    fileprivate func mapToStop(_ json: [[String:AnyObject]]) -> [Stop]{
         var stops = [Stop]()
-        
-        for (_,subJson):(String, JSON) in json {
-            let stop = Stop()
-            stop.id = subJson["id"].string ?? ""
-            stop.name = subJson["name"].string ?? ""
-            stop.lat = subJson["lat"].string ?? ""
-            stop.long = subJson["lon"].string ?? ""
-            stops.append(stop)
+
+        for stop in json {
+            guard let id = stop["id"] as? String,
+                let name = stop["name"] as? String,
+                let lat = stop["lat"] as? String,
+                let long = stop["lon"] as? String
+            else { continue }
+            
+            let s = Stop(id: id, name: name, latitude: lat, longitude: long, distance: Int(), lines: [Line]())
+            
+            stops.append(s)
         }
+    
         return stops
     }
     
-    private func roundToFive(x : Double) -> Int {
+    fileprivate func roundToFive(_ x : Double) -> Int {
         return 5 * Int(round(x / 5.0))
     }
 }

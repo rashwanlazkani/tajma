@@ -6,122 +6,196 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-import UIKit
 import CoreLocation
-import SINQ
+import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
-public class DepartureService {
-    var stopService = StopsService()
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
+
+open class DepartureService {
+    var stopService = StopService()
     
-    func getDeparturesFromStop(stopId: String, onSuccess: ([Line]) -> Void, onError: (NSError) -> Void){
-        RestApiService.sharedInstance.getDeparturesAtStop(stopId) { json in
-            var error = json["DepartureBoard"]
-            if (String(error["error"]) == Constants.VTerrorCode){
-                let error = NSError(domain: "FEL", code: 1000, userInfo: nil)
-                onError(error)
-                return
-            }
-            
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let serverDate = dateFormatter.dateFromString(self.serverDateTime(json)) as NSDate!
-            let jsonDepartures = json["DepartureBoard"]["Departure"]
-
-            let dbLines = SqliteService.sharedInstance.getLinesAtStop(stopId)
+    // TODO: Fixa så att det är en metod istället
+    func getAllDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
+        ApiService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
             var lines = [Line]()
+            let departures = Departure()
+
+            guard let jsonDepartures = jsonDictionary["Departure"] as? [[String:AnyObject]]
+                else {return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))}
             
-            for (_,subJson):(String, JSON) in jsonDepartures {
-                if let sname = subJson["sname"].string, direction = subJson["direction"].string{
-                    let id = "\(stopId)-\(sname)-\(direction)"
-                    
-                    var line = from(lines).singleOrNil({$0.id == id})
-                    if(line == nil){
-                        line = from(dbLines).singleOrNil({$0.id == id})
-                        
-                        if(line != nil){
-                            lines.append(line!)
-                        }
-                    }
-                    
-                    if(line == nil){
-                        continue
-                    }
-                    
-                    let time = subJson["rtTime"].string ?? subJson["time"].string
-                    let date = subJson["rtDate"].string ?? subJson["date"].string
-                    let dateTime = "\(date!) \(time!)"
-                    
-                    let departureTime = dateFormatter.dateFromString(dateTime) as NSDate!
-                    let intervalBetweenDepartures = Int(departureTime.timeIntervalSinceDate(serverDate) / 60) - 1
-                    
-                    line!.departures.times.append(intervalBetweenDepartures)
+            guard let serverDate = jsonDictionary["serverdate"] as? String,
+                let serverTime = jsonDictionary["servertime"] as? String
+                else { return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000002)", code: 2, userInfo: nil)) }
+            
+            for json in jsonDepartures{
+                if json["rtTime"] == nil && json["time"] == nil{
+                    continue
                 }
-                else{
-                    print("Sname/Direction nil")
+                if json["rtDate"] == nil && json["date"] == nil{
+                    continue
+                }
+                
+                guard
+                    let name = json["name"] as? String,
+                    let track = json["track"] as? String,
+                    let sname = json["sname"] as? String,
+                    let direction = json["direction"] as? String,
+                    let type = json["type"] as? String,
+                    let fgColor  = json["fgColor"] as? String,
+                    let bgColor  = json["bgColor"] as? String
+                else { return }
+                let time = json["rtTime"] ?? json["time"]
+                let date = json["rtDate"] ?? json["date"]
+                let dateTime = "\(date!) \(time!)"
+                
+                let serverDateTime = "\(serverDate) \(serverTime)"
+                
+                guard
+                    let departureTime = dateTime.date,
+                    let serverTime = serverDateTime.date
+                    else { continue }
+                
+                let intervalBetweenDepartures = departureTime.timeIntervalSince(serverTime) / 60
+                departures.times.append(Int(intervalBetweenDepartures))
+                
+                let id = "\(stopId)-\(sname)-\(direction)"
+                let lineAndDirection = StringHelper.subStringSnameAndDirection("\(sname) \(direction)")
+                let line = Line(id: id, stop: Stop(), stopId: stopId, lineAndDirection: lineAndDirection, name: name, sname: sname, direction: direction, type: type, track: track, bgColor: bgColor, fgColor: fgColor, departures: Departure())
+                
+                let x = lines.filter({$0.id == id })
+                if  x.isEmpty {
+                    line.departures.times.append(Int(intervalBetweenDepartures))
+                    lines.append(line)
+                }
+                else {
+                    x[0].departures.times.append(Int(intervalBetweenDepartures))
                 }
             }
-            lines.sortInPlace({$0.departures.times.first < $1.departures.times.first})
             
+            //lines.sort(by: {$0.departures.times.first < $1.departures.times.first})
+            let numberLines = lines.filter({Int($0.sname) != nil}).sorted(by: {Int($0.sname)! < Int($1.sname)})
+            let charLines = lines.filter({Int($0.sname) == nil}).sorted(by: {$0.sname < $1.sname})
+            onSuccess(numberLines + charLines)
+        }
+    }
+
+    func getDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
+        ApiService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
+            var lines = [Line]()
+            let dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
+            
+            print(jsonDictionary)
+            
+            guard let jsonDepartures = jsonDictionary["Departure"] as? [[String:AnyObject]]
+                else {return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))}
+            
+            guard let serverDate = jsonDictionary["serverdate"] as? String,
+                let serverTime = jsonDictionary["servertime"] as? String
+                else { return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000002)", code: 2, userInfo: nil)) }
+            
+            for departure in jsonDepartures{
+                if departure["rtTime"] == nil && departure["time"] == nil{
+                    continue
+                }
+                if departure["rtDate"] == nil && departure["date"] == nil{
+                    continue
+                }
+                
+                guard let sname = departure["sname"],
+                    let direction = departure["direction"] else {continue}
+                
+                let id = "\(stopId)-\(sname)-\(direction)"
+                
+                // TODO: Guard istället?
+                var line = lines.firstOrDefault {$0.id == id}
+                if(line == nil){
+                    line = dbLines.firstOrDefault({$0.id == id})
+                    
+                    if(line != nil){
+                        lines.append(line!)
+                    }
+                }
+                
+                if(line == nil){
+                    continue
+                }
+                
+                let time = departure["rtTime"] ?? departure["time"]
+                let date = departure["rtDate"] ?? departure["date"]
+                let dateTime = "\(date!) \(time!)"
+
+                let serverDateTime = "\(serverDate) \(serverTime)"
+                
+                guard
+                    let departureTime = dateTime.date,
+                    let serverTime = serverDateTime.date
+                else { continue }
+                
+                let intervalBetweenDepartures = departureTime.timeIntervalSince(serverTime) / 60
+                print("departureTime.customLocal:", departureTime.customLocal)
+                print(serverTime.customLocal)
+                print(intervalBetweenDepartures)
+                
+//                guard let departureTime = DateAndTimeFormat.instance.date(from: dateTime) else { continue }
+//                guard let serverTime = DateAndTimeFormat.instance.date(from: serverDateTime) else { continue }
+//
+//                let intervalBetweenDepartures = Int(departureTime.timeIntervalSince(serverTime) / 60) - 1
+
+                line!.departures.times.append(Int(intervalBetweenDepartures))
+            }
+            
+            lines.sort(by: {$0.departures.times.first < $1.departures.times.first})
             onSuccess(lines)
         }
     }
-    
-    func getMyDepartures(lat: Double, long: Double) -> [Stop] {
-        let getDeparturesGroup = dispatch_group_create()
-        var stops = [Stop]()
-        var error = false
-        
-        if SqliteService.sharedInstance.getStops().isEmpty{
-            return stops
+
+    func getMyDepartures(_ coordinate: CLLocationCoordinate2D, onSuccess: @escaping ([Stop]) -> Void, onError: @escaping (NSError) -> Void) {
+        let group = DispatchGroup()
+        var stops = DbService.sharedInstance.getStops()
+
+        for stop in stops{
+            stop.distance = self.stopService.calculateDistance(stop, lat: coordinate.latitude, long: coordinate.longitude)
         }
-        else{
-            stops = SqliteService.sharedInstance.getStops()
-        }
-        
-        from(stops).each({
-            $0.distance = self.stopService.calculateDistance($0, lat: lat, long: long)
-        })
-        stops.sortInPlace({ $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
+        stops.sort(by: { $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
 
         var closestStops = [Stop]()
         for stop in stops {
             if (closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000){
-                dispatch_group_enter(getDeparturesGroup)
-                getDeparturesFromStop(stop.id, onSuccess: { lines -> Void in
+                group.enter()
+                getDeparturesFromStop(stop.id, onSuccess: { lines -> Void in  defer { group.leave() }
                     stop.lines = lines
                     closestStops.append(stop)
-                    dispatch_group_leave(getDeparturesGroup)
-                }, onError:{ e -> Void in
-                    print("Error")
-                    error = true
+                }, onError:{ error -> Void in defer { group.leave() }
+
+                    return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000004)", code: 4, userInfo: nil))
                 })
             }
-            else{
-                break
-            }
         }
         
-        dispatch_group_wait(getDeparturesGroup, DISPATCH_TIME_FOREVER)
-        
-        if error{
-            let stop = Stop()
-            stop.name = "Fel vid hämtning"
-            var s = [Stop]()
-            s.append(stop)
-            return s
-        }
-        
-        return from(closestStops).orderBy({$0.distance}).map({$0})
+        group.notify(queue: DispatchQueue.main, execute: {
+            onSuccess(closestStops.sorted(by: { $0.distance < $1.distance}))
+        })
     }
     
-    private func trimSname(sname: String) -> String{
-       return sname.stringByReplacingOccurrencesOfString("SVAR", withString: "SVART")
-    }
-    
-    private func serverDateTime(json: JSON) -> String{
-        let serverDateStr = String(stringInterpolationSegment: json["DepartureBoard"]["serverdate"])
-        let serverTimeStr = String(stringInterpolationSegment: json["DepartureBoard"]["servertime"])
-        
-        return ("\(serverDateStr) \(serverTimeStr)")
+    fileprivate func trimSname(_ sname: String) -> String{
+       return sname.replacingOccurrences(of: "SVAR", with: "SVART")
     }
 }

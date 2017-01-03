@@ -1,15 +1,17 @@
 PODS:
-  - SINQ (0.6.0)
-  - SQLite.swift (0.10.1)
+  - Alamofire (4.0.1)
+  - SQLite.swift (0.11.0):
+    - SQLite.swift/standard (= 0.11.0)
+  - SQLite.swift/standard (0.11.0)
 
 DEPENDENCIES:
-  - SINQ
-  - SQLite.swift (~> 0.10.1)
+  - Alamofire (~> 4.0)
+  - SQLite.swift
 
 SPEC CHECKSUMS:
-  SINQ: 503dc26fdcbf29be8fb48ebeace911c4268bef5c
-  SQLite.swift: 6a6e4b034efc317ce4e203b6af2d3024fee2b570
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  SQLite.swift: 9a26273607d3077a2e5a8d33486e9989f8404c7d
 
-PODFILE CHECKSUM: 6b34e1441869a8c8e7aacbc7d5eb46fb1b7749b7
+PODFILE CHECKSUM: 0e8555845b2fad03299b102ee0cf2cb98901cdb2
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.3

@@ -6,6 +6,6 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-public class Departure {
+open class Departure {
     var times = [Int]()
 }

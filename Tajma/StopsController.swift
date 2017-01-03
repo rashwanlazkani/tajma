@@ -8,16 +8,15 @@
 
 import UIKit
 import CoreLocation
-import SINQ
 
-class StopsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
+class StopsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
     @IBOutlet var navController: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     let lineService = LineService()
-    var stopService = StopsService()
+    var stopService = StopService()
     let deviceHelper = DeviceHelper()
     let locationHelper = LocationHelper()
     var stops = [Stop]()
@@ -26,38 +25,25 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     var cached = [Stop]()
     
     let locationManager = CLLocationManager()
-    var activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
-    var lat = 0.0
-    var long = 0.0
+    var activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0, width: 50, height: 50)) as UIActivityIndicatorView
+    var lat : String = ""
+    var long : String = ""
     
     var horizontalAccuracy = 1000
     
     let guideController = GuideController()
     
-    override func viewDidAppear(animated: Bool) {
-        initiateViews()
-        
-        if (segmentedControl.selectedSegmentIndex == 1){
-            stops = SqliteService.sharedInstance.getStops()
-        }
-        lines = SqliteService.sharedInstance.getLines()
-        tableView.reloadData()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        SqliteService.sharedInstance.updateOptionals()
+    
+        DbService.sharedInstance.updateOptionals()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         
-        let loadData = NSUserDefaults(suiteName: "group.tajma.today")!.boolForKey("LoadData")
+        let loadData = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "LoadData")
         if(!loadData){
-            self.performSegueWithIdentifier("ShowGuide", sender: nil)
-            NSUserDefaults(suiteName: "group.tajma.today")!.stringForKey("token")
-            NSUserDefaults(suiteName: "group.tajma.today")!.setObject("", forKey: "token")
-            
-            NSUserDefaults(suiteName: "group.tajma.today")!.setBool(true, forKey: "LoadData")
+            self.performSegue(withIdentifier: "ShowGuide", sender: nil)
+            UserDefaults(suiteName: "group.tajma.today")!.set(true, forKey: "LoadData")
         }
         else{
             self.locationManager.requestWhenInUseAuthorization()
@@ -77,63 +63,75 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             initiateViews()
             setRateSettings()
             
-            lines = SqliteService.sharedInstance.getLines()
+            lines = DbService.sharedInstance.getLines()
         }
+        initiateViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.navigationBar.isHidden = true
+        navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if (segmentedControl.selectedSegmentIndex == 1){
+            stops = DbService.sharedInstance.getStops()
+        }
+        lines = DbService.sharedInstance.getLines()
+        tableView.reloadData()
+    }
+    
+    func longPressAction(gestureRecognizer: UIGestureRecognizer) {
+        print("Gesture recognized")
     }
 
     // MARK: - Functions
     func initiateViews(){
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
-        navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        
-        self.navigationController?.navigationBar.layer.zPosition = 1
-        navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
-        navigationController?.navigationBar.tintColor = UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 1)
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 240/255, green: 80/255, blue: 80/255, alpha: 0)]
-        navigationController?.navigationBar.hidden = true
-        
-        let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = UIColor.whiteColor()
-        searchBar.setImage(UIImage(named: "search-white"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
-        searchBar.setImage(UIImage(named: "erase"), forSearchBarIcon: UISearchBarIcon.Clear, state: UIControlState.Normal)
-        searchBar.tintColor = UIColor.whiteColor()
-        let textfield:UITextField = searchBar.valueForKey("searchField") as! UITextField
-        let attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = UIColor.white
+        searchBar.setImage(UIImage(named: "search-white"), for: UISearchBarIcon.search, state: UIControlState())
+        searchBar.setImage(UIImage(named: "erase"), for: UISearchBarIcon.clear, state: UIControlState())
+        searchBar.tintColor = UIColor.white
+        let textfield:UITextField = searchBar.value(forKey: "searchField") as! UITextField
+        let attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor.white])
         textfield.attributedPlaceholder = attributedString
         
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
-        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         activityIndicator.center = CGPoint(x: (self.view.frame.width)/2, y: (self.view.frame.height)/3)
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
-        activityIndicator.color = UIColor.grayColor()
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activityIndicator.color = UIColor.gray
         self.view.addSubview(activityIndicator)
         
         // För att sätta bakgrundfärg och opacitet på placeholdertext för searchBar
-        let txt:UITextField = searchBar.valueForKey("searchField") as! UITextField
+        let txt:UITextField = searchBar.value(forKey: "searchField") as! UITextField
         let attr = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)])
         txt.attributedPlaceholder = attr
         
         segmentedControl.layer.masksToBounds = true
         segmentedControl.layer.cornerRadius = 6
         segmentedControl.layer.borderWidth = 1
-        segmentedControl.layer.borderColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1).CGColor
+        segmentedControl.layer.borderColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1).cgColor
         segmentedControl.backgroundColor = UIColor(red: 210/255, green: 43/255, blue: 69/255, alpha: 0.75)
     }
     
     func setRateSettings(){
         let rate = RateMyApp.sharedInstance
-        rate.appID = Constants.AppId
+        rate.appID = Constants.appID
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        DispatchQueue.main.async(execute: { () -> Void in
             rate.trackAppUsage()
         })
     }
     
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         self.segmentedControl.selectedSegmentIndex = 0
         updateLocation()
     }
@@ -144,73 +142,73 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func getNearestStops() {
         self.activityIndicator.startAnimating()
-
-        self.segmentedControl.enabled = false
-        stopService.getNearestStops(String(lat), long: String(long), onSuccess: { json -> Void in
-            dispatch_async(dispatch_get_main_queue(),{
+        self.segmentedControl.isEnabled = false
+        stopService.getNearestStops(lat, long: long, onSuccess: { json -> Void in
+            DispatchQueue.main.async(execute: {
                 self.stops = json
                 self.cached = json
                 if (self.stops.count == 0){
-                    self.displayError("Inga hållplatser i närheten.", type: Error.Nearest)
+                    self.display("Inga hållplatser i närheten.", type: Error.nearest)
                 }
                 self.tableView!.reloadData()
                 
-                self.segmentedControl.enabled = true
+                self.locationManager.stopUpdatingLocation()
+                self.segmentedControl.isEnabled = true
                 self.activityIndicator.stopAnimating()
             })
             }, onError:{ error -> Void in
-                self.displayError("Ett fel har uppstått med hämtning av närmaste hållplatser.", type: Error.Location)
+                self.display("Ett fel har uppstått med hämtning av närmaste hållplatser.", type: Error.location)
         })
     }
     
-    func displayError(error: String, type: Error){
-        let alert = UIAlertController(title: "Tajma", message: error, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Försök igen", style: UIAlertActionStyle.Default, handler: { (alert) -> Void in
+    func display(_ error: String, type: Error){
+        let alert = UIAlertController(title: "Tajma", message: error, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Försök igen", style: UIAlertActionStyle.default, handler: { (alert) -> Void in
             switch type {
-            case Error.Location :
-                return self.updateLocation()
-            case Error.Nearest :
+            case Error.location :
+                return self.locationManager.startUpdatingLocation()
+            case Error.nearest :
                 return self.getNearestStops()
             }
         }))
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 
-    @IBAction func segmentedControl_Changed(sender: UISegmentedControl) {
+    @IBAction func segmentedControl_Changed(_ sender: UISegmentedControl) {
         if (segmentedControl.selectedSegmentIndex == 0){
             self.updateLocation()
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
-            stops = SqliteService.sharedInstance.getStops()
+            stops = DbService.sharedInstance.getStops()
         }
-        self.segmentedControl.setTitle("Nära mig", forSegmentAtIndex: 0)
+        self.segmentedControl.setTitle("Nära mig", forSegmentAt: 0)
         self.searchBar.text = ""
-        lines = SqliteService.sharedInstance.getLines()
+        lines = DbService.sharedInstance.getLines()
         searchBar.resignFirstResponder()
         tableView.reloadData()
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         segmentedControl.selectedSegmentIndex = 0
         activityIndicator.startAnimating()
         
         // Låser vyn
-        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         stopService.getStopsByInput(searchBar.text!, onSuccess: { json -> Void in
-            dispatch_async(dispatch_get_main_queue(),{
+            DispatchQueue.main.async(execute: {
                 self.stops = json
-                self.lines = SqliteService.sharedInstance.getLines()
+                self.lines = DbService.sharedInstance.getLines()
                 if (self.stops.count > 0){
-                    self.segmentedControl.setTitle("Sökresultat", forSegmentAtIndex: 0)
+                    self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)
                 }
                 searchBar.resignFirstResponder()
                 self.tableView!.reloadData()
                 self.activityIndicator.stopAnimating()
-                UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                UIApplication.shared.endIgnoringInteractionEvents()
             })
             }, onError:{ error -> Void in
-                self.displayError("Ett fel har uppstått med sökningen.", type: Error.Location)
+                self.display("Ett fel har uppstått med sökningen.", type: Error.location)
         })
     }
     
@@ -226,9 +224,10 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     // MARK: - Location
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        horizontalAccuracy = Int((manager.location?.horizontalAccuracy)!)
-        
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if (!lat.isEmpty && !long.isEmpty){
+            return
+        }
         if Reachability.isConnectedToNetwork() != true {
             stops = [Stop]()
             return
@@ -239,37 +238,47 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         getNearestStops()
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        displayError("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.", type: Error.Location)
+
+    
+    private func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.", type: Error.location)
     }
     
     // MARK: - TableView
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return stops.count
     }
     
-    func tableView(tableView: UITableView,cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let currentStop = from(stops).elementAt(indexPath.row)
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let currentStop = stops[(indexPath as NSIndexPath).row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    
+        
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gestureRecognizer:)))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        
+        cell.addGestureRecognizer(lpgr)
         
         cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         
         for view in cell.subviews{
-            if(view.isKindOfClass(UILabel)){
+            if(view.isKind(of: UILabel.self)){
                 view.removeFromSuperview()
             }
         }
         
-        let name = UILabel(frame: CGRectMake(15, 8, DeviceHelper.labelWidth(), 30))
-        name.textAlignment = NSTextAlignment.Left
+        let name = UILabel(frame: CGRect(x: 15, y: 8, width: DeviceHelper.labelWidth(), height: 30))
+        name.textAlignment = NSTextAlignment.left
         name.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        name.text = stops[indexPath.row].name
-        name.font = name.font.fontWithSize(16)
+        name.text = stops[(indexPath as NSIndexPath).row].name
+        name.font = name.font.withSize(16)
         
         cell.addSubview(name)
         
-        if(indexPath.row % 2 == 0){
+        if((indexPath as NSIndexPath).row % 2 == 0){
             cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         } else{
             cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
@@ -277,12 +286,12 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         // Rensar all checkboxar
         for view in cell.subviews{
-            if (String(view.dynamicType) == "UIImageView") {
+            if (String(describing: type(of: view)) == "UIImageView") {
                 view.removeFromSuperview()
             }
         }
         
-        if (from(lines).any({$0.stopId == currentStop.id})){
+        if (!lines.filter{$0.stopId == currentStop.id}.isEmpty){
             let imageName = "check-red"
             let image = UIImage(named: imageName)
             let imageView = UIImageView(image: image!)
@@ -293,23 +302,23 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         searchBar.resignFirstResponder()
         self.searchBar!.text = ""
-        self.performSegueWithIdentifier("ShowLinesView", sender: stops[indexPath.row])
+        self.performSegue(withIdentifier: "ShowLinesView", sender: stops[(indexPath as NSIndexPath).row])
     }
     
     // MARK: - Segue
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!){
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!){
         if (segue.identifier == "ShowLinesView")
         {
-            UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+            UIApplication.shared.beginIgnoringInteractionEvents()
             
-            let lines = segue.destinationViewController as! LinesViewController
+            let lines = segue.destination as! LinesViewController
             lines.stop = sender as! Stop
             lines.updateLines()
             
-            UIApplication.sharedApplication().endIgnoringInteractionEvents()
+            UIApplication.shared.endIgnoringInteractionEvents()
             self.activityIndicator.stopAnimating()
         }
     }

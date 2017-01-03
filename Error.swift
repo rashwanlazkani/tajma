@@ -9,6 +9,6 @@
 import Foundation
 
 public enum Error {
-    case Location
-    case Nearest
+    case location
+    case nearest
 }

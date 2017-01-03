@@ -9,7 +9,7 @@
 import Foundation
 
 enum Info {
-    case Feedback
-    case Share
-    case Like
+    case feedback
+    case share
+    case like
 }
