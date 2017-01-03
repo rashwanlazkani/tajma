@@ -10,8 +10,7 @@ import UIKit
 
 class WidgetBodyCell: UITableViewCell {
 
-    @IBOutlet weak var sname: UILabel!
-    @IBOutlet weak var direction: UILabel!
+    @IBOutlet weak var snameDirection: UILabel!
     @IBOutlet weak var firstDep: UILabel!
     @IBOutlet weak var secondDep: UILabel!
     

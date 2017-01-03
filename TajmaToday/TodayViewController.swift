@@ -172,32 +172,23 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         let view = UIView()
         view.backgroundColor = UIColor.clear
         
-        view.layer.cornerRadius = 10
-        view.layer.masksToBounds = true
-        
-        
-        let name = UILabel(frame: CGRect(x: 15, y: 15, width: DeviceHelper.getLabelWidth(), height: 30))
+        let name = UILabel(frame: CGRect(x: 37, y: 10, width: DeviceHelper.getLabelWidth(), height: 30))
         name.font = name.font.withSize(14)
-        name.textColor = grayColorOpacity //grayColor
-        
+        name.textColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 0.5)
         name.text = stops[section].name.components(separatedBy: ",")[0]
         
         let distance = UILabel(frame: CGRect(x: tableView.bounds.width - 110, y: 15, width: 95, height: 30))
         distance.font = distance.font.withSize(14)
-        distance.textColor = grayColorOpacity //grayColor
+        distance.textColor = grayColorOpacity
         distance.textAlignment = .right
         
-        if let d = stops[section].distance{
-            distance.text = ("\(d) m")
+        if let dist = stops[section].distance {
+            distance.text = ("\(dist) m")
         }
         else{
             distance.text = "- m"
         }
         
-        let separator = UIView(frame: CGRect(x: 0, y: 45, width: tableView.frame.width, height: 1))
-        separator.backgroundColor = separatorColor
-        
-        view.addSubview(separator)
         view.addSubview(name)
         view.addSubview(distance)
         
@@ -205,77 +196,44 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
-        for view in cell.subviews{
-            view.removeFromSuperview()
-        }
-        
-        let mainLabel = UILabel(frame: CGRect(x: 15, y: 4, width: DeviceHelper.labelWidth() - 30, height: 30))
-        mainLabel.font = mainLabel.font.withSize(14)
-        let rightOne = UILabel(frame: CGRect(x: tableView.bounds.width - 150, y: 4, width: 100, height: 30))
-        rightOne.font = rightOne.font.withSize(14)
-        let rightTwo = UILabel(frame: CGRect(x: tableView.bounds.width - 60, y: 4, width: 30, height: 30))
-        rightTwo.font = rightTwo.font.withSize(14)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WidgetBodyCell
         
         let currentStop = stops[(indexPath as NSIndexPath).section]
         if (currentStop.lines.isEmpty) {
-            mainLabel.text = "Inga avgångar hittades"
-            mainLabel.textColor = grayColor//UIColor.white
-            cell.addSubview(mainLabel)
+            cell.snameDirection.text = "Inga avgångar hittades"
+            cell.firstDep.text = ""
+            cell.secondDep.text = ""
             return cell
         }
         
         let currentLine = currentStop.lines[(indexPath as NSIndexPath).row]
-        
-        rightOne.frame = CGRect(x: tableView.bounds.width - 75, y: 4, width: 25, height: 30)
-        rightOne.textColor = grayColor//UIColor.white
-        rightOne.font = rightOne.font.withSize(14)
-        rightOne.textAlignment = .right
-        rightTwo.frame = CGRect(x: tableView.bounds.width - 35, y: 4, width: 20, height: 30)
-        rightTwo.textColor = grayColorOpacity //grayColor
-        rightTwo.font = rightTwo.font.withSize(14)
-        rightTwo.textAlignment = .right
-        mainLabel.textColor = grayColor //UIColor.white
-        mainLabel.text = ("\(currentLine.sname) \(currentLine.direction)")
+        cell.snameDirection.text = "\(currentLine.sname) \(currentLine.direction)"
         
         for (index, time) in currentLine.departures.times.enumerated(){
             if (index == 0 && time == 0){
-                rightOne.text = "Nu"
+                cell.firstDep.text = "Nu"
             }
             else if (index == 1 && time == 0){
-                rightTwo.text = "Nu"
+                cell.secondDep.text = "Nu"
             }
             else if (index == 0){
                 if (time < 0){
-                    rightOne.text = "0"
+                    cell.firstDep.text = "0"
                 }
                 else{
-                    rightOne.text = String(time)
+                    cell.firstDep.text = String(time)
                 }
             }
             else if (index == 1){
                 if (time < 0){
-                    rightTwo.text = "0"
+                    cell.secondDep.text = "0"
                 }
                 else{
-                    rightTwo.text = String(time)
+                    cell.secondDep.text = String(time)
                 }
             }
         }
-        
-        let separatorView = UIView(frame: CGRect(x: 0, y: 36, width: Int(cell.frame.size.width), height: 1))
-        separatorView.backgroundColor = separatorColor
-        
-        let totalRow = tableView.numberOfRows(inSection: indexPath.section)
-        if indexPath.row != totalRow - 1 {
-            cell.addSubview(separatorView)
-        }
-        
-        cell.addSubview(mainLabel)
-        cell.addSubview(rightOne)
-        cell.addSubview(rightTwo)
-        
+
         cell.layoutIfNeeded()
         
         return cell
@@ -286,23 +244,18 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 32
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let table = UIView(frame: CGRect.zero)
-        tableView.tableFooterView = table
-        table.isHidden = true
-        tableView.tableFooterView?.isHidden = true
-        self.tableView.backgroundColor = UIColor.clear
+        let separatorView = UIView(frame: CGRect(x: 0, y: 36, width: tableView.bounds.size.width, height: 1))
+        separatorView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2)
         
-        table.backgroundColor = UIColor.green
-        
-        return table
+        return separatorView
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

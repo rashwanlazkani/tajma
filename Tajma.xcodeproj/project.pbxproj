@@ -10,7 +10,6 @@
 		618F431B6780E5F69E3BDFBD /* Pods_Tajma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7074C1FC4665BB1B3DC3A07A /* Pods_Tajma.framework */; };
 		6B31F2861DD05CC100D34585 /* LineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B31F2851DD05CC100D34585 /* LineCell.swift */; };
 		6B4FEF5A1D881DEC0098906A /* DepartureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F806677E1B1E5DC600A26B5D /* DepartureService.swift */; };
-		6B5722B21E13CC13003036DF /* WidgetHedingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5722B11E13CC13003036DF /* WidgetHedingCell.swift */; };
 		6B8E47C11E128CAA002B7BDC /* WidgetBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E47C01E128CAA002B7BDC /* WidgetBodyCell.swift */; };
 		6BB802351D7D2289003506C2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB802341D7D2289003506C2 /* Extensions.swift */; };
 		6BB802361D7D2289003506C2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB802341D7D2289003506C2 /* Extensions.swift */; };
@@ -103,7 +102,6 @@
 		14C5110378237B0D9C445609 /* Pods-Tajma.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.release.xcconfig"; sourceTree = "<group>"; };
 		5E49416DADDBD4376A4C3CD0 /* Pods-TajmaToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaToday.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaToday/Pods-TajmaToday.debug.xcconfig"; sourceTree = "<group>"; };
 		6B31F2851DD05CC100D34585 /* LineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineCell.swift; sourceTree = "<group>"; };
-		6B5722B11E13CC13003036DF /* WidgetHedingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetHedingCell.swift; sourceTree = "<group>"; };
 		6B8E47C01E128CAA002B7BDC /* WidgetBodyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetBodyCell.swift; sourceTree = "<group>"; };
 		6BB802341D7D2289003506C2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6BF638E21DCDC0920031DA2C /* tajma-gif-2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-2.gif"; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 			children = (
 				6B31F2851DD05CC100D34585 /* LineCell.swift */,
 				6B8E47C01E128CAA002B7BDC /* WidgetBodyCell.swift */,
-				6B5722B11E13CC13003036DF /* WidgetHedingCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -538,7 +535,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tajma/Pods-Tajma-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8A5862EF9553E82E751EBB57 /* [CP] Check Pods Manifest.lock */ = {
@@ -631,7 +628,6 @@
 				6B8E47C11E128CAA002B7BDC /* WidgetBodyCell.swift in Sources */,
 				F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */,
 				F8D853CA1BE132F000E2C1E2 /* Constants.swift in Sources */,
-				6B5722B21E13CC13003036DF /* WidgetHedingCell.swift in Sources */,
 				F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */,
 				F80667721B1E5D7900A26B5D /* Departure.swift in Sources */,
 				6BB802361D7D2289003506C2 /* Extensions.swift in Sources */,
@@ -673,7 +669,6 @@
 				F82D34171C0A552000E03703 /* DateHelper.swift in Sources */,
 				F8F668401C18D41000F6B15A /* Error.swift in Sources */,
 				F8729F411BF77E57000E9C9C /* SharedHelper.swift in Sources */,
-				6B6E79451D7218EF00C0D61C /* UIImage+Gif.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -789,7 +784,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashwan Lazkani (BXYG2FN55K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -868,7 +863,6 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rashwan Lazkani (PGMKGDAHM5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashwan Lazkani (PGMKGDAHM5)";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				EXCLUDED_SOURCE_FOLDER_NAMES = .git;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

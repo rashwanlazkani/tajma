@@ -58,7 +58,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.navigationItem.titleView = titleView
         titleView.addSubview(title)
         
-        tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+        tableView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         activityIndicator.center = CGPoint(x: (self.view.frame.width)/2, y: (self.view.frame.height)/3)

@@ -29,7 +29,7 @@
                                         <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9BT-l7-hRT" id="VCD-mg-pj7">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -184,7 +184,7 @@
                                                 <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OAk-JT-hFT" id="34h-R8-24k">
-                                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -243,7 +243,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="28"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7GY-dQ-Llt" id="6DL-32-olU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="27.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="27"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Widget" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oG1-fY-kQI">
@@ -280,7 +280,7 @@
                                         <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gcj-lv-7PQ" id="DPE-BX-C1h">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CMA-tM-7yH">
@@ -333,8 +333,15 @@
                                                         <constraint firstAttribute="width" constant="28" id="AMN-Re-HQq"/>
                                                         <constraint firstAttribute="height" constant="28" id="qi4-bj-oZZ"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="14"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="Xpc-2p-39Y" firstAttribute="leading" secondItem="DPE-BX-C1h" secondAttribute="leadingMargin" constant="4" id="1oC-ZM-9RI"/>
                                                 <constraint firstItem="Xpc-2p-39Y" firstAttribute="top" secondItem="DPE-BX-C1h" secondAttribute="topMargin" constant="-1" id="3Oq-yB-VXr"/>
@@ -366,28 +373,29 @@
                                 <rect key="frame" x="0.0" y="588" width="375" height="79"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19 Fredriksdal vi Hjalmar tillagd i widget" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GsT-mB-EP3">
-                                        <rect key="frame" x="18" y="14" width="308" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <rect key="frame" x="18" y="14" width="326" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djP-i2-m1W">
-                                        <rect key="frame" x="18" y="41" width="60" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
-                                        <state key="normal" title="Läs mer">
+                                        <rect key="frame" x="18" y="40" width="64" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
+                                        <state key="normal" title="LÄS MER">
                                             <color key="titleColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="readMoreClicked:" destination="JpN-E7-M05" eventType="touchUpInside" id="g3V-4L-yXe"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qf2-22-0Sn">
-                                        <rect key="frame" x="334" y="8" width="33" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qf2-22-0Sn">
+                                        <rect key="frame" x="352" y="16" width="15" height="15"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="33" id="sEa-I5-Pj8"/>
+                                            <constraint firstAttribute="height" constant="15" id="fr5-Vc-OlF"/>
+                                            <constraint firstAttribute="width" constant="15" id="sEa-I5-Pj8"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="X">
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" image="close-white">
                                             <color key="titleColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -404,7 +412,7 @@
                                     <constraint firstItem="Qf2-22-0Sn" firstAttribute="leading" secondItem="GsT-mB-EP3" secondAttribute="trailing" constant="8" id="ZV8-4B-ds2"/>
                                     <constraint firstItem="djP-i2-m1W" firstAttribute="top" secondItem="GsT-mB-EP3" secondAttribute="bottom" constant="9" id="cYA-oW-9KN"/>
                                     <constraint firstItem="GsT-mB-EP3" firstAttribute="top" secondItem="9eL-rn-PHk" secondAttribute="top" constant="14" id="tca-hD-26Q"/>
-                                    <constraint firstItem="Qf2-22-0Sn" firstAttribute="top" secondItem="9eL-rn-PHk" secondAttribute="top" constant="8" id="zMT-4u-6Kt"/>
+                                    <constraint firstItem="Qf2-22-0Sn" firstAttribute="top" secondItem="9eL-rn-PHk" secondAttribute="top" constant="16" id="zMT-4u-6Kt"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -458,6 +466,7 @@
     </scenes>
     <resources>
         <image name="check-white" width="22" height="22"/>
+        <image name="close-white" width="40" height="40"/>
         <image name="more-white" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

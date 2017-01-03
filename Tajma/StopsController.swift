@@ -18,18 +18,13 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     let lineService = LineService()
     var stopService = StopService()
     let deviceHelper = DeviceHelper()
-    let locationHelper = LocationHelper()
     var stops = [Stop]()
     var lines = [Line]()
-    
-    var cached = [Stop]()
     
     let locationManager = CLLocationManager()
     var activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0, width: 50, height: 50)) as UIActivityIndicatorView
     var lat : String = ""
     var long : String = ""
-    
-    var horizontalAccuracy = 1000
     
     let guideController = GuideController()
     
@@ -50,8 +45,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             if CLLocationManager.locationServicesEnabled() {
                 locationManager.delegate = self
                 locationManager.desiredAccuracy = kCLLocationAccuracyBest
-                locationManager.distanceFilter = 50
-                updateLocation()
+                locationManager.startUpdatingLocation()
             }
             
             self.title = "Bakåt"
@@ -133,11 +127,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         self.segmentedControl.selectedSegmentIndex = 0
-        updateLocation()
-    }
-    
-    private func roundToFive(x : Double) -> Int {
-        return 5 * Int(round(x / 5.0))
+        locationManager.startUpdatingLocation()
+        lat = ""
+        long = ""
     }
     
     func getNearestStops() {
@@ -146,7 +138,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         stopService.getNearestStops(lat, long: long, onSuccess: { json -> Void in
             DispatchQueue.main.async(execute: {
                 self.stops = json
-                self.cached = json
                 if (self.stops.count == 0){
                     self.display("Inga hållplatser i närheten.", type: Error.nearest)
                 }
@@ -177,7 +168,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
 
     @IBAction func segmentedControl_Changed(_ sender: UISegmentedControl) {
         if (segmentedControl.selectedSegmentIndex == 0){
-            self.updateLocation()
+            lat = ""
+            long = ""
+            self.locationManager.startUpdatingLocation()
         }
         else if (segmentedControl.selectedSegmentIndex == 1){
             stops = DbService.sharedInstance.getStops()
@@ -212,17 +205,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         })
     }
     
-    func updateLocation(){
-        print(horizontalAccuracy)
-        if horizontalAccuracy <= 50{
-            stops = cached
-            tableView.reloadData()
-            locationManager.stopUpdatingLocation()
-            return
-        }
-        locationManager.startUpdatingLocation()
-    }
-    
     // MARK: - Location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if (!lat.isEmpty && !long.isEmpty){
@@ -232,9 +214,10 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             stops = [Stop]()
             return
         }
-        
-        lat = manager.location!.coordinate.latitude
-        long = manager.location!.coordinate.longitude
+        let location:CLLocationCoordinate2D = manager.location!.coordinate
+        lat = String(location.latitude)
+        long = String(location.longitude)
+        locationManager.stopUpdatingLocation()
         getNearestStops()
     }
     

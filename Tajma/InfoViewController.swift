@@ -12,7 +12,6 @@ import Social
 import MobileCoreServices
 
 class InfoViewController: UIViewController, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
-    var mail: MFMailComposeViewController!
     var  items = [String]()
     
     var deviceHelper = DeviceHelper()
@@ -66,7 +65,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
+        cell.selectionStyle = .none
         cell.textLabel!.text = items[(indexPath as NSIndexPath).row]
         cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         
@@ -111,8 +110,9 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         }
     }
     
-    private func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        dismiss(animated: true, completion: nil)
+    @objc(mailComposeController:didFinishWithResult:error:)
+    func mailComposeController(_ controller: MFMailComposeViewController,  didFinishWith result: MFMailComposeResult, error: NSError?) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
@@ -157,11 +157,16 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     
     func openMail(_ sender : Info){
         if (sender == Info.feedback){
+            if !MFMailComposeViewController.canSendMail() {
+                print("Cannot send mail")
+                return
+            }
+            
             let toRecipients = ["tajma@golazo.nu"]
             let subject = "Feedback Tajma app"
             let body = "<br><br><p>Jag har en \(UIDevice.current.modelName).<br> Jag har iOS version \(UIDevice.current.systemVersion).<br</p>"
             
-            mail = MFMailComposeViewController()
+            let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
             mail.setToRecipients(toRecipients)
             mail.setSubject(subject)
