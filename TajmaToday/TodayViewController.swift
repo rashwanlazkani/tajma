@@ -23,8 +23,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     var stops = [Stop]()
     var coordinate: CLLocationCoordinate2D?
     
-    var hasData = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -278,6 +276,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         cell.addSubview(rightOne)
         cell.addSubview(rightTwo)
         
+        cell.layoutIfNeeded()
+        
         return cell
     }
     
@@ -365,17 +365,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                     
                     return
             })
-        }
-        else if stops.count == 1{
-            if stops[0].name == "Fel vid hämtning"{
-                displayMessage("Fel vid hämtning, var god försök igen.")
-                tableView.reloadData()
-                return
-            }
-            else{
-                infoText.hidden = true
-            }
-            
         }
         else{
             tableView.reloadData()
