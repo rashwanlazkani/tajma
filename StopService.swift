@@ -13,16 +13,22 @@ class StopService{
     
     func getNearestStops(_ lat: String, long: String, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
         ApiService.sharedInstance.getNearestStops(lat, long: long) { jsonDic in
-            guard let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]]
             // TODO: Lägg till onError
-            else { return }
-
-            let stops = self.mapToStop(jsonStops).sorted{$0.0.name == $0.1.name}.orderedSetValue
-        
-            for stop in stops{
-                stop.id = StringHelper.customizeStopID(stop.id)
+            if let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]] {
+                if jsonStops.isEmpty {
+                    onSuccess([Stop]())
+                }
+                
+                let stops = self.mapToStop(jsonStops).sorted{$0.0.name == $0.1.name}.orderedSetValue
+                
+                for stop in stops{
+                    stop.id = StringHelper.customizeStopID(stop.id)
+                }
+                onSuccess(stops)
             }
-            onSuccess(stops)
+            else {
+                onSuccess([Stop]())
+            }
         }
     }
     
