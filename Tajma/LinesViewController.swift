@@ -41,17 +41,20 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = false
-        UIApplication.shared.statusBarStyle = .default
-        self.navigationController?.navigationBar.tintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        UIApplication.shared.statusBarStyle = .lightContent
     }
 
     func initiateViews(){
         let title = UILabel(frame: CGRect(x: 0, y: 7, width: 200, height: 30))
         title.textAlignment = NSTextAlignment.center
-        title.textColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        title.textColor = UIColor.white
         title.text = stop.name.components(separatedBy: ",").first
-        title.font = title.font.withSize(17)
+        title.font = UIFont.boldSystemFont(ofSize: 17)
+
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
         let titleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
         titleView.backgroundColor = UIColor.clear
@@ -185,10 +188,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         else {
             return 44
         }
-    }
-
-    @IBAction func readMoreClicked(_ sender: Any) {
-        
     }
     
     func closeInfoView() {

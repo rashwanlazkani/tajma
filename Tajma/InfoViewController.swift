@@ -29,7 +29,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         tableView.delegate = self
         tableView.dataSource = self
         
-        items = ["Lämna feedback","Tajma på Facebook","Tipsa en vän", "Betygsätt Tajma", "Guide: Så här kommer du igång", "Vanliga frågor", "Om oss"]
+        items = ["Senaste nytt via Facebook","Betygsätt i App Store","Tipsa en vän", "Lämna Feedback", "Så aktiverar du Tajmas Widget", "Välkomstguide", "Vanliga frågor", "Om oss"]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,26 +64,38 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! InfoCell
         cell.selectionStyle = .none
-        cell.textLabel!.text = items[(indexPath as NSIndexPath).row]
-        cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         
-        if((indexPath as NSIndexPath).row % 2 == 0){
-            cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-        } else{
-            cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+        var image = UIImage()
+        
+        switch indexPath.row {
+        case 0:
+            image = UIImage(named: "facebook")!
+        case 1:
+            image = UIImage(named: "betygsatt")!
+        case 2:
+            image = UIImage(named: "tipsa")!
+        case 3:
+            image = UIImage(named: "feedback")!
+        case 4:
+            image = UIImage(named: "omoss")!
+        case 5:
+            image = UIImage(named: "guide")!
+        case 6:
+            image = UIImage(named: "vanliga-fragor")!
+        case 7:
+            image = UIImage(named: "omoss")!
+        default:
+            image = UIImage(named: "")!
         }
+        
+        cell.title.text = items[(indexPath as NSIndexPath).row]
+        cell.imageV?.image = image
         
         if ((indexPath as NSIndexPath).row == items.count - 1){
             tableView.tableFooterView = UIView(frame: CGRect.zero)
-            
-            if ((indexPath as NSIndexPath).row % 2 == 0){
-                tableView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-            }
-            else{
-                tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-            }
+            tableView.backgroundColor = UIColor.white
         }
         
         return cell
@@ -92,18 +104,20 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath as NSIndexPath).row {
         case 0:
-            openMail(Info.feedback)
-        case 1:
             openFacebook(Info.like)
+        case 1:
+            openAppStore()
         case 2:
             openShare()
         case 3:
-            openAppStore()
+            openMail(Info.feedback)
         case 4:
-            openHelp()
+            self.performSegue(withIdentifier: "ShowWidgetGuide", sender: nil)
         case 5:
-            openFaq()
+            openHelp()
         case 6:
+            openFaq()
+        case 7:
             openAboutUs()
         default:
             return

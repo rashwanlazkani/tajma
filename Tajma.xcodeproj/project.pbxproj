@@ -16,6 +16,9 @@
 		6BF638E51DCDC0920031DA2C /* tajma-gif-2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6BF638E21DCDC0920031DA2C /* tajma-gif-2.gif */; };
 		6BF638E61DCDC0920031DA2C /* tajma-gif-3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6BF638E31DCDC0920031DA2C /* tajma-gif-3.gif */; };
 		6BF638E71DCDC0920031DA2C /* tajma-gif-1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6BF638E41DCDC0920031DA2C /* tajma-gif-1.gif */; };
+		6BF9097B1E2D6BCC002CC081 /* WidgetGuideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF9097A1E2D6BCC002CC081 /* WidgetGuideController.swift */; };
+		6BF9097D1E2D6FFE002CC081 /* video-2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6BF9097C1E2D6FFE002CC081 /* video-2.gif */; };
+		6BF9097F1E2D71B7002CC081 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF9097E1E2D71B7002CC081 /* InfoCell.swift */; };
 		7B101E2A30018C52673F8FB1 /* Pods_TajmaToday.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915A1D70E493D02167B53DB1 /* Pods_TajmaToday.framework */; };
 		F8020F6B1CB52F920060C0C8 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA48411C39BE010080E12B /* Reachability.swift */; };
 		F80667591B1E5CA100A26B5D /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F80667581B1E5CA100A26B5D /* NotificationCenter.framework */; };
@@ -107,6 +110,9 @@
 		6BF638E21DCDC0920031DA2C /* tajma-gif-2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-2.gif"; sourceTree = "<group>"; };
 		6BF638E31DCDC0920031DA2C /* tajma-gif-3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-3.gif"; sourceTree = "<group>"; };
 		6BF638E41DCDC0920031DA2C /* tajma-gif-1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "tajma-gif-1.gif"; sourceTree = "<group>"; };
+		6BF9097A1E2D6BCC002CC081 /* WidgetGuideController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetGuideController.swift; sourceTree = "<group>"; };
+		6BF9097C1E2D6FFE002CC081 /* video-2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "video-2.gif"; sourceTree = "<group>"; };
+		6BF9097E1E2D71B7002CC081 /* InfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		7074C1FC4665BB1B3DC3A07A /* Pods_Tajma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tajma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		915A1D70E493D02167B53DB1 /* Pods_TajmaToday.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TajmaToday.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCD40C0E70C3A27B45E7747D /* Pods-Tajma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.debug.xcconfig"; sourceTree = "<group>"; };
@@ -187,6 +193,7 @@
 			children = (
 				6B31F2851DD05CC100D34585 /* LineCell.swift */,
 				6B8E47C01E128CAA002B7BDC /* WidgetBodyCell.swift */,
+				6BF9097E1E2D71B7002CC081 /* InfoCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -280,6 +287,7 @@
 				F8FEC9A21C42B484008C615A /* OmOssViewController.swift */,
 				F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */,
 				F81D4E781C5EBB3F0024B798 /* WebViewController.swift */,
+				6BF9097A1E2D6BCC002CC081 /* WidgetGuideController.swift */,
 				F843A3A91B1B04C2008F4505 /* Main.storyboard */,
 				F843A3AC1B1B04C2008F4505 /* Images.xcassets */,
 				F843A3AE1B1B04C2008F4505 /* LaunchScreen.xib */,
@@ -379,6 +387,7 @@
 				6BF638E21DCDC0920031DA2C /* tajma-gif-2.gif */,
 				6BF638E31DCDC0920031DA2C /* tajma-gif-3.gif */,
 				6BF638E41DCDC0920031DA2C /* tajma-gif-1.gif */,
+				6BF9097C1E2D6FFE002CC081 /* video-2.gif */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -515,6 +524,7 @@
 				6BF638E71DCDC0920031DA2C /* tajma-gif-1.gif in Resources */,
 				F843A3AB1B1B04C2008F4505 /* Main.storyboard in Resources */,
 				F843A3B01B1B04C2008F4505 /* LaunchScreen.xib in Resources */,
+				6BF9097D1E2D6FFE002CC081 /* video-2.gif in Resources */,
 				6BF638E51DCDC0920031DA2C /* tajma-gif-2.gif in Resources */,
 				F843A3AD1B1B04C2008F4505 /* Images.xcassets in Resources */,
 			);
@@ -658,11 +668,13 @@
 				F8FEC9A31C42B484008C615A /* OmOssViewController.swift in Sources */,
 				F87AFE751B1B902400D3DAFC /* Departure.swift in Sources */,
 				F81D4E791C5EBB3F0024B798 /* WebViewController.swift in Sources */,
+				6BF9097B1E2D6BCC002CC081 /* WidgetGuideController.swift in Sources */,
 				6B31F2861DD05CC100D34585 /* LineCell.swift in Sources */,
 				F87AFE8D1B1B906400D3DAFC /* ApiService.swift in Sources */,
 				F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */,
 				F82CB0841BD25B2C0015D3C5 /* DbService.swift in Sources */,
 				F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */,
+				6BF9097F1E2D71B7002CC081 /* InfoCell.swift in Sources */,
 				6BB802351D7D2289003506C2 /* Extensions.swift in Sources */,
 				F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */,
 				6B4FEF5A1D881DEC0098906A /* DepartureService.swift in Sources */,
