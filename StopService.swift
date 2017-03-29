@@ -12,7 +12,7 @@ class StopService{
     let checkedStops = DbService.sharedInstance.getStops()
     
     func getNearestStops(_ lat: String, long: String, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
-        ApiService.sharedInstance.getNearestStops(lat, long: long) { jsonDic in
+        WebService.sharedInstance.getNearestStops(lat, long: long) { jsonDic in
             // TODO: Lägg till onError
             if let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]] {
                 if jsonStops.isEmpty {
@@ -22,7 +22,7 @@ class StopService{
                 let stops = self.mapToStop(jsonStops).sorted{$0.0.name == $0.1.name}.orderedSetValue
                 
                 for stop in stops{
-                    stop.id = StringHelper.customizeStopID(stop.id)
+                    stop.id = stop.id.customizeStopID
                 }
                 onSuccess(stops)
             }
@@ -33,7 +33,7 @@ class StopService{
     }
     
     func getStopsByInput(_ name : String, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
-        ApiService.sharedInstance.findStops(name) { jsonDic in
+        WebService.sharedInstance.findStops(name) { jsonDic in
             guard let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]]
             else { return }
             
@@ -46,7 +46,7 @@ class StopService{
                     }
                     continue
                 }
-                stop.id = StringHelper.customizeStopID(stop.id)
+                stop.id = stop.id.customizeStopID
             }
             onSuccess(stops)
         }

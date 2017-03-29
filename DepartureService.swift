@@ -34,7 +34,7 @@ open class DepartureService {
     
     // TODO: Fixa så att det är en metod istället
     func getAllDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
-        ApiService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
+        WebService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
             var lines = [Line]()
             let departures = Departure()
 
@@ -77,7 +77,7 @@ open class DepartureService {
                 departures.times.append(Int(intervalBetweenDepartures))
                 
                 let id = "\(stopId)-\(sname)-\(direction)"
-                let lineAndDirection = StringHelper.subStringSnameAndDirection("\(sname) \(direction)")
+                let lineAndDirection = ("\(sname) \(direction)").subStringSnameAndDirection
                 let line = Line(id: id, stop: Stop(), stopId: stopId, lineAndDirection: lineAndDirection, name: name, sname: sname, direction: direction, type: type, track: track, bgColor: bgColor, fgColor: fgColor, departures: Departure())
                 
                 let x = lines.filter({$0.id == id })
@@ -98,7 +98,7 @@ open class DepartureService {
     }
 
     func getDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
-        ApiService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
+        WebService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
             var lines = [Line]()
             let dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
             

@@ -22,7 +22,7 @@
 		F80667601B1E5CA100A26B5D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */; };
 		F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F80667561B1E5CA100A26B5D /* TajmaToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
-		F806676D1B1E5D7200A26B5D /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* ApiService.swift */; };
+		F806676D1B1E5D7200A26B5D /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* WebService.swift */; };
 		F806676E1B1E5D7200A26B5D /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
 		F80667721B1E5D7900A26B5D /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* Departure.swift */; };
 		F80667751B1E5D7900A26B5D /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
@@ -33,7 +33,6 @@
 		F81D4E791C5EBB3F0024B798 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81D4E781C5EBB3F0024B798 /* WebViewController.swift */; };
 		F82CB0841BD25B2C0015D3C5 /* DbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* DbService.swift */; };
 		F82CB0851BD25B2C0015D3C5 /* DbService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82CB0831BD25B2C0015D3C5 /* DbService.swift */; };
-		F82D34171C0A552000E03703 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82D34161C0A552000E03703 /* DateHelper.swift */; };
 		F843A3A31B1B04C2008F4505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A21B1B04C2008F4505 /* AppDelegate.swift */; };
 		F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A41B1B04C2008F4505 /* Tajma.xcdatamodeld */; };
 		F843A3A81B1B04C2008F4505 /* StopsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3A71B1B04C2008F4505 /* StopsController.swift */; };
@@ -47,17 +46,14 @@
 		F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
 		F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
 		F87AFE8C1B1B906400D3DAFC /* LineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE881B1B906400D3DAFC /* LineService.swift */; };
-		F87AFE8D1B1B906400D3DAFC /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* ApiService.swift */; };
+		F87AFE8D1B1B906400D3DAFC /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* WebService.swift */; };
 		F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE8A1B1B906400D3DAFC /* StopService.swift */; };
 		F87F4FF81B5829CF00FB4BE0 /* RateMyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */; };
 		F8A3D7701C14EAB500AEA7C3 /* GuideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */; };
-		F8CB7DE91C08B6A400EAF401 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */; };
-		F8CB7DEA1C08B6A400EAF401 /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */; };
 		F8D853C91BE12F2C00E2C1E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D853C81BE12F2C00E2C1E2 /* Constants.swift */; };
 		F8D853CA1BE132F000E2C1E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D853C81BE12F2C00E2C1E2 /* Constants.swift */; };
 		F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */; };
 		F8E081011B35B1D000A96A45 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E081001B35B1D000A96A45 /* Info.swift */; };
-		F8E7142C1C0A57E40004182D /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82D34161C0A552000E03703 /* DateHelper.swift */; };
 		F8F668401C18D41000F6B15A /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F6683F1C18D41000F6B15A /* Error.swift */; };
 		F8FA48421C39BE010080E12B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA48411C39BE010080E12B /* Reachability.swift */; };
 		F8FEC9A31C42B484008C615A /* OmOssViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEC9A21C42B484008C615A /* OmOssViewController.swift */; };
@@ -120,7 +116,6 @@
 		F818619E1B41D52A005DDA3A /* DeviceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
 		F81D4E781C5EBB3F0024B798 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F82CB0831BD25B2C0015D3C5 /* DbService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DbService.swift; sourceTree = "<group>"; };
-		F82D34161C0A552000E03703 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		F843A39D1B1B04C2008F4505 /* Tajma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tajma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F843A3A11B1B04C2008F4505 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F843A3A21B1B04C2008F4505 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,13 +139,12 @@
 		F87AFE781B1B903F00D3DAFC /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		F87AFE7C1B1B903F00D3DAFC /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		F87AFE881B1B906400D3DAFC /* LineService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineService.swift; sourceTree = "<group>"; };
-		F87AFE891B1B906400D3DAFC /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		F87AFE891B1B906400D3DAFC /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		F87AFE8A1B1B906400D3DAFC /* StopService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopService.swift; sourceTree = "<group>"; };
 		F87AFE901B1B90AB00D3DAFC /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F87AFE931B1B930700D3DAFC /* Tajma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Tajma.entitlements; sourceTree = "<group>"; };
 		F87F4FF71B5829CF00FB4BE0 /* RateMyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateMyApp.swift; sourceTree = "<group>"; };
 		F8A3D76F1C14EAB500AEA7C3 /* GuideController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideController.swift; sourceTree = "<group>"; };
-		F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
 		F8D853C81BE12F2C00E2C1E2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		F8E081001B35B1D000A96A45 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
@@ -205,12 +199,10 @@
 			isa = PBXGroup;
 			children = (
 				F8D853C81BE12F2C00E2C1E2 /* Constants.swift */,
-				F82D34161C0A552000E03703 /* DateHelper.swift */,
 				F818619E1B41D52A005DDA3A /* DeviceHelper.swift */,
 				6BB802341D7D2289003506C2 /* Extensions.swift */,
 				F8FA48411C39BE010080E12B /* Reachability.swift */,
 				F8729F401BF77E57000E9C9C /* SharedHelper.swift */,
-				F8CB7DE81C08B6A400EAF401 /* StringHelper.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -353,11 +345,11 @@
 		F87AFE691B1B8F7A00D3DAFC /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				F87AFE891B1B906400D3DAFC /* ApiService.swift */,
 				F82CB0831BD25B2C0015D3C5 /* DbService.swift */,
 				F806677E1B1E5DC600A26B5D /* DepartureService.swift */,
 				F87AFE881B1B906400D3DAFC /* LineService.swift */,
 				F87AFE8A1B1B906400D3DAFC /* StopService.swift */,
+				F87AFE891B1B906400D3DAFC /* WebService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -609,8 +601,7 @@
 				F81861A01B41D52A005DDA3A /* DeviceHelper.swift in Sources */,
 				F82CB0851BD25B2C0015D3C5 /* DbService.swift in Sources */,
 				F8729F421BF77E57000E9C9C /* SharedHelper.swift in Sources */,
-				F806676D1B1E5D7200A26B5D /* ApiService.swift in Sources */,
-				F8CB7DEA1C08B6A400EAF401 /* StringHelper.swift in Sources */,
+				F806676D1B1E5D7200A26B5D /* WebService.swift in Sources */,
 				6B8E47C11E128CAA002B7BDC /* WidgetBodyCell.swift in Sources */,
 				F806676C1B1E5D7200A26B5D /* LineService.swift in Sources */,
 				F8D853CA1BE132F000E2C1E2 /* Constants.swift in Sources */,
@@ -618,7 +609,6 @@
 				F80667721B1E5D7900A26B5D /* Departure.swift in Sources */,
 				6BB802361D7D2289003506C2 /* Extensions.swift in Sources */,
 				F80667751B1E5D7900A26B5D /* Line.swift in Sources */,
-				F8E7142C1C0A57E40004182D /* DateHelper.swift in Sources */,
 				F806675E1B1E5CA100A26B5D /* TodayViewController.swift in Sources */,
 				F806677F1B1E5DC600A26B5D /* DepartureService.swift in Sources */,
 			);
@@ -630,7 +620,6 @@
 			files = (
 				F843A3A81B1B04C2008F4505 /* StopsController.swift in Sources */,
 				F8D853C91BE12F2C00E2C1E2 /* Constants.swift in Sources */,
-				F8CB7DE91C08B6A400EAF401 /* StringHelper.swift in Sources */,
 				F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */,
 				F8E081011B35B1D000A96A45 /* Info.swift in Sources */,
 				F818619F1B41D52A005DDA3A /* DeviceHelper.swift in Sources */,
@@ -646,7 +635,7 @@
 				F81D4E791C5EBB3F0024B798 /* WebViewController.swift in Sources */,
 				6BF9097B1E2D6BCC002CC081 /* WidgetGuideController.swift in Sources */,
 				6B31F2861DD05CC100D34585 /* LineCell.swift in Sources */,
-				F87AFE8D1B1B906400D3DAFC /* ApiService.swift in Sources */,
+				F87AFE8D1B1B906400D3DAFC /* WebService.swift in Sources */,
 				F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */,
 				F82CB0841BD25B2C0015D3C5 /* DbService.swift in Sources */,
 				F87AFE8E1B1B906400D3DAFC /* StopService.swift in Sources */,
@@ -654,7 +643,6 @@
 				6BB802351D7D2289003506C2 /* Extensions.swift in Sources */,
 				F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */,
 				6B4FEF5A1D881DEC0098906A /* DepartureService.swift in Sources */,
-				F82D34171C0A552000E03703 /* DateHelper.swift in Sources */,
 				F8F668401C18D41000F6B15A /* Error.swift in Sources */,
 				F8729F411BF77E57000E9C9C /* SharedHelper.swift in Sources */,
 			);

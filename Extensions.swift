@@ -123,4 +123,19 @@ extension String {
     var date: Date? {
         return Date.Formatter.custom.date(from: self)
     }
+    
+    var customizeStopID: String {
+        var id = self
+        id = (id as NSString).replacingCharacters(in: NSRange(location: 3, length: 1), with: "1")
+        id = (id as NSString).replacingCharacters(in: NSRange(location: id.characters.count - 2, length: 2), with: "00")
+        return id
+    }
+    
+    var subStringSnameAndDirection: String{
+        var lineAndDirection = self
+        lineAndDirection = lineAndDirection.replacingOccurrences(of: "Buss", with: "")
+        lineAndDirection = lineAndDirection.replacingOccurrences(of: "Spårvagn", with: "")
+        lineAndDirection = lineAndDirection.replacingOccurrences(of: "SVAR", with: "SVART")
+        return lineAndDirection
+    }
 }
