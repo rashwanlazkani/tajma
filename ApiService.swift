@@ -35,6 +35,9 @@ class ApiService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     func findAllLinesOnStop (_ stopId: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
         let dateString = Date().DateFormat()
         let timeString = Date().TimeFormat()
+        
+        let date = Date().customDate
+        let time = Date().customTime
         var url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
         
         getToken(url, isDeparture: true, onCompletion: {jsonDictionary in
@@ -65,11 +68,11 @@ class ApiService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     }
     
     func getDeparturesAtStop (_ stopId: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
-        let dateString = Date().DateFormat()
-        let timeString = Date().TimeFormat()
-        let escapedString = timeString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        
-        let url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(escapedString)&timeSpan=60&maxDeparturesPerLine=2&format=json"
+        let date = Date().customDate
+        let time = Date().customTime
+        print(date)
+        print(time)
+        let url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(date)&time=\(time)&timeSpan=60&maxDeparturesPerLine=2&format=json"
         
         getToken(url, onCompletion: {jsonDictionary in
             onCompletion(jsonDictionary)

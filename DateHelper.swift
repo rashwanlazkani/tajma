@@ -52,7 +52,7 @@ class DateHelper {
     }
     
     static func getDayOfWeek(_ today:String)->Int {
-        guard let todayDate = DateFormat.instance.date(from: String(describing: Date())) else { return 1}
+        guard let todayDate = Date().customDate.date else { return 1 }
         var myCalendar = Calendar(identifier: Calendar.Identifier.gregorian)
         myCalendar.locale = Locale(identifier: "en_US_POSIX")
         let myComponents = (myCalendar as NSCalendar).components(.weekday, from: todayDate)
