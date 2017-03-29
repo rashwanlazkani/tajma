@@ -104,8 +104,10 @@ open class DepartureService {
             
             print(jsonDictionary)
             
-            guard let jsonDepartures = jsonDictionary["Departure"] as? [[String:AnyObject]]
+            guard let jsonDepartures = jsonDictionary["Departure"] as? [[String:Any]]
                 else {return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))}
+            
+            print(jsonDepartures)
             
             guard let serverDate = jsonDictionary["serverdate"] as? String,
                 let serverTime = jsonDictionary["servertime"] as? String
@@ -148,16 +150,8 @@ open class DepartureService {
                     let departureTime = dateTime.date,
                     let serverTime = serverDateTime.date
                 else { continue }
-                
+
                 let intervalBetweenDepartures = departureTime.timeIntervalSince(serverTime) / 60
-                print("departureTime.customLocal:", departureTime.customLocal)
-                print(serverTime.customLocal)
-                print(intervalBetweenDepartures)
-                
-//                guard let departureTime = DateAndTimeFormat.instance.date(from: dateTime) else { continue }
-//                guard let serverTime = DateAndTimeFormat.instance.date(from: serverDateTime) else { continue }
-//
-//                let intervalBetweenDepartures = Int(departureTime.timeIntervalSince(serverTime) / 60) - 1
 
                 line!.departures.times.append(Int(intervalBetweenDepartures))
             }

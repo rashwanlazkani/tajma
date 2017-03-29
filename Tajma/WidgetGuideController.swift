@@ -16,7 +16,7 @@ class WidgetGuideController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         // Do any additional setup after loading the view.
         UIApplication.shared.statusBarStyle = .lightContent
-        imageView.image = UIImage.gifWithName("video-2")
+//        imageView.image = UIImage.gifWithName("video-2")
     }
 
     override func didReceiveMemoryWarning() {

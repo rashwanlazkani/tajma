@@ -103,7 +103,7 @@ class GuideController: UIViewController{
             view.addSubview(button2)
             self.view.addSubview(closeButton)
         case 1, 2 :
-            gifImageView.image = UIImage.gifWithName("tajma-gif-\(index)")
+            //gifImageView.image = UIImage.gifWithName("tajma-gif-\(index)")
             view.addSubview(gifImageView)
             button1.setImage(UIImage(named: "left"), for: UIControlState())
             button1.addTarget(self, action: #selector(previous), for: .touchUpInside)
@@ -130,7 +130,7 @@ class GuideController: UIViewController{
             view.willRemoveSubview(closeButton)
             
         case 3 :
-            let gif = UIImage.gifWithName("tajma-gif-3")
+            let gif = UIImage() //.gifWithName("tajma-gif-3")
             gifImageView.image = gif
             view.addSubview(gifImageView)
             

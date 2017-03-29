@@ -136,8 +136,9 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         cell.snameLabel.text = sname
-        cell.snameLabel.textColor = UIColor(rgba: currentLine.bgColor)
-        cell.snameView.backgroundColor = UIColor(rgba: currentLine.fgColor)
+        cell.snameLabel.textColor = UIColor(hex: currentLine.bgColor)
+        cell.snameView.backgroundColor = UIColor(hex: currentLine.fgColor)
+
         cell.directionLabel.text = "\(currentLine.direction)"
         for (index, departure) in currentLine.departures.times.enumerated() {
             if index == 0 {

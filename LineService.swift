@@ -22,33 +22,33 @@ open class LineService{
     var lines = [Line]()
     var dbLines = [Line]()
     
-    func getAllLinesAtStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
-        ApiService.sharedInstance.findAllLinesOnStop(stopId) { jsonDictionary in
-            self.dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
-            
-            if let jsonLines = jsonDictionary["Departure"] as? [[String:AnyObject]] {
-                for json in jsonLines{
-                    self.getLine(stopId: stopId, json: json)
-                }
-            }
-            else if let jsonLine = jsonDictionary["Departure"] as? [String:AnyObject] {
-                self.getLine(stopId: stopId, json: jsonLine)
-            }
-            else {
-                return onError(NSError(domain: "Inga stopp hittades", code: 1, userInfo: nil))
-            }
-            
-            let numberLines = self.lines.filter({Int($0.sname) != nil}).sorted(by: {Int($0.sname)! < Int($1.sname)})
-            let charLines = self.lines.filter({Int($0.sname) == nil}).sorted(by: {$0.sname < $1.sname})
-            
-            if !numberLines.isEmpty || !charLines.isEmpty {
-                return onSuccess(numberLines + charLines)
-            }
-            else {
-                return onError(NSError(domain: "Inga stopp hittades", code: 1, userInfo: nil))
-            }
-        }
-    }
+//    func getAllLinesAtStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
+//        ApiService.sharedInstance.findAllLinesOnStop(stopId) { jsonDictionary in
+//            self.dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
+//            
+//            if let jsonLines = jsonDictionary["Departure"] as? [[String:AnyObject]] {
+//                for json in jsonLines{
+//                    self.getLine(stopId: stopId, json: json)
+//                }
+//            }
+//            else if let jsonLine = jsonDictionary["Departure"] as? [String:AnyObject] {
+//                self.getLine(stopId: stopId, json: jsonLine)
+//            }
+//            else {
+//                return onError(NSError(domain: "Inga stopp hittades", code: 1, userInfo: nil))
+//            }
+//            
+//            let numberLines = self.lines.filter({Int($0.sname) != nil}).sorted(by: {Int($0.sname)! < Int($1.sname)})
+//            let charLines = self.lines.filter({Int($0.sname) == nil}).sorted(by: {$0.sname < $1.sname})
+//            
+//            if !numberLines.isEmpty || !charLines.isEmpty {
+//                return onSuccess(numberLines + charLines)
+//            }
+//            else {
+//                return onError(NSError(domain: "Inga stopp hittades", code: 1, userInfo: nil))
+//            }
+//        }
+//    }
     
     func getLine(stopId: String, json: [String:Any]) {
         var line = Line()

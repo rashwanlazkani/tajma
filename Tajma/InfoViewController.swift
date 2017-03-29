@@ -35,16 +35,14 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = false
-        UIApplication.shared.statusBarStyle = .default
-        self.navigationController?.navigationBar.tintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     // MARK: - Functions
     func initiateViews(){
         let title = UILabel(frame: CGRect(x: 0, y: 6, width: 200, height: 30))
         title.textAlignment = NSTextAlignment.center
-        title.textColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        title.textColor = UIColor.white
         title.font = title.font.withSize(19)
         title.text = "Tajma"
         
@@ -53,6 +51,11 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         self.navigationItem.titleView = navBarTitleView
         
         navBarTitleView.addSubview(title)
+        
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)

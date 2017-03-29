@@ -32,40 +32,40 @@ class ApiService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         })
     }
     
-    func findAllLinesOnStop (_ stopId: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
-        let dateString = Date().DateFormat()
-        let timeString = Date().TimeFormat()
-        
-        let date = Date().customDate
-        let time = Date().customTime
-        var url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
-        
-        getToken(url, isDeparture: true, onCompletion: {jsonDictionary in
-            guard let jsonStops = jsonDictionary["Departure"] as? [[String:AnyObject]] else {
-                guard let error = jsonDictionary["error"] as? String else { return onCompletion(jsonDictionary)}
-                if error == "No journeys found"{
-                    let date = DateHelper.get(DateHelper.SearchDirection.next, "Monday")
-                    let dateString = date.DateFormat()
-                    
-                    url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=08:00&timeSpan=60&maxDeparturesPerLine=1&format=json"
-
-                    self.getToken(url, isDeparture: true, onCompletion: {jsonDictionary in
-                        print(jsonDictionary)
-                        onCompletion(jsonDictionary)
-                    })
-                    return
-                }
-                else{
-                    return onCompletion(jsonDictionary)
-                }
-            }
-            
-            if jsonStops.count > 0{
-                onCompletion(jsonDictionary)
-            }
-        })
-    
-    }
+//    func findAllLinesOnStop (_ stopId: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
+//        let dateString = Date().DateFormat()
+//        let timeString = Date().TimeFormat()
+//        
+//        let date = Date().customDate
+//        let time = Date().customTime
+//        var url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=\(timeString)&timeSpan=60&maxDeparturesPerLine=1&format=json"
+//        
+//        getToken(url, isDeparture: true, onCompletion: {jsonDictionary in
+//            guard let jsonStops = jsonDictionary["Departure"] as? [[String:AnyObject]] else {
+//                guard let error = jsonDictionary["error"] as? String else { return onCompletion(jsonDictionary)}
+//                if error == "No journeys found"{
+//                    let date = DateHelper.get(DateHelper.SearchDirection.next, "Monday")
+//                    let dateString = date.DateFormat()
+//                    
+//                    url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(dateString)&time=08:00&timeSpan=60&maxDeparturesPerLine=1&format=json"
+//
+//                    self.getToken(url, isDeparture: true, onCompletion: {jsonDictionary in
+//                        print(jsonDictionary)
+//                        onCompletion(jsonDictionary)
+//                    })
+//                    return
+//                }
+//                else{
+//                    return onCompletion(jsonDictionary)
+//                }
+//            }
+//            
+//            if jsonStops.count > 0{
+//                onCompletion(jsonDictionary)
+//            }
+//        })
+//    
+//    }
     
     func getDeparturesAtStop (_ stopId: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
         let date = Date().customDate
