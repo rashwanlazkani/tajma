@@ -9,6 +9,8 @@
 import UIKit
 
 class StopCell: UITableViewCell {
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var checkmark: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

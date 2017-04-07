@@ -14,8 +14,8 @@ import MobileCoreServices
 class InfoViewController: UIViewController, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
     var  items = [String]()
     
+    @IBOutlet weak var navigationBar: UINavigationBar!
     var deviceHelper = DeviceHelper()
-    let guide = GuideController()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -23,39 +23,24 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         super.viewDidLoad()
         self.title = "Bakåt"
         initiateViews()
-        
-        self.navigationController?.navigationBar.layer.zPosition = 1
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         
-        items = ["Senaste nytt via Facebook","Betygsätt i App Store","Tipsa en vän", "Lämna Feedback", "Så aktiverar du Tajmas Widget", "Välkomstguide", "Vanliga frågor", "Om oss"]
+        items = ["Senaste nytt via Facebook","Betygsätt i App Store","Tipsa en vän", "Lämna Feedback", "Så aktiverar du Tajmas Widget", "Vanliga frågor", "Om oss"]
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
         UIApplication.shared.statusBarStyle = .lightContent
     }
     
+    
     // MARK: - Functions
     func initiateViews(){
-        let title = UILabel(frame: CGRect(x: 0, y: 6, width: 200, height: 30))
-        title.textAlignment = NSTextAlignment.center
-        title.textColor = UIColor.white
-        title.font = title.font.withSize(19)
-        title.text = "Tajma"
-        
-        let navBarTitleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
-        navBarTitleView.backgroundColor = UIColor.clear
-        self.navigationItem.titleView = navBarTitleView
-        
-        navBarTitleView.addSubview(title)
-        
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        navigationBar.items?[0].title = "Tajma"
+        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
@@ -84,10 +69,8 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         case 4:
             image = UIImage(named: "omoss")!
         case 5:
-            image = UIImage(named: "guide")!
-        case 6:
             image = UIImage(named: "vanliga-fragor")!
-        case 7:
+        case 6:
             image = UIImage(named: "omoss")!
         default:
             image = UIImage(named: "")!
@@ -117,10 +100,8 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         case 4:
             self.performSegue(withIdentifier: "ShowWidgetGuide", sender: nil)
         case 5:
-            openHelp()
-        case 6:
             openFaq()
-        case 7:
+        case 6:
             openAboutUs()
         default:
             return
@@ -208,14 +189,20 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any!){
         if (segue.identifier == "ShowWebView"){
             let web = segue.destination as! WebViewController
-            web.url = String(describing: sender!)
-            
-            if String(describing: sender) == "http://www.tajma.about.golazo.nu"{
-                web.titleForView = "Om oss"
-            }
-            else if String(describing: sender) == "http://www.tajma.faq.golazo.nu"{
-                web.titleForView = "Vanliga frågor"
+            if let url = sender as? String {
+                web.url = url
+                
+                if url == "http://www.tajma.about.golazo.nu"{
+                    web.titleForView = "Om oss"
+                }
+                else if url == "http://www.tajma.faq.golazo.nu"{
+                    web.titleForView = "Vanliga frågor"
+                }
             }
         }
+    }
+    
+    @IBAction func goBack(_ sender: Any) {
+        _ = navigationController?.popViewController(animated: true)
     }
 }

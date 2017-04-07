@@ -26,40 +26,29 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     var lat : String = ""
     var long : String = ""
     
-    let guideController = GuideController()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         DbService.sharedInstance.updateOptionals()
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         
-        let loadData = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "LoadData")
-        if(!loadData){
-            self.performSegue(withIdentifier: "ShowGuide", sender: nil)
-            UserDefaults(suiteName: "group.tajma.today")!.set(true, forKey: "LoadData")
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
         }
-        else{
-            self.locationManager.requestWhenInUseAuthorization()
-            if CLLocationManager.locationServicesEnabled() {
-                locationManager.delegate = self
-                locationManager.desiredAccuracy = kCLLocationAccuracyBest
-                locationManager.startUpdatingLocation()
-            }
-            
-            self.title = "Bakåt"
-            
-            searchBar!.delegate = self
-            tableView.delegate = self
-            tableView.dataSource = self
-            
-            initiateViews()
-            setRateSettings()
-            
-            lines = DbService.sharedInstance.getLines()
-        }
+        
+        self.title = "Bakåt"
+        searchBar!.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        lines = DbService.sharedInstance.getLines()
+        
         initiateViews()
+        setRateSettings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,14 +62,11 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         if (segmentedControl.selectedSegmentIndex == 1){
             stops = DbService.sharedInstance.getStops()
         }
+        
         lines = DbService.sharedInstance.getLines()
         tableView.reloadData()
     }
     
-    func longPressAction(gestureRecognizer: UIGestureRecognizer) {
-        print("Gesture recognized")
-    }
-
     // MARK: - Functions
     func initiateViews(){
         self.view.backgroundColor = UIColor.white
@@ -135,14 +121,14 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func getNearestStops() {
         self.activityIndicator.startAnimating()
         self.segmentedControl.isEnabled = false
-        stopService.getNearestStops(lat, long: long, onSuccess: { json -> Void in
+        
+        stopService.getNearestStops(lat, long: long, onSuccess: { stops -> Void in
             DispatchQueue.main.async(execute: {
-                self.stops = json
-                if (self.stops.count == 0){
+                self.stops = stops
+                if (self.stops.count == 0) {
                     self.display("Inga hållplatser i närheten.", type: Error.nearest)
                 }
                 self.tableView!.reloadData()
-                
                 self.locationManager.stopUpdatingLocation()
                 self.segmentedControl.isEnabled = true
                 self.activityIndicator.stopAnimating()
@@ -152,7 +138,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         })
     }
     
-    func display(_ error: String, type: Error){
+    func display(_ error: String, type: Error) {
         let alert = UIAlertController(title: "Tajma", message: error, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         alert.addAction(UIAlertAction(title: "Försök igen", style: UIAlertActionStyle.default, handler: { (alert) -> Void in
@@ -167,14 +153,14 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
 
     @IBAction func segmentedControl_Changed(_ sender: UISegmentedControl) {
-        if (segmentedControl.selectedSegmentIndex == 0){
+        if (segmentedControl.selectedSegmentIndex == 0) {
             lat = ""
             long = ""
             self.locationManager.startUpdatingLocation()
-        }
-        else if (segmentedControl.selectedSegmentIndex == 1){
+        } else if (segmentedControl.selectedSegmentIndex == 1){
             stops = DbService.sharedInstance.getStops()
         }
+        
         self.segmentedControl.setTitle("Nära mig", forSegmentAt: 0)
         self.searchBar.text = ""
         lines = DbService.sharedInstance.getLines()
@@ -185,16 +171,17 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         segmentedControl.selectedSegmentIndex = 0
         activityIndicator.startAnimating()
-        
-        // Låser vyn
         UIApplication.shared.beginIgnoringInteractionEvents()
-        stopService.getStopsByInput(searchBar.text!, onSuccess: { json -> Void in
+        
+        stopService.getStopsByInput(searchBar.text!, onSuccess: { stops -> Void in
             DispatchQueue.main.async(execute: {
-                self.stops = json
+                self.stops = stops
                 self.lines = DbService.sharedInstance.getLines()
-                if (self.stops.count > 0){
+                
+                if (self.stops.count > 0) {
                     self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)
                 }
+                
                 searchBar.resignFirstResponder()
                 self.tableView!.reloadData()
                 self.activityIndicator.stopAnimating()
@@ -205,15 +192,16 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         })
     }
     
-    // MARK: - Location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if (!lat.isEmpty && !long.isEmpty){
             return
         }
+        
         if Reachability.isConnectedToNetwork() != true {
             stops = [Stop]()
             return
         }
+        
         let location:CLLocationCoordinate2D = manager.location!.coordinate
         lat = String(location.latitude)
         long = String(location.longitude)
@@ -221,65 +209,30 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         getNearestStops()
     }
     
-
-    
-    private func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.", type: Error.location)
     }
     
-    // MARK: - TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return stops.count
     }
     
     func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let currentStop = stops[(indexPath as NSIndexPath).row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StopCell", for: indexPath) as! StopCell
     
-        
-        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gestureRecognizer:)))
-        lpgr.minimumPressDuration = 0.5
-        lpgr.delaysTouchesBegan = true
-        lpgr.delegate = self
-        
-        cell.addGestureRecognizer(lpgr)
-        
-        cell.textLabel?.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-        
-        for view in cell.subviews{
-            if(view.isKind(of: UILabel.self)){
-                view.removeFromSuperview()
-            }
-        }
-        
-        let name = UILabel(frame: CGRect(x: 15, y: 8, width: DeviceHelper.labelWidth(), height: 30))
-        name.textAlignment = NSTextAlignment.left
-        name.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        name.text = stops[(indexPath as NSIndexPath).row].name
-        name.font = name.font.withSize(16)
-        
-        cell.addSubview(name)
+        cell.name.text = stops[(indexPath as NSIndexPath).row].name
         
         if((indexPath as NSIndexPath).row % 2 == 0){
             cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-        } else{
+        } else {
             cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         }
-        
-        // Rensar all checkboxar
-        for view in cell.subviews{
-            if (String(describing: type(of: view)) == "UIImageView") {
-                view.removeFromSuperview()
-            }
-        }
-        
+    
         if (!lines.filter{$0.stopId == currentStop.id}.isEmpty){
-            let imageName = "check-red"
-            let image = UIImage(named: imageName)
-            let imageView = UIImageView(image: image!)
-            imageView.frame = CGRect(x: deviceHelper.screenWidth - 70, y: 12, width: Int(imageView.image?.size.width ?? 16), height: Int(imageView.image?.size.height ?? 16))
-            cell.addSubview(imageView)
+            cell.checkmark.image = UIImage(named: "check-red")
+        } else {
+            cell.checkmark.image = UIImage()
         }
         
         return cell
@@ -293,8 +246,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any!){
-        if (segue.identifier == "ShowLinesView")
-        {
+        if (segue.identifier == "ShowLinesView") {
+            // TODO: Click sluta sök
             UIApplication.shared.beginIgnoringInteractionEvents()
             
             let lines = segue.destination as! LinesViewController

@@ -54,12 +54,6 @@ extension Array where Element: Equatable {
     }
 }
 
-extension Int  {
-    var day: (Int, NSCalendar.Unit) {
-        return (self, NSCalendar.Unit.calendar.union(.day))
-    }
-}
-
 extension UIColor {
     convenience init(hex: String) {
         let scanner = Scanner(string: hex.replacingOccurrences(of: "#", with: ""))
@@ -107,7 +101,7 @@ extension Date {
             return formatter
         }()
     }
-    var customLocal: String {
+    var dateTime: String {
         return Formatter.custom.string(from: self)
     }
     var customTime: String {

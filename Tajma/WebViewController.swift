@@ -10,21 +10,15 @@ import UIKit
 
 class WebViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
+    
     var url = ""
     let deviceHelper = DeviceHelper()
     var titleForView = ""
     
     override func viewDidLoad() {
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 7, width: 200, height: 30))
-        titleLabel.textAlignment = NSTextAlignment.center
-        titleLabel.textColor = UIColor.white
-        titleLabel.font = titleLabel.font.withSize(19)
-        titleLabel.text = titleForView
-        
-        let titleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
-        titleView.backgroundColor = UIColor.clear
-        self.navigationItem.titleView = titleView
-        titleView.addSubview(titleLabel)
+        navigationBar.items?[0].title = titleForView
+        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
         webView.delegate = self
         webView.scalesPageToFit = true
@@ -32,5 +26,15 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         let requestURL = URL(string: url)
         let request = URLRequest(url: requestURL!)
         webView.loadRequest(request)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = true
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    @IBAction func goBack(_ sender: Any) {
+        _ = navigationController?.popViewController(animated: true)
     }
 }

@@ -9,14 +9,23 @@
 import UIKit
 
 class WidgetGuideController: UIViewController {
-
+    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
-        // Do any additional setup after loading the view.
         UIApplication.shared.statusBarStyle = .lightContent
-//        imageView.image = UIImage.gifWithName("video-2")
+        
+        navigationBar.items?[0].title = "Tajmas Widget"
+        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        
+        imageView.image = UIImage.gif(name: "jeremy")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = true
+        UIApplication.shared.statusBarStyle = .lightContent
     }
 
     override func didReceiveMemoryWarning() {
