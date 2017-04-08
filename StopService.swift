@@ -40,8 +40,8 @@ class StopService{
             var stops = self.mapToStop(jsonStops).sorted{$0.0.name == $0.1.name}.orderedSetValue
             
             for stop in stops{
-                if (stop.id.isEmpty){
-                    if (stops.count == 1){
+                if stop.id.isEmpty {
+                    if stops.count == 1 {
                         stops.removeAll()
                     }
                     continue

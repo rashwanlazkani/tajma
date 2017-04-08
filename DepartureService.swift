@@ -84,8 +84,7 @@ open class DepartureService {
                 if  x.isEmpty {
                     line.departures.times.append(Int(intervalBetweenDepartures))
                     lines.append(line)
-                }
-                else {
+                } else {
                     x[0].departures.times.append(Int(intervalBetweenDepartures))
                 }
             }
@@ -128,15 +127,15 @@ open class DepartureService {
                 
                 // TODO: Guard istället?
                 var line = lines.firstOrDefault {$0.id == id}
-                if(line == nil){
+                if line == nil {
                     line = dbLines.firstOrDefault({$0.id == id})
                     
-                    if(line != nil){
+                    if line != nil {
                         lines.append(line!)
                     }
                 }
                 
-                if(line == nil){
+                if line == nil {
                     continue
                 }
                 
@@ -172,7 +171,7 @@ open class DepartureService {
 
         var closestStops = [Stop]()
         for stop in stops {
-            if (closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000){
+            if closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000 {
                 group.enter()
                 getDeparturesFromStop(stop.id, onSuccess: { lines -> Void in  defer { group.leave() }
                     stop.lines = lines

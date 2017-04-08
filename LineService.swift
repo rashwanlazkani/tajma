@@ -33,21 +33,19 @@ open class LineService{
             let bgColor  = json["bgColor"] as? String
             else { return }
         
-        if type != "VAS"{
+        if type != "VAS" {
             guard let track = json["track"] as? String else { return }
             line.track = track
-        }
-        else{
+        } else {
             line.track = "VAS"
         }
         
         let id = "\(stopId)-\(sname)-\(direction)"
         
         let dbLine = dbLines.firstOrDefault({$0.id == id})
-        if(dbLine != nil){
+        if dbLine != nil {
             line = dbLine!
-        }
-        else{
+        } else {
             line.id = id
             line.stopId = stopId
             line.name = name

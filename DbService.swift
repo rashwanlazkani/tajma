@@ -15,9 +15,10 @@ class DbService {
     
     func getStops() -> [Stop]{
         let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")
-        if (!dbExists){
+        if !dbExists {
             createTables()
         }
+        
         let db = try! Connection(sharedHelper.getSharedUrl())
         let data = Table("Stops")
         
@@ -32,7 +33,7 @@ class DbService {
     
     func getLines() -> [Line]{
         let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")
-        if (!dbExists){
+        if !dbExists {
             createTables()
         }
         let db = try! Connection(sharedHelper.getSharedUrl())
@@ -52,7 +53,7 @@ class DbService {
         var lines = [Line]()
         
         let linesCount = try! db.scalar("SELECT count(*) FROM Lines where stopId = '\(stopId)'") as! Int64
-        if(linesCount == 0){
+        if linesCount == 0 {
             return lines
         }
 
@@ -68,7 +69,7 @@ class DbService {
         let db = try! Connection(sharedHelper.getSharedUrl())
         
         let stopsCount = try! db.scalar("SELECT count(*) FROM Stops where id = '\(stop.id)'") as! Int64
-        if (stopsCount == 0){
+        if stopsCount == 0 {
             try! db.execute("INSERT INTO Stops VALUES ('\(stop.id)','\(stop.name)','\(stop.latitude)','\(stop.longitude)')")
         }
         
@@ -81,7 +82,7 @@ class DbService {
         try! db.execute("DELETE FROM Lines WHERE id = '\(line.id)'")
         
         let linesCount = try! db.scalar("SELECT count(*) FROM Lines where stopId = '\(stopId)'") as! Int64
-        if (linesCount == 0){
+        if linesCount == 0 {
             try! db.execute("DELETE FROM Stops WHERE id = '\(stopId)'")
         }
     }

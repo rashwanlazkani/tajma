@@ -230,7 +230,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="sectionIndexBackgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="StopCell" id="OAk-JT-hFT" customClass="StopCell" customModule="Tajma" customModuleProvider="target">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="StopCell" id="OAk-JT-hFT" customClass="StopCell" customModule="Tajma" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OAk-JT-hFT" id="34h-R8-24k">
@@ -266,11 +266,18 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="N4f-Yd-kAj">
+                                        <rect key="frame" x="169" y="262" width="37" height="37"/>
+                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </activityIndicatorView>
                                 </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="N4f-Yd-kAj" firstAttribute="centerX" secondItem="NQy-A8-fKc" secondAttribute="centerX" id="0Mk-zE-w49"/>
                                     <constraint firstAttribute="trailing" secondItem="LDn-U8-IKL" secondAttribute="trailing" id="3wg-xz-frY"/>
                                     <constraint firstItem="LDn-U8-IKL" firstAttribute="top" secondItem="NQy-A8-fKc" secondAttribute="top" id="Bdy-uQ-gIw"/>
                                     <constraint firstItem="LDn-U8-IKL" firstAttribute="leading" secondItem="NQy-A8-fKc" secondAttribute="leading" id="Oy2-4l-iyV"/>
+                                    <constraint firstItem="N4f-Yd-kAj" firstAttribute="centerY" secondItem="NQy-A8-fKc" secondAttribute="centerY" id="l7x-Rw-Urh"/>
                                     <constraint firstAttribute="bottom" secondItem="LDn-U8-IKL" secondAttribute="bottom" id="nKO-Pr-FrQ"/>
                                 </constraints>
                             </view>
@@ -287,6 +294,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="iZd-Lf-Z2T"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="N4f-Yd-kAj" id="y7B-7W-N0D"/>
                         <outlet property="navController" destination="6P0-lf-Vmn" id="CHi-zX-bPJ"/>
                         <outlet property="searchBar" destination="IX5-0P-IUT" id="XnN-FN-ToQ"/>
                         <outlet property="segmentedControl" destination="d8P-Ba-k8V" id="VaG-5F-WvZ"/>
@@ -444,6 +452,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="06U-Tj-Zu0">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eL-rn-PHk">
                                 <rect key="frame" x="0.0" y="588" width="375" height="79"/>
                                 <subviews>
@@ -523,11 +535,14 @@
                             <constraint firstItem="eUC-A2-KTN" firstAttribute="top" secondItem="F3Y-iF-4Kx" secondAttribute="bottom" id="lIe-ks-BTB"/>
                             <constraint firstItem="F3Y-iF-4Kx" firstAttribute="leading" secondItem="isX-hY-HS0" secondAttribute="leadingMargin" constant="-20" id="nyY-58-6xT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="F3Y-iF-4Kx" secondAttribute="trailing" constant="-20" id="soM-yR-C74"/>
+                            <constraint firstItem="06U-Tj-Zu0" firstAttribute="centerY" secondItem="isX-hY-HS0" secondAttribute="centerY" id="wIT-wp-Dfi"/>
+                            <constraint firstItem="06U-Tj-Zu0" firstAttribute="centerX" secondItem="isX-hY-HS0" secondAttribute="centerX" id="xXD-O6-LHI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="aeP-xd-OHh"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="06U-Tj-Zu0" id="9ej-HG-xrl"/>
                         <outlet property="infoHeightConstant" destination="BUo-E9-KtK" id="o7F-3P-HoE"/>
                         <outlet property="infoLabel" destination="GsT-mB-EP3" id="hUA-cF-SGw"/>
                         <outlet property="infoView" destination="9eL-rn-PHk" id="OEI-Sa-34V"/>

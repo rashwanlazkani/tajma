@@ -63,8 +63,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.distanceFilter = kCLLocationAccuracyBest
-        }
-        else{
+        } else {
             display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         }
     }
@@ -97,8 +96,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             display("Laddar avgångar...")
             coordinate = CLLocationCoordinate2D()
             locationManager.startUpdatingLocation()
-        }
-        else{
+        } else {
             display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         }
     }
@@ -113,8 +111,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         if coordinate?.latitude == 0 {
             if let c = manager.location?.coordinate{
                 coordinate = c
-            }
-            else{
+            } else {
                 coordinate = CLLocationCoordinate2D()
             }
             fetch()
@@ -143,7 +140,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             infoText.textColor = UIColor.white
             preferredContentSize = CGSize(width: 0, height: 60)
         }
-        if (message == self.infoText.text){
+        if message == infoText.text {
             return
         }
         infoText.text = message
@@ -184,8 +181,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         if let dist = stops[section].distance {
             distance.text = ("\(dist) m")
-        }
-        else{
+        } else {
             distance.text = "- m"
         }
         
@@ -199,7 +195,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WidgetBodyCell
         
         let currentStop = stops[(indexPath as NSIndexPath).section]
-        if (currentStop.lines.isEmpty) {
+        if currentStop.lines.isEmpty {
             cell.snameDirection.text = "Inga avgångar hittades"
             cell.firstDep.text = ""
             cell.secondDep.text = ""
@@ -210,25 +206,21 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         cell.snameDirection.text = "\(currentLine.sname) \(currentLine.direction)"
         
         for (index, time) in currentLine.departures.times.enumerated(){
-            if (index == 0 && time == 0){
+            if index == 0 && time == 0 {
                 cell.firstDep.text = "Nu"
-            }
-            else if (index == 1 && time == 0){
+            } else if index == 1 && time == 0 {
                 cell.secondDep.text = "Nu"
             }
-            else if (index == 0){
-                if (time < 0){
+            else if index == 0 {
+                if time < 0 {
                     cell.firstDep.text = "0"
-                }
-                else{
+                } else {
                     cell.firstDep.text = String(time)
                 }
-            }
-            else if (index == 1){
-                if (time < 0){
+            } else if index == 1 {
+                if time < 0 {
                     cell.secondDep.text = "0"
-                }
-                else{
+                } else {
                     cell.secondDep.text = String(time)
                 }
             }
@@ -263,7 +255,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     func openMainApp(_ sender: UIButton?) {
-        if (infoText.text != "Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster."){
+        if infoText.text != "Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster." {
             let url = URL(fileURLWithPath: "Tajma://home")
             self.extensionContext?.open(url, completionHandler: nil)
         }
@@ -273,8 +265,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == NCWidgetDisplayMode.compact {
             self.preferredContentSize = CGSize(width: 0.0, height: 300.0)
-        }
-        else if activeDisplayMode == NCWidgetDisplayMode.expanded {
+        } else if activeDisplayMode == NCWidgetDisplayMode.expanded {
             self.preferredContentSize = CGSize(width: 0, height: contentHeight())
         }
         
@@ -290,7 +281,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
 
                     self.preferredContentSize = CGSize(width: 0, height: self.contentHeight())
                     
-                    if (stops.isEmpty){
+                    if stops.isEmpty {
                         if hasError{
                             self.display(error!.domain)
                             self.tableView.reloadData()
@@ -299,8 +290,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                         self.display("Ingen vald hållplats i närheten.")
                         self.tableView.reloadData()
                         return
-                    }
-                    else{
+                    } else {
                         self.infoText.isHidden = true
                     }
                     
@@ -318,8 +308,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
                     
                     return
             })
-        }
-        else{
+        } else {
             tableView.reloadData()
             display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
         }

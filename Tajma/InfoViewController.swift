@@ -26,6 +26,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.contentInset.top = -20
         
         items = ["Senaste nytt via Facebook","Betygsätt i App Store","Tipsa en vän", "Lämna Feedback", "Så aktiverar du Tajmas Widget", "Vanliga frågor", "Om oss"]
     }
@@ -79,7 +80,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
         cell.title.text = items[(indexPath as NSIndexPath).row]
         cell.imageV?.image = image
         
-        if ((indexPath as NSIndexPath).row == items.count - 1){
+        if (indexPath as NSIndexPath).row == items.count - 1 {
             tableView.tableFooterView = UIView(frame: CGRect.zero)
             tableView.backgroundColor = UIColor.white
         }
@@ -138,13 +139,12 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     func openFacebook(_ sender : Info){
-        if (sender == Info.like){
+        if sender == Info.like {
             let fbId = "436544669889188"
             let url = "fb://profile/\(fbId)"
             let fbURL = URL(string: url)
-            if UIApplication.shared.canOpenURL(fbURL!){
+            if UIApplication.shared.canOpenURL(fbURL!) {
                 UIApplication.shared.openURL(fbURL!)
-                
             } else {
                 //redirect to safari because the user doesn't have FaceBook
                 UIApplication.shared.openURL(URL(string: "http://facebook.com/\(fbId)")!)
@@ -154,7 +154,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     func openMail(_ sender : Info){
-        if (sender == Info.feedback){
+        if sender == Info.feedback {
             if !MFMailComposeViewController.canSendMail() {
                 print("Cannot send mail")
                 return
@@ -187,15 +187,14 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any!){
-        if (segue.identifier == "ShowWebView"){
+        if segue.identifier == "ShowWebView" {
             let web = segue.destination as! WebViewController
             if let url = sender as? String {
                 web.url = url
                 
-                if url == "http://www.tajma.about.golazo.nu"{
+                if url == "http://www.tajma.about.golazo.nu" {
                     web.titleForView = "Om oss"
-                }
-                else if url == "http://www.tajma.faq.golazo.nu"{
+                } else if url == "http://www.tajma.faq.golazo.nu" {
                     web.titleForView = "Vanliga frågor"
                 }
             }

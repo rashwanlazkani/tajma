@@ -40,9 +40,9 @@ extension Data {
 extension Array {
     func firstOrDefault(_ fn: (Element) -> Bool) -> Element? {
         var to = self.filter(fn)
-        if(to.count > 0){
+        if to.count > 0 {
             return to[0]
-        } else{
+        } else {
             return nil
         }
     }

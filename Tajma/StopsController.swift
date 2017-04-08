@@ -14,15 +14,14 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let lineService = LineService()
     var stopService = StopService()
     let deviceHelper = DeviceHelper()
     var stops = [Stop]()
     var lines = [Line]()
-    
     let locationManager = CLLocationManager()
-    var activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0, width: 50, height: 50)) as UIActivityIndicatorView
     var lat : String = ""
     var long : String = ""
     
@@ -40,12 +39,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             locationManager.startUpdatingLocation()
         }
         
-        self.title = "Bakåt"
         searchBar!.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
-        
-        lines = DbService.sharedInstance.getLines()
         
         initiateViews()
         setRateSettings()
@@ -59,7 +55,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if (segmentedControl.selectedSegmentIndex == 1){
+        if segmentedControl.selectedSegmentIndex == 1 {
             stops = DbService.sharedInstance.getStops()
         }
         
@@ -69,8 +65,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     // MARK: - Functions
     func initiateViews(){
-        self.view.backgroundColor = UIColor.white
-        
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.white
         searchBar.setImage(UIImage(named: "search-white"), for: UISearchBarIcon.search, state: UIControlState())
@@ -83,12 +77,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
-        activityIndicator.center = CGPoint(x: (self.view.frame.width)/2, y: (self.view.frame.height)/3)
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-        activityIndicator.color = UIColor.gray
-        self.view.addSubview(activityIndicator)
         
         // För att sätta bakgrundfärg och opacitet på placeholdertext för searchBar
         let txt:UITextField = searchBar.value(forKey: "searchField") as! UITextField
@@ -125,7 +113,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         stopService.getNearestStops(lat, long: long, onSuccess: { stops -> Void in
             DispatchQueue.main.async(execute: {
                 self.stops = stops
-                if (self.stops.count == 0) {
+                if self.stops.count == 0 {
                     self.display("Inga hållplatser i närheten.", type: Error.nearest)
                 }
                 self.tableView!.reloadData()
@@ -153,11 +141,11 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
 
     @IBAction func segmentedControl_Changed(_ sender: UISegmentedControl) {
-        if (segmentedControl.selectedSegmentIndex == 0) {
+        if segmentedControl.selectedSegmentIndex == 0 {
             lat = ""
             long = ""
             self.locationManager.startUpdatingLocation()
-        } else if (segmentedControl.selectedSegmentIndex == 1){
+        } else if segmentedControl.selectedSegmentIndex == 1 {
             stops = DbService.sharedInstance.getStops()
         }
         
@@ -178,7 +166,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.stops = stops
                 self.lines = DbService.sharedInstance.getLines()
                 
-                if (self.stops.count > 0) {
+                if self.stops.count > 0 {
                     self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)
                 }
                 
@@ -193,7 +181,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if (!lat.isEmpty && !long.isEmpty){
+        if !lat.isEmpty && !long.isEmpty {
             return
         }
         
@@ -223,13 +211,13 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
         cell.name.text = stops[(indexPath as NSIndexPath).row].name
         
-        if((indexPath as NSIndexPath).row % 2 == 0){
+        if (indexPath as NSIndexPath).row % 2 == 0 {
             cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         } else {
             cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         }
     
-        if (!lines.filter{$0.stopId == currentStop.id}.isEmpty){
+        if (!lines.filter{$0.stopId == currentStop.id}.isEmpty) {
             cell.checkmark.image = UIImage(named: "check-red")
         } else {
             cell.checkmark.image = UIImage()
@@ -246,7 +234,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any!){
-        if (segue.identifier == "ShowLinesView") {
+        if segue.identifier == "ShowLinesView" {
             // TODO: Click sluta sök
             UIApplication.shared.beginIgnoringInteractionEvents()
             

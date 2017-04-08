@@ -99,8 +99,7 @@ class WebService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
                                 }
                         }
                     }
-                }
-                else{
+                } else {
                     print(response.description)
                 }
         }

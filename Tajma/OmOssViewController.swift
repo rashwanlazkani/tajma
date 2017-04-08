@@ -31,8 +31,7 @@ class OmOssViewController: UIViewController {
         var size = 0.0
         if UIScreen.main.bounds.height == 480{
             size = 15.0
-        }
-        else{
+        } else {
             size = 16.0
         }
         let string = "Vi har som mål med Tajma att förenkla vardagen för dig och dina vänner. Vi arbetar kontinuerligt med uppdateringar av appen. I nuläget fungerar Tajma för Västtrafiks linjer men vi jobbar på att inkludera Skånetrafiken och Storstockholms Lokaltrafik. Om du har några frågor till Tajma-teamet, maila oss gärna på tajma@golazo.nu.\n\nTack för att du använder Tajma!\n\nVänliga hälsningar,\n\nRashwan Lazkani\nUtvecklare\n\nMartin Ohls\nUX Designer\n\nOlof Stranne\nUtvecklare " as NSString

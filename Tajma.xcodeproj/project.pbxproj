@@ -130,15 +130,6 @@
 		F843A3AC1B1B04C2008F4505 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F843A3AF1B1B04C2008F4505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		F843A3C51B1B066B008F4505 /* LinesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesViewController.swift; sourceTree = "<group>"; };
-		F87257331B3F2D5E006CBDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F87257341B3F2D5E006CBDA8 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
-		F87257361B3F2D5E006CBDA8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F87257401B3F2D5E006CBDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F87257421B3F2D5E006CBDA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		F87257441B3F2D5E006CBDA8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F87257521B3F2DE1006CBDA8 /* Tajma WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Tajma WatchKit Extension.entitlements"; sourceTree = "<group>"; };
-		F87257681B3F3161006CBDA8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		F872576B1B3F3391006CBDA8 /* DataRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataRowController.swift; sourceTree = "<group>"; };
 		F8729F401BF77E57000E9C9C /* SharedHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedHelper.swift; sourceTree = "<group>"; };
 		F87AFE721B1B902400D3DAFC /* Departure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Departure.swift; sourceTree = "<group>"; };
 		F87AFE781B1B903F00D3DAFC /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
@@ -257,8 +248,6 @@
 				F87AFE661B1B89C100D3DAFC /* Core */,
 				F843A39F1B1B04C2008F4505 /* Tajma */,
 				F806675A1B1E5CA100A26B5D /* TajmaToday */,
-				F87257311B3F2D5E006CBDA8 /* Tajma WatchKit Extension */,
-				F872573E1B3F2D5E006CBDA8 /* Tajma WatchKit App */,
 				F80667571B1E5CA100A26B5D /* Frameworks */,
 				F843A39E1B1B04C2008F4505 /* Products */,
 				E1BA6055E6B616253A92F501 /* Pods */,
@@ -299,45 +288,6 @@
 			isa = PBXGroup;
 			children = (
 				F843A3A11B1B04C2008F4505 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F87257311B3F2D5E006CBDA8 /* Tajma WatchKit Extension */ = {
-			isa = PBXGroup;
-			children = (
-				F87257521B3F2DE1006CBDA8 /* Tajma WatchKit Extension.entitlements */,
-				F872576B1B3F3391006CBDA8 /* DataRowController.swift */,
-				F87257341B3F2D5E006CBDA8 /* InterfaceController.swift */,
-				F87257361B3F2D5E006CBDA8 /* Images.xcassets */,
-				F87257681B3F3161006CBDA8 /* Bridging-Header.h */,
-				F87257321B3F2D5E006CBDA8 /* Supporting Files */,
-			);
-			path = "Tajma WatchKit Extension";
-			sourceTree = "<group>";
-		};
-		F87257321B3F2D5E006CBDA8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F87257331B3F2D5E006CBDA8 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F872573E1B3F2D5E006CBDA8 /* Tajma WatchKit App */ = {
-			isa = PBXGroup;
-			children = (
-				F87257411B3F2D5E006CBDA8 /* Interface.storyboard */,
-				F87257441B3F2D5E006CBDA8 /* Images.xcassets */,
-				F872573F1B3F2D5E006CBDA8 /* Supporting Files */,
-			);
-			path = "Tajma WatchKit App";
-			sourceTree = "<group>";
-		};
-		F872573F1B3F2D5E006CBDA8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F87257401B3F2D5E006CBDA8 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -689,14 +639,6 @@
 				F843A3AF1B1B04C2008F4505 /* Base */,
 			);
 			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-		F87257411B3F2D5E006CBDA8 /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F87257421B3F2D5E006CBDA8 /* Base */,
-			);
-			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

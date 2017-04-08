@@ -149,10 +149,9 @@ class DeviceHelper {
     }
     
     static func isFourOrFive() -> Bool{
-        if (iPhoneModelSize() == 8) || (iPhoneModelSize() == 10){
+        if (iPhoneModelSize() == 8) || (iPhoneModelSize() == 10) {
             return true
-        }
-        else{
+        } else {
             return false
         }
     }

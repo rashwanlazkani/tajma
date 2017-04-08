@@ -16,26 +16,32 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var infoHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var lines = [Line]()
     var stop : Stop!
     let deviceHelper = DeviceHelper()
     let departureService = DepartureService()
     let lineService = LineService()
-    var activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0,y: 0, width: 50, height: 50)) as UIActivityIndicatorView
     
     var timer = Timer()
     
     override func viewDidLoad(){
         super.viewDidLoad()
         
+        updateUserLines()
+        
         infoHeightConstant.constant = 0
         activityIndicator.startAnimating()
-        updateMyLines()
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.contentInset.top = -20
-        initiateViews()
+        tableView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+        navigationBar.items?[0].title = stop.name.components(separatedBy: ",").first
+        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateLines), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
@@ -44,20 +50,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
         UIApplication.shared.statusBarStyle = .lightContent
-    }
-
-    func initiateViews(){
-        navigationBar.items?[0].title = stop.name.components(separatedBy: ",").first
-        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        
-        tableView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
-        activityIndicator.center = CGPoint(x: (self.view.frame.width)/2, y: (self.view.frame.height)/3)
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
-        activityIndicator.color = UIColor.gray
-        self.view.addSubview(activityIndicator)
     }
     
     func updateLines(){
@@ -83,7 +75,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         })
     }
     
-    func updateMyLines(){
+    func updateUserLines() {
         stop.lines = DbService.sharedInstance.getLinesAtStop(stop.id)
         tableView.reloadData()
     }
@@ -103,19 +95,18 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "LineCell", for: indexPath) as! LineCell
         cell.selectionStyle = .none
         
-        if(stop.lines.filter({$0.id == currentLine.id}).isEmpty){
+        if stop.lines.filter({$0.id == currentLine.id}).isEmpty {
             cell.checkbox.image = UIImage(named: "unchecked-box")
-        }
-        else{
+        } else {
             cell.checkbox.image = UIImage(named: "check-box-red")
         }
         
         var sname = ""
-        if ((Int(currentLine.sname.substring(to: currentLine.sname.characters.index(currentLine.sname.startIndex, offsetBy: 1)))) == nil) {
+        if (Int(currentLine.sname.substring(to: currentLine.sname.characters.index(currentLine.sname.startIndex, offsetBy: 1)))) == nil {
             let snameArr = Array(currentLine.sname.characters)
             sname = String(snameArr[0]) + String(snameArr[1]) + String(snameArr[2])
             cell.snameLabel.font = cell.snameLabel.font.withSize(12)
-        } else if (currentLine.sname.characters.count > 2) {
+        } else if currentLine.sname.characters.count > 2 {
             sname = currentLine.sname
             cell.snameLabel.font = cell.snameLabel.font.withSize(12)
         } else {
@@ -131,16 +122,13 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             if index == 0 {
                 if departure < 1 {
                     cell.firstDeparture.text = "Nu"
-                }
-                else {
+                } else {
                     cell.firstDeparture.text = String(departure)
                 }
-            }
-            else if index == 1 {
+            } else if index == 1 {
                 if departure < 1 {
                     cell.secondDeparture.text = "Nu"
-                }
-                else {
+                } else {
                     cell.secondDeparture.text = String(departure)
                 }
             }
@@ -152,7 +140,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.cellForRow(at: indexPath) as! LineCell
         let currentLine = lines[(indexPath as NSIndexPath).row - 1]
         currentLine.stopId = stop.id
-        if (stop.lines.filter({$0.id == currentLine.id}).isEmpty) {
+        if stop.lines.filter({$0.id == currentLine.id}).isEmpty {
             timer.invalidate()
             timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(closeInfoView), userInfo: nil, repeats: false)
             infoLabel.text = "\(currentLine.sname) \(currentLine.direction) tillagd i widget"
@@ -178,7 +166,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
                 
             })
         }
-        updateMyLines()
+        updateUserLines()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
