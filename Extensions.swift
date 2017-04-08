@@ -133,3 +133,11 @@ extension String {
         return lineAndDirection
     }
 }
+
+extension UIScreen {
+    class var width: CGFloat {
+        get {
+            return UIScreen.main.bounds.size.width
+        }
+    }
+}

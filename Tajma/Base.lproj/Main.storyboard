@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zeL-5m-Bll">
-                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
+                                <rect key="frame" x="0.0" y="104" width="375" height="563"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="9BT-l7-hRT" customClass="InfoCell" customModule="Tajma" customModuleProvider="target">
@@ -62,7 +62,7 @@
                                 </prototypes>
                             </tableView>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaS-IS-Kfr">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <rect key="frame" x="-4" y="44" width="383" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="S8n-28-yFP"/>
                                 </constraints>
@@ -86,10 +86,10 @@
                         <constraints>
                             <constraint firstItem="zeL-5m-Bll" firstAttribute="leading" secondItem="S9L-k5-0O5" secondAttribute="leadingMargin" constant="-16" id="XeU-BR-SMS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zeL-5m-Bll" secondAttribute="trailing" constant="-16" id="Y5z-MS-psW"/>
-                            <constraint firstItem="iaS-IS-Kfr" firstAttribute="leading" secondItem="S9L-k5-0O5" secondAttribute="leadingMargin" constant="-16" id="Yzq-8s-zhx"/>
+                            <constraint firstItem="iaS-IS-Kfr" firstAttribute="leading" secondItem="S9L-k5-0O5" secondAttribute="leadingMargin" constant="-20" id="Yzq-8s-zhx"/>
                             <constraint firstItem="zeL-5m-Bll" firstAttribute="top" secondItem="iaS-IS-Kfr" secondAttribute="bottom" id="aD7-tx-eMR"/>
                             <constraint firstItem="iaS-IS-Kfr" firstAttribute="top" secondItem="2gL-zM-SYL" secondAttribute="bottom" constant="-20" id="hMk-68-4sT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="iaS-IS-Kfr" secondAttribute="trailing" constant="-16" id="n8f-gQ-cuJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iaS-IS-Kfr" secondAttribute="trailing" constant="-20" id="n8f-gQ-cuJ"/>
                             <constraint firstItem="kBN-b0-2bD" firstAttribute="top" secondItem="zeL-5m-Bll" secondAttribute="bottom" id="o2P-XF-uJY"/>
                         </constraints>
                     </view>
@@ -118,11 +118,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O3g-td-gm2">
-                                <rect key="frame" x="-4" y="40" width="383" height="627"/>
+                                <rect key="frame" x="-4" y="84" width="383" height="583"/>
                                 <color key="backgroundColor" red="0.28958413004875183" green="0.31462949514389038" blue="0.32950475811958313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvv-JY-u2Y">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <rect key="frame" x="-4" y="44" width="383" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="hfB-hY-yf3"/>
                                 </constraints>
@@ -145,8 +145,8 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="O3g-td-gm2" firstAttribute="top" secondItem="Fvv-JY-u2Y" secondAttribute="bottom" constant="-20" id="5dY-ws-d0b"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Fvv-JY-u2Y" secondAttribute="trailing" constant="-16" id="F4r-6N-bl2"/>
-                            <constraint firstItem="Fvv-JY-u2Y" firstAttribute="leading" secondItem="hlt-PB-hzs" secondAttribute="leadingMargin" constant="-16" id="QW8-dJ-e44"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Fvv-JY-u2Y" secondAttribute="trailing" constant="-20" id="F4r-6N-bl2"/>
+                            <constraint firstItem="Fvv-JY-u2Y" firstAttribute="leading" secondItem="hlt-PB-hzs" secondAttribute="leadingMargin" constant="-20" id="QW8-dJ-e44"/>
                             <constraint firstAttribute="trailingMargin" secondItem="O3g-td-gm2" secondAttribute="trailing" constant="-20" id="SX3-4m-wMe"/>
                             <constraint firstItem="sp7-Ze-Ng0" firstAttribute="top" secondItem="O3g-td-gm2" secondAttribute="bottom" id="VbU-X6-Ufr"/>
                             <constraint firstItem="O3g-td-gm2" firstAttribute="leading" secondItem="hlt-PB-hzs" secondAttribute="leadingMargin" constant="-20" id="ab5-8l-SS8"/>
@@ -491,7 +491,7 @@
                                 </constraints>
                             </view>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F3Y-iF-4Kx">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Rxf-8B-Wi1"/>
                                 </constraints>
@@ -521,8 +521,8 @@
                             <constraint firstItem="156-um-2dr" firstAttribute="top" secondItem="9eL-rn-PHk" secondAttribute="bottom" id="evW-u3-HL1"/>
                             <constraint firstItem="F3Y-iF-4Kx" firstAttribute="top" secondItem="w5R-wV-7oD" secondAttribute="bottom" constant="-20" id="gwr-qI-Sy7"/>
                             <constraint firstItem="eUC-A2-KTN" firstAttribute="top" secondItem="F3Y-iF-4Kx" secondAttribute="bottom" id="lIe-ks-BTB"/>
-                            <constraint firstItem="F3Y-iF-4Kx" firstAttribute="leading" secondItem="isX-hY-HS0" secondAttribute="leadingMargin" constant="-16" id="nyY-58-6xT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="F3Y-iF-4Kx" secondAttribute="trailing" constant="-16" id="soM-yR-C74"/>
+                            <constraint firstItem="F3Y-iF-4Kx" firstAttribute="leading" secondItem="isX-hY-HS0" secondAttribute="leadingMargin" constant="-20" id="nyY-58-6xT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="F3Y-iF-4Kx" secondAttribute="trailing" constant="-20" id="soM-yR-C74"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="aeP-xd-OHh"/>
@@ -554,7 +554,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="soN-H2-4v6">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="1Ih-YV-CyK"/>
                                 </constraints>
@@ -573,8 +573,8 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lägg till Tajmas Widget för att se avgångstiderna ännu snabbare. Så här gör du:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xG-np-lAJ">
-                                <rect key="frame" x="16" y="70" width="343" height="61"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lägg till Tajmas Widget för att se avgångstiderna ännu snabbare. Så här gör du:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="9xG-np-lAJ">
+                                <rect key="frame" x="16" y="55" width="343" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="dHN-A6-tuY"/>
                                 </constraints>
@@ -583,26 +583,29 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xEh-Ac-Lg1">
-                                <rect key="frame" x="45" y="140" width="285" height="415"/>
+                                <rect key="frame" x="62" y="117" width="250" height="445"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="e2n-6c-qnV"/>
+                                    <constraint firstAttribute="height" constant="445" id="v6I-IE-wAT"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="soN-H2-4v6" firstAttribute="leading" secondItem="UCn-bL-5Yq" secondAttribute="leadingMargin" constant="-16" id="AoP-5a-mYb"/>
+                            <constraint firstItem="soN-H2-4v6" firstAttribute="leading" secondItem="UCn-bL-5Yq" secondAttribute="leadingMargin" constant="-20" id="AoP-5a-mYb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9xG-np-lAJ" secondAttribute="trailing" id="CVN-cy-Q9I"/>
-                            <constraint firstItem="xEh-Ac-Lg1" firstAttribute="leading" secondItem="UCn-bL-5Yq" secondAttribute="leadingMargin" constant="29" id="GbG-OK-ygz"/>
-                            <constraint firstItem="YbI-af-h0d" firstAttribute="top" secondItem="xEh-Ac-Lg1" secondAttribute="bottom" constant="112" id="LSX-Tk-Fkc"/>
+                            <constraint firstItem="xEh-Ac-Lg1" firstAttribute="centerX" secondItem="UCn-bL-5Yq" secondAttribute="centerX" id="HG8-d7-Uh0"/>
                             <constraint firstItem="soN-H2-4v6" firstAttribute="top" secondItem="RY8-mh-Akr" secondAttribute="bottom" constant="-20" id="aGK-Cx-mFB"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="xEh-Ac-Lg1" secondAttribute="trailing" constant="29" id="eqf-Dm-VVR"/>
+                            <constraint firstItem="YbI-af-h0d" firstAttribute="top" secondItem="xEh-Ac-Lg1" secondAttribute="bottom" constant="105" id="fsm-Ol-hi3"/>
                             <constraint firstAttribute="leadingMargin" secondItem="9xG-np-lAJ" secondAttribute="leading" id="jzm-0z-q9h"/>
-                            <constraint firstItem="xEh-Ac-Lg1" firstAttribute="top" secondItem="9xG-np-lAJ" secondAttribute="bottom" constant="9" id="nUt-DR-bf8"/>
-                            <constraint firstItem="9xG-np-lAJ" firstAttribute="top" secondItem="soN-H2-4v6" secondAttribute="bottom" constant="10" id="o4p-jB-FIS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="soN-H2-4v6" secondAttribute="trailing" constant="-16" id="yVg-Xm-B2I"/>
+                            <constraint firstItem="9xG-np-lAJ" firstAttribute="top" secondItem="soN-H2-4v6" secondAttribute="bottom" constant="-5" id="o4p-jB-FIS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="soN-H2-4v6" secondAttribute="trailing" constant="-20" id="yVg-Xm-B2I"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Tqo-t9-Byv"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
+                        <outlet property="bottomConstant" destination="fsm-Ol-hi3" id="mgP-c0-EJU"/>
                         <outlet property="imageView" destination="xEh-Ac-Lg1" id="jtL-cB-S9q"/>
                         <outlet property="navigationBar" destination="soN-H2-4v6" id="8Pu-gk-hYz"/>
                     </connections>

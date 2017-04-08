@@ -34,6 +34,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         updateMyLines()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.contentInset.top = -20
         initiateViews()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateLines), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)

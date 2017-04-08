@@ -11,6 +11,7 @@ import UIKit
 class WidgetGuideController: UIViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var bottomConstant: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +20,18 @@ class WidgetGuideController: UIViewController {
         navigationBar.items?[0].title = "Tajmas Widget"
         navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
-        imageView.image = UIImage.gif(name: "jeremy")
+        imageView.image = UIImage.gifImageWithName("high-quality-widget-guide")
+        
+        switch UIScreen.width {
+        case 320:
+            bottomConstant.constant = 10
+        case 375:
+            bottomConstant.constant = 65
+        case 414:
+            bottomConstant.constant = 125
+        default:
+            bottomConstant.constant = 105
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
