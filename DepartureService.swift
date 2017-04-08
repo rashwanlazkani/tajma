@@ -55,13 +55,13 @@ open class DepartureService {
                 
                 guard
                     let name = json["name"] as? String,
-                    let track = json["track"] as? String,
                     let sname = json["sname"] as? String,
                     let direction = json["direction"] as? String,
                     let type = json["type"] as? String,
                     let fgColor  = json["fgColor"] as? String,
                     let bgColor  = json["bgColor"] as? String
-                else { return }
+                else { continue }
+                let track = json["track"] as? String ?? ""
                 let time = json["rtTime"] ?? json["time"]
                 let date = json["rtDate"] ?? json["date"]
                 let dateTime = "\(date!) \(time!)"
