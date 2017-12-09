@@ -51,7 +51,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewWillAppear(true)
         navigationController?.navigationBar.isHidden = true
         navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     override func viewDidAppear(_ animated: Bool) {

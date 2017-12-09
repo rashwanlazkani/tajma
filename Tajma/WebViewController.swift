@@ -31,7 +31,6 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
-        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     @IBAction func goBack(_ sender: Any) {

@@ -33,7 +33,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
-        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     
