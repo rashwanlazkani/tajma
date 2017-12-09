@@ -146,7 +146,10 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             long = ""
             self.locationManager.startUpdatingLocation()
         } else if segmentedControl.selectedSegmentIndex == 1 {
-            stops = DbService.sharedInstance.getStops()
+            let swedish = Locale(identifier: "sv")
+            stops = DbService.sharedInstance.getStops().sorted(by: { (first, second) -> Bool in
+                first.name.compare(second.name, locale: swedish) == .orderedAscending
+            })
         }
         
         self.segmentedControl.setTitle("Nära mig", forSegmentAt: 0)
