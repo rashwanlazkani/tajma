@@ -26,7 +26,6 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.contentInset.top = -20
         
         items = ["Senaste nytt via Facebook","Betygsätt i App Store","Tipsa en vän", "Lämna Feedback", "Så aktiverar du Tajmas Widget", "Vanliga frågor", "Om oss"]
     }
