@@ -47,10 +47,12 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
-        UIApplication.shared.statusBarStyle = .lightContent
+        
+        updateLines()
     }
     
     func updateLines(){
+        activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         departureService.getAllDeparturesFromStop(stop.id, onSuccess: { lines -> Void in
             DispatchQueue.main.async(execute: {
