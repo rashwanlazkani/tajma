@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="SJb-KJ-Cpi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="SJb-KJ-Cpi">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,26 +34,26 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Hjalmar Brantningsplatsen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3P-Fl-E6j">
-                                            <rect key="frame" x="38" y="7" width="205" height="17"/>
+                                            <rect key="frame" x="16" y="10" width="224" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3q-1w-g62">
-                                            <rect key="frame" x="251" y="8" width="23" height="15"/>
+                                            <rect key="frame" x="253" y="11" width="23" height="15"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="23" id="HhZ-64-DJ9"/>
-                                                <constraint firstAttribute="height" constant="15" id="Keq-07-xgS"/>
+                                                <constraint firstAttribute="width" constant="23" id="uod-8O-V9i"/>
+                                                <constraint firstAttribute="height" constant="15" id="zIZ-yR-bKr"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZ0-tu-ngy">
-                                            <rect key="frame" x="284" y="8" width="24" height="15"/>
+                                            <rect key="frame" x="286" y="11" width="24" height="15"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="15" id="de8-bg-k3P"/>
-                                                <constraint firstAttribute="width" constant="24" id="zU7-mR-bwI"/>
+                                                <constraint firstAttribute="height" constant="15" id="AJf-eH-5aw"/>
+                                                <constraint firstAttribute="width" constant="24" id="Ak2-EW-b8o"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.5" colorSpace="calibratedRGB"/>
@@ -60,13 +61,13 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="E3P-Fl-E6j" firstAttribute="leading" secondItem="rpO-8L-ZWs" secondAttribute="leadingMargin" constant="30" id="1gT-Rf-kWt"/>
+                                        <constraint firstItem="E3P-Fl-E6j" firstAttribute="leading" secondItem="rpO-8L-ZWs" secondAttribute="leadingMargin" id="1gT-Rf-kWt"/>
                                         <constraint firstItem="E3P-Fl-E6j" firstAttribute="top" secondItem="rpO-8L-ZWs" secondAttribute="topMargin" constant="-1" id="39N-up-ZGD"/>
-                                        <constraint firstItem="tZ0-tu-ngy" firstAttribute="leading" secondItem="V3q-1w-g62" secondAttribute="trailing" constant="10" id="CtM-mP-kfK"/>
-                                        <constraint firstAttribute="topMargin" secondItem="tZ0-tu-ngy" secondAttribute="top" id="DoK-Xl-cs6"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="tZ0-tu-ngy" secondAttribute="trailing" constant="4" id="UQD-5i-A84"/>
-                                        <constraint firstItem="V3q-1w-g62" firstAttribute="leading" secondItem="E3P-Fl-E6j" secondAttribute="trailing" constant="8" id="aDI-de-5x2"/>
-                                        <constraint firstAttribute="topMargin" secondItem="V3q-1w-g62" secondAttribute="top" id="sDc-EI-nsj"/>
+                                        <constraint firstItem="V3q-1w-g62" firstAttribute="top" secondItem="rpO-8L-ZWs" secondAttribute="top" constant="11" id="7Rp-y1-SuO"/>
+                                        <constraint firstItem="tZ0-tu-ngy" firstAttribute="top" secondItem="rpO-8L-ZWs" secondAttribute="top" constant="11" id="Ikq-x0-uz4"/>
+                                        <constraint firstAttribute="trailing" secondItem="tZ0-tu-ngy" secondAttribute="trailing" constant="10" id="U2u-kI-arY"/>
+                                        <constraint firstItem="tZ0-tu-ngy" firstAttribute="leading" secondItem="V3q-1w-g62" secondAttribute="trailing" constant="10" id="WvG-LC-kwi"/>
+                                        <constraint firstItem="V3q-1w-g62" firstAttribute="leading" secondItem="E3P-Fl-E6j" secondAttribute="trailing" constant="13" id="nGD-vc-tc6"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -98,9 +99,4 @@
             <point key="canvasLocation" x="470" y="282"/>
         </scene>
     </scenes>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>

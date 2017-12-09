@@ -26,20 +26,13 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if #available(iOS 10.0, *) {
-            grayColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
-            grayColorOpacity = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.7)
-            separatorColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.1)
-            infoText.textColor = grayColorOpacity
-            infoText.frame = CGRect(x: 15, y: 15, width: 400, height: 100)
-        } else {
-            grayColor = UIColor.white
-            grayColorOpacity = UIColor.lightGray
-            separatorColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
-            infoText.textColor = UIColor.white
-            
-            self.preferredContentSize = CGSize(width: 0, height: 60)
-        }
+        grayColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
+        grayColorOpacity = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.7)
+        separatorColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.1)
+        
+        // Ny
+        infoText.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
+        infoText.frame = CGRect(x: 10, y: 10, width: 400, height: 100)
         
         if !Reachability.isConnectedToNetwork() {
             locationManager.stopUpdatingLocation()
@@ -71,20 +64,11 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        if #available(iOS 10.0, *) {
-            grayColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
-            grayColorOpacity = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.7)
-            separatorColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.1)
-            infoText.textColor = grayColorOpacity
-            infoText.frame = CGRect(x: 15, y: 15, width: 400, height: 100)
-        } else {
-            grayColor = UIColor.white
-            grayColorOpacity = UIColor.lightGray
-            separatorColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1)
-            infoText.textColor = UIColor.white
-            
-            self.preferredContentSize = CGSize(width: 0, height: 60)
-        }
+        grayColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
+        grayColorOpacity = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.7)
+        separatorColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.1)
+        infoText.textColor = grayColorOpacity
+        infoText.frame = CGRect(x: 15, y: 15, width: 400, height: 100)
         
         if !Reachability.isConnectedToNetwork() {
             locationManager.stopUpdatingLocation()
@@ -137,12 +121,13 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         if #available(iOSApplicationExtension 10.0, *) {
             self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         } else {
-            infoText.textColor = UIColor.white
-            preferredContentSize = CGSize(width: 0, height: 60)
+            // Fallback on earlier versions
         }
+        
         if message == infoText.text {
             return
         }
+        
         infoText.text = message
         infoText.isHidden = false
         
@@ -169,14 +154,14 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         let view = UIView()
         view.backgroundColor = UIColor.clear
         
-        let name = UILabel(frame: CGRect(x: 37, y: 10, width: DeviceHelper.getLabelWidth(), height: 30))
-        name.font = name.font.withSize(14)
-        name.textColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 0.5)
+        let name = UILabel(frame: CGRect(x: 15, y: 10, width: DeviceHelper.getLabelWidth(), height: 18))
+        name.font = UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightMedium)
+        name.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
         name.text = stops[section].name.components(separatedBy: ",")[0]
         
-        let distance = UILabel(frame: CGRect(x: tableView.bounds.width - 110, y: 15, width: 95, height: 30))
-        distance.font = distance.font.withSize(14)
-        distance.textColor = grayColorOpacity
+        let distance = UILabel(frame: CGRect(x: tableView.bounds.width - 110, y: 10, width: 95, height: 18))
+        distance.font = UIFont.systemFont(ofSize: 15.0)
+        distance.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
         distance.textAlignment = .right
         
         if let dist = stops[section].distance {
@@ -244,8 +229,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let separatorView = UIView(frame: CGRect(x: 0, y: 36, width: tableView.bounds.size.width, height: 1))
-        separatorView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2)
+        let separatorView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 1))
+        separatorView.backgroundColor = UIColor(red: 00/255, green: 00/255, blue: 00/255, alpha: 0.05)
         
         return separatorView
     }
