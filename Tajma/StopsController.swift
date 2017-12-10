@@ -22,8 +22,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     var stops = [Stop]()
     var lines = [Line]()
     let locationManager = CLLocationManager()
-    var lat : String = ""
-    var long : String = ""
+    var location = CLLocationCoordinate2D()
+    var isFromBackground = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         DbService.sharedInstance.updateOptionals()
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
         
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
@@ -39,7 +40,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             locationManager.startUpdatingLocation()
         }
         
-        searchBar!.delegate = self
+        searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -49,12 +50,14 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        isFromBackground = false
         navigationController?.navigationBar.isHidden = true
         navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if segmentedControl.selectedSegmentIndex == 1 {
+        
+        if segmentedControl.selectedSegmentIndex == 0 {
+            location = CLLocationCoordinate2D()
+            self.locationManager.startUpdatingLocation()
+        } else if segmentedControl.selectedSegmentIndex == 1 {
             stops = DbService.sharedInstance.getStops()
         }
         
@@ -99,21 +102,26 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        self.segmentedControl.selectedSegmentIndex = 0
-        locationManager.startUpdatingLocation()
-        lat = ""
-        long = ""
+        if isFromBackground {
+            self.segmentedControl.selectedSegmentIndex = 0
+            location = CLLocationCoordinate2D()
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        isFromBackground = true
     }
     
     func getNearestStops() {
         self.activityIndicator.startAnimating()
         self.segmentedControl.isEnabled = false
         
-        stopService.getNearestStops(lat, long: long, onSuccess: { stops -> Void in
+        stopService.getNearestStops(location.latitude, long: location.longitude, onSuccess: { stops -> Void in
             DispatchQueue.main.async(execute: {
                 self.stops = stops
                 if self.stops.count == 0 {
-                    self.display("Inga hållplatser i närheten.", type: Error.nearest)
+                    self.display("Inga hållplatser i närheten.", type: .nearest)
                 }
                 self.tableView!.reloadData()
                 self.locationManager.stopUpdatingLocation()
@@ -121,18 +129,18 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.activityIndicator.stopAnimating()
             })
             }, onError:{ error -> Void in
-                self.display("Ett fel har uppstått med hämtning av närmaste hållplatser.", type: Error.location)
+                self.display("Ett fel har uppstått med hämtning av närmaste hållplatser.", type: .location)
         })
     }
     
-    func display(_ error: String, type: Error) {
+    func display(_ error: String, type: ErrorType) {
         let alert = UIAlertController(title: "Tajma", message: error, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         alert.addAction(UIAlertAction(title: "Försök igen", style: UIAlertActionStyle.default, handler: { (alert) -> Void in
             switch type {
-            case Error.location :
+            case .location :
                 return self.locationManager.startUpdatingLocation()
-            case Error.nearest :
+            case .nearest :
                 return self.getNearestStops()
             }
         }))
@@ -141,8 +149,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
 
     @IBAction func segmentedControl_Changed(_ sender: UISegmentedControl) {
         if segmentedControl.selectedSegmentIndex == 0 {
-            lat = ""
-            long = ""
+            location = CLLocationCoordinate2D()
             self.locationManager.startUpdatingLocation()
         } else if segmentedControl.selectedSegmentIndex == 1 {
             let swedish = Locale(identifier: "sv")
@@ -158,7 +165,32 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         tableView.reloadData()
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.characters.count >= 3 {
+            stopService.getStopsByInput(searchText, onSuccess: { stops -> Void in
+                DispatchQueue.main.async(execute: {
+                    self.stops = stops
+                    self.lines = DbService.sharedInstance.getLines()
+                    
+                    if self.stops.count > 0 {
+                        self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)
+                    }
+                    
+                    self.tableView!.reloadData()
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                })
+            }, onError:{ error -> Void in
+                self.display("Ett fel har uppstått med sökningen.", type: .location)
+            })
+        }
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if searchBar.text?.characters.count == 0 {
+            self.view.endEditing(true)
+            return
+        }
         segmentedControl.selectedSegmentIndex = 0
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
@@ -178,29 +210,32 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 UIApplication.shared.endIgnoringInteractionEvents()
             })
             }, onError:{ error -> Void in
-                self.display("Ett fel har uppstått med sökningen.", type: Error.location)
+                self.display("Ett fel har uppstått med sökningen.", type: .location)
         })
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if !lat.isEmpty && !long.isEmpty {
+        if !location.latitude.isZero || !location.longitude.isZero {
             return
-        }
-        
-        if Reachability.isConnectedToNetwork() != true {
+        } else if Reachability.isConnectedToNetwork() != true {
             stops = [Stop]()
             return
         }
         
-        let location:CLLocationCoordinate2D = manager.location!.coordinate
-        lat = String(location.latitude)
-        long = String(location.longitude)
+        if let coordinate = manager.location?.coordinate {
+            location = coordinate
+        }
+
         locationManager.stopUpdatingLocation()
         getNearestStops()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.", type: Error.location)
+        display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.", type: .location)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{

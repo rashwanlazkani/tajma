@@ -56,7 +56,7 @@
 		F8D853CA1BE132F000E2C1E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D853C81BE12F2C00E2C1E2 /* Constants.swift */; };
 		F8E080FD1B35A28E00A96A45 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */; };
 		F8E081011B35B1D000A96A45 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E081001B35B1D000A96A45 /* Info.swift */; };
-		F8F668401C18D41000F6B15A /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F6683F1C18D41000F6B15A /* Error.swift */; };
+		F8F668401C18D41000F6B15A /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F6683F1C18D41000F6B15A /* ErrorType.swift */; };
 		F8FA48421C39BE010080E12B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA48411C39BE010080E12B /* Reachability.swift */; };
 		F8FEC9A31C42B484008C615A /* OmOssViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEC9A21C42B484008C615A /* OmOssViewController.swift */; };
 /* End PBXBuildFile section */
@@ -143,7 +143,7 @@
 		F8D853C81BE12F2C00E2C1E2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F8E080FC1B35A28E00A96A45 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		F8E081001B35B1D000A96A45 /* Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
-		F8F6683F1C18D41000F6B15A /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		F8F6683F1C18D41000F6B15A /* ErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
 		F8FA48411C39BE010080E12B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		F8FEC9A21C42B484008C615A /* OmOssViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmOssViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -340,7 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				F8E081001B35B1D000A96A45 /* Info.swift */,
-				F8F6683F1C18D41000F6B15A /* Error.swift */,
+				F8F6683F1C18D41000F6B15A /* ErrorType.swift */,
 			);
 			name = Enums;
 			sourceTree = "<group>";
@@ -609,7 +609,7 @@
 				6B3D7CE81E900025009CD394 /* StopCell.swift in Sources */,
 				F843A3A61B1B04C2008F4505 /* Tajma.xcdatamodeld in Sources */,
 				6B4FEF5A1D881DEC0098906A /* DepartureService.swift in Sources */,
-				F8F668401C18D41000F6B15A /* Error.swift in Sources */,
+				F8F668401C18D41000F6B15A /* ErrorType.swift in Sources */,
 				F8729F411BF77E57000E9C9C /* SharedHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

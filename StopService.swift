@@ -11,7 +11,7 @@ import CoreLocation
 class StopService{
     let checkedStops = DbService.sharedInstance.getStops()
     
-    func getNearestStops(_ lat: String, long: String, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
+    func getNearestStops(_ lat: Double, long: Double, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
         WebService.sharedInstance.getNearestStops(lat, long: long) { jsonDic in
             // TODO: Lägg till onError
             if let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]] {

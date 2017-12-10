@@ -15,7 +15,7 @@ typealias ServiceResponse = (Data, NSError?) -> Void
 class WebService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     static let sharedInstance = WebService()
 
-    func getNearestStops(_ lat: String, long: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
+    func getNearestStops(_ lat: Double, long: Double, onCompletion: @escaping ([String: AnyObject]) -> Void){
         let url = "\(Constants.restURL)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"
         
         getToken(url, isDeparture: false, onCompletion: {jsonDictionary in
