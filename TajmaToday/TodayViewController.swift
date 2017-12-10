@@ -301,12 +301,12 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     
     func contentHeight() -> CGFloat{
         var count = stops.count
-        var height = stops.count * 40
-        for stop in stops{
-            height += (stop.lines.count == 0 ? 1 : stop.lines.count) * 36
+        var height = stops.count * 32 // header
+        for stop in stops {
+            height += (stop.lines.count == 0 ? 1 : stop.lines.count) * 32 // avgång
             count += stop.lines.count == 0 ? 1 : stop.lines.count
         }
-        return CGFloat(height)
+        return CGFloat(height) + 15
     }
     
     func lblTapped(){
