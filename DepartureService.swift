@@ -100,14 +100,10 @@ open class DepartureService {
         WebService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
             var lines = [Line]()
             let dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
-            
-            print(jsonDictionary)
-            
+
             guard let jsonDepartures = jsonDictionary["Departure"] as? [[String:Any]]
                 else { return onSuccess(nil) }
-            
-            print(jsonDepartures)
-            
+
             guard let serverDate = jsonDictionary["serverdate"] as? String,
                 let serverTime = jsonDictionary["servertime"] as? String
                 else { return onSuccess(nil) }
