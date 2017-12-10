@@ -64,7 +64,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             })
             }, onError:{ error -> Void in
                 DispatchQueue.main.async(execute: {
-                    let alert = UIAlertController(title: "Tajma", message: "Kan inte hämta linjer, försök igen senare.", preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: "Tajma", message: "Inga avgångar för tillfället på denna hållplats, försök igen senare.", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: { (alert) -> Void in
                         self.navigationController!.popViewController(animated: true)
                     }))

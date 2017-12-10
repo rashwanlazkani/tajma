@@ -35,8 +35,7 @@ class WebService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
     func getDeparturesAtStop (_ stopId: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
         let date = Date().customDate
         let time = Date().customTime
-        print(date)
-        print(time)
+        // let weekday = Calendar.current.component(.weekday, from: Date())
         let url = "\(Constants.restURL)departureBoard?id=\(stopId)&date=\(date)&time=\(time)&timeSpan=60&maxDeparturesPerLine=2&format=json"
         
         getToken(url, onCompletion: {jsonDictionary in
