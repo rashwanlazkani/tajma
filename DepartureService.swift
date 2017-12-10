@@ -39,11 +39,11 @@ open class DepartureService {
             let departures = Departure()
 
             guard let jsonDepartures = jsonDictionary["Departure"] as? [[String:AnyObject]]
-                else {return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))}
+                else {return onError(NSError(domain: "Laddar avgångar... (0x1)", code: 1, userInfo: nil))}
             
             guard let serverDate = jsonDictionary["serverdate"] as? String,
                 let serverTime = jsonDictionary["servertime"] as? String
-                else { return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000002)", code: 2, userInfo: nil)) }
+                else { return onError(NSError(domain: "Laddar avgångar... (0x2)", code: 2, userInfo: nil)) }
             
             for json in jsonDepartures{
                 if json["rtTime"] == nil && json["time"] == nil{
@@ -96,7 +96,7 @@ open class DepartureService {
         }
     }
 
-    func getDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
+    func getDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]?) -> Void){
         WebService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
             var lines = [Line]()
             let dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
@@ -104,13 +104,13 @@ open class DepartureService {
             print(jsonDictionary)
             
             guard let jsonDepartures = jsonDictionary["Departure"] as? [[String:Any]]
-                else {return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000003)", code: 3, userInfo: nil))}
+                else { return onSuccess(nil) }
             
             print(jsonDepartures)
             
             guard let serverDate = jsonDictionary["serverdate"] as? String,
                 let serverTime = jsonDictionary["servertime"] as? String
-                else { return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000002)", code: 2, userInfo: nil)) }
+                else { return onSuccess(nil) }
             
             for departure in jsonDepartures{
                 if departure["rtTime"] == nil && departure["time"] == nil{
@@ -174,11 +174,10 @@ open class DepartureService {
             if closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000 {
                 group.enter()
                 getDeparturesFromStop(stop.id, onSuccess: { lines -> Void in  defer { group.leave() }
-                    stop.lines = lines
-                    closestStops.append(stop)
-                }, onError:{ error -> Void in defer { group.leave() }
-
-                    return onError(NSError(domain: "Ett fel har inträffat, var god försök igen (0x000004)", code: 4, userInfo: nil))
+                    if let lines = lines {
+                        stop.lines = lines
+                        closestStops.append(stop)
+                    }
                 })
             }
         }
