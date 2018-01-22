@@ -826,6 +826,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
+				DEVELOPMENT_TEAM = 7XDMTA49ZT;
 				EXCLUDED_SOURCE_FOLDER_NAMES = .git;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -837,7 +838,8 @@
 				"MTL_ENABLE_DEBUG_INFO[arch=*]" = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bc81bd5e-527c-4c13-b4df-10f09607ddb1";
+				PROVISIONING_PROFILE = "5e2bbbb7-d41b-4972-aca8-fff5e970a9e5";
+				PROVISIONING_PROFILE_SPECIFIER = "Tajma Dist";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
