@@ -36,7 +36,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         if !Reachability.isConnectedToNetwork() {
             locationManager.stopUpdatingLocation()
-            display("Ingen anslutning, försök igen.")
+            display("Ingen anslutning till internet.")
             return
         }
 
@@ -57,7 +57,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.distanceFilter = kCLLocationAccuracyBest
         } else {
-            display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
+            display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
         }
     }
     
@@ -67,8 +67,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         grayColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
         grayColorOpacity = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.7)
         separatorColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.1)
-        infoText.textColor = grayColorOpacity
-        infoText.frame = CGRect(x: 15, y: 15, width: 400, height: 100)
+        infoText.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
+        infoText.frame = CGRect(x: 10, y: 10, width: 400, height: 100)
         
         if !Reachability.isConnectedToNetwork() {
             locationManager.stopUpdatingLocation()
@@ -81,7 +81,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             coordinate = CLLocationCoordinate2D()
             locationManager.startUpdatingLocation()
         } else {
-            display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
+            display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
         }
     }
     
@@ -103,15 +103,15 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
+        display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case CLAuthorizationStatus.restricted:
-            display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
+            display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
         case CLAuthorizationStatus.denied:
-            display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
+            display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
         default:
             break
         }
@@ -156,6 +156,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         let name = UILabel(frame: CGRect(x: 15, y: 10, width: DeviceHelper.getLabelWidth(), height: 18))
         name.font = UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightMedium)
+        
+        //Engdahlsgatan
         name.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
         name.text = stops[section].name.components(separatedBy: ",")[0]
         
@@ -221,7 +223,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 32
+        return 39
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -229,7 +231,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let separatorView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 1))
+        let separatorView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 20))
         separatorView.backgroundColor = UIColor(red: 00/255, green: 00/255, blue: 00/255, alpha: 0.05)
         
         return separatorView
@@ -240,7 +242,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     func openMainApp(_ sender: UIButton?) {
-        if infoText.text != "Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster." {
+        if infoText.text != "Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster." {
             let url = URL(fileURLWithPath: "Tajma://home")
             self.extensionContext?.open(url, completionHandler: nil)
         }
@@ -295,18 +297,18 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             })
         } else {
             tableView.reloadData()
-            display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.")
+            display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
         }
     }
     
     func contentHeight() -> CGFloat{
         var count = stops.count
-        var height = stops.count * 32 // header
+        var height = stops.count * 39 // header
         for stop in stops {
-            height += (stop.lines.count == 0 ? 1 : stop.lines.count) * 32 // avgång
+            height += (stop.lines.count == 0 ? 1 : stop.lines.count) * 30 // avgång
             count += stop.lines.count == 0 ? 1 : stop.lines.count
         }
-        return CGFloat(height) + 15
+        return CGFloat(height)
     }
     
     func lblTapped(){

@@ -14,60 +14,63 @@
         <scene sceneID="hWP-dc-rAX">
             <objects>
                 <tableViewController id="SJb-KJ-Cpi" userLabel="Today View Controller" customClass="TodayTableViewController" customModule="TajmaToday" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="32" sectionHeaderHeight="30" sectionFooterHeight="1" id="BEX-eB-IRv">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="30" sectionHeaderHeight="30" sectionFooterHeight="1" id="BEX-eB-IRv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" id="3wg-jm-LbK">
-                            <rect key="frame" x="0.0" y="62" width="320" height="0.0"/>
+                            <rect key="frame" x="0.0" y="56" width="320" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="32" id="jfq-sy-xp9" customClass="WidgetBodyCell" customModule="TajmaToday" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="30" width="320" height="32"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="26" id="jfq-sy-xp9" customClass="WidgetBodyCell" customModule="TajmaToday" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="30" width="320" height="26"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jfq-sy-xp9" id="rpO-8L-ZWs">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="26"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Hjalmar Brantningsplatsen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3P-Fl-E6j">
-                                            <rect key="frame" x="16" y="10" width="224" height="18"/>
+                                            <rect key="frame" x="16" y="3" width="220" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3q-1w-g62">
-                                            <rect key="frame" x="253" y="11" width="23" height="15"/>
+                                            <rect key="frame" x="246" y="3" width="23" height="17"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="23" id="uod-8O-V9i"/>
-                                                <constraint firstAttribute="height" constant="15" id="zIZ-yR-bKr"/>
+                                                <constraint firstAttribute="height" constant="17" id="zIZ-yR-bKr"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZ0-tu-ngy">
-                                            <rect key="frame" x="286" y="11" width="24" height="15"/>
+                                            <rect key="frame" x="281" y="3" width="24" height="17"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="15" id="AJf-eH-5aw"/>
+                                                <constraint firstAttribute="height" constant="17" id="AJf-eH-5aw"/>
                                                 <constraint firstAttribute="width" constant="24" id="Ak2-EW-b8o"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="E3P-Fl-E6j" firstAttribute="leading" secondItem="rpO-8L-ZWs" secondAttribute="leadingMargin" id="1gT-Rf-kWt"/>
-                                        <constraint firstItem="E3P-Fl-E6j" firstAttribute="top" secondItem="rpO-8L-ZWs" secondAttribute="topMargin" constant="-1" id="39N-up-ZGD"/>
-                                        <constraint firstItem="V3q-1w-g62" firstAttribute="top" secondItem="rpO-8L-ZWs" secondAttribute="top" constant="11" id="7Rp-y1-SuO"/>
-                                        <constraint firstItem="tZ0-tu-ngy" firstAttribute="top" secondItem="rpO-8L-ZWs" secondAttribute="top" constant="11" id="Ikq-x0-uz4"/>
-                                        <constraint firstAttribute="trailing" secondItem="tZ0-tu-ngy" secondAttribute="trailing" constant="10" id="U2u-kI-arY"/>
-                                        <constraint firstItem="tZ0-tu-ngy" firstAttribute="leading" secondItem="V3q-1w-g62" secondAttribute="trailing" constant="10" id="WvG-LC-kwi"/>
-                                        <constraint firstItem="V3q-1w-g62" firstAttribute="leading" secondItem="E3P-Fl-E6j" secondAttribute="trailing" constant="13" id="nGD-vc-tc6"/>
+                                        <constraint firstItem="E3P-Fl-E6j" firstAttribute="top" secondItem="rpO-8L-ZWs" secondAttribute="topMargin" constant="-8" id="39N-up-ZGD"/>
+                                        <constraint firstItem="V3q-1w-g62" firstAttribute="top" secondItem="rpO-8L-ZWs" secondAttribute="top" constant="3" id="7Rp-y1-SuO"/>
+                                        <constraint firstItem="tZ0-tu-ngy" firstAttribute="top" secondItem="rpO-8L-ZWs" secondAttribute="top" constant="3" id="Ikq-x0-uz4"/>
+                                        <constraint firstAttribute="trailing" secondItem="tZ0-tu-ngy" secondAttribute="trailing" constant="15" id="U2u-kI-arY"/>
+                                        <constraint firstItem="tZ0-tu-ngy" firstAttribute="leading" secondItem="V3q-1w-g62" secondAttribute="trailing" constant="12" id="WvG-LC-kwi"/>
+                                        <constraint firstItem="V3q-1w-g62" firstAttribute="leading" secondItem="E3P-Fl-E6j" secondAttribute="trailing" constant="10" id="nGD-vc-tc6"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>

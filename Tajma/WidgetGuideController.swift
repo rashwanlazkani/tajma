@@ -20,7 +20,7 @@ class WidgetGuideController: UIViewController {
         
         imageView.image = UIImage.gifImageWithName("high-quality-widget-guide")
         
-        switch UIScreen.width {
+        /*switch UIScreen.width {
         case 320:
             bottomConstant.constant = 10
         case 375:
@@ -29,7 +29,7 @@ class WidgetGuideController: UIViewController {
             bottomConstant.constant = 125
         default:
             bottomConstant.constant = 105
-        }
+        }*/
     }
     
     override func viewWillAppear(_ animated: Bool) {
