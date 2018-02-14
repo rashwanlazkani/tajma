@@ -137,6 +137,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if #available(iOS 10.0, *) {
+            let generator = UIImpactFeedbackGenerator(style: .light)
+            generator.impactOccurred()
+        }
+        
         let cell = tableView.cellForRow(at: indexPath) as! LineCell
         let currentLine = lines[(indexPath as NSIndexPath).row - 1]
         currentLine.stopId = stop.id
