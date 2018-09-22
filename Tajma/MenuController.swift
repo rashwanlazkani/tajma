@@ -11,7 +11,7 @@ import MessageUI
 import Social
 import MobileCoreServices
 
-class InfoViewController: UIViewController, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
     var  items = [String]()
     
     @IBOutlet weak var navigationBar: UINavigationBar!

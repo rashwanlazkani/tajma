@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Info View Controller-->
+        <!--Menu Controller-->
         <scene sceneID="C2F-fm-EOX">
             <objects>
-                <viewController id="7SI-it-BPf" customClass="InfoViewController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7SI-it-BPf" customClass="MenuController" customModule="Tajma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="S9L-k5-0O5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +21,7 @@
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaS-IS-Kfr">
                                 <rect key="frame" x="-4" y="20" width="383" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="S8n-28-yFP"/>
+                                    <constraint firstAttribute="height" constant="44" id="2LM-P5-iwe"/>
                                 </constraints>
                                 <textAttributes key="titleTextAttributes">
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -81,13 +81,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="zeL-5m-Bll" firstAttribute="leading" secondItem="S9L-k5-0O5" secondAttribute="leadingMargin" constant="-16" id="XeU-BR-SMS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="zeL-5m-Bll" secondAttribute="trailing" constant="-16" id="Y5z-MS-psW"/>
-                            <constraint firstItem="iaS-IS-Kfr" firstAttribute="leading" secondItem="S9L-k5-0O5" secondAttribute="leadingMargin" constant="-20" id="Yzq-8s-zhx"/>
-                            <constraint firstItem="zeL-5m-Bll" firstAttribute="top" secondItem="iaS-IS-Kfr" secondAttribute="bottom" id="aD7-tx-eMR"/>
-                            <constraint firstItem="iaS-IS-Kfr" firstAttribute="top" secondItem="UWb-Pd-tza" secondAttribute="top" id="hMk-68-4sT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="iaS-IS-Kfr" secondAttribute="trailing" constant="-20" id="n8f-gQ-cuJ"/>
-                            <constraint firstItem="UWb-Pd-tza" firstAttribute="bottom" secondItem="zeL-5m-Bll" secondAttribute="bottom" id="o2P-XF-uJY"/>
+                            <constraint firstItem="UWb-Pd-tza" firstAttribute="leading" secondItem="iaS-IS-Kfr" secondAttribute="leading" constant="4" id="4NU-FH-IJs"/>
+                            <constraint firstItem="iaS-IS-Kfr" firstAttribute="top" secondItem="UWb-Pd-tza" secondAttribute="top" id="K0l-Qs-x5O"/>
+                            <constraint firstItem="zeL-5m-Bll" firstAttribute="top" secondItem="iaS-IS-Kfr" secondAttribute="bottom" id="LVt-uQ-FK2"/>
+                            <constraint firstItem="zeL-5m-Bll" firstAttribute="leading" secondItem="UWb-Pd-tza" secondAttribute="leading" id="Md7-DJ-0Pi"/>
+                            <constraint firstAttribute="bottom" secondItem="zeL-5m-Bll" secondAttribute="bottom" id="aVh-Fz-1qa"/>
+                            <constraint firstItem="iaS-IS-Kfr" firstAttribute="trailing" secondItem="UWb-Pd-tza" secondAttribute="trailing" constant="4" id="vtf-Rb-M5C"/>
+                            <constraint firstItem="UWb-Pd-tza" firstAttribute="trailing" secondItem="zeL-5m-Bll" secondAttribute="trailing" id="xZ4-h5-Jgt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UWb-Pd-tza"/>
                     </view>
@@ -102,7 +102,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5TD-b6-Atg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1396" y="-26.53673163418291"/>
+            <point key="canvasLocation" x="1244" y="0.0"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="Yen-RA-an7">
