@@ -684,6 +684,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = 7XDMTA49ZT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -693,7 +694,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma.today;
 				PRODUCT_NAME = TajmaToday;
-				PROVISIONING_PROFILE = "bc81bd5e-527c-4c13-b4df-10f09607ddb1";
+				PROVISIONING_PROFILE = "c14c9997-ea08-47da-aa1b-52b850fb0783";
+				PROVISIONING_PROFILE_SPECIFIER = "Tajma Today Dist";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "TajmaToday/Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

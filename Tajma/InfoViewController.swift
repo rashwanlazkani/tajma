@@ -158,7 +158,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
                 return
             }
             
-            let toRecipients = ["tajma@golazo.nu"]
+            let toRecipients = ["tajma@lazkani.se"]
             let subject = "Feedback Tajma app"
             let body = "<br><br><p>Jag har en \(UIDevice.current.modelName).<br> Jag har iOS version \(UIDevice.current.systemVersion).<br</p>"
             
@@ -173,7 +173,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     func openFaq(){
-        performSegue(withIdentifier: "ShowWebView", sender: "http://www.tajma.faq.golazo.nu")
+        performSegue(withIdentifier: "ShowWebView", sender: "http://www.tajma.faq.lazkani.se")
     }
     
     func openHelp(){
@@ -181,7 +181,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     func openAboutUs(){
-        performSegue(withIdentifier: "ShowWebView", sender: "http://www.tajma.about.golazo.nu")
+        performSegue(withIdentifier: "ShowWebView", sender: "http://www.tajma.about.lazkani.se")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any!){
@@ -190,9 +190,9 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
             if let url = sender as? String {
                 web.url = url
                 
-                if url == "http://www.tajma.about.golazo.nu" {
+                if url == "http://www.tajma.about.lazkani.se" {
                     web.titleForView = "Om oss"
-                } else if url == "http://www.tajma.faq.golazo.nu" {
+                } else if url == "http://www.tajma.faq.lazkani.se" {
                     web.titleForView = "Vanliga frågor"
                 }
             }

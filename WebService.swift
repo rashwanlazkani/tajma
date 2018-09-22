@@ -65,7 +65,7 @@ class WebService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
             "Authorization": "Basic \(base64)",
             "Content-Type": "application/x-www-form-urlencoded"
         ]
-
+        
         Alamofire.request(Constants.tokenURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers)
             .responseJSON { response in
                 if let json = response.result.value as? [String: AnyObject]{
