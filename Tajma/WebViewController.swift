@@ -11,12 +11,15 @@ import UIKit
 class WebViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var url = ""
     let deviceHelper = DeviceHelper()
     var titleForView = ""
     
     override func viewDidLoad() {
+        activityIndicator.startAnimating()
+        
         navigationBar.items?[0].title = titleForView
         navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
@@ -31,6 +34,10 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        activityIndicator.stopAnimating()
     }
     
     @IBAction func goBack(_ sender: Any) {

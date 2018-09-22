@@ -173,7 +173,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     func openFaq(){
-        performSegue(withIdentifier: "ShowWebView", sender: "http://www.tajma.faq.lazkani.se")
+        performSegue(withIdentifier: "ShowWebView", sender: "http://tajma.faq.lazkani.se")
     }
     
     func openHelp(){
@@ -181,7 +181,7 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
     }
     
     func openAboutUs(){
-        performSegue(withIdentifier: "ShowWebView", sender: "http://www.tajma.about.lazkani.se")
+        performSegue(withIdentifier: "ShowWebView", sender: "http://tajma.about.lazkani.se")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any!){
@@ -190,9 +190,9 @@ class InfoViewController: UIViewController, MFMessageComposeViewControllerDelega
             if let url = sender as? String {
                 web.url = url
                 
-                if url == "http://www.tajma.about.lazkani.se" {
+                if url == "http://tajma.about.lazkani.se" {
                     web.titleForView = "Om oss"
-                } else if url == "http://www.tajma.faq.lazkani.se" {
+                } else if url == "http://tajma.faq.lazkani.se" {
                     web.titleForView = "Vanliga frågor"
                 }
             }
