@@ -12,9 +12,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var navController: UINavigationItem!
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var infoView: UIView!
-    @IBOutlet weak var infoHeightConstant: NSLayoutConstraint!
-    @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -24,14 +21,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     let departureService = DepartureService()
     let lineService = LineService()
     
-    var timer = Timer()
-    
     override func viewDidLoad(){
         super.viewDidLoad()
         
         updateUserLines()
         
-        infoHeightConstant.constant = 0
         activityIndicator.startAnimating()
         
         tableView.delegate = self
@@ -146,30 +140,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         let currentLine = lines[(indexPath as NSIndexPath).row - 1]
         currentLine.stopId = stop.id
         if stop.lines.filter({$0.id == currentLine.id}).isEmpty {
-            timer.invalidate()
-            timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(closeInfoView), userInfo: nil, repeats: false)
-            infoLabel.text = "\(currentLine.sname) \(currentLine.direction) tillagd i widget"
-            
-            self.infoHeightConstant.constant = 75
-            UIView.animate(withDuration: 0.25, animations: {
-                self.view.layoutIfNeeded()
-            }, completion:{(finished: Bool)  in
-                
-            })
-            
             DbService.sharedInstance.addLine(currentLine, stop: stop)
             cell.checkbox.image = UIImage(named: "check-box-red")
         } else {
-            timer.invalidate()
             DbService.sharedInstance.removeLine(currentLine, stopId: stop.id)
             cell.checkbox.image = UIImage(named: "unchecked-box")
-            
-            self.infoHeightConstant.constant = 0
-            UIView.animate(withDuration: 0.25, animations: {
-                self.view.layoutIfNeeded()
-            }, completion:{(finished: Bool)  in
-                
-            })
         }
         updateUserLines()
     }
@@ -180,26 +155,6 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         } else {
             return 44
         }
-    }
-    
-    func closeInfoView() {
-        self.infoHeightConstant.constant = 0
-        UIView.animate(withDuration: 0.25, animations: {
-            self.view.layoutIfNeeded()
-        }, completion:{(finished: Bool)  in
-            
-        })
-    }
-    
-    @IBAction func closeInfoClicked(_ sender: Any) {
-        timer.invalidate()
-        
-        self.infoHeightConstant.constant = 0
-        UIView.animate(withDuration: 0.25, animations: {
-            self.view.layoutIfNeeded()
-        }, completion:{(finished: Bool)  in
-            
-        })
     }
     
     @IBAction func goBack(_ sender: Any) {
