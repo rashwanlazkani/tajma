@@ -16,31 +16,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaS-IS-Kfr">
-                                <rect key="frame" x="-4" y="44" width="383" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="2LM-P5-iwe"/>
-                                </constraints>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="Title" id="OyH-UJ-0mM">
-                                        <barButtonItem key="leftBarButtonItem" image="back" style="plain" id="clf-UK-zKr">
-                                            <inset key="imageInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <connections>
-                                                <action selector="goBack:" destination="7SI-it-BPf" id="ZtK-JM-SuP"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zeL-5m-Bll">
-                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zeL-5m-Bll">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="9BT-l7-hRT" customClass="InfoCell" customModule="Tajma" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MenuCell" id="9BT-l7-hRT" customClass="InfoCell" customModule="Tajma" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9BT-l7-hRT" id="VCD-mg-pj7">
@@ -79,12 +60,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="UWb-Pd-tza" firstAttribute="leading" secondItem="iaS-IS-Kfr" secondAttribute="leading" constant="4" id="4NU-FH-IJs"/>
-                            <constraint firstItem="iaS-IS-Kfr" firstAttribute="top" secondItem="UWb-Pd-tza" secondAttribute="top" id="K0l-Qs-x5O"/>
-                            <constraint firstItem="zeL-5m-Bll" firstAttribute="top" secondItem="iaS-IS-Kfr" secondAttribute="bottom" id="LVt-uQ-FK2"/>
                             <constraint firstItem="zeL-5m-Bll" firstAttribute="leading" secondItem="UWb-Pd-tza" secondAttribute="leading" id="Md7-DJ-0Pi"/>
                             <constraint firstAttribute="bottom" secondItem="zeL-5m-Bll" secondAttribute="bottom" id="aVh-Fz-1qa"/>
-                            <constraint firstItem="iaS-IS-Kfr" firstAttribute="trailing" secondItem="UWb-Pd-tza" secondAttribute="trailing" constant="4" id="vtf-Rb-M5C"/>
+                            <constraint firstItem="zeL-5m-Bll" firstAttribute="top" secondItem="S9L-k5-0O5" secondAttribute="top" id="k5C-8P-pSt"/>
                             <constraint firstItem="UWb-Pd-tza" firstAttribute="trailing" secondItem="zeL-5m-Bll" secondAttribute="trailing" id="xZ4-h5-Jgt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UWb-Pd-tza"/>
@@ -92,7 +70,6 @@
                     <navigationItem key="navigationItem" id="wA0-Ub-O1w"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="navigationBar" destination="iaS-IS-Kfr" id="Qul-Ft-32O"/>
                         <outlet property="tableView" destination="zeL-5m-Bll" id="JAD-w1-lrr"/>
                         <segue destination="zKK-1b-w2R" kind="push" identifier="ShowWebView" id="XoU-wA-p8Y"/>
                         <segue destination="quP-RQ-KQH" kind="modal" identifier="ShowWidgetGuide" modalTransitionStyle="coverVertical" id="A7b-60-V5g"/>

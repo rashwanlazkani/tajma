@@ -51,7 +51,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         isFromBackground = false
-        navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = true
         navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
         if segmentedControl.selectedSegmentIndex == 0 {
@@ -78,7 +78,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        tableView.tableFooterView = UIView(frame: .zero)
         
         // För att sätta bakgrundfärg och opacitet på placeholdertext för searchBar
         let txt:UITextField = searchBar.value(forKey: "searchField") as! UITextField
@@ -281,6 +281,10 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             UIApplication.shared.endIgnoringInteractionEvents()
             self.activityIndicator.stopAnimating()
         }
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
     }
     
     override func didReceiveMemoryWarning() {

@@ -21,41 +21,40 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Bakåt"
-        initiateViews()
-
+        self.title = "Tajma"
+    
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        
         tableView.delegate = self
         tableView.dataSource = self
-        
+        tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+        tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
+
         items = ["Senaste nytt via Facebook","Betygsätt i App Store","Tipsa en vän", "Lämna Feedback", "Så aktiverar du Tajmas Widget", "Vanliga frågor", "Om oss"]
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.navigationBar.isHidden = true
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
     }
-    
-    
-    // MARK: - Functions
-    func initiateViews(){
-        navigationBar.items?[0].title = "Tajma"
-        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        
-        tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-        tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
-    }
-    
+
     // MARK: - TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! InfoCell
-        cell.selectionStyle = .none
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! InfoCell
+        
+        if (indexPath as NSIndexPath).row % 2 == 0 {
+           cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+       } else {
+           cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+       }
         
         var image = UIImage()
-        
         switch indexPath.row {
         case 0:
             image = UIImage(named: "facebook")!
@@ -79,7 +78,7 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
         cell.imageV?.image = image
         
         if (indexPath as NSIndexPath).row == items.count - 1 {
-            tableView.tableFooterView = UIView(frame: CGRect.zero)
+            tableView.tableFooterView = UIView(frame: .zero)
             tableView.backgroundColor = UIColor.white
         }
         
