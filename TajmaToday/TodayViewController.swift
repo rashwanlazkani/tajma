@@ -155,7 +155,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         view.backgroundColor = UIColor.clear
         
         let name = UILabel(frame: CGRect(x: 15, y: 10, width: DeviceHelper.getLabelWidth(), height: 18))
-        name.font = UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightMedium)
+        name.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
         
         //Engdahlsgatan
         name.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
@@ -311,7 +311,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         return CGFloat(height)
     }
     
-    func lblTapped(){
+    @objc func lblTapped(){
         openMainApp(nil)
     }
     

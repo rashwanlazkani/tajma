@@ -121,7 +121,7 @@ extension String {
     var customizeStopID: String {
         var id = self
         id = (id as NSString).replacingCharacters(in: NSRange(location: 3, length: 1), with: "1")
-        id = (id as NSString).replacingCharacters(in: NSRange(location: id.characters.count - 2, length: 2), with: "00")
+        id = (id as NSString).replacingCharacters(in: NSRange(location: id.count - 2, length: 2), with: "00")
         return id
     }
     

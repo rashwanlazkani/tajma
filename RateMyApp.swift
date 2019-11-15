@@ -117,7 +117,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     
     fileprivate func incrementValueForKey(name:String){
         
-        if(appID.characters.count == 0)
+        if appID.count == 0
         {
             fatalError("Set iTunes connect appID to proceed, you may enter some random string for testing purpose. See line number 59")
         }
@@ -210,49 +210,33 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         var message = NSLocalizedString("Om du tycker att Tajma är bra och användbar skulle vi uppskatta om du betygsätter applikationen :)", comment: "RateMyApp")
         message = String(format:message, appname)
         
-        if(alertMessage.characters.count == 0)
+        if alertMessage.count == 0
         {
             alertMessage = message
         }
         
         
-        if(!hasOS8())
-        {
-            let alert = UIAlertView()
-            alert.title = alertTitle
-            alert.message = alertMessage
-            alert.addButton(withTitle: alertCancelTitle)
-            alert.addButton(withTitle: alertRemindLaterTitle)
-            alert.addButton(withTitle: alertOKTitle)
-            alert.delegate = self
-            alert.show()
-        }
-        else
-        {
-            let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
-            
-            alert.addAction(UIAlertAction(title: alertOKTitle, style:.default, handler: { alertAction in
-                self.okButtonPressed()
-                alert.dismiss(animated: true, completion: nil)
-            }))
-            
-            alert.addAction(UIAlertAction(title: alertCancelTitle, style:.destructive, handler:{ alertAction in
-                self.cancelButtonPressed()
-                alert.dismiss(animated: true, completion: nil)
-            }))
-            
-            alert.addAction(UIAlertAction(title: alertRemindLaterTitle, style:.cancel, handler: { alertAction in
-                self.remindLaterButtonPressed()
-                alert.dismiss(animated: true, completion: nil)
-            }))
-            
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let controller = appDelegate.window?.rootViewController
-            
-            controller?.present(alert, animated: true, completion: nil)
-            
-            
-        }
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertController.Style.alert)
+                   
+        alert.addAction(UIAlertAction(title: alertOKTitle, style:.default, handler: { alertAction in
+           self.okButtonPressed()
+           alert.dismiss(animated: true, completion: nil)
+        }))
+
+        alert.addAction(UIAlertAction(title: alertCancelTitle, style:.destructive, handler:{ alertAction in
+           self.cancelButtonPressed()
+           alert.dismiss(animated: true, completion: nil)
+        }))
+
+        alert.addAction(UIAlertAction(title: alertRemindLaterTitle, style:.cancel, handler: { alertAction in
+           self.remindLaterButtonPressed()
+           alert.dismiss(animated: true, completion: nil)
+        }))
+
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let controller = appDelegate.window?.rootViewController
+
+        controller?.present(alert, animated: true, completion: nil)
         
     }
     
@@ -282,17 +266,6 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         let iOSVerion : Float = (systemVersion as NSString).floatValue
         
         return iOSVerion
-    }
-    
-    fileprivate func hasOS8()->Bool{
-        
-        if(deviceOSVersion() < 8.0)
-        {
-            return false
-        }
-        
-        return true
-        
     }
     
     fileprivate func okButtonPressed(){

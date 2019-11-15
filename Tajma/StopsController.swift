@@ -30,8 +30,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         DbService.sharedInstance.updateOptionals()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
         
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
@@ -69,11 +69,11 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func initiateViews(){
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.white
-        searchBar.setImage(UIImage(named: "search-white"), for: UISearchBarIcon.search, state: UIControlState())
-        searchBar.setImage(UIImage(named: "erase"), for: UISearchBarIcon.clear, state: UIControlState())
+        searchBar.setImage(UIImage(named: "search-white"), for: UISearchBar.Icon.search, state: UIControl.State())
+        searchBar.setImage(UIImage(named: "erase"), for: UISearchBar.Icon.clear, state: UIControl.State())
         searchBar.tintColor = UIColor.white
         let textfield:UITextField = searchBar.value(forKey: "searchField") as! UITextField
-        let attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor.white])
+        let attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         textfield.attributedPlaceholder = attributedString
         
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
@@ -82,7 +82,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         // För att sätta bakgrundfärg och opacitet på placeholdertext för searchBar
         let txt:UITextField = searchBar.value(forKey: "searchField") as! UITextField
-        let attr = NSAttributedString(string: "Sök hållplats", attributes: [NSForegroundColorAttributeName : UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)])
+        let attr = NSAttributedString(string: "Sök hållplats", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)])
         txt.attributedPlaceholder = attr
         
         segmentedControl.layer.masksToBounds = true
@@ -101,7 +101,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         })
     }
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
+    @objc func applicationDidBecomeActive(_ application: UIApplication) {
         if isFromBackground {
             self.segmentedControl.selectedSegmentIndex = 0
             location = CLLocationCoordinate2D()
@@ -109,7 +109,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
-    func applicationDidEnterBackground(_ application: UIApplication) {
+    @objc func applicationDidEnterBackground(_ application: UIApplication) {
         isFromBackground = true
     }
     
@@ -134,9 +134,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func display(_ error: String, type: ErrorType) {
-        let alert = UIAlertController(title: "Tajma", message: error, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Försök igen", style: UIAlertActionStyle.default, handler: { (alert) -> Void in
+        let alert = UIAlertController(title: "Tajma", message: error, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Försök igen", style: UIAlertAction.Style.default, handler: { (alert) -> Void in
             switch type {
             case .location :
                 return self.locationManager.startUpdatingLocation()
@@ -166,7 +166,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.characters.count >= 3 {
+        if searchText.count >= 3 {
             stopService.getStopsByInput(searchText, onSuccess: { stops -> Void in
                 DispatchQueue.main.async(execute: {
                     self.stops = stops
@@ -187,7 +187,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if searchBar.text?.characters.count == 0 {
+        if searchBar.text?.count == 0 {
             self.view.endEditing(true)
             return
         }

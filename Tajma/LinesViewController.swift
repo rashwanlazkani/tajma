@@ -35,7 +35,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         navigationBar.items?[0].title = stop.name.components(separatedBy: ",").first
         navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateLines), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLines), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +45,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         updateLines()
     }
     
-    func updateLines(){
+    @objc func updateLines(){
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         departureService.getAllDeparturesFromStop(stop.id, onSuccess: { lines -> Void in
@@ -58,8 +58,8 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             })
             }, onError:{ error -> Void in
                 DispatchQueue.main.async(execute: {
-                    let alert = UIAlertController(title: "Tajma", message: "Inga avgångar för tillfället på denna hållplats, försök igen senare.", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: { (alert) -> Void in
+                    let alert = UIAlertController(title: "Tajma", message: "Inga avgångar för tillfället på denna hållplats, försök igen senare.", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { (alert) -> Void in
                         self.navigationController!.popViewController(animated: true)
                     }))
                     self.present(alert, animated: true, completion: nil)
@@ -96,11 +96,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         var sname = ""
-        if (Int(currentLine.sname.substring(to: currentLine.sname.characters.index(currentLine.sname.startIndex, offsetBy: 1)))) == nil {
-            let snameArr = Array(currentLine.sname.characters)
+        if (Int(currentLine.sname.substring(to: currentLine.sname.index(currentLine.sname.startIndex, offsetBy: 1)))) == nil {
+            let snameArr = Array(currentLine.sname)
             sname = String(snameArr[0]) + String(snameArr[1]) + String(snameArr[2])
             cell.snameLabel.font = cell.snameLabel.font.withSize(12)
-        } else if currentLine.sname.characters.count > 2 {
+        } else if currentLine.sname.count > 2 {
             sname = currentLine.sname
             cell.snameLabel.font = cell.snameLabel.font.withSize(12)
         } else {

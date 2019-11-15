@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-class StopService{
+class StopService {
     let checkedStops = DbService.sharedInstance.getStops()
     
     func getNearestStops(_ lat: Double, long: Double, onSuccess: @escaping ([Stop]) -> Void, onError: (NSError) -> Void){
@@ -19,8 +19,7 @@ class StopService{
                     onSuccess([Stop]())
                 }
                 
-                let stops = self.mapToStop(jsonStops).sorted{$0.0.name == $0.1.name}.orderedSetValue
-                
+                let stops = self.mapToStop(jsonStops).sorted(by: { $0.name == $1.name }).orderedSetValue
                 for stop in stops{
                     stop.id = stop.id.customizeStopID
                 }
@@ -37,8 +36,7 @@ class StopService{
             guard let jsonStops = jsonDic["StopLocation"] as? [[String:AnyObject]]
             else { return }
             
-            var stops = self.mapToStop(jsonStops).sorted{$0.0.name == $0.1.name}.orderedSetValue
-            
+            var stops = self.mapToStop(jsonStops).sorted(by: { $0.name == $1.name }).orderedSetValue
             for stop in stops{
                 if stop.id.isEmpty {
                     if stops.count == 1 {

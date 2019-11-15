@@ -36,11 +36,10 @@ class OmOssViewController: UIViewController {
         }
         let string = "Vi har som mål med Tajma att förenkla vardagen för dig och dina vänner. Vi arbetar kontinuerligt med uppdateringar av appen. I nuläget fungerar Tajma för Västtrafiks linjer men vi jobbar på att inkludera Skånetrafiken och Storstockholms Lokaltrafik. Om du har några frågor till Tajma-teamet, maila oss gärna på tajma@lazkani.se.\n\nTack för att du använder Tajma!\n\nVänliga hälsningar,\n\nRashwan Lazkani\nUtvecklare\n\nMartin Ohls\nUX Designer\n\nOlof Stranne\nUtvecklare " as NSString
         
-        let attrDict: [String : AnyObject] = [NSFontAttributeName:UIFont.systemFont(ofSize: CGFloat(size)), NSForegroundColorAttributeName: UIColor.white]
+        let attrDict: [NSAttributedString.Key:Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: CGFloat(size)), NSAttributedString.Key.foregroundColor: UIColor.white]
 
         let attributedString = NSMutableAttributedString(string: string as String, attributes: attrDict)
-        
-        let smallerItalicFont = [NSFontAttributeName: UIFont.italicSystemFont(ofSize: 13)]
+        let smallerItalicFont = [NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: 13)]
         
         attributedString.addAttributes(smallerItalicFont, range: string.range(of: "Utvecklare"))
         attributedString.addAttributes(smallerItalicFont, range: string.range(of: "UX Designer"))
