@@ -33,14 +33,16 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        navigationBar.items?[0].title = stop.name.components(separatedBy: ",").first
-        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        self.title = stop.name.components(separatedBy: ",").first
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLines), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
         
         updateLines()
     }

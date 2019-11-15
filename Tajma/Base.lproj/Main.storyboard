@@ -303,25 +303,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F3Y-iF-4Kx">
-                                <rect key="frame" x="-4" y="44" width="383" height="44"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="Title" id="e2j-0T-dp4">
-                                        <barButtonItem key="leftBarButtonItem" image="back" style="plain" id="FDK-pc-D5K">
-                                            <inset key="imageInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <connections>
-                                                <action selector="goBack:" destination="JpN-E7-M05" id="Igu-WV-0Ev"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eUC-A2-KTN">
-                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="28" id="7GY-dQ-Llt">
@@ -461,12 +444,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="eUC-A2-KTN" firstAttribute="top" secondItem="F3Y-iF-4Kx" secondAttribute="bottom" id="3nC-V4-Ll7"/>
                             <constraint firstItem="eUC-A2-KTN" firstAttribute="leading" secondItem="f4W-0q-pKg" secondAttribute="leading" id="4mg-MB-fds"/>
                             <constraint firstAttribute="bottom" secondItem="eUC-A2-KTN" secondAttribute="bottom" id="Oza-Zo-IVq"/>
-                            <constraint firstItem="f4W-0q-pKg" firstAttribute="leading" secondItem="F3Y-iF-4Kx" secondAttribute="leading" constant="4" id="cnZ-3f-SNp"/>
-                            <constraint firstItem="F3Y-iF-4Kx" firstAttribute="trailing" secondItem="f4W-0q-pKg" secondAttribute="trailing" constant="4" id="dZe-Zh-jcZ"/>
-                            <constraint firstItem="F3Y-iF-4Kx" firstAttribute="top" secondItem="isX-hY-HS0" secondAttribute="top" constant="44" id="rfs-M2-P8Q"/>
+                            <constraint firstItem="eUC-A2-KTN" firstAttribute="top" secondItem="isX-hY-HS0" secondAttribute="top" id="XJe-Hk-H37"/>
                             <constraint firstItem="f4W-0q-pKg" firstAttribute="trailing" secondItem="eUC-A2-KTN" secondAttribute="trailing" id="uCU-Qi-Y6z"/>
                             <constraint firstItem="06U-Tj-Zu0" firstAttribute="centerY" secondItem="isX-hY-HS0" secondAttribute="centerY" id="wIT-wp-Dfi"/>
                             <constraint firstItem="06U-Tj-Zu0" firstAttribute="centerX" secondItem="f4W-0q-pKg" secondAttribute="centerX" id="xXD-O6-LHI"/>
@@ -479,13 +459,12 @@
                         <outlet property="activityIndicator" destination="06U-Tj-Zu0" id="9ej-HG-xrl"/>
                         <outlet property="navController" destination="aeP-xd-OHh" id="sdT-3U-hs1"/>
                         <outlet property="navItem" destination="aeP-xd-OHh" id="ttg-aw-tNb"/>
-                        <outlet property="navigationBar" destination="F3Y-iF-4Kx" id="JiS-cG-pvI"/>
                         <outlet property="tableView" destination="eUC-A2-KTN" id="eq5-Yz-6Eo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mf-87-y9r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2167.1999999999998" y="662.51874062968523"/>
+            <point key="canvasLocation" x="2167.1999999999998" y="662.06896551724139"/>
         </scene>
         <!--Widget Guide Controller-->
         <scene sceneID="VXb-j5-lqr">

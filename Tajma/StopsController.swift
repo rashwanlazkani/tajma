@@ -276,7 +276,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             UIApplication.shared.beginIgnoringInteractionEvents()
             
             let lines = segue.destination as! LinesViewController
-            lines.stop = sender as! Stop
+            lines.stop = sender as? Stop
             
             UIApplication.shared.endIgnoringInteractionEvents()
             self.activityIndicator.stopAnimating()
