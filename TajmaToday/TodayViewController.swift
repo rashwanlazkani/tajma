@@ -118,11 +118,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     func display(_ message: String){
-        if #available(iOSApplicationExtension 10.0, *) {
-            self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        } else {
-            // Fallback on earlier versions
-        }
+        self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         
         if message == infoText.text {
             return
@@ -130,6 +126,17 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         infoText.text = message
         infoText.isHidden = false
+        
+        if #available(iOSApplicationExtension 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                infoText.textColor = .white
+            } else {
+                infoText.textColor = .black
+            }
+        } else {
+            infoText.textColor = .black
+        }
+        
         
         tableView.reloadData()
     }
@@ -147,7 +154,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return ("\(stops[section].name) \(stops[section].distance)m")
+        return ("\(stops[section].name) \(String(describing: stops[section].distance))m")
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -158,13 +165,33 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         name.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
         
         //Engdahlsgatan
-        name.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
+        if #available(iOSApplicationExtension 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                name.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.7)
+            } else {
+                name.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
+            }
+        } else {
+            name.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
+        }
+        
         name.text = stops[section].name.components(separatedBy: ",")[0]
         
         let distance = UILabel(frame: CGRect(x: tableView.bounds.width - 110, y: 10, width: 95, height: 18))
         distance.font = UIFont.systemFont(ofSize: 15.0)
-        distance.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
+        
         distance.textAlignment = .right
+        
+        if #available(iOSApplicationExtension 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                distance.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
+            } else {
+                distance.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
+            }
+        } else {
+            distance.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
+        }
+        
         
         if let dist = stops[section].distance {
             distance.text = ("\(dist) m")
