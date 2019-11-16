@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Constants{
+struct Constants {
     static let restURL = "https://api.vasttrafik.se/bin/rest.exe/v2/"
     static let tokenURL = "https://api.vasttrafik.se/token"
     static let key = "jZLPrtMTaS2aP2lUolla3ORfQfwa"

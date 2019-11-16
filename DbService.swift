@@ -70,7 +70,7 @@ class DbService {
         
         let stopsCount = try! db.scalar("SELECT count(*) FROM Stops where id = '\(stop.id)'") as! Int64
         if stopsCount == 0 {
-            try! db.execute("INSERT INTO Stops VALUES ('\(stop.id)','\(stop.name)','\(stop.latitude)','\(stop.longitude)')")
+            try! db.execute("INSERT INTO Stops VALUES ('\(stop.id)','\(stop.name)','\(stop.lat)','\(stop.lon)')")
         }
         
          try! db.execute("INSERT INTO Lines VALUES ('\(line.id)','\(stop.id)','\(line.name)','\(line.sname)','\(line.direction)', '\(line.lineAndDirection)', '\(line.type)', '\(line.track)', '\(line.bgColor)', '\(line.fgColor)')")

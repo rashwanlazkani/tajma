@@ -8,28 +8,49 @@
 
 import Alamofire
 import Foundation
+import MapKit
 import UIKit
 
 typealias ServiceResponse = (Data, NSError?) -> Void
 
-class WebService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
-    static let sharedInstance = WebService()
 
-    func getNearestStops(_ lat: Double, long: Double, onCompletion: @escaping ([String: AnyObject]) -> Void){
-        let url = "\(Constants.restURL)location.nearbystops?originCoordLat=\(lat)&originCoordLong=\(long)&maxNo=50&MaxDist=3000&format=json"
+class WebService {
+    func getStops(userInput: String? = nil, location: CLLocationCoordinate2D? = nil, onCompletion: @escaping ([Stop]) -> Void, onError: @escaping (Error) -> Void) {
         
-        getToken(url, isDeparture: false, onCompletion: {jsonDictionary in
-            onCompletion(jsonDictionary)
-        })
-    }
-    
-    func findStops(_ userInput: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
-        let escapedUserInput = userInput.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        let url = "\(Constants.restURL)location.name?input=\(escapedUserInput)&format=json"
+        var url = ""
+        if let userInput = userInput {
+            let escapedUserInput = userInput.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+            url = "\(Constants.restURL)location.name?input=\(escapedUserInput)&format=json"
+        } else if let location = location {
+            url = "\(Constants.restURL)location.nearbystops?originCoordLat=\(location.latitude)&originCoordLong=\(location.longitude)&maxNo=50&MaxDist=3000&format=json"
+        }
         
-        getToken(url, isDeparture: false, onCompletion: {jsonDictionary in
-            onCompletion(jsonDictionary)
-        })
+        checkToken { (token) in
+            let headers = [
+                "Authorization": "Bearer \(token)"
+            ]
+            
+            Alamofire.request(url, method: .get, encoding: JSONEncoding.default, headers: headers)
+                .responseJSON { response in
+                    do {
+                        if
+                            let json = response.result.value as? [String: Any],
+                            let locationList = json["LocationList"] as? [String:Any],
+                            let stopsLocation = locationList["StopLocation"] as? [[String:AnyObject]] {
+                            let data = try JSONSerialization.data(withJSONObject: stopsLocation, options: .prettyPrinted)
+                            let stops = try JSONDecoder().decode(Array<Stop>.self, from: data).sorted(by: { $0.name == $1.name }).orderedSetValue
+                            stops.forEach { (stop) in
+                                stop.id = stop.id.customizeStopID
+                            }
+                            onCompletion(stops)
+                        }
+                        
+                    } catch {
+                        print(error)
+                        onError(error)
+                    }
+            }
+        }
     }
 
     func getDeparturesAtStop (_ stopId: String, onCompletion: @escaping ([String: AnyObject]) -> Void){
@@ -43,16 +64,11 @@ class WebService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         })
     }
     
-    fileprivate func addDays(_ date: Date, additionalDays: Int) -> Date {
-        var components = DateComponents()
-        components.day = additionalDays
+    fileprivate func getToken(_ url: String, isDeparture: Bool = true, onCompletion: @escaping ([String: AnyObject]) -> Void) {
         
-        let futureDate = (Calendar.current as NSCalendar)
-            .date(byAdding: components, to: date, options: NSCalendar.Options(rawValue: 0))
-        return futureDate!
     }
     
-    fileprivate func getToken(_ url: String, isDeparture: Bool = true, onCompletion: @escaping ([String: AnyObject]) -> Void){
+    fileprivate func getToken(onCompletion: @escaping (String) -> Void) {
         let data = ("\(Constants.key):\(Constants.secret)").data(using: String.Encoding.utf8)
         let base64 = data!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         
@@ -68,39 +84,26 @@ class WebService: NSObject, URLSessionDelegate, URLSessionDataDelegate {
         
         Alamofire.request(Constants.tokenURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers)
             .responseJSON { response in
-                if let json = response.result.value as? [String: AnyObject]{
-                    if let token = json["access_token"]{
-                        let headers = [
-                            "Authorization": "Bearer \(token)",
-                            "Content-Type": "application/x-www-form-urlencoded"
-                        ]
-                        
-                        Alamofire.request(url, method: .get, encoding: JSONEncoding.default, headers: headers)
-                            .responseJSON { response in
-                                switch response.result {
-                                case .success:
-                                    var dic:[String:AnyObject]?
-                                    if isDeparture {
-                                        dic = response.data?.json.dictionary?["DepartureBoard"] as? [String:AnyObject]
-                                      } else {
-                                        dic = response.data?.json.dictionary?["LocationList"] as? [String:AnyObject]
-                                    }
-                                    
-                                    if let dic = dic  {
-                                        onCompletion(dic)
-                                    } else {
-                                        print("failed with returning dic:")
-                                        return
-                                    }
-                                case .failure(let error):
-                                    print(error)
-                                    //onCompletion(error)
-                                }
-                        }
+                if let json = response.result.value as? [String: Any] {
+                    if let token = json["access_token"] as? String, let expires = json["expires_in"] as? Int {
+                        UserDefaults.standard.set(token, forKey: "token")
+                        UserDefaults.standard.set(Date().addSeconds(expires), forKey: "expires")
+                        onCompletion(token)
                     }
                 } else {
                     print(response.description)
                 }
+        }
+    }
+    
+    private func checkToken(onCompletion: @escaping (String) -> Void) {
+        if let tokenDate = UserDefaults.standard.object(forKey: "expires") as? Date, let token = UserDefaults.standard.string(forKey: "token"), tokenDate > Date() {
+            print(tokenDate)
+            onCompletion(token)
+        } else {
+            getToken { (token) in
+                onCompletion(token)
+            }
         }
     }
 }

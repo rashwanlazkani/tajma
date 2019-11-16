@@ -161,7 +161,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         let view = UIView()
         view.backgroundColor = UIColor.clear
         
-        let name = UILabel(frame: CGRect(x: 15, y: 10, width: Device.getLabelWidth(), height: 18))
+        let name = UILabel(frame: CGRect(x: 15, y: 10, width: DeviceHelper.getLabelWidth(), height: 18))
         name.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
         
         //Engdahlsgatan

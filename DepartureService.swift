@@ -8,6 +8,7 @@
 
 import CoreLocation
 import UIKit
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -29,12 +30,13 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-open class DepartureService {
-    var stopService = StopService()
+class DepartureService {
+    let webService = WebService()
+    let distance = DistanceHelper()
     
     // TODO: Fixa så att det är en metod istället
     func getAllDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]) -> Void, onError: @escaping (NSError) -> Void){
-        WebService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
+        webService.getDeparturesAtStop(stopId) { jsonDictionary in
             var lines = [Line]()
             let departures = Departure()
 
@@ -97,7 +99,7 @@ open class DepartureService {
     }
 
     func getDeparturesFromStop(_ stopId: String, onSuccess: @escaping ([Line]?) -> Void){
-        WebService.sharedInstance.getDeparturesAtStop(stopId) { jsonDictionary in
+        webService.getDeparturesAtStop(stopId) { jsonDictionary in
             var lines = [Line]()
             let dbLines = DbService.sharedInstance.getLinesAtStop(stopId)
 
@@ -161,7 +163,7 @@ open class DepartureService {
         var stops = DbService.sharedInstance.getStops()
 
         for stop in stops{
-            stop.distance = self.stopService.calculateDistance(stop, lat: coordinate.latitude, long: coordinate.longitude)
+            stop.distance = DistanceHelper.calculate(stop, lat: coordinate.latitude, long: coordinate.longitude)
         }
         stops.sort(by: { $0.distance != $1.distance ? $0.distance < $1.distance : $0.id < $1.id})
 

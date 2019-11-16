@@ -12,12 +12,10 @@ import Social
 import MobileCoreServices
 
 class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
-    var  items = [String]()
-    
     @IBOutlet weak var navigationBar: UINavigationBar!
-    var deviceHelper = Device()
-    
     @IBOutlet weak var tableView: UITableView!
+    
+    var  items = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

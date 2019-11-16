@@ -39,7 +39,7 @@ extension Data {
 
 extension Array {
     func firstOrDefault(_ fn: (Element) -> Bool) -> Element? {
-        var to = self.filter(fn)
+        let to = self.filter(fn)
         if to.count > 0 {
             return to[0]
         } else {
@@ -110,6 +110,21 @@ extension Date {
     
     var customDate: String {
         return Formatter.customDate.string(from: self)
+    }
+    
+    func addSeconds(_ seconds: Int) -> Date {
+        // - 1 to really ensure that we have time to make the call
+        let date = Calendar.current.date(byAdding: .second, value: seconds - 1, to: self)
+        return date != nil ? date! : Date()
+    }
+    
+    func addDays(_ days: Int) -> Date {
+        var components = DateComponents()
+        components.day = days
+        
+        let futureDate = (Calendar.current as NSCalendar)
+            .date(byAdding: components, to: self, options: NSCalendar.Options(rawValue: 0))
+        return futureDate!
     }
 }
 

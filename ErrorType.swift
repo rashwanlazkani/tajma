@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ErrorType {
+enum ErrorType: Error {
     case location
     case nearest
 }

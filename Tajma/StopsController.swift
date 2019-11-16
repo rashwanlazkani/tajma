@@ -16,9 +16,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    let webService = WebService()
     let lineService = LineService()
     var stopService = StopService()
-    let deviceHelper = Device()
     var stops = [Stop]()
     var lines = [Line]()
     let locationManager = CLLocationManager()
@@ -117,10 +117,10 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func getNearestStops() {
-        self.activityIndicator.startAnimating()
-        self.segmentedControl.isEnabled = false
+        activityIndicator.startAnimating()
+        segmentedControl.isEnabled = false
         
-        stopService.getNearestStops(location.latitude, long: location.longitude, onSuccess: { stops -> Void in
+        webService.getStops(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), onCompletion: { (stops) in
             DispatchQueue.main.async(execute: {
                 self.stops = stops
                 if self.stops.count == 0 {
@@ -131,9 +131,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.segmentedControl.isEnabled = true
                 self.activityIndicator.stopAnimating()
             })
-            }, onError:{ error -> Void in
-                self.display("Ett fel har uppstått med hämtning av närmaste hållplatser.", type: .location)
-        })
+        }) { (error) in
+            self.display("Ett fel har uppstått med hämtning av närmaste hållplatser.", type: .location)
+        }
     }
     
     func display(_ error: String, type: ErrorType) {
@@ -170,22 +170,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count >= 3 {
-            stopService.getStopsByInput(searchText, onSuccess: { stops -> Void in
-                DispatchQueue.main.async(execute: {
-                    self.stops = stops
-                    self.lines = DbService.sharedInstance.getLines()
-                    
-                    if self.stops.count > 0 {
-                        self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)
-                    }
-                    
-                    self.tableView!.reloadData()
-                    self.activityIndicator.stopAnimating()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                })
-            }, onError:{ error -> Void in
-                self.display("Ett fel har uppstått med sökningen.", type: .location)
-            })
+            seachForStop(searchBar.text!)
         }
     }
     
@@ -198,23 +183,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
-        stopService.getStopsByInput(searchBar.text!, onSuccess: { stops -> Void in
-            DispatchQueue.main.async(execute: {
-                self.stops = stops
-                self.lines = DbService.sharedInstance.getLines()
-                
-                if self.stops.count > 0 {
-                    self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)
-                }
-                
-                searchBar.resignFirstResponder()
-                self.tableView!.reloadData()
-                self.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-            })
-            }, onError:{ error -> Void in
-                self.display("Ett fel har uppstått med sökningen.", type: .location)
-        })
+        seachForStop(searchBar.text!)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -288,6 +257,25 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         let backItem = UIBarButtonItem()
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
+    }
+    
+    private func seachForStop(_ searchText: String) {
+        webService.getStops(userInput: searchText, onCompletion: { (stops) in
+            DispatchQueue.main.async(execute: {
+                self.stops = stops
+                self.lines = DbService.sharedInstance.getLines()
+                
+                if self.stops.count > 0 {
+                    self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)
+                }
+                
+                self.tableView!.reloadData()
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+            })
+        }) { (error) in
+             self.display("Ett fel har uppstått med sökningen.", type: .location)
+        }
     }
     
     override func didReceiveMemoryWarning() {

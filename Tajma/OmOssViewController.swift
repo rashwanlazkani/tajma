@@ -10,7 +10,6 @@ import UIKit
 
 class OmOssViewController: UIViewController {
     @IBOutlet weak var txtField: UITextView!
-    let deviceHelper = Device()
     
     override func viewDidLoad() {
         let title = UILabel(frame: CGRect(x: 0, y: 7, width: 200, height: 30))
@@ -19,7 +18,7 @@ class OmOssViewController: UIViewController {
         title.font = title.font.withSize(19)
         title.text = "Om oss"
         
-        let titleView = UIView(frame: CGRect(x: deviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
+        let titleView = UIView(frame: CGRect(x: DeviceHelper.screenWidth / 2, y: 0, width: 200, height: 44))
         titleView.backgroundColor = UIColor.clear
         self.navigationItem.titleView = titleView
         titleView.addSubview(title)
