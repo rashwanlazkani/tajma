@@ -14,7 +14,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var url = ""
-    let deviceHelper = DeviceHelper()
+    let deviceHelper = Device()
     var titleForView = ""
     
     override func viewDidLoad() {

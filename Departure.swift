@@ -6,6 +6,6 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-open class Departure {
+open class Departure: Codable {
     var times = [Int]()
 }

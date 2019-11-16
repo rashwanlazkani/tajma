@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SharedHelper {
+class Shared {
     func getSharedUrl() -> String{
         setSharedFolders()
         let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.tajma.today")!

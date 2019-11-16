@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-open class Line {
+open class Line: Codable {
     var id: String
     var stop = Stop()
     var stopId : String

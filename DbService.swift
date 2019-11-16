@@ -11,7 +11,7 @@ import SQLite
 
 class DbService {
     static let sharedInstance = DbService()
-    let sharedHelper = SharedHelper()
+    let sharedHelper = Shared()
     
     func getStops() -> [Stop]{
         let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")

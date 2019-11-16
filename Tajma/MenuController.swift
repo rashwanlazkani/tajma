@@ -15,7 +15,7 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
     var  items = [String]()
     
     @IBOutlet weak var navigationBar: UINavigationBar!
-    var deviceHelper = DeviceHelper()
+    var deviceHelper = Device()
     
     @IBOutlet weak var tableView: UITableView!
     

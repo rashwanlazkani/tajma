@@ -10,7 +10,7 @@ import UIKit
 
 class OmOssViewController: UIViewController {
     @IBOutlet weak var txtField: UITextView!
-    let deviceHelper = DeviceHelper()
+    let deviceHelper = Device()
     
     override func viewDidLoad() {
         let title = UILabel(frame: CGRect(x: 0, y: 7, width: 200, height: 30))

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DeviceHelper {
+class Device {
     fileprivate let screenSize: CGRect = UIScreen.main.bounds
     var screenHeight: Int {
         get {
@@ -37,7 +37,7 @@ class DeviceHelper {
     }
     
     static func getLabelWidth() -> CGFloat{
-        switch DeviceHelper.iPhoneModelSize() {
+        switch Device.iPhoneModelSize() {
             // 4, 4s
         case 8 :
             return 270.0

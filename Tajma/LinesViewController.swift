@@ -17,7 +17,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var lines = [Line]()
     var stop : Stop!
-    let deviceHelper = DeviceHelper()
+    let deviceHelper = Device()
     let departureService = DepartureService()
     let lineService = LineService()
     

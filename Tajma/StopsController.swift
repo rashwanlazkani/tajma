@@ -18,7 +18,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     let lineService = LineService()
     var stopService = StopService()
-    let deviceHelper = DeviceHelper()
+    let deviceHelper = Device()
     var stops = [Stop]()
     var lines = [Line]()
     let locationManager = CLLocationManager()
@@ -66,12 +66,12 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     // MARK: - Functions
-    func initiateViews(){
+    func initiateViews() {
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.white
-        searchBar.setImage(UIImage(named: "search-white"), for: UISearchBar.Icon.search, state: UIControl.State())
-        searchBar.setImage(UIImage(named: "erase"), for: UISearchBar.Icon.clear, state: UIControl.State())
-        searchBar.tintColor = UIColor.white
+        searchBar.setImage(UIImage(named: "search-white"), for: UISearchBar.Icon.search, state: UIControl.State.normal)
+        searchBar.setImage(UIImage(named: "erase"), for: UISearchBar.Icon.clear, state: UIControl.State.normal)
+        searchBar.tintColor = .white
         let textfield:UITextField = searchBar.value(forKey: "searchField") as! UITextField
         let attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         textfield.attributedPlaceholder = attributedString
@@ -80,16 +80,19 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
         tableView.tableFooterView = UIView(frame: .zero)
         
-        // För att sätta bakgrundfärg och opacitet på placeholdertext för searchBar
-        let txt:UITextField = searchBar.value(forKey: "searchField") as! UITextField
-        let attr = NSAttributedString(string: "Sök hållplats", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)])
-        txt.attributedPlaceholder = attr
-        
-        segmentedControl.layer.masksToBounds = true
-        segmentedControl.layer.cornerRadius = 6
-        segmentedControl.layer.borderWidth = 1
-        segmentedControl.layer.borderColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1).cgColor
-        segmentedControl.backgroundColor = UIColor(red: 210/255, green: 43/255, blue: 69/255, alpha: 0.75)
+        if #available(iOS 13.0, *) {
+            segmentedControl.selectedSegmentTintColor = .white
+            let fontAttribute = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+                                 NSAttributedString.Key.foregroundColor: UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1)]
+            segmentedControl.setTitleTextAttributes(fontAttribute, for: .normal)
+
+        } else {
+            segmentedControl.layer.masksToBounds = true
+            segmentedControl.layer.cornerRadius = 6
+            segmentedControl.layer.borderWidth = 1
+            segmentedControl.layer.borderColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1).cgColor
+            segmentedControl.backgroundColor = UIColor(red: 210/255, green: 43/255, blue: 69/255, alpha: 0.75)
+        }
     }
     
     func setRateSettings(){
