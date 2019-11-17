@@ -97,22 +97,24 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         var sname = ""
-        if (Int(currentLine.sname.substring(to: currentLine.sname.index(currentLine.sname.startIndex, offsetBy: 1)))) == nil {
-            let snameArr = Array(currentLine.sname)
-            sname = String(snameArr[0]) + String(snameArr[1]) + String(snameArr[2])
-            cell.snameLabel.font = cell.snameLabel.font.withSize(12)
-        } else if currentLine.sname.count > 2 {
+        switch currentLine.sname.count {
+        case 1, 2:
+            sname = currentLine.sname
+        case 3:
             sname = currentLine.sname
             cell.snameLabel.font = cell.snameLabel.font.withSize(12)
-        } else {
-            sname = currentLine.sname
+        case 4...:
+            sname = String(currentLine.sname.prefix(3))
+            cell.snameLabel.font = cell.snameLabel.font.withSize(12)
+        default:
+            break
         }
-        
+    
         cell.snameLabel.text = sname
         cell.snameLabel.textColor = UIColor(hex: currentLine.bgColor)
         cell.snameView.backgroundColor = UIColor(hex: currentLine.fgColor)
-
         cell.directionLabel.text = "\(currentLine.direction)"
+        
         for (index, departure) in currentLine.departures.enumerated() {
             if index == 0 {
                 if departure < 1 {

@@ -105,7 +105,7 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
     }
     
     @objc(mailComposeController:didFinishWithResult:error:)
-    func mailComposeController(_ controller: MFMailComposeViewController,  didFinishWith result: MFMailComposeResult, error: NSError?) {
+    func mailComposeController(_ controller: MFMailComposeViewController,  didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
     
@@ -129,22 +129,26 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
         self.present(vc, animated: true, completion: nil)
     }
     
-    func openAppStore(){
-        UIApplication.shared.openURL(URL(string: "http://apple.co/1TNxDzk")!)
+    func openAppStore() {
+        if let url = URL(string: "http://apple.co/1TNxDzk") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     func openFacebook(_ sender : Info){
         if sender == Info.like {
             let fbId = "436544669889188"
             let url = "fb://profile/\(fbId)"
-            let fbURL = URL(string: url)
-            if UIApplication.shared.canOpenURL(fbURL!) {
-                UIApplication.shared.openURL(fbURL!)
-            } else {
-                //redirect to safari because the user doesn't have FaceBook
-                UIApplication.shared.openURL(URL(string: "http://facebook.com/\(fbId)")!)
+            if let fbURL = URL(string: url) {
+                if UIApplication.shared.canOpenURL(fbURL) {
+                    UIApplication.shared.open(fbURL, options: [:], completionHandler: nil)
+                } else {
+                    //redirect to safari because the user doesn't have FaceBook installed
+                    if let fbURLSafari = URL(string: "http://facebook.com/\(fbId)") {
+                        UIApplication.shared.open(fbURLSafari, options: [:], completionHandler: nil)
+                    }
+                }
             }
-
         }
     }
     
@@ -157,7 +161,7 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
             
             let toRecipients = ["tajma@lazkani.se"]
             let subject = "Feedback Tajma app"
-            let body = "<br><br><p>Jag har en \(UIDevice.current.modelName).<br> Jag har iOS version \(UIDevice.current.systemVersion).<br</p>"
+            let body = "<br><br><p>Jag har en \(UIDevice.modelName).<br> Jag har iOS version \(UIDevice.current.systemVersion).<br</p>"
             
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self

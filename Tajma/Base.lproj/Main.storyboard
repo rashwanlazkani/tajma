@@ -87,15 +87,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O3g-td-gm2">
-                                <rect key="frame" x="-4" y="88" width="383" height="724"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
-                            </webView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="XMA-ef-H7N">
-                                <rect key="frame" x="169" y="392.66666666666669" width="37" height="37"/>
-                                <color key="color" red="0.40784313725490196" green="0.40784313725490196" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </activityIndicatorView>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvv-JY-u2Y">
                                 <rect key="frame" x="-4" y="44" width="383" height="60"/>
                                 <constraints>
@@ -106,7 +97,7 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Title" id="daH-jR-DdV">
-                                        <barButtonItem key="leftBarButtonItem" image="back" style="plain" id="i38-R5-y1K">
+                                        <barButtonItem key="leftBarButtonItem" image="back" id="i38-R5-y1K">
                                             <inset key="imageInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
@@ -116,18 +107,30 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RWn-Bu-YJE">
+                                <rect key="frame" x="0.0" y="44" width="375" height="768"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="XMA-ef-H7N">
+                                <rect key="frame" x="169" y="392.66666666666669" width="37" height="37"/>
+                                <color key="color" red="0.40784313725490196" green="0.40784313725490196" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="rnY-LU-d5Q" firstAttribute="leading" secondItem="O3g-td-gm2" secondAttribute="leading" constant="4" id="5hQ-pc-JU2"/>
                             <constraint firstItem="XMA-ef-H7N" firstAttribute="centerX" secondItem="rnY-LU-d5Q" secondAttribute="centerX" id="AWe-XO-CRL"/>
                             <constraint firstItem="XMA-ef-H7N" firstAttribute="centerY" secondItem="rnY-LU-d5Q" secondAttribute="centerY" id="IUy-5X-q39"/>
                             <constraint firstItem="Fvv-JY-u2Y" firstAttribute="trailing" secondItem="rnY-LU-d5Q" secondAttribute="trailing" constant="4" id="Oks-d4-SLB"/>
-                            <constraint firstItem="O3g-td-gm2" firstAttribute="trailing" secondItem="rnY-LU-d5Q" secondAttribute="trailing" constant="4" id="PP1-bd-ZXd"/>
-                            <constraint firstAttribute="bottom" secondItem="O3g-td-gm2" secondAttribute="bottom" id="Vk3-ZL-mMv"/>
+                            <constraint firstItem="RWn-Bu-YJE" firstAttribute="leading" secondItem="rnY-LU-d5Q" secondAttribute="leading" id="Pde-Di-lnP"/>
+                            <constraint firstItem="RWn-Bu-YJE" firstAttribute="top" secondItem="rnY-LU-d5Q" secondAttribute="top" id="WDy-x7-fp1"/>
                             <constraint firstItem="Fvv-JY-u2Y" firstAttribute="top" secondItem="rnY-LU-d5Q" secondAttribute="top" id="bFD-Zu-nfA"/>
-                            <constraint firstItem="O3g-td-gm2" firstAttribute="top" secondItem="Fvv-JY-u2Y" secondAttribute="bottom" constant="-16" id="cMW-xn-ekz"/>
                             <constraint firstItem="rnY-LU-d5Q" firstAttribute="leading" secondItem="Fvv-JY-u2Y" secondAttribute="leading" constant="4" id="h6r-je-JGb"/>
+                            <constraint firstItem="RWn-Bu-YJE" firstAttribute="bottom" secondItem="rnY-LU-d5Q" secondAttribute="bottom" constant="34" id="l8x-99-62s"/>
+                            <constraint firstItem="rnY-LU-d5Q" firstAttribute="trailing" secondItem="RWn-Bu-YJE" secondAttribute="trailing" id="moH-yN-W9w"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rnY-LU-d5Q"/>
                     </view>
@@ -136,12 +139,12 @@
                     <connections>
                         <outlet property="activityIndicator" destination="XMA-ef-H7N" id="ayI-OQ-0eQ"/>
                         <outlet property="navigationBar" destination="Fvv-JY-u2Y" id="R1N-9A-Qr3"/>
-                        <outlet property="webView" destination="O3g-td-gm2" id="Qww-o1-xtS"/>
+                        <outlet property="webView" destination="RWn-Bu-YJE" id="9j5-9v-WYH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4EC-IN-Uh8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2751.1999999999998" y="-389.05547226386807"/>
+            <point key="canvasLocation" x="2751.1999999999998" y="-389.40886699507394"/>
         </scene>
         <!--Stops Controller-->
         <scene sceneID="ei6-a1-9zM">
@@ -461,7 +464,7 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Title" id="zsC-jz-kwd">
-                                        <barButtonItem key="leftBarButtonItem" title="Stäng" style="plain" id="rSq-Cb-8V4">
+                                        <barButtonItem key="leftBarButtonItem" title="Stäng" id="rSq-Cb-8V4">
                                             <inset key="imageInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
