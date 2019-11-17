@@ -65,7 +65,7 @@ class DbService {
         return lines
     }
     
-    func addLine(_ line: Line, stop: Stop){
+    func addLine(_ line: Line, stop: Stop) {
         let db = try! Connection(sharedHelper.getSharedUrl())
         
         let stopsCount = try! db.scalar("SELECT count(*) FROM Stops where id = '\(stop.id)'") as! Int64
@@ -87,7 +87,7 @@ class DbService {
         }
     }
     
-    func updateOptionals(){
+    func updateOptionals() {
         let db = try! Connection(sharedHelper.getSharedUrl())
         try! db.execute("UPDATE lines SET id = replace(replace(id, 'Optional(\"',''), '\")', '') WHERE id LIKE '%Optional%';")
     }

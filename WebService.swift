@@ -51,7 +51,7 @@ class WebService {
         }
     }
     
-    func getDeparturesAt(_ stopid: String, isMyDeparture: Bool = false, onCompletion: @escaping ([Line]) -> Void, onError: @escaping (Error) -> Void) {
+    func getDeparturesAt(_ stopid: String, widgetData: Bool = false, onCompletion: @escaping ([Line]) -> Void, onError: @escaping (Error) -> Void) {
         let url = "\(Constants.restURL)departureBoard?id=\(stopid)&date=\(Date().customDate)&time=\(Date().customTime)&timeSpan=60&maxDeparturesPerLine=2&format=json"
         
         checkToken { (token) in
@@ -69,14 +69,28 @@ class WebService {
                             let serverDate = departureBoard["serverdate"] as? String,
                             let serverTime = departureBoard["servertime"] as? String {
                             let data = try JSONSerialization.data(withJSONObject: departuresJson, options: .prettyPrinted)
-                            let lines = try JSONDecoder().decode(Array<Line>.self, from: data)
+                            var lines = try JSONDecoder().decode(Array<Line>.self, from: data)
+                            var dbLines: [Line]? = nil
                             
                             lines.forEach { (line) in
+                                line.stopid = line.stopid.customizeStopID
                                 line.id = "\(line.stopid)-\(line.sname)-\(line.direction)"
                                 line.lineAndDirection = ("\(line.sname) \(line.direction)").subStringSnameAndDirection
                             }
                             
-                            lines.forEach { (line) in
+                            for line in lines {
+                                if widgetData {
+                                    if dbLines == nil {
+                                        dbLines = DbService.sharedInstance.getLines()
+                                    }
+                                    
+                                    let userLine = dbLines?.firstOrDefault({ $0.id == line.id })
+                                    if userLine == nil {
+                                        lines.removeAll(where: { $0.id == line.id })
+                                        continue
+                                    }
+                                }
+                                
                                 let departures = lines.filter({ $0.lineAndDirection == line.lineAndDirection })
                                 for departue in departures {
                                     let time = departue.rtTime ?? departue.time
@@ -119,7 +133,7 @@ class WebService {
         for stop in stops {
             if closestStops.count < 5 && stop.distance <= 750 || closestStops.count < 2 && stop.distance < 1000 {
                 group.enter()
-                getDeparturesAt(stop.id, isMyDeparture: true, onCompletion: { (lines) -> Void in  defer { group.leave() }
+                getDeparturesAt(stop.id, widgetData: true, onCompletion: { (lines) -> Void in  defer { group.leave() }
                     stop.lines = lines
                     closestStops.append(stop)
                 }) { (error) -> Void in  defer { group.leave() }

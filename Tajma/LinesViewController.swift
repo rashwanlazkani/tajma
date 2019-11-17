@@ -86,11 +86,11 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             return cell
         }
         
-        let currentLine = lines[(indexPath as NSIndexPath).row - 1]
+        let currentLine = lines[indexPath.row - 1]
         let cell = tableView.dequeueReusableCell(withIdentifier: "LineCell", for: indexPath) as! LineCell
         cell.selectionStyle = .none
         
-        if stop.lines.filter({$0.id == currentLine.id}).isEmpty {
+        if stop.lines.firstOrDefault({ $0.id == currentLine.id }) == nil {
             cell.checkbox.image = UIImage(named: "unchecked-box")
         } else {
             cell.checkbox.image = UIImage(named: "check-box-red")
@@ -134,13 +134,10 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if #available(iOS 10.0, *) {
-            let generator = UIImpactFeedbackGenerator(style: .light)
-            generator.impactOccurred()
-        }
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
         let cell = tableView.cellForRow(at: indexPath) as! LineCell
-        let currentLine = lines[(indexPath as NSIndexPath).row - 1]
+        let currentLine = lines[indexPath.row - 1]
         currentLine.stopid = stop.id
         if stop.lines.filter({$0.id == currentLine.id}).isEmpty {
             DbService.sharedInstance.addLine(currentLine, stop: stop)
