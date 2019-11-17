@@ -41,7 +41,7 @@ class DbService {
         
         var lines = [Line]()
         for row in try! db.prepare(data) {
-            let line = Line(id: row[Expression<String>("id")], stop: Stop(), stopId: row[Expression<String>("stopId")], lineAndDirection: row[Expression<String>("lineAndDirection")], name: row[Expression<String>("name")], sname: row[Expression<String>("sname")], direction: row[Expression<String>("direction")], type: row[Expression<String>("type")], track: row[Expression<String>("track")], bgColor: row[Expression<String>("fgColor")], fgColor: row[Expression<String>("bgColor")], departures: Departure())
+            let line = Line(id: row[Expression<String>("id")], stop: Stop(), stopId: row[Expression<String>("stopId")], lineAndDirection: row[Expression<String>("lineAndDirection")], name: row[Expression<String>("name")], sname: row[Expression<String>("sname")], direction: row[Expression<String>("direction")], type: row[Expression<String>("type")], track: row[Expression<String>("track")], bgColor: row[Expression<String>("fgColor")], fgColor: row[Expression<String>("bgColor")], departures: [])
 
             lines.append(line)
         }
@@ -59,7 +59,7 @@ class DbService {
 
         let stmt = try! db.prepare("SELECT * FROM Lines where stopId = '\(stopId)'")
         for row in stmt {
-            let line = Line(id: row[0] as! String, stop: Stop(), stopId: stopId, lineAndDirection: row[5] as! String, name: row[2] as! String, sname: row[3] as! String, direction: row[4] as! String, type: row[6] as! String, track: row[7] as! String, bgColor: row[8] as! String, fgColor: row[9] as! String, departures: Departure())
+            let line = Line(id: row[0] as! String, stop: Stop(), stopId: stopId, lineAndDirection: row[5] as! String, name: row[2] as! String, sname: row[3] as! String, direction: row[4] as! String, type: row[6] as! String, track: row[7] as! String, bgColor: row[8] as! String, fgColor: row[9] as! String, departures: [])
             lines.append(line)
         }
         return lines
@@ -92,7 +92,7 @@ class DbService {
         try! db.execute("UPDATE lines SET id = replace(replace(id, 'Optional(\"',''), '\")', '') WHERE id LIKE '%Optional%';")
     }
     
-    fileprivate func createTables(){
+    private func createTables(){
         let db = try! Connection(sharedHelper.getSharedUrl())
         
         let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")

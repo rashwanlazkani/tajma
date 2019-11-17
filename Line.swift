@@ -18,10 +18,14 @@ class Line: Codable {
     var track: String
     var bgColor: String
     var fgColor: String
-    var departures = Departure()
+    var rtTime: String?
+    var time: String
+    var rtDate: String?
+    var date: String
+    var departures = [Int]()
     
     private enum CodingKeys: String, CodingKey {
-        case stopid, name, sname, direction, type, track, bgColor, fgColor
+        case stopid, name, sname, direction, type, track, bgColor, fgColor, rtDate, date, rtTime, time
     }
     
     init() {
@@ -33,9 +37,13 @@ class Line: Codable {
         self.track = ""
         self.bgColor = ""
         self.fgColor = ""
+        self.rtTime = ""
+        self.time = ""
+        self.rtDate = ""
+        self.date = ""
     }
     
-    init(id: String, stop: Stop, stopId: String, lineAndDirection: String, name: String, sname: String, direction: String, type: String, track: String, bgColor: String, fgColor: String, departures: Departure){
+    init(id: String, stop: Stop, stopId: String, lineAndDirection: String, name: String, sname: String, direction: String, type: String, track: String, bgColor: String, fgColor: String, departures: [Int], rtDate: String = "", date: String = "", rtTime: String = "", time: String = "") {
         self.id = id
         self.stop = stop
         self.stopid = stopId
@@ -48,5 +56,9 @@ class Line: Codable {
         self.bgColor = bgColor
         self.fgColor = fgColor
         self.departures = departures
+        self.rtTime = rtTime
+        self.time = time
+        self.rtDate = rtDate
+        self.date = date
     }
 }

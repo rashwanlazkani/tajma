@@ -20,7 +20,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     var separatorColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.1)
     
     var stops = [Stop]()
-    var coordinate: CLLocationCoordinate2D?
+    var location: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +77,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         if CLLocationManager.locationServicesEnabled() {
             display("Laddar avgångar...")
-            coordinate = CLLocationCoordinate2D()
+            location = CLLocationCoordinate2D()
             locationManager.startUpdatingLocation()
         } else {
             display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
@@ -91,11 +91,11 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     
     // MARK: - Location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if coordinate?.latitude == 0 {
+        if location?.latitude == 0 {
             if let c = manager.location?.coordinate{
-                coordinate = c
+                location = c
             } else {
-                coordinate = CLLocationCoordinate2D()
+                location = CLLocationCoordinate2D()
             }
             fetch()
         }
@@ -218,7 +218,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         let currentLine = currentStop.lines[(indexPath as NSIndexPath).row]
         cell.snameDirection.text = "\(currentLine.sname) \(currentLine.direction)"
         
-        for (index, time) in currentLine.departures.times.enumerated(){
+        for (index, time) in currentLine.departures.enumerated(){
             if index == 0 && time == 0 {
                 cell.firstDep.text = "Nu"
             } else if index == 1 && time == 0 {
@@ -285,13 +285,13 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     func fetch() {
-        guard let coordinate = coordinate else {
+        guard let location = location else {
             tableView.reloadData()
             display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
             return
         }
         
-        webService.getMyDepartures(coordinate, onCompletion: { (stops) in
+        webService.getMyDeparturesAt(location, onCompletion: { (stops) in
                         DispatchQueue.main.async(execute: {
                 self.stops = stops
 
@@ -310,7 +310,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             })
         }) { (error) in
             DispatchQueue.main.async(execute: {
-                self.display(error.domain)
+                self.display(error.localizedDescription)
                 self.tableView.reloadData()
                 return
             })

@@ -28,7 +28,6 @@
 		F80667601B1E5CA100A26B5D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F806675F1B1E5CA100A26B5D /* MainInterface.storyboard */; };
 		F80667631B1E5CA100A26B5D /* TajmaToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F80667561B1E5CA100A26B5D /* TajmaToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F806676D1B1E5D7200A26B5D /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* WebService.swift */; };
-		F80667721B1E5D7900A26B5D /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* Departure.swift */; };
 		F80667751B1E5D7900A26B5D /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
 		F80667781B1E5D7900A26B5D /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
 		F818619F1B41D52A005DDA3A /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F818619E1B41D52A005DDA3A /* DeviceHelper.swift */; };
@@ -45,7 +44,6 @@
 		F843A3C61B1B066B008F4505 /* LinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F843A3C51B1B066B008F4505 /* LinesViewController.swift */; };
 		F8729F411BF77E57000E9C9C /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8729F401BF77E57000E9C9C /* Shared.swift */; };
 		F8729F421BF77E57000E9C9C /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8729F401BF77E57000E9C9C /* Shared.swift */; };
-		F87AFE751B1B902400D3DAFC /* Departure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE721B1B902400D3DAFC /* Departure.swift */; };
 		F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE781B1B903F00D3DAFC /* Line.swift */; };
 		F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE7C1B1B903F00D3DAFC /* Stop.swift */; };
 		F87AFE8D1B1B906400D3DAFC /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87AFE891B1B906400D3DAFC /* WebService.swift */; };
@@ -129,7 +127,6 @@
 		F843A3AF1B1B04C2008F4505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		F843A3C51B1B066B008F4505 /* LinesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinesViewController.swift; sourceTree = "<group>"; };
 		F8729F401BF77E57000E9C9C /* Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
-		F87AFE721B1B902400D3DAFC /* Departure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Departure.swift; sourceTree = "<group>"; };
 		F87AFE781B1B903F00D3DAFC /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		F87AFE7C1B1B903F00D3DAFC /* Stop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		F87AFE891B1B906400D3DAFC /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
@@ -314,7 +311,6 @@
 		F87AFE6F1B1B8FE000D3DAFC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F87AFE721B1B902400D3DAFC /* Departure.swift */,
 				F87AFE781B1B903F00D3DAFC /* Line.swift */,
 				F87AFE7C1B1B903F00D3DAFC /* Stop.swift */,
 			);
@@ -543,7 +539,6 @@
 				6B35887C23809D2E00913DE5 /* ErrorType.swift in Sources */,
 				6B8E47C11E128CAA002B7BDC /* WidgetBodyCell.swift in Sources */,
 				F8D853CA1BE132F000E2C1E2 /* Constants.swift in Sources */,
-				F80667721B1E5D7900A26B5D /* Departure.swift in Sources */,
 				6BB802361D7D2289003506C2 /* Extensions.swift in Sources */,
 				F80667751B1E5D7900A26B5D /* Line.swift in Sources */,
 				6B35887F2380ADC900913DE5 /* DistanceHelper.swift in Sources */,
@@ -568,7 +563,6 @@
 				F8FA48421C39BE010080E12B /* Reachability.swift in Sources */,
 				F87AFE811B1B903F00D3DAFC /* Line.swift in Sources */,
 				F8FEC9A31C42B484008C615A /* OmOssViewController.swift in Sources */,
-				F87AFE751B1B902400D3DAFC /* Departure.swift in Sources */,
 				F81D4E791C5EBB3F0024B798 /* WebViewController.swift in Sources */,
 				6BF9097B1E2D6BCC002CC081 /* WidgetGuideController.swift in Sources */,
 				6B31F2861DD05CC100D34585 /* LineCell.swift in Sources */,

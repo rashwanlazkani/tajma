@@ -48,7 +48,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
-        webService.getDeparturesAtStop(stop.id, onCompletion: { (lines) in
+        webService.getDeparturesAt(stop.id, onCompletion: { (lines) in
             DispatchQueue.main.async(execute: {
                 self.lines = lines
                 self.tableView.reloadData()
@@ -113,7 +113,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.snameView.backgroundColor = UIColor(hex: currentLine.fgColor)
 
         cell.directionLabel.text = "\(currentLine.direction)"
-        for (index, departure) in currentLine.departures.times.enumerated() {
+        for (index, departure) in currentLine.departures.enumerated() {
             if index == 0 {
                 if departure < 1 {
                     cell.firstDeparture.text = "Nu"
