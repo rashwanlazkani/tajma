@@ -89,6 +89,38 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         locationManager.stopUpdatingLocation()
     }
     
+    func fetch() {
+        guard let location = location else {
+            tableView.reloadData()
+            display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
+            return
+        }
+        
+        webService.getMyDeparturesAt(location, onCompletion: { (stops) in
+            DispatchQueue.main.async(execute: {
+                self.stops = stops
+                self.preferredContentSize = CGSize(width: 0, height: self.contentHeight())
+                
+                if stops.isEmpty {
+                    self.display("Ingen vald hållplats i närheten.")
+                    self.tableView.reloadData()
+                    return
+                } else {
+                    self.infoText.isHidden = true
+                }
+                
+                self.locationManager.stopUpdatingLocation()
+                self.tableView.reloadData()
+            })
+        }) { (error) in
+            DispatchQueue.main.async(execute: {
+                self.display(error.localizedDescription)
+                self.tableView.reloadData()
+                return
+            })
+        }
+    }
+    
     // MARK: - Location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if location?.latitude == 0 {
@@ -138,10 +170,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         
         tableView.reloadData()
-    }
-    
-    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        // TODO: Behövs denna nu?
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -282,39 +310,6 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             self.preferredContentSize = CGSize(width: 0, height: contentHeight())
         }
         
-    }
-    
-    func fetch() {
-        guard let location = location else {
-            tableView.reloadData()
-            display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
-            return
-        }
-        
-        webService.getMyDeparturesAt(location, onCompletion: { (stops) in
-                        DispatchQueue.main.async(execute: {
-                self.stops = stops
-
-                self.preferredContentSize = CGSize(width: 0, height: self.contentHeight())
-                
-                if stops.isEmpty {
-                    self.display("Ingen vald hållplats i närheten.")
-                    self.tableView.reloadData()
-                    return
-                } else {
-                    self.infoText.isHidden = true
-                }
-                
-                self.locationManager.stopUpdatingLocation()
-                self.tableView.reloadData()
-            })
-        }) { (error) in
-            DispatchQueue.main.async(execute: {
-                self.display(error.localizedDescription)
-                self.tableView.reloadData()
-                return
-            })
-        }
     }
     
     func contentHeight() -> CGFloat{
