@@ -17,8 +17,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var lines = [Line]()
     var stop : Stop!
-    let departureService = DepartureService()
-    let lineService = LineService()
+    let webService = WebService()
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -48,7 +47,8 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     @objc func updateLines(){
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
-        departureService.getAllDeparturesFromStop(stop.id, onSuccess: { lines -> Void in
+        
+        webService.getDeparturesAtStop(stop.id, onCompletion: { (lines) in
             DispatchQueue.main.async(execute: {
                 self.lines = lines
                 self.tableView.reloadData()
@@ -56,17 +56,18 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
                 self.activityIndicator.stopAnimating()
                 UIApplication.shared.endIgnoringInteractionEvents()
             })
-            }, onError:{ error -> Void in
-                DispatchQueue.main.async(execute: {
-                    let alert = UIAlertController(title: "Tajma", message: "Inga avgångar för tillfället på denna hållplats, försök igen senare.", preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { (alert) -> Void in
-                        self.navigationController!.popViewController(animated: true)
-                    }))
-                    self.present(alert, animated: true, completion: nil)
-                    self.activityIndicator.stopAnimating()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                })
-        })
+            
+        }) { (error) in
+            DispatchQueue.main.async(execute: {
+                let alert = UIAlertController(title: "Tajma", message: "Inga avgångar för tillfället på denna hållplats, försök igen senare.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { (alert) -> Void in
+                    self.navigationController!.popViewController(animated: true)
+                }))
+                self.present(alert, animated: true, completion: nil)
+                self.activityIndicator.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
+            })
+        }
     }
     
     func updateUserLines() {
@@ -138,7 +139,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         let cell = tableView.cellForRow(at: indexPath) as! LineCell
         let currentLine = lines[(indexPath as NSIndexPath).row - 1]
-        currentLine.stopId = stop.id
+        currentLine.stopid = stop.id
         if stop.lines.filter({$0.id == currentLine.id}).isEmpty {
             DbService.sharedInstance.addLine(currentLine, stop: stop)
             cell.checkbox.image = UIImage(named: "check-box-red")

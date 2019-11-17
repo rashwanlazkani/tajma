@@ -13,8 +13,7 @@ import CoreLocation
 class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLocationManagerDelegate {
     
     @IBOutlet weak var infoText: UITextView!
-    var departureService = DepartureService()
-    var lineService = LineService()
+    var webService = WebService()
     let locationManager = CLLocationManager()
     var grayColor = UIColor.darkGray
     var grayColorOpacity = UIColor.darkGray
@@ -285,46 +284,36 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
     }
     
-    func fetch(){
-        var hasError = false
-        var error: NSError?
-        if let coordinate = coordinate{
-            departureService.getMyDepartures(coordinate, onSuccess: { stops -> Void in
-                DispatchQueue.main.async(execute: {
-                    self.stops = stops
-
-                    self.preferredContentSize = CGSize(width: 0, height: self.contentHeight())
-                    
-                    if stops.isEmpty {
-                        if hasError{
-                            self.display(error!.domain)
-                            self.tableView.reloadData()
-                            return
-                        }
-                        self.display("Ingen vald hållplats i närheten.")
-                        self.tableView.reloadData()
-                        return
-                    } else {
-                        self.infoText.isHidden = true
-                    }
-                    
-                    self.locationManager.stopUpdatingLocation()
-                    self.tableView.reloadData()
-                })
-                }, onError:{ e -> Void in
-                    DispatchQueue.main.async(execute: {
-                        hasError = true
-                        error = e
-                        self.display(e.domain)
-                        self.tableView.reloadData()
-                        return
-                    })
-                    
-                    return
-            })
-        } else {
+    func fetch() {
+        guard let coordinate = coordinate else {
             tableView.reloadData()
             display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
+            return
+        }
+        
+        webService.getMyDepartures(coordinate, onCompletion: { (stops) in
+                        DispatchQueue.main.async(execute: {
+                self.stops = stops
+
+                self.preferredContentSize = CGSize(width: 0, height: self.contentHeight())
+                
+                if stops.isEmpty {
+                    self.display("Ingen vald hållplats i närheten.")
+                    self.tableView.reloadData()
+                    return
+                } else {
+                    self.infoText.isHidden = true
+                }
+                
+                self.locationManager.stopUpdatingLocation()
+                self.tableView.reloadData()
+            })
+        }) { (error) in
+            DispatchQueue.main.async(execute: {
+                self.display(error.domain)
+                self.tableView.reloadData()
+                return
+            })
         }
     }
     

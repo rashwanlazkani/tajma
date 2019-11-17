@@ -7,10 +7,10 @@
 //
 
 open class Stop: Codable, Equatable {
-    var id : String
-    let name : String
-    let lat : String
-    let lon : String
+    var id: String
+    let name: String
+    let lat: String
+    let lon: String
     var distance: Int?
     var lines = [Line]()
     

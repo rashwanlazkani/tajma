@@ -17,8 +17,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let webService = WebService()
-    let lineService = LineService()
-    var stopService = StopService()
     var stops = [Stop]()
     var lines = [Line]()
     let locationManager = CLLocationManager()
@@ -226,7 +224,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         }
     
-        if (!lines.filter{$0.stopId == currentStop.id}.isEmpty) {
+        if (!lines.filter{$0.stopid == currentStop.id}.isEmpty) {
             cell.checkmark.image = UIImage(named: "check-red")
         } else {
             cell.checkmark.image = UIImage()
