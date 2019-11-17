@@ -206,32 +206,41 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="StopCell" id="OAk-JT-hFT" customClass="StopCell" customModule="Tajma" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="StopCell" id="OAk-JT-hFT" customClass="StopCell" customModule="Tajma" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OAk-JT-hFT" id="34h-R8-24k">
-                                            <rect key="frame" x="0.0" y="0.0" width="349" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lCv-hp-sVw">
-                                                    <rect key="frame" x="321" y="11.666666666666664" width="20" height="20"/>
+                                                    <rect key="frame" x="307" y="11.666666666666664" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="jAk-bq-GaL"/>
                                                         <constraint firstAttribute="height" constant="20" id="vF6-uQ-B6U"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hty-hw-gBH">
-                                                    <rect key="frame" x="15" y="10" width="291" height="21"/>
+                                                    <rect key="frame" x="15" y="10" width="277" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disclosureIndicator" translatesAutoresizingMaskIntoConstraints="NO" id="GL5-rM-qVP">
+                                                    <rect key="frame" x="335" y="10" width="25" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="LC7-7N-MO3"/>
+                                                        <constraint firstAttribute="height" constant="25" id="vsP-82-LNr"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lCv-hp-sVw" firstAttribute="leading" secondItem="hty-hw-gBH" secondAttribute="trailing" constant="15" id="AiA-X4-EcR"/>
                                                 <constraint firstAttribute="bottom" secondItem="hty-hw-gBH" secondAttribute="bottom" constant="13" id="CJ8-JZ-92T"/>
-                                                <constraint firstAttribute="trailing" secondItem="lCv-hp-sVw" secondAttribute="trailing" constant="8" id="EHV-qR-0Zz"/>
+                                                <constraint firstAttribute="bottom" secondItem="GL5-rM-qVP" secondAttribute="bottom" constant="9" id="GWn-Ey-vXb"/>
                                                 <constraint firstItem="hty-hw-gBH" firstAttribute="leading" secondItem="34h-R8-24k" secondAttribute="leading" constant="15" id="KwY-pO-r2r"/>
+                                                <constraint firstItem="GL5-rM-qVP" firstAttribute="leading" secondItem="lCv-hp-sVw" secondAttribute="trailing" constant="8" id="Ubz-OH-rAp"/>
+                                                <constraint firstAttribute="trailing" secondItem="GL5-rM-qVP" secondAttribute="trailing" constant="15" id="eqk-AH-zJm"/>
                                                 <constraint firstAttribute="bottom" secondItem="lCv-hp-sVw" secondAttribute="bottom" constant="12.5" id="uGm-9d-4Ul"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -534,6 +543,7 @@
     </scenes>
     <resources>
         <image name="back" width="30" height="30"/>
+        <image name="disclosureIndicator" width="60" height="60"/>
         <image name="more-white" width="29.333333969116211" height="29.333333969116211"/>
     </resources>
 </document>

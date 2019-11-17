@@ -81,6 +81,11 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         let attributedString = NSAttributedString(string: "Sök hållplats", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         textfield.attributedPlaceholder = attributedString
         
+        searchBar.placeholder = "Sök hållplats"
+        searchBar.set(textColor: .white)
+        searchBar.setPlaceholder(textColor: UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 0.4))
+        searchBar.setSearchImage(color: .white)
+        
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
         tableView.tableFooterView = UIView(frame: .zero)
@@ -98,6 +103,11 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             segmentedControl.layer.borderColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1).cgColor
             segmentedControl.backgroundColor = UIColor(red: 210/255, green: 43/255, blue: 69/255, alpha: 0.75)
         }
+        
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)], for: UIControl.State.selected)
+        
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: UIControl.State.normal)
+
     }
     
     func rateApp() {
@@ -176,11 +186,17 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         if searchText.count >= 3 {
             seachForStop(searchBar.text!)
         }
+        if searchText.count == 0 {
+            location = CLLocationCoordinate2D()
+            locationManager.startUpdatingLocation()
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if searchBar.text?.count == 0 {
             self.view.endEditing(true)
+            location = CLLocationCoordinate2D()
+            locationManager.startUpdatingLocation()
             return
         }
         segmentedControl.selectedSegmentIndex = 0
@@ -219,7 +235,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let currentStop = stops[(indexPath as NSIndexPath).row]
+        let currentStop = stops[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "StopCell", for: indexPath) as! StopCell
     
         cell.name.text = stops[(indexPath as NSIndexPath).row].name
