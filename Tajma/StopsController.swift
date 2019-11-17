@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-import UIKit
 import CoreLocation
+import StoreKit
+import UIKit
 
 class StopsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
     @IBOutlet var navController: UIView!
@@ -43,7 +44,13 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         tableView.dataSource = self
         
         initiateViews()
-        setRateSettings()
+        
+        UserDefaults.standard.register(defaults: ["ShowRateApp": true])
+        
+        if UserDefaults.standard.bool(forKey: "ShowRateApp") {
+            rateApp()
+            UserDefaults.standard.set(false, forKey: "ShowRateApp")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,13 +100,12 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
-    func setRateSettings(){
-        let rate = RateMyApp.sharedInstance
-        rate.appID = Constants.appID
-        
-        DispatchQueue.main.async(execute: { () -> Void in
-            rate.trackAppUsage()
-        })
+    func rateApp() {
+        if #available(iOS 10.3, *) {
+            SKStoreReviewController.requestReview()
+        } else if let url = URL(string: "itms-apps://itunes.apple.com/app/\(Constants.appID)") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     @objc func applicationDidBecomeActive(_ application: UIApplication) {
