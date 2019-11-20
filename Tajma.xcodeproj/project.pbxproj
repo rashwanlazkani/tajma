@@ -604,6 +604,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashwan Lazkani (PGMKGDAHM5)";
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 7XDMTA49ZT;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -617,6 +618,7 @@
 				INFOPLIST_FILE = TajmaToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma.today;
 				PRODUCT_NAME = TajmaToday;
 				PROVISIONING_PROFILE = "472918c6-f93a-418e-a9e5-eea33c677cb8";
@@ -635,6 +637,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 7XDMTA49ZT;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -644,10 +647,11 @@
 				INFOPLIST_FILE = TajmaToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma.today;
 				PRODUCT_NAME = TajmaToday;
 				PROVISIONING_PROFILE = "c14c9997-ea08-47da-aa1b-52b850fb0783";
-				PROVISIONING_PROFILE_SPECIFIER = "Tajma Today Dist";
+				PROVISIONING_PROFILE_SPECIFIER = "Tajma Today Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "TajmaToday/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -771,6 +775,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rashwan Lazkani (PGMKGDAHM5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashwan Lazkani (PGMKGDAHM5)";
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7XDMTA49ZT;
 				EXCLUDED_SOURCE_FOLDER_NAMES = .git;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -780,6 +785,7 @@
 				INFOPLIST_FILE = Tajma/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "8038f91d-c7be-44f2-8fad-944cc6e81856";
@@ -798,6 +804,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7XDMTA49ZT;
 				EXCLUDED_SOURCE_FOLDER_NAMES = .git;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -807,11 +814,12 @@
 				INFOPLIST_FILE = Tajma/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.4;
 				"MTL_ENABLE_DEBUG_INFO[arch=*]" = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "5e2bbbb7-d41b-4972-aca8-fff5e970a9e5";
-				PROVISIONING_PROFILE_SPECIFIER = "Tajma Dist";
+				PROVISIONING_PROFILE_SPECIFIER = "Tajma Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "Tajma/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
