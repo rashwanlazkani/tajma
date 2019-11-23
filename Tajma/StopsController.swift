@@ -45,11 +45,14 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         initiateViews()
         
-        UserDefaults.standard.register(defaults: ["ShowRateApp": true])
+        UserDefaults.standard.register(defaults: ["ShowRateApp": true, "useCounter":0])
         
-        if UserDefaults.standard.bool(forKey: "ShowRateApp") {
+        if UserDefaults.standard.bool(forKey: "ShowRateApp") && UserDefaults.standard.integer(forKey: "useCounter") >= 5 {
             rateApp()
             UserDefaults.standard.set(false, forKey: "ShowRateApp")
+        } else {
+            let useCounter = UserDefaults.standard.integer(forKey: "useCounter") + 1
+            UserDefaults.standard.set(useCounter, forKey: "useCounter")
         }
     }
     
