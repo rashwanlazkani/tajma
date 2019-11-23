@@ -88,6 +88,11 @@ class DbService {
     }
     
     func updateOptionals() {
+        let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")
+        if !dbExists {
+            return
+        }
+        
         let db = try! Connection(sharedHelper.getSharedUrl())
         try! db.execute("UPDATE lines SET id = replace(replace(id, 'Optional(\"',''), '\")', '') WHERE id LIKE '%Optional%';")
     }
