@@ -39,7 +39,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             return
         }
 
-        DbService.sharedInstance.updateOptionals()
+        DbService.shared.updateOptionals()
         
         infoText.isUserInteractionEnabled = true
         let aSelector : Selector = #selector(lblTapped)

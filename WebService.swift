@@ -81,7 +81,7 @@ class WebService {
                             for line in lines {
                                 if widgetData {
                                     if dbLines == nil {
-                                        dbLines = DbService.sharedInstance.getLines()
+                                        dbLines = DbService.shared.getLines()
                                     }
                                     
                                     let userLine = dbLines?.firstOrDefault({ $0.id == line.id })
@@ -122,7 +122,7 @@ class WebService {
     
     func getMyDeparturesAt(_ location: CLLocationCoordinate2D, onCompletion: @escaping ([Stop]) -> Void, onError: @escaping (Error) -> Void) {
         let group = DispatchGroup()
-        var stops = DbService.sharedInstance.getStops()
+        var stops = DbService.shared.getStops()
         
         for stop in stops{
             stop.distance = DistanceHelper.calculate(stop, lat: location.latitude, long: location.longitude)

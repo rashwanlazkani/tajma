@@ -9,7 +9,7 @@
 import Foundation
 
 class Shared {
-    func getSharedUrl() -> String{
+    func getSharedUrl() -> String {
         setSharedFolders()
         let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.tajma.today")!
         let urlSubString = url.absoluteString.replacingOccurrences(of: "file:///", with: "", options: NSString.CompareOptions.literal, range: nil)
@@ -17,20 +17,20 @@ class Shared {
         return "\(urlSubString)db.sqlite"
     }
     
-    func setSharedFolders(){
+    func setSharedFolders() {
         // Hämta Shared URL
         let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.tajma.today")!
         var urlSubString = url.absoluteString.replacingOccurrences(of: "file:///", with: "", options: NSString.CompareOptions.literal, range: nil)
         
         // skapa en file manager för att hanera filerna
-        let filemgr = FileManager.default
-        let databuffer = filemgr.contents(atPath: urlSubString)
+        let fileManager = FileManager.default
+        let databuffer = fileManager.contents(atPath: urlSubString)
         
         // Kolla om databas filen finns
-        if !filemgr.fileExists(atPath: urlSubString + "db.sqlite") {
+        if !fileManager.fileExists(atPath: urlSubString + "db.sqlite") {
             // Skapa fil
             urlSubString = urlSubString + "db.sqlite"
-            filemgr.createFile(atPath: urlSubString, contents: databuffer,
+            fileManager.createFile(atPath: urlSubString, contents: databuffer,
                 attributes: nil)
         }
     }

@@ -20,23 +20,6 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-extension Data {
-    var string: String {
-        return String(data: self, encoding: String.Encoding.utf8) ?? ""
-    }
-    var json: (dictionary: [String: AnyObject]?, array: [AnyObject]?) {
-        do {
-            let jsonObject = try JSONSerialization.jsonObject(with: self, options: .allowFragments)
-            return (jsonObject as? [String: AnyObject], jsonObject as? [AnyObject])
-        } catch let error as NSError {
-            print("JSONSerialization error")
-            print("error.code = ",error.code)
-            print("error.domain = ",error.domain)
-            return (nil,nil)
-        }
-    }
-}
-
 extension Array {
     func firstOrDefault(_ fn: (Element) -> Bool) -> Element? {
         let to = self.filter(fn)
@@ -138,6 +121,13 @@ extension Date {
         let futureDate = (Calendar.current as NSCalendar)
             .date(byAdding: components, to: self, options: NSCalendar.Options(rawValue: 0))
         return futureDate!
+    }
+    
+    var nextMondaysDate: Date? {
+        let calendar = Calendar.current
+        let components = DateComponents(weekday: 3)
+        let nextMonday = calendar.nextDate(after: self, matching: components, matchingPolicy: .nextTime)
+        return nextMonday
     }
 }
 

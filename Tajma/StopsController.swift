@@ -27,7 +27,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DbService.sharedInstance.updateOptionals()
+        DbService.shared.updateOptionals()
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
@@ -44,7 +44,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         tableView.dataSource = self
         
         initiateViews()
-        
         checkAndAskForReview()
     }
     
@@ -58,10 +57,10 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             location = CLLocationCoordinate2D()
             self.locationManager.startUpdatingLocation()
         } else if segmentedControl.selectedSegmentIndex == 1 {
-            stops = DbService.sharedInstance.getStops()
+            stops = DbService.shared.getStops()
         }
         
-        lines = DbService.sharedInstance.getLines()
+        lines = DbService.shared.getLines()
         tableView.reloadData()
     }
     
@@ -112,9 +111,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         case _ where appOpenCount%100 == 0 :
             SKStoreReviewController.requestReview()
         default:
-            print("App run count is : \(appOpenCount)")
-            print(appOpenCount%100 == 0)
-            break;
+            break
         }
         
     }
@@ -171,14 +168,14 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             self.locationManager.startUpdatingLocation()
         } else if segmentedControl.selectedSegmentIndex == 1 {
             let swedish = Locale(identifier: "sv")
-            stops = DbService.sharedInstance.getStops().sorted(by: { (first, second) -> Bool in
+            stops = DbService.shared.getStops().sorted(by: { (first, second) -> Bool in
                 first.name.compare(second.name, locale: swedish) == .orderedAscending
             })
         }
         
         self.segmentedControl.setTitle("Nära mig", forSegmentAt: 0)
         self.searchBar.text = ""
-        lines = DbService.sharedInstance.getLines()
+        lines = DbService.shared.getLines()
         searchBar.resignFirstResponder()
         tableView.reloadData()
     }
@@ -284,7 +281,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         webService.getStops(userInput: searchText, onCompletion: { (stops) in
             DispatchQueue.main.async(execute: {
                 self.stops = stops
-                self.lines = DbService.sharedInstance.getLines()
+                self.lines = DbService.shared.getLines()
                 
                 if self.stops.count > 0 {
                     self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)

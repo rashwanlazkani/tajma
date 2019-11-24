@@ -11,17 +11,17 @@ class Line: Codable {
     var stop = Stop()
     var stopid: String
     var lineAndDirection: String = ""
-    var name: String
-    var sname: String
-    var direction: String
-    var type: String
-    var track: String
-    var bgColor: String
-    var fgColor: String
-    var rtTime: String?
-    var time: String
-    var rtDate: String?
-    var date: String
+    let name: String
+    let sname: String
+    let direction: String
+    let type: String
+    let track: String
+    let bgColor: String
+    let fgColor: String
+    let rtTime: String?
+    let time: String
+    let rtDate: String?
+    let date: String
     var departures = [Int]()
     
     private enum CodingKeys: String, CodingKey {

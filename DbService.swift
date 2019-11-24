@@ -10,10 +10,10 @@ import Foundation
 import SQLite
 
 class DbService {
-    static let sharedInstance = DbService()
+    static let shared = DbService()
     let sharedHelper = Shared()
     
-    func getStops() -> [Stop]{
+    func getStops() -> [Stop] {
         let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")
         if !dbExists {
             createTables()
@@ -31,7 +31,7 @@ class DbService {
         return stops
     }
     
-    func getLines() -> [Line]{
+    func getLines() -> [Line] {
         let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")
         if !dbExists {
             createTables()
@@ -48,7 +48,7 @@ class DbService {
         return lines
     }
     
-    func getLinesAtStop(_ stopId : String) -> [Line]{
+    func getLinesAtStop(_ stopId : String) -> [Line] {
         let db = try! Connection(sharedHelper.getSharedUrl())
         var lines = [Line]()
         
@@ -76,7 +76,7 @@ class DbService {
          try! db.execute("INSERT INTO Lines VALUES ('\(line.id)','\(stop.id)','\(line.name)','\(line.sname)','\(line.direction)', '\(line.lineAndDirection)', '\(line.type)', '\(line.track)', '\(line.bgColor)', '\(line.fgColor)')")
     }
     
-    func removeLine(_ line: Line, stopId: String){
+    func removeLine(_ line: Line, stopId: String) {
         let db = try! Connection(sharedHelper.getSharedUrl())
         
         try! db.execute("DELETE FROM Lines WHERE id = '\(line.id)'")
@@ -97,7 +97,7 @@ class DbService {
         try! db.execute("UPDATE lines SET id = replace(replace(id, 'Optional(\"',''), '\")', '') WHERE id LIKE '%Optional%';")
     }
     
-    private func createTables(){
+    private func createTables() {
         let db = try! Connection(sharedHelper.getSharedUrl())
         
         let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")

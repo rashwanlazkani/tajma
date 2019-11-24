@@ -71,7 +71,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func updateUserLines() {
-        stop.lines = DbService.sharedInstance.getLinesAtStop(stop.id)
+        stop.lines = DbService.shared.getLinesAtStop(stop.id)
         tableView.reloadData()
     }
     
@@ -140,10 +140,10 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         let currentLine = lines[indexPath.row - 1]
         currentLine.stopid = stop.id
         if stop.lines.filter({$0.id == currentLine.id}).isEmpty {
-            DbService.sharedInstance.addLine(currentLine, stop: stop)
+            DbService.shared.addLine(currentLine, stop: stop)
             cell.checkbox.image = UIImage(named: "check-box-red")
         } else {
-            DbService.sharedInstance.removeLine(currentLine, stopId: stop.id)
+            DbService.shared.removeLine(currentLine, stopId: stop.id)
             cell.checkbox.image = UIImage(named: "unchecked-box")
         }
         updateUserLines()
