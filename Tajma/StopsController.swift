@@ -26,7 +26,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         DbService.sharedInstance.updateOptionals()
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -45,15 +45,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         initiateViews()
         
-        UserDefaults.standard.register(defaults: ["ShowRateApp": true, "useCounter":0])
-        
-        if UserDefaults.standard.bool(forKey: "ShowRateApp") && UserDefaults.standard.integer(forKey: "useCounter") >= 5 {
-            rateApp()
-            UserDefaults.standard.set(false, forKey: "ShowRateApp")
-        } else {
-            let useCounter = UserDefaults.standard.integer(forKey: "useCounter") + 1
-            UserDefaults.standard.set(useCounter, forKey: "useCounter")
-        }
+        checkAndAskForReview()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,17 +102,23 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)], for: UIControl.State.selected)
         
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: UIControl.State.normal)
-
     }
     
-    func rateApp() {
-        if #available(iOS 10.3, *) {
+    private func checkAndAskForReview() {
+        let appOpenCount = UserDefaults.standard.integer(forKey: "appOpenCount")
+        switch appOpenCount {
+        case 7,50 :
             SKStoreReviewController.requestReview()
-        } else if let url = URL(string: "itms-apps://itunes.apple.com/app/\(Constants.appID)") {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        case _ where appOpenCount%100 == 0 :
+            SKStoreReviewController.requestReview()
+        default:
+            print("App run count is : \(appOpenCount)")
+            print(appOpenCount%100 == 0)
+            break;
         }
+        
     }
-    
+
     @objc func applicationDidBecomeActive(_ application: UIApplication) {
         if isFromBackground {
             self.segmentedControl.selectedSegmentIndex = 0
