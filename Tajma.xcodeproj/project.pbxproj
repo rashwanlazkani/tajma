@@ -160,10 +160,10 @@
 		6B31F2841DD05CAE00D34585 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				6B31F2851DD05CC100D34585 /* LineCell.swift */,
-				6B8E47C01E128CAA002B7BDC /* WidgetBodyCell.swift */,
 				6BF9097E1E2D71B7002CC081 /* InfoCell.swift */,
+				6B31F2851DD05CC100D34585 /* LineCell.swift */,
 				6B3D7CE71E900025009CD394 /* StopCell.swift */,
+				6B8E47C01E128CAA002B7BDC /* WidgetBodyCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -258,8 +258,8 @@
 				F87AFE931B1B930700D3DAFC /* Tajma.entitlements */,
 				F843A3A21B1B04C2008F4505 /* AppDelegate.swift */,
 				F843A3A71B1B04C2008F4505 /* StopsController.swift */,
-				F8E080FC1B35A28E00A96A45 /* MenuController.swift */,
 				F843A3C51B1B066B008F4505 /* LinesViewController.swift */,
+				F8E080FC1B35A28E00A96A45 /* MenuController.swift */,
 				F81D4E781C5EBB3F0024B798 /* WebViewController.swift */,
 				6BF9097A1E2D6BCC002CC081 /* WidgetGuideController.swift */,
 				F843A3A91B1B04C2008F4505 /* Main.storyboard */,
@@ -600,7 +600,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashwan Lazkani (PGMKGDAHM5)";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 7XDMTA49ZT;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -633,7 +633,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = 7XDMTA49ZT;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -771,7 +771,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Rashwan Lazkani (PGMKGDAHM5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashwan Lazkani (PGMKGDAHM5)";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 7XDMTA49ZT;
 				EXCLUDED_SOURCE_FOLDER_NAMES = .git;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -800,7 +800,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashwan Lazkani (7XDMTA49ZT)";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 7XDMTA49ZT;
 				EXCLUDED_SOURCE_FOLDER_NAMES = .git;
 				FRAMEWORK_SEARCH_PATHS = (
