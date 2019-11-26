@@ -40,37 +40,33 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
         self.navigationController?.navigationBar.isHidden = false
         updateLines()
     }
     
-    @objc func updateLines(){
+    @objc private func updateLines(){
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
         webService.getDeparturesAt(stop.id, onCompletion: { (lines) in
-            DispatchQueue.main.async(execute: {
-                self.lines = lines
-                self.tableView.reloadData()
-                
-                self.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-            })
+            self.lines = lines
+            self.tableView.reloadData()
             
+            self.activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
         }) { (error) in
-            DispatchQueue.main.async(execute: {
-                let alert = UIAlertController(title: "Tajma", message: "Inga avgångar för tillfället på denna hållplats, försök igen senare.", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { (alert) -> Void in
-                    self.navigationController!.popViewController(animated: true)
-                }))
-                self.present(alert, animated: true, completion: nil)
-                self.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-            })
+           let alert = UIAlertController(title: "Tajma", message: "Inga avgångar för tillfället på denna hållplats, försök igen senare.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { (alert) -> Void in
+                self.navigationController!.popViewController(animated: true)
+            }))
+            self.present(alert, animated: true, completion: nil)
+            self.activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
         }
     }
     
-    func updateUserLines() {
+    private func updateUserLines() {
         stop.lines = DbService.shared.getLinesAtStop(stop.id)
         tableView.reloadData()
     }
@@ -130,6 +126,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
                 }
             }
         }
+        
         return cell
     }
     
@@ -150,11 +147,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 28
-        } else {
-            return 44
-        }
+        return indexPath.row == 0 ? 28 : 44
     }
     
     @IBAction func goBack(_ sender: Any) {
@@ -165,7 +158,4 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
 }

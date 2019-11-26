@@ -26,10 +26,15 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
 
         DbService.shared.updateOptionals()
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
         
         self.locationManager.requestWhenInUseAuthorization()
@@ -39,33 +44,35 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             locationManager.startUpdatingLocation()
         }
         
-        searchBar.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
-        
         initiateViews()
+        
         checkAndAskForReview()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
         isFromBackground = false
+        
         self.navigationController?.navigationBar.isHidden = true
-        navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        self.navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
-        if segmentedControl.selectedSegmentIndex == 0 {
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
             location = CLLocationCoordinate2D()
-            self.locationManager.startUpdatingLocation()
-        } else if segmentedControl.selectedSegmentIndex == 1 {
+            locationManager.startUpdatingLocation()
+        case 1:
             stops = DbService.shared.getStops()
+        default:
+            break
         }
-        
+
         lines = DbService.shared.getLines()
         tableView.reloadData()
     }
     
     // MARK: - Functions
-    func initiateViews() {
+    private func initiateViews() {
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.white
         searchBar.setImage(UIImage(named: "search-white"), for: UISearchBar.Icon.search, state: UIControl.State.normal)
@@ -105,18 +112,18 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     private func checkAndAskForReview() {
         let appOpenCount = UserDefaults.standard.integer(forKey: "appOpenCount")
+        
         switch appOpenCount {
         case 7,50 :
             SKStoreReviewController.requestReview()
-        case _ where appOpenCount%100 == 0 :
+        case _ where appOpenCount % 100 == 0 :
             SKStoreReviewController.requestReview()
         default:
             break
         }
-        
     }
 
-    @objc func applicationDidBecomeActive(_ application: UIApplication) {
+    @objc private func applicationDidBecomeActive(_ application: UIApplication) {
         if isFromBackground {
             self.segmentedControl.selectedSegmentIndex = 0
             location = CLLocationCoordinate2D()
@@ -124,34 +131,34 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
-    @objc func applicationDidEnterBackground(_ application: UIApplication) {
+    @objc private func applicationDidEnterBackground(_ application: UIApplication) {
         isFromBackground = true
     }
     
-    func getNearestStops() {
+    private func getNearestStops() {
         activityIndicator.startAnimating()
         segmentedControl.isEnabled = false
         
         webService.getStops(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), onCompletion: { (stops) in
-            DispatchQueue.main.async(execute: {
-                self.stops = stops
-                if self.stops.count == 0 {
-                    self.display("Inga hållplatser i närheten.", type: .nearest)
-                }
-                self.tableView!.reloadData()
-                self.locationManager.stopUpdatingLocation()
-                self.segmentedControl.isEnabled = true
-                self.activityIndicator.stopAnimating()
-            })
+            self.stops = stops
+            if self.stops.count == 0 {
+                self.display("Inga hållplatser i närheten.", type: .nearest)
+            }
+            self.tableView.reloadData()
+            self.locationManager.stopUpdatingLocation()
+            self.segmentedControl.isEnabled = true
+            self.activityIndicator.stopAnimating()
         }) { (error) in
             self.display("Ett fel har uppstått med hämtning av närmaste hållplatser.", type: .location)
         }
     }
     
-    func display(_ error: String, type: ErrorType) {
+    private func display(_ error: String, type: ErrorType) {
         let alert = UIAlertController(title: "Tajma", message: error, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Försök igen", style: UIAlertAction.Style.default, handler: { (alert) -> Void in
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "Försök igen", style: .default, handler: { (alert) -> Void in
             switch type {
             case .location :
                 return self.locationManager.startUpdatingLocation()
@@ -159,22 +166,29 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 return self.getNearestStops()
             }
         }))
+        
+        self.segmentedControl.isEnabled = true
+        self.activityIndicator.stopAnimating()
+        
         self.present(alert, animated: true, completion: nil)
     }
 
     @IBAction func segmentedControl_Changed(_ sender: UISegmentedControl) {
-        if segmentedControl.selectedSegmentIndex == 0 {
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
             location = CLLocationCoordinate2D()
             self.locationManager.startUpdatingLocation()
-        } else if segmentedControl.selectedSegmentIndex == 1 {
+        case 1:
             let swedish = Locale(identifier: "sv")
             stops = DbService.shared.getStops().sorted(by: { (first, second) -> Bool in
                 first.name.compare(second.name, locale: swedish) == .orderedAscending
             })
+        default:
+            break
         }
         
-        self.segmentedControl.setTitle("Nära mig", forSegmentAt: 0)
-        self.searchBar.text = ""
+        segmentedControl.setTitle("Nära mig", forSegmentAt: 0)
+        searchBar.text = ""
         lines = DbService.shared.getLines()
         searchBar.resignFirstResponder()
         tableView.reloadData()
@@ -183,8 +197,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count >= 3 {
             seachForStop(searchBar.text!)
-        }
-        if searchText.count == 0 {
+        } else if searchText.count == 0 {
             location = CLLocationCoordinate2D()
             locationManager.startUpdatingLocation()
         }
@@ -195,13 +208,14 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             self.view.endEditing(true)
             location = CLLocationCoordinate2D()
             locationManager.startUpdatingLocation()
-            return
+        } else {
+            segmentedControl.selectedSegmentIndex = 0
+            activityIndicator.startAnimating()
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            
+            seachForStop(searchBar.text!)
         }
-        segmentedControl.selectedSegmentIndex = 0
-        activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
         
-        seachForStop(searchBar.text!)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -211,7 +225,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if !location.latitude.isZero || !location.longitude.isZero {
             return
-        } else if Reachability.isConnectedToNetwork() != true {
+        } else if !Reachability.isConnectedToNetwork() {
             stops = [Stop]()
             return
         }
@@ -233,43 +247,34 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let currentStop = stops[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "StopCell", for: indexPath) as! StopCell
     
-        cell.name.text = stops[(indexPath as NSIndexPath).row].name
+        cell.name.text = stops[indexPath.row].name
         
-        if (indexPath as NSIndexPath).row % 2 == 0 {
-            cell.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-        } else {
-            cell.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-        }
-    
-        if (!lines.filter{$0.stopid == currentStop.id}.isEmpty) {
-            cell.checkmark.image = UIImage(named: "check-red")
-        } else {
-            cell.checkmark.image = UIImage()
-        }
+        cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1) : UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+        
+        cell.checkmark.image = lines.first(where: { $0.stopid == stops[indexPath.row].id }) == nil ? UIImage() : UIImage(named: "check-red")
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         searchBar.resignFirstResponder()
-        self.searchBar!.text = ""
+        searchBar!.text = ""
         self.performSegue(withIdentifier: "ShowLinesView", sender: stops[(indexPath as NSIndexPath).row])
     }
     
     // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any!){
         if segue.identifier == "ShowLinesView" {
-            // TODO: Click sluta sök
+
             UIApplication.shared.beginIgnoringInteractionEvents()
             
             let lines = segue.destination as! LinesViewController
             lines.stop = sender as? Stop
             
             UIApplication.shared.endIgnoringInteractionEvents()
-            self.activityIndicator.stopAnimating()
+            activityIndicator.stopAnimating()
         }
         
         let backItem = UIBarButtonItem()
@@ -279,18 +284,16 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     private func seachForStop(_ searchText: String) {
         webService.getStops(userInput: searchText, onCompletion: { (stops) in
-            DispatchQueue.main.async(execute: {
-                self.stops = stops
-                self.lines = DbService.shared.getLines()
-                
-                if self.stops.count > 0 {
-                    self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)
-                }
-                
-                self.tableView!.reloadData()
-                self.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-            })
+            self.stops = stops
+            self.lines = DbService.shared.getLines()
+            
+            if self.stops.count > 0 {
+                self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)
+            }
+            
+            self.tableView!.reloadData()
+            self.activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
         }) { (error) in
              self.display("Ett fel har uppstått med sökningen.", type: .location)
         }

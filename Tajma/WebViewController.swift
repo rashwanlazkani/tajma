@@ -18,13 +18,13 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     var titleForView = ""
     
     override func viewDidLoad() {
-        activityIndicator.startAnimating()
-        
         self.title = titleForView
-        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
         webView.navigationDelegate = self
-        
+    
+        activityIndicator.startAnimating()
+        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+
         if let requestUrl = URL(string: url) {
             webView.load(URLRequest(url: requestUrl))
         }
