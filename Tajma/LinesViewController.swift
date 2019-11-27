@@ -9,18 +9,21 @@
 import UIKit
 
 class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet weak var navController: UINavigationItem!
-    @IBOutlet weak var navItem: UINavigationItem!
+    @IBOutlet weak var navigationView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     var lines = [Line]()
-    var stop : Stop!
+    var stop: Stop!
     let webService = WebService()
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        
+                self.navigationView.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        
+        titleLabel.text = stop.name.components(separatedBy: ",").first
         
         updateUserLines()
         
@@ -32,16 +35,12 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         self.title = stop.name.components(separatedBy: ",").first
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLines), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        self.navigationController?.navigationBar.isHidden = false
         updateLines()
     }
     
@@ -150,8 +149,8 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         return indexPath.row == 0 ? 28 : 44
     }
     
-    @IBAction func goBack(_ sender: Any) {
-         _ = navigationController?.popViewController(animated: true)
+    @IBAction func backClicked(_ sender: UIButton) {
+        _ = navigationController?.popViewController(animated: true)
     }
     
     override func didReceiveMemoryWarning() {

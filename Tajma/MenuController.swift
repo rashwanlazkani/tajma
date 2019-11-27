@@ -12,7 +12,7 @@ import Social
 import MobileCoreServices
 
 class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var navigationView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
     var  items = [String]()
@@ -22,24 +22,16 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
         
         self.title = "Tajma"
         
+        self.navigationView.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
     
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-
         items = ["Senaste nytt via Facebook","Betygsätt i App Store","Tipsa en vän", "Lämna Feedback", "Så aktiverar du Tajmas Widget", "Vanliga frågor", "Om oss"]
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.navigationController?.navigationBar.isHidden = false
-    }
-
     // MARK: - TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -181,7 +173,7 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
         }
     }
     
-    @IBAction func goBack(_ sender: Any) {
-        _ = navigationController?.popViewController(animated: true)
+    @IBAction func closeClicked(_ sender: Any) {
+         _ = navigationController?.popViewController(animated: true)
     }
 }

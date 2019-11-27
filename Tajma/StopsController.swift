@@ -11,7 +11,7 @@ import StoreKit
 import UIKit
 
 class StopsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
-    @IBOutlet var navController: UIView!
+    @IBOutlet weak var navigationView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -30,6 +30,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
+        
+                self.navigationView.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
 
         DbService.shared.updateOptionals()
         
@@ -52,10 +54,9 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        isFromBackground = false
-        
         self.navigationController?.navigationBar.isHidden = true
-        self.navController.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        
+        isFromBackground = false
         
         switch segmentedControl.selectedSegmentIndex {
         case 0:
@@ -276,10 +277,6 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             UIApplication.shared.endIgnoringInteractionEvents()
             activityIndicator.stopAnimating()
         }
-        
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
     }
     
     private func seachForStop(_ searchText: String) {
