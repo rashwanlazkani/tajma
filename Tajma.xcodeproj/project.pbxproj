@@ -15,7 +15,6 @@
 		6B35887F2380ADC900913DE5 /* DistanceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B35887D2380ADC900913DE5 /* DistanceHelper.swift */; };
 		6B3BD8F61E97D09D007A2D7E /* high-quality-widget-guide.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B3BD8F51E97D09D007A2D7E /* high-quality-widget-guide.gif */; };
 		6B3D7CE81E900025009CD394 /* StopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3D7CE71E900025009CD394 /* StopCell.swift */; };
-		6B46B9091E97D3EB00B78D9E /* GifHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46B9081E97D3EB00B78D9E /* GifHelper.swift */; };
 		6B8E47C11E128CAA002B7BDC /* WidgetBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E47C01E128CAA002B7BDC /* WidgetBodyCell.swift */; };
 		6BB802351D7D2289003506C2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB802341D7D2289003506C2 /* Extensions.swift */; };
 		6BB802361D7D2289003506C2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB802341D7D2289003506C2 /* Extensions.swift */; };
@@ -96,7 +95,6 @@
 		6B35887D2380ADC900913DE5 /* DistanceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceHelper.swift; sourceTree = "<group>"; };
 		6B3BD8F51E97D09D007A2D7E /* high-quality-widget-guide.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "high-quality-widget-guide.gif"; sourceTree = "<group>"; };
 		6B3D7CE71E900025009CD394 /* StopCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopCell.swift; sourceTree = "<group>"; };
-		6B46B9081E97D3EB00B78D9E /* GifHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifHelper.swift; sourceTree = "<group>"; };
 		6B8E47C01E128CAA002B7BDC /* WidgetBodyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetBodyCell.swift; sourceTree = "<group>"; };
 		6BB802341D7D2289003506C2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6BF9097A1E2D6BCC002CC081 /* WidgetGuideController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetGuideController.swift; sourceTree = "<group>"; };
@@ -194,7 +192,6 @@
 				F818619E1B41D52A005DDA3A /* DeviceHelper.swift */,
 				6B35887D2380ADC900913DE5 /* DistanceHelper.swift */,
 				6BB802341D7D2289003506C2 /* Extensions.swift */,
-				6B46B9081E97D3EB00B78D9E /* GifHelper.swift */,
 				F8FA48411C39BE010080E12B /* Reachability.swift */,
 				F8729F401BF77E57000E9C9C /* Shared.swift */,
 			);
@@ -449,11 +446,13 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Tajma/Pods-Tajma-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyGif/SwiftyGif.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyGif.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -536,7 +535,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B46B9091E97D3EB00B78D9E /* GifHelper.swift in Sources */,
 				F843A3A81B1B04C2008F4505 /* StopsController.swift in Sources */,
 				F8D853C91BE12F2C00E2C1E2 /* Constants.swift in Sources */,
 				F87AFE851B1B903F00D3DAFC /* Stop.swift in Sources */,

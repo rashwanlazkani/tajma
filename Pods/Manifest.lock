@@ -3,20 +3,24 @@ PODS:
   - SQLite.swift (0.12.2):
     - SQLite.swift/standard (= 0.12.2)
   - SQLite.swift/standard (0.12.2)
+  - SwiftyGif (5.2.0)
 
 DEPENDENCIES:
   - Alamofire
   - SQLite.swift
+  - SwiftyGif
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - SQLite.swift
+    - SwiftyGif
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
+  SwiftyGif: b85c6b33a9411859d9e1db998b6a8214aea942df
 
-PODFILE CHECKSUM: 4159d1988a87acc3f56ff38e2c011687c5b57029
+PODFILE CHECKSUM: 18d487f7091433e01686b8cf47e9e0903dfb5b12
 
 COCOAPODS: 1.8.4

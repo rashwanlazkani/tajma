@@ -21,7 +21,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad(){
         super.viewDidLoad()
         
-                self.navigationView.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        self.navigationView.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
         
         titleLabel.text = stop.name.components(separatedBy: ",").first
         

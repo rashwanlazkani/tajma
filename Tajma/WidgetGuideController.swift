@@ -6,17 +6,24 @@
 //  Copyright © 2017 Rashwan Lazkani. All rights reserved.
 //
 
+import SwiftyGif
 import UIKit
 
 class WidgetGuideController: UIViewController {
-    @IBOutlet weak var imageView: UIImageView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.navigationBar.items?[0].title = "Tajmas Widget"
+        let topPadding = UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 20
         
-        imageView.image = UIImage.gifImageWithName("high-quality-widget-guide")
+        do {
+            let gif = try UIImage(gifName: "high-quality-widget-guide.gif")
+            let imageview = UIImageView(gifImage: gif, loopCount: -1)
+            imageview.frame = CGRect(x: self.view.frame.midX - 137, y: 115 + topPadding, width: 274, height: 492)
+            view.addSubview(imageview)
+        } catch {
+            print(error)
+        }
     }
     
     @IBAction func closeClicked(_ sender: Any) {

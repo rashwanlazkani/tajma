@@ -59,7 +59,7 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
         case 6:
             image = UIImage(named: "omoss")!
         default:
-            image = UIImage(named: "")!
+            break
         }
         cell.imageV?.image = image
         cell.title.text = items[(indexPath as NSIndexPath).row]

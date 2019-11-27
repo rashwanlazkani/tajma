@@ -4,8 +4,9 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'Tajma' do
-pod 'SQLite.swift'
+  pod 'SQLite.swift'
   pod 'Alamofire'
+  pod 'SwiftyGif'
 end
 
 target 'TajmaToday' do

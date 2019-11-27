@@ -10,10 +10,8 @@
 #endif
 #endif
 
-#import "SQLite.h"
-#import "SQLiteObjc 3.h"
-#import "SQLiteObjc.h"
+#import "SwiftyGif.h"
 
-FOUNDATION_EXPORT double SQLiteVersionNumber;
-FOUNDATION_EXPORT const unsigned char SQLiteVersionString[];
+FOUNDATION_EXPORT double SwiftyGifVersionNumber;
+FOUNDATION_EXPORT const unsigned char SwiftyGifVersionString[];
 
