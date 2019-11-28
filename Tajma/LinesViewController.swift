@@ -82,6 +82,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
         let currentLine = lines[indexPath.row - 1]
+        currentLine.departures.sort(by: { $0 < $1 })
         let cell = tableView.dequeueReusableCell(withIdentifier: "LineCell", for: indexPath) as! LineCell
         cell.selectionStyle = .none
         
@@ -110,19 +111,17 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.snameView.backgroundColor = UIColor(hex: currentLine.fgColor)
         cell.directionLabel.text = "\(currentLine.direction)"
         
-        for (index, departure) in currentLine.departures.enumerated() {
-            if index == 0 {
-                if departure < 1 {
+        for (index, time) in currentLine.departures.enumerated() {
+            if time == 0 {
+                if index == 0 {
                     cell.firstDeparture.text = "Nu"
-                } else {
-                    cell.firstDeparture.text = String(departure)
-                }
-            } else if index == 1 {
-                if departure < 1 {
+                } else if index == 1 {
                     cell.secondDeparture.text = "Nu"
-                } else {
-                    cell.secondDeparture.text = String(departure)
                 }
+            } else if index == 0 {
+                cell.firstDeparture.text = time < 0 ? "0" : String(time)
+            } else if index == 1 {
+                cell.secondDeparture.text = time < 0 ? "0" : String(time)
             }
         }
         
