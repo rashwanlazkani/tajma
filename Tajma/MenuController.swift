@@ -12,37 +12,24 @@ import Social
 import MobileCoreServices
 
 class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
-    var  items = [String]()
-    
-    @IBOutlet weak var navigationBar: UINavigationBar!
-    var deviceHelper = DeviceHelper()
-    
+    @IBOutlet weak var navigationView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    
+    var  items = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Bakåt"
-        initiateViews()
-
+        
+        self.title = "Tajma"
+        
+        self.navigationView.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        
         tableView.delegate = self
         tableView.dataSource = self
-        
-        items = ["Senaste nytt via Facebook","Betygsätt i App Store","Tipsa en vän", "Lämna Feedback", "Så aktiverar du Tajmas Widget", "Vanliga frågor", "Om oss"]
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    
-    // MARK: - Functions
-    func initiateViews(){
-        navigationBar.items?[0].title = "Tajma"
-        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        
         tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
+    
+        items = ["Senaste nytt via Facebook","Betygsätt i App Store","Tipsa en vän", "Lämna Feedback", "Så aktiverar du Tajmas Widget", "Vanliga frågor", "Om oss"]
     }
     
     // MARK: - TableView
@@ -51,11 +38,11 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! InfoCell
-        cell.selectionStyle = .none
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! InfoCell
+        
+        cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1) : UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
         
         var image = UIImage()
-        
         switch indexPath.row {
         case 0:
             image = UIImage(named: "facebook")!
@@ -72,14 +59,14 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
         case 6:
             image = UIImage(named: "omoss")!
         default:
-            image = UIImage(named: "")!
+            break
         }
-        
-        cell.title.text = items[(indexPath as NSIndexPath).row]
         cell.imageV?.image = image
+        cell.title.text = items[(indexPath as NSIndexPath).row]
         
-        if (indexPath as NSIndexPath).row == items.count - 1 {
-            tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+        if indexPath.row == (items.count - 1) {
+            tableView.tableFooterView = UIView(frame: .zero)
             tableView.backgroundColor = UIColor.white
         }
         
@@ -87,11 +74,13 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch (indexPath as NSIndexPath).row {
+        switch indexPath.row {
         case 0:
             openFacebook(Info.like)
         case 1:
-            openAppStore()
+            if let url = URL(string: "http://apple.co/1TNxDzk") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         case 2:
             openShare()
         case 3:
@@ -99,21 +88,21 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
         case 4:
             self.performSegue(withIdentifier: "ShowWidgetGuide", sender: nil)
         case 5:
-            openFaq()
+            self.performSegue(withIdentifier: "ShowWebView", sender: "http://tajma.faq.lazkani.se")
         case 6:
-            openAboutUs()
+            self.performSegue(withIdentifier: "ShowWebView", sender: "http://tajma.about.lazkani.se")
         default:
             return
         }
     }
     
     @objc(mailComposeController:didFinishWithResult:error:)
-    func mailComposeController(_ controller: MFMailComposeViewController,  didFinishWith result: MFMailComposeResult, error: NSError?) {
+    func mailComposeController(_ controller: MFMailComposeViewController,  didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        switch (result.rawValue) {
+        switch result.rawValue {
         case MessageComposeResult.cancelled.rawValue:
             self.dismiss(animated: true, completion: nil)
         case MessageComposeResult.failed.rawValue:
@@ -121,37 +110,35 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
         case MessageComposeResult.sent.rawValue:
             self.dismiss(animated: true, completion: nil)
         default:
-            break;
+            break
         }
     }
 
     // MARK: - Functions
-    func openShare(){
+    func openShare() {
         let activityItems = ["Hej! Kolla in den här smarta appen som hjälper dig att Tajma avgångarna i kollektivtrafiken:", "", "http://apple.co/1TNxDzk"]
-        let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-        self.present(vc, animated: true, completion: nil)
+        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
-    func openAppStore(){
-        UIApplication.shared.openURL(URL(string: "http://apple.co/1TNxDzk")!)
-    }
-    
-    func openFacebook(_ sender : Info){
+    func openFacebook(_ sender : Info) {
         if sender == Info.like {
-            let fbId = "436544669889188"
-            let url = "fb://profile/\(fbId)"
-            let fbURL = URL(string: url)
-            if UIApplication.shared.canOpenURL(fbURL!) {
-                UIApplication.shared.openURL(fbURL!)
-            } else {
-                //redirect to safari because the user doesn't have FaceBook
-                UIApplication.shared.openURL(URL(string: "http://facebook.com/\(fbId)")!)
+            let facebookId = "436544669889188"
+            let facebookUrlStr = "fb://profile/\(facebookId)"
+            if let facebookUrl = URL(string: facebookUrlStr) {
+                if UIApplication.shared.canOpenURL(facebookUrl) {
+                    UIApplication.shared.open(facebookUrl, options: [:], completionHandler: nil)
+                } else {
+                    // redirect to safari because the user doesn't have FaceBook installed
+                    if let facebookUrlSafari = URL(string: "http://facebook.com/\(facebookId)") {
+                        UIApplication.shared.open(facebookUrlSafari, options: [:], completionHandler: nil)
+                    }
+                }
             }
-
         }
     }
     
-    func openMail(_ sender : Info){
+    func openMail(_ sender : Info) {
         if sender == Info.feedback {
             if !MFMailComposeViewController.canSendMail() {
                 print("Cannot send mail")
@@ -160,7 +147,7 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
             
             let toRecipients = ["tajma@lazkani.se"]
             let subject = "Feedback Tajma app"
-            let body = "<br><br><p>Jag har en \(UIDevice.current.modelName).<br> Jag har iOS version \(UIDevice.current.systemVersion).<br</p>"
+            let body = "<br><br><p>Jag har en \(UIDevice.modelName).<br> Jag har iOS version \(UIDevice.current.systemVersion).<br</p>"
             
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
@@ -172,24 +159,11 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
         }
     }
     
-    func openFaq(){
-        performSegue(withIdentifier: "ShowWebView", sender: "http://tajma.faq.lazkani.se")
-    }
-    
-    func openHelp(){
-        self.performSegue(withIdentifier: "ShowGuide", sender: nil)
-    }
-    
-    func openAboutUs(){
-        performSegue(withIdentifier: "ShowWebView", sender: "http://tajma.about.lazkani.se")
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any!){
         if segue.identifier == "ShowWebView" {
             let web = segue.destination as! WebViewController
             if let url = sender as? String {
                 web.url = url
-                
                 if url == "http://tajma.about.lazkani.se" {
                     web.titleForView = "Om oss"
                 } else if url == "http://tajma.faq.lazkani.se" {
@@ -199,7 +173,7 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
         }
     }
     
-    @IBAction func goBack(_ sender: Any) {
-        _ = navigationController?.popViewController(animated: true)
+    @IBAction func closeClicked(_ sender: Any) {
+         _ = navigationController?.popViewController(animated: true)
     }
 }

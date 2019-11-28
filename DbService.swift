@@ -10,10 +10,10 @@ import Foundation
 import SQLite
 
 class DbService {
-    static let sharedInstance = DbService()
-    let sharedHelper = SharedHelper()
+    static let shared = DbService()
+    let sharedHelper = Shared()
     
-    func getStops() -> [Stop]{
+    func getStops() -> [Stop] {
         let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")
         if !dbExists {
             createTables()
@@ -31,7 +31,7 @@ class DbService {
         return stops
     }
     
-    func getLines() -> [Line]{
+    func getLines() -> [Line] {
         let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")
         if !dbExists {
             createTables()
@@ -41,14 +41,14 @@ class DbService {
         
         var lines = [Line]()
         for row in try! db.prepare(data) {
-            let line = Line(id: row[Expression<String>("id")], stop: Stop(), stopId: row[Expression<String>("stopId")], lineAndDirection: row[Expression<String>("lineAndDirection")], name: row[Expression<String>("name")], sname: row[Expression<String>("sname")], direction: row[Expression<String>("direction")], type: row[Expression<String>("type")], track: row[Expression<String>("track")], bgColor: row[Expression<String>("fgColor")], fgColor: row[Expression<String>("bgColor")], departures: Departure())
+            let line = Line(id: row[Expression<String>("id")], stop: Stop(), stopId: row[Expression<String>("stopId")], lineAndDirection: row[Expression<String>("lineAndDirection")], name: row[Expression<String>("name")], sname: row[Expression<String>("sname")], direction: row[Expression<String>("direction")], type: row[Expression<String>("type")], track: row[Expression<String>("track")], bgColor: row[Expression<String>("fgColor")], fgColor: row[Expression<String>("bgColor")], departures: [])
 
             lines.append(line)
         }
         return lines
     }
     
-    func getLinesAtStop(_ stopId : String) -> [Line]{
+    func getLinesAtStop(_ stopId : String) -> [Line] {
         let db = try! Connection(sharedHelper.getSharedUrl())
         var lines = [Line]()
         
@@ -59,24 +59,24 @@ class DbService {
 
         let stmt = try! db.prepare("SELECT * FROM Lines where stopId = '\(stopId)'")
         for row in stmt {
-            let line = Line(id: row[0] as! String, stop: Stop(), stopId: stopId, lineAndDirection: row[5] as! String, name: row[2] as! String, sname: row[3] as! String, direction: row[4] as! String, type: row[6] as! String, track: row[7] as! String, bgColor: row[8] as! String, fgColor: row[9] as! String, departures: Departure())
+            let line = Line(id: row[0] as! String, stop: Stop(), stopId: stopId, lineAndDirection: row[5] as! String, name: row[2] as! String, sname: row[3] as! String, direction: row[4] as! String, type: row[6] as! String, track: row[7] as! String, bgColor: row[8] as! String, fgColor: row[9] as! String, departures: [])
             lines.append(line)
         }
         return lines
     }
     
-    func addLine(_ line: Line, stop: Stop){
+    func addLine(_ line: Line, stop: Stop) {
         let db = try! Connection(sharedHelper.getSharedUrl())
         
         let stopsCount = try! db.scalar("SELECT count(*) FROM Stops where id = '\(stop.id)'") as! Int64
         if stopsCount == 0 {
-            try! db.execute("INSERT INTO Stops VALUES ('\(stop.id)','\(stop.name)','\(stop.latitude)','\(stop.longitude)')")
+            try! db.execute("INSERT INTO Stops VALUES ('\(stop.id)','\(stop.name)','\(stop.lat)','\(stop.lon)')")
         }
         
          try! db.execute("INSERT INTO Lines VALUES ('\(line.id)','\(stop.id)','\(line.name)','\(line.sname)','\(line.direction)', '\(line.lineAndDirection)', '\(line.type)', '\(line.track)', '\(line.bgColor)', '\(line.fgColor)')")
     }
     
-    func removeLine(_ line: Line, stopId: String){
+    func removeLine(_ line: Line, stopId: String) {
         let db = try! Connection(sharedHelper.getSharedUrl())
         
         try! db.execute("DELETE FROM Lines WHERE id = '\(line.id)'")
@@ -87,12 +87,17 @@ class DbService {
         }
     }
     
-    func updateOptionals(){
+    func updateOptionals() {
+        let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")
+        if !dbExists {
+            return
+        }
+        
         let db = try! Connection(sharedHelper.getSharedUrl())
         try! db.execute("UPDATE lines SET id = replace(replace(id, 'Optional(\"',''), '\")', '') WHERE id LIKE '%Optional%';")
     }
     
-    fileprivate func createTables(){
+    private func createTables() {
         let db = try! Connection(sharedHelper.getSharedUrl())
         
         let dbExists = UserDefaults(suiteName: "group.tajma.today")!.bool(forKey: "DbExists")

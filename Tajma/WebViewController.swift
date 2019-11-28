@@ -7,40 +7,37 @@
 //
 
 import UIKit
+import WebKit
 
-class WebViewController: UIViewController, UIWebViewDelegate {
-    @IBOutlet weak var webView: UIWebView!
-    @IBOutlet weak var navigationBar: UINavigationBar!
+class WebViewController: UIViewController, WKNavigationDelegate {
+    @IBOutlet weak var navigationView: UIView!
+    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var url = ""
-    let deviceHelper = DeviceHelper()
     var titleForView = ""
     
     override func viewDidLoad() {
+        
+        titleLabel.text = titleForView
+        
+        self.navigationView.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        
+        webView.navigationDelegate = self
+    
         activityIndicator.startAnimating()
-        
-        navigationBar.items?[0].title = titleForView
-        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        
-        webView.delegate = self
-        webView.scalesPageToFit = true
-        
-        let requestURL = URL(string: url)
-        let request = URLRequest(url: requestURL!)
-        webView.loadRequest(request)
+
+        if let requestUrl = URL(string: url) {
+            webView.load(URLRequest(url: requestUrl))
+        }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         activityIndicator.stopAnimating()
     }
     
-    @IBAction func goBack(_ sender: Any) {
-        _ = navigationController?.popViewController(animated: true)
+    @IBAction func backClicked(_ sender: UIButton) {
+         _ = navigationController?.popViewController(animated: true)
     }
 }

@@ -13,24 +13,26 @@ import CoreLocation
 class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLocationManagerDelegate {
     
     @IBOutlet weak var infoText: UITextView!
-    var departureService = DepartureService()
-    var lineService = LineService()
+    var webService = WebService()
     let locationManager = CLLocationManager()
     var grayColor = UIColor.darkGray
     var grayColorOpacity = UIColor.darkGray
     var separatorColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.1)
     
     var stops = [Stop]()
-    var coordinate: CLLocationCoordinate2D?
+    var location: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        DbService.shared.updateOptionals()
+        
         grayColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
         grayColorOpacity = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.7)
         separatorColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.1)
-        
-        // Ny
         infoText.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
         infoText.frame = CGRect(x: 10, y: 10, width: 400, height: 100)
         
@@ -39,17 +41,11 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             display("Ingen anslutning till internet.")
             return
         }
-
-        DbService.sharedInstance.updateOptionals()
         
         infoText.isUserInteractionEnabled = true
-        let aSelector : Selector = #selector(lblTapped)
+        let aSelector = #selector(lblTapped)
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
-        tapGesture.numberOfTapsRequired = 1
         infoText.addGestureRecognizer(tapGesture)
-        
-        tableView.delegate = self
-        tableView.dataSource = self
         
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
@@ -62,7 +58,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         grayColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1.0)
         grayColorOpacity = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.7)
@@ -78,7 +74,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         
         if CLLocationManager.locationServicesEnabled() {
             display("Laddar avgångar...")
-            coordinate = CLLocationCoordinate2D()
+            location = CLLocationCoordinate2D()
             locationManager.startUpdatingLocation()
         } else {
             display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
@@ -86,17 +82,45 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
+        super.viewDidDisappear(animated)
+        
         locationManager.stopUpdatingLocation()
+    }
+    
+    private func fetch() {
+        guard let location = location else {
+            tableView.reloadData()
+            display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
+            return
+        }
+        
+        webService.getMyDeparturesAt(location, onCompletion: { (stops) in
+            self.preferredContentSize = CGSize(width: 0, height: self.contentHeight())
+            
+            if stops.isEmpty {
+                self.display("Ingen vald hållplats i närheten.")
+                self.tableView.reloadData()
+                return
+            }
+            
+            self.infoText.isHidden = true
+            self.stops = stops
+            self.locationManager.stopUpdatingLocation()
+            self.tableView.reloadData()
+        }) { (error) in
+            self.display(error.localizedDescription)
+            self.tableView.reloadData()
+            return
+        }
     }
     
     // MARK: - Location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if coordinate?.latitude == 0 {
+        if location?.latitude == 0 {
             if let c = manager.location?.coordinate{
-                coordinate = c
+                location = c
             } else {
-                coordinate = CLLocationCoordinate2D()
+                location = CLLocationCoordinate2D()
             }
             fetch()
         }
@@ -117,12 +141,8 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         }
     }
     
-    func display(_ message: String){
-        if #available(iOSApplicationExtension 10.0, *) {
-            self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        } else {
-            // Fallback on earlier versions
-        }
+    private func display(_ message: String){
+        self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         
         if message == infoText.text {
             return
@@ -131,11 +151,16 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         infoText.text = message
         infoText.isHidden = false
         
+        if #available(iOSApplicationExtension 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                infoText.textColor = .white
+            } else {
+                infoText.textColor = .black
+            }
+        } else {
+            infoText.textColor = .black
+        }
         tableView.reloadData()
-    }
-    
-    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        // TODO: Behövs denna nu?
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -147,7 +172,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return ("\(stops[section].name) \(stops[section].distance)m")
+        return ("\(stops[section].name) \(String(describing: stops[section].distance))m")
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -155,22 +180,37 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         view.backgroundColor = UIColor.clear
         
         let name = UILabel(frame: CGRect(x: 15, y: 10, width: DeviceHelper.getLabelWidth(), height: 18))
-        name.font = UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightMedium)
+        name.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.medium)
         
-        //Engdahlsgatan
-        name.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
+        // Hållplatsnamn
+        if #available(iOSApplicationExtension 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                name.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.7)
+            } else {
+                name.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
+            }
+        } else {
+            name.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.7)
+        }
+        
         name.text = stops[section].name.components(separatedBy: ",")[0]
         
         let distance = UILabel(frame: CGRect(x: tableView.bounds.width - 110, y: 10, width: 95, height: 18))
         distance.font = UIFont.systemFont(ofSize: 15.0)
-        distance.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
+        
         distance.textAlignment = .right
         
-        if let dist = stops[section].distance {
-            distance.text = ("\(dist) m")
+        if #available(iOSApplicationExtension 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                distance.textColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
+            } else {
+                distance.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
+            }
         } else {
-            distance.text = "- m"
+            distance.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
         }
+        
+        distance.text = stops[section].distance == nil ? "- m" : ("\(String(describing: stops[section].distance!)) m")
         
         view.addSubview(name)
         view.addSubview(distance)
@@ -181,7 +221,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WidgetBodyCell
         
-        let currentStop = stops[(indexPath as NSIndexPath).section]
+        let currentStop = stops[indexPath.section]
         if currentStop.lines.isEmpty {
             cell.snameDirection.text = "Inga avgångar hittades"
             cell.firstDep.text = ""
@@ -189,27 +229,21 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
             return cell
         }
         
-        let currentLine = currentStop.lines[(indexPath as NSIndexPath).row]
+        let currentLine = currentStop.lines[indexPath.row]
+        currentLine.departures.sort(by: { $0 < $1 })
         cell.snameDirection.text = "\(currentLine.sname) \(currentLine.direction)"
         
-        for (index, time) in currentLine.departures.times.enumerated(){
-            if index == 0 && time == 0 {
-                cell.firstDep.text = "Nu"
-            } else if index == 1 && time == 0 {
-                cell.secondDep.text = "Nu"
-            }
-            else if index == 0 {
-                if time < 0 {
-                    cell.firstDep.text = "0"
-                } else {
-                    cell.firstDep.text = String(time)
+        for (index, time) in currentLine.departures.enumerated() {
+            if time == 0 {
+                if index == 0 {
+                    cell.firstDep.text = "Nu"
+                } else if index == 1 {
+                    cell.secondDep.text = "Nu"
                 }
+            } else if index == 0 {
+                cell.firstDep.text = time < 0 ? "0" : String(time)
             } else if index == 1 {
-                if time < 0 {
-                    cell.secondDep.text = "0"
-                } else {
-                    cell.secondDep.text = String(time)
-                }
+                cell.secondDep.text = time < 0 ? "0" : String(time)
             }
         }
 
@@ -248,60 +282,15 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         }
     }
     
-    @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        if activeDisplayMode == NCWidgetDisplayMode.compact {
+        if activeDisplayMode == .compact {
             self.preferredContentSize = CGSize(width: 0.0, height: 300.0)
         } else if activeDisplayMode == NCWidgetDisplayMode.expanded {
             self.preferredContentSize = CGSize(width: 0, height: contentHeight())
         }
-        
     }
     
-    func fetch(){
-        var hasError = false
-        var error: NSError?
-        if let coordinate = coordinate{
-            departureService.getMyDepartures(coordinate, onSuccess: { stops -> Void in
-                DispatchQueue.main.async(execute: {
-                    self.stops = stops
-
-                    self.preferredContentSize = CGSize(width: 0, height: self.contentHeight())
-                    
-                    if stops.isEmpty {
-                        if hasError{
-                            self.display(error!.domain)
-                            self.tableView.reloadData()
-                            return
-                        }
-                        self.display("Ingen vald hållplats i närheten.")
-                        self.tableView.reloadData()
-                        return
-                    } else {
-                        self.infoText.isHidden = true
-                    }
-                    
-                    self.locationManager.stopUpdatingLocation()
-                    self.tableView.reloadData()
-                })
-                }, onError:{ e -> Void in
-                    DispatchQueue.main.async(execute: {
-                        hasError = true
-                        error = e
-                        self.display(e.domain)
-                        self.tableView.reloadData()
-                        return
-                    })
-                    
-                    return
-            })
-        } else {
-            tableView.reloadData()
-            display("Kunde inte fastställa din position. Gå till Inställningar -> Tajma och tillåt platstjänster.")
-        }
-    }
-    
-    func contentHeight() -> CGFloat{
+    private func contentHeight() -> CGFloat {
         var count = stops.count
         var height = stops.count * 39 // header
         for stop in stops {
@@ -311,7 +300,7 @@ class TodayTableViewController: UITableViewController, NCWidgetProviding, CLLoca
         return CGFloat(height)
     }
     
-    func lblTapped(){
+    @objc func lblTapped(){
         openMainApp(nil)
     }
     

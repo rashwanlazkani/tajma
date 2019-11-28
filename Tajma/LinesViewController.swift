@@ -9,20 +9,21 @@
 import UIKit
 
 class LinesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet weak var navController: UINavigationItem!
-    @IBOutlet weak var navItem: UINavigationItem!
+    @IBOutlet weak var navigationView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     var lines = [Line]()
-    var stop : Stop!
-    let deviceHelper = DeviceHelper()
-    let departureService = DepartureService()
-    let lineService = LineService()
+    var stop: Stop!
+    let webService = WebService()
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        
+        self.navigationView.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
+        
+        titleLabel.text = stop.name.components(separatedBy: ",").first
         
         updateUserLines()
         
@@ -33,44 +34,39 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        navigationBar.items?[0].title = stop.name.components(separatedBy: ",").first
-        navigationBar.barTintColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateLines), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        self.title = stop.name.components(separatedBy: ",").first
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLines), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.navigationBar.isHidden = true
         
         updateLines()
     }
     
-    func updateLines(){
+    @objc private func updateLines(){
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
-        departureService.getAllDeparturesFromStop(stop.id, onSuccess: { lines -> Void in
-            DispatchQueue.main.async(execute: {
-                self.lines = lines
-                self.tableView.reloadData()
-                
-                self.activityIndicator.stopAnimating()
-                UIApplication.shared.endIgnoringInteractionEvents()
-            })
-            }, onError:{ error -> Void in
-                DispatchQueue.main.async(execute: {
-                    let alert = UIAlertController(title: "Tajma", message: "Inga avgångar för tillfället på denna hållplats, försök igen senare.", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: { (alert) -> Void in
-                        self.navigationController!.popViewController(animated: true)
-                    }))
-                    self.present(alert, animated: true, completion: nil)
-                    self.activityIndicator.stopAnimating()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                })
-        })
+        
+        webService.getDeparturesAt(stop.id, onCompletion: { (lines) in
+            self.lines = lines
+            self.tableView.reloadData()
+            
+            self.activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }) { (error) in
+           let alert = UIAlertController(title: "Tajma", message: "Inga avgångar för tillfället på denna hållplats, försök igen senare.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { (alert) -> Void in
+                self.navigationController!.popViewController(animated: true)
+            }))
+            self.present(alert, animated: true, completion: nil)
+            self.activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
     }
     
-    func updateUserLines() {
-        stop.lines = DbService.sharedInstance.getLinesAtStop(stop.id)
+    private func updateUserLines() {
+        stop.lines = DbService.shared.getLinesAtStop(stop.id)
         tableView.reloadData()
     }
     
@@ -85,87 +81,79 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
             return cell
         }
         
-        let currentLine = lines[(indexPath as NSIndexPath).row - 1]
+        let currentLine = lines[indexPath.row - 1]
+        currentLine.departures.sort(by: { $0 < $1 })
         let cell = tableView.dequeueReusableCell(withIdentifier: "LineCell", for: indexPath) as! LineCell
         cell.selectionStyle = .none
         
-        if stop.lines.filter({$0.id == currentLine.id}).isEmpty {
+        if stop.lines.firstOrDefault({ $0.id == currentLine.id }) == nil {
             cell.checkbox.image = UIImage(named: "unchecked-box")
         } else {
             cell.checkbox.image = UIImage(named: "check-box-red")
         }
         
         var sname = ""
-        if (Int(currentLine.sname.substring(to: currentLine.sname.characters.index(currentLine.sname.startIndex, offsetBy: 1)))) == nil {
-            let snameArr = Array(currentLine.sname.characters)
-            sname = String(snameArr[0]) + String(snameArr[1]) + String(snameArr[2])
-            cell.snameLabel.font = cell.snameLabel.font.withSize(12)
-        } else if currentLine.sname.characters.count > 2 {
+        switch currentLine.sname.count {
+        case 1, 2:
+            sname = currentLine.sname
+        case 3:
             sname = currentLine.sname
             cell.snameLabel.font = cell.snameLabel.font.withSize(12)
-        } else {
-            sname = currentLine.sname
+        case 4...:
+            sname = String(currentLine.sname.prefix(3))
+            cell.snameLabel.font = cell.snameLabel.font.withSize(12)
+        default:
+            break
         }
-        
+    
         cell.snameLabel.text = sname
         cell.snameLabel.textColor = UIColor(hex: currentLine.bgColor)
         cell.snameView.backgroundColor = UIColor(hex: currentLine.fgColor)
-
         cell.directionLabel.text = "\(currentLine.direction)"
-        for (index, departure) in currentLine.departures.times.enumerated() {
-            if index == 0 {
-                if departure < 1 {
+        
+        for (index, time) in currentLine.departures.enumerated() {
+            if time == 0 {
+                if index == 0 {
                     cell.firstDeparture.text = "Nu"
-                } else {
-                    cell.firstDeparture.text = String(departure)
-                }
-            } else if index == 1 {
-                if departure < 1 {
+                } else if index == 1 {
                     cell.secondDeparture.text = "Nu"
-                } else {
-                    cell.secondDeparture.text = String(departure)
                 }
+            } else if index == 0 {
+                cell.firstDeparture.text = time < 0 ? "0" : String(time)
+            } else if index == 1 {
+                cell.secondDeparture.text = time < 0 ? "0" : String(time)
             }
         }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if #available(iOS 10.0, *) {
-            let generator = UIImpactFeedbackGenerator(style: .light)
-            generator.impactOccurred()
-        }
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
         let cell = tableView.cellForRow(at: indexPath) as! LineCell
-        let currentLine = lines[(indexPath as NSIndexPath).row - 1]
-        currentLine.stopId = stop.id
+        let currentLine = lines[indexPath.row - 1]
+        currentLine.stopid = stop.id
         if stop.lines.filter({$0.id == currentLine.id}).isEmpty {
-            DbService.sharedInstance.addLine(currentLine, stop: stop)
+            DbService.shared.addLine(currentLine, stop: stop)
             cell.checkbox.image = UIImage(named: "check-box-red")
         } else {
-            DbService.sharedInstance.removeLine(currentLine, stopId: stop.id)
+            DbService.shared.removeLine(currentLine, stopId: stop.id)
             cell.checkbox.image = UIImage(named: "unchecked-box")
         }
         updateUserLines()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 28
-        } else {
-            return 44
-        }
+        return indexPath.row == 0 ? 28 : 44
     }
     
-    @IBAction func goBack(_ sender: Any) {
-         _ = navigationController?.popViewController(animated: true)
+    @IBAction func backClicked(_ sender: UIButton) {
+        _ = navigationController?.popViewController(animated: true)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
 }
