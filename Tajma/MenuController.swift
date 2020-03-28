@@ -88,9 +88,9 @@ class MenuController: UIViewController, MFMessageComposeViewControllerDelegate, 
         case 4:
             self.performSegue(withIdentifier: "ShowWidgetGuide", sender: nil)
         case 5:
-            self.performSegue(withIdentifier: "ShowWebView", sender: "http://tajma.faq.lazkani.se")
+            self.performSegue(withIdentifier: "ShowWebView", sender: "http://app.tajma.faq.rltech.se")
         case 6:
-            self.performSegue(withIdentifier: "ShowWebView", sender: "http://tajma.about.lazkani.se")
+            self.performSegue(withIdentifier: "ShowWebView", sender: "http://app.tajma.about.rltech.se")
         default:
             return
         }
