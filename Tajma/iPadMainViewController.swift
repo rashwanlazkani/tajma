@@ -1,23 +1,28 @@
 //
-//  ViewController.swift
-//  Kollektiv
+//  iPadViewController.swift
+//  Tajma
 //
-//  Created by Rashwan Lazkani on 2015-05-30.
-//  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
+//  Created by Rashwan Lazkani on 2020-03-28.
+//  Copyright © 2020 Rashwan Lazkani. All rights reserved.
 //
 
 import CoreLocation
 import StoreKit
 import UIKit
 
-class StopsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
+class iPadMainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var navigationView: UIView!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var segmentedControlWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stopsTableView: UITableView!
+    @IBOutlet weak var stopsTableViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var linesTableView: UITableView!
+    @IBOutlet weak var linesTitleLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let webService = WebService()
+    var selectedStop = Stop()
     var stops = [Stop]()
     var lines = [Line]()
     let locationManager = CLLocationManager()
@@ -28,8 +33,17 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewDidLoad()
         
         searchBar.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
+        stopsTableView.delegate = self
+        stopsTableView.dataSource = self
+        linesTableView.delegate = self
+        linesTableView.dataSource = self
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(stopsTableViewTapped))
+        stopsTableView.addGestureRecognizer(tapGesture)
+        
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(stopsTableViewSwiped))
+        swipeGesture.direction = .right
+        stopsTableView.addGestureRecognizer(swipeGesture)
         
         self.navigationView.backgroundColor = UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)
 
@@ -69,11 +83,28 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
 
         lines = DbService.shared.getLines()
-        tableView.reloadData()
+        stopsTableView.reloadData()
+    }
+    
+    @objc private func stopsTableViewTapped(_ tap: UITapGestureRecognizer) {
+        let location = tap.location(in: stopsTableView)
+        let path = stopsTableView.indexPathForRow(at: location)
+        if let indexPathForRow = path {
+            self.tableView(stopsTableView, didSelectRowAt: indexPathForRow)
+        } else {
+            hideLinesView()
+        }
+    }
+    
+    @objc private func stopsTableViewSwiped(recognizer: UISwipeGestureRecognizer) {
+        hideLinesView()
     }
     
     // MARK: - Functions
     private func initiateViews() {
+        segmentedControlWidthConstraint.constant = self.view.frame.maxX - 48
+        stopsTableViewWidthConstraint.constant = self.view.frame.maxX
+        
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.white
         searchBar.setImage(UIImage(named: "search-white"), for: UISearchBar.Icon.search, state: UIControl.State.normal)
@@ -88,9 +119,12 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         searchBar.setPlaceholder(textColor: UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 0.4))
         searchBar.setSearchImage(color: .white)
         
-        tableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-        tableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
-        tableView.tableFooterView = UIView(frame: .zero)
+        stopsTableView.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+        stopsTableView.separatorColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1)
+        stopsTableView.tableFooterView = UIView()
+        
+        linesTableView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+        linesTableView.tableFooterView = UIView()
         
         if #available(iOS 13.0, *) {
             segmentedControl.selectedSegmentTintColor = .white
@@ -109,6 +143,8 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 231/255, green: 63/255, blue: 87/255, alpha: 1)], for: UIControl.State.selected)
         
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: UIControl.State.normal)
+        
+        linesTitleLabel.text = ""
     }
     
     private func checkAndAskForReview() {
@@ -145,7 +181,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
             if self.stops.count == 0 {
                 self.display("Inga hållplatser i närheten.", type: .nearest)
             }
-            self.tableView.reloadData()
+            self.stopsTableView.reloadData()
             self.locationManager.stopUpdatingLocation()
             self.segmentedControl.isEnabled = true
             self.activityIndicator.stopAnimating()
@@ -192,7 +228,7 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         searchBar.text = ""
         lines = DbService.shared.getLines()
         searchBar.resignFirstResponder()
-        tableView.reloadData()
+        stopsTableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -243,26 +279,111 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
         display("Kunde inte fastställa din position. Gå in på Inställningar -> Tajma, för att aktivera platstjänster.", type: .location)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return stops.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == stopsTableView {
+            return stops.count
+        } else {
+            return lines.count + 1
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView == stopsTableView {
+            return 44
+        } else {
+            return indexPath.row == 0 ? 28 : 44
+        }
     }
     
     func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StopCell", for: indexPath) as! StopCell
-    
-        cell.name.text = stops[indexPath.row].name
+        if tableView == stopsTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "StopCell", for: indexPath) as! StopCell
+            
+                cell.name.text = stops[indexPath.row].name
+                
+                cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1) : UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
+                
+                cell.checkmark.image = lines.first(where: { $0.stopid == stops[indexPath.row].id }) == nil ? UIImage() : UIImage(named: "check-red")
+                
+                return cell
+        } else {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+                cell.selectionStyle = .none
+                return cell
+            }
+            
+            let currentLine = lines[indexPath.row - 1]
+            currentLine.departures.sort(by: { $0 < $1 })
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LineCell", for: indexPath) as! LineCell
+            cell.selectionStyle = .none
+                
+            if selectedStop.lines.firstOrDefault({ $0.id == currentLine.id }) == nil {
+                cell.checkbox.image = UIImage(named: "unchecked-box")
+            } else {
+                cell.checkbox.image = UIImage(named: "check-box-red")
+            }
+                
+            var sname = ""
+            switch currentLine.sname.count {
+            case 1, 2:
+                sname = currentLine.sname
+            case 3:
+                sname = currentLine.sname
+                cell.snameLabel.font = cell.snameLabel.font.withSize(12)
+            case 4...:
+                sname = String(currentLine.sname.prefix(3))
+                cell.snameLabel.font = cell.snameLabel.font.withSize(12)
+            default:
+                break
+            }
         
-        cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1) : UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1)
-        
-        cell.checkmark.image = lines.first(where: { $0.stopid == stops[indexPath.row].id }) == nil ? UIImage() : UIImage(named: "check-red")
-        
-        return cell
+            cell.snameLabel.text = sname
+            cell.snameLabel.textColor = UIColor(hex: currentLine.bgColor)
+            cell.snameView.backgroundColor = UIColor(hex: currentLine.fgColor)
+            cell.directionLabel.text = "\(currentLine.direction)"
+            
+            for (index, time) in currentLine.departures.enumerated() {
+                if time == 0 {
+                    if index == 0 {
+                        cell.firstDeparture.text = "Nu"
+                    } else if index == 1 {
+                        cell.secondDeparture.text = "Nu"
+                    }
+                } else if index == 0 {
+                    cell.firstDeparture.text = time < 0 ? "0" : String(time)
+                } else if index == 1 {
+                    cell.secondDeparture.text = time < 0 ? "0" : String(time)
+                }
+            }
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        searchBar.resignFirstResponder()
-        searchBar!.text = ""
-        self.performSegue(withIdentifier: "ShowLinesView", sender: stops[(indexPath as NSIndexPath).row])
+        if tableView == stopsTableView {
+            searchBar.resignFirstResponder()
+            searchBar!.text = ""
+            selectedStop = stops[indexPath.row]
+            updateLines()
+        } else {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            
+            selectedStop = stops[indexPath.row]
+            let cell = tableView.cellForRow(at: indexPath) as! LineCell
+            let currentLine = lines[indexPath.row - 1]
+            currentLine.stopid = selectedStop.id
+            if selectedStop.lines.filter({$0.id == currentLine.id}).isEmpty {
+                DbService.shared.addLine(currentLine, stop: selectedStop)
+                cell.checkbox.image = UIImage(named: "check-box-red")
+            } else {
+                DbService.shared.removeLine(currentLine, stopId: selectedStop.id)
+                cell.checkbox.image = UIImage(named: "unchecked-box")
+            }
+            updateUserLines()
+        }
+        
     }
     
     // MARK: - Segue
@@ -288,11 +409,53 @@ class StopsController: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.segmentedControl.setTitle("Sökresultat", forSegmentAt: 0)
             }
             
-            self.tableView.reloadData()
+            self.stopsTableView.reloadData()
             self.activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
         }) { (error) in
              self.display("Ett fel har uppstått med sökningen.", type: .location)
+        }
+    }
+    
+    private func updateLines() {
+        activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        webService.getDeparturesAt(selectedStop.id, onCompletion: { (lines) in
+            self.lines = lines
+            self.linesTableView.reloadData()
+            self.linesTitleLabel.text = self.selectedStop.name.components(separatedBy: ",").first
+            
+            self.segmentedControlWidthConstraint.constant = self.view.frame.midX - 48
+            self.stopsTableViewWidthConstraint.constant = self.view.frame.midX
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+            
+            self.activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }) { (error) in
+           let alert = UIAlertController(title: "Tajma", message: "Inga avgångar för tillfället på denna hållplats, försök igen senare.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (_) in
+                self.hideLinesView()
+            }))
+            self.present(alert, animated: true, completion: nil)
+            self.activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+    }
+    
+    private func updateUserLines() {
+        selectedStop.lines = DbService.shared.getLinesAtStop(selectedStop.id)
+        linesTableView.reloadData()
+    }
+    
+    private func hideLinesView() {
+        self.linesTitleLabel.text = ""
+        self.segmentedControlWidthConstraint.constant = self.view.frame.maxX - 48
+        self.stopsTableViewWidthConstraint.constant = self.view.frame.maxX
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
         }
     }
     

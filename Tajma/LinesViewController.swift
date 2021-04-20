@@ -44,7 +44,7 @@ class LinesViewController: UIViewController, UITableViewDataSource, UITableViewD
         updateLines()
     }
     
-    @objc private func updateLines(){
+    @objc private func updateLines() {
         activityIndicator.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()
         
