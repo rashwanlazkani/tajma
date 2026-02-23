@@ -4,6 +4,7 @@ struct StopRowView: View {
     let stop: Stop
     let index: Int
     let hasSavedLines: Bool
+    let savedLines: [Line]
 
     var body: some View {
         HStack(spacing: 0) {
@@ -15,11 +16,20 @@ struct StopRowView: View {
 
             Spacer()
 
-            if hasSavedLines {
-                Image("check-red")
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .padding(.trailing, 8)
+            if !savedLines.isEmpty {
+                HStack(spacing: 4) {
+                    ForEach(savedLines, id: \.sname) { line in
+                        Text(line.sname)
+                            .font(.system(size: 11, weight: .bold))
+                            .foregroundColor(Color(hex: line.bgColor))
+                            .frame(minWidth: 22, minHeight: 18)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(Color(hex: line.fgColor))
+                            )
+                    }
+                }
+                .padding(.trailing, 8)
             }
 
             Image("disclosureIndicator")

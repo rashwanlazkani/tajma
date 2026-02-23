@@ -20,7 +20,7 @@ struct iPadMainView: View {
                                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                     selectStop(stop)
                                 } label: {
-                                    StopRowView(stop: stop, index: index, hasSavedLines: stopsVM.hasSavedLines(for: stop))
+                                    StopRowView(stop: stop, index: index, hasSavedLines: stopsVM.hasSavedLines(for: stop), savedLines: stopsVM.savedLineNumbers(for: stop))
                                 }
                                 .buttonStyle(.plain)
 

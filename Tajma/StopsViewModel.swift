@@ -94,6 +94,12 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         savedLines.contains(where: { $0.stopid == stop.id })
     }
 
+    func savedLineNumbers(for stop: Stop) -> [Line] {
+        let linesAtStop = savedLines.filter { $0.stopid == stop.id }
+        var seen = Set<String>()
+        return linesAtStop.filter { seen.insert($0.sname).inserted }
+    }
+
     // MARK: - Private
 
     private func performSearch(_ searchText: String) {

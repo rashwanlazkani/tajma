@@ -18,7 +18,7 @@ struct StopsView: View {
                                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                     navigationPath.append(stop)
                                 } label: {
-                                    StopRowView(stop: stop, index: index, hasSavedLines: viewModel.hasSavedLines(for: stop))
+                                    StopRowView(stop: stop, index: index, hasSavedLines: viewModel.hasSavedLines(for: stop), savedLines: viewModel.savedLineNumbers(for: stop))
                                 }
                                 .buttonStyle(.plain)
 

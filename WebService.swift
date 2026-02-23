@@ -201,7 +201,7 @@ class WebService {
         if widgetData {
             let dbLines = DbService.shared.getLines()
             lines = lines.filter { line in
-                dbLines.firstOrDefault({ $0.id == line.id }) != nil
+                dbLines.firstOrDefault({ $0.stopid == line.stopid && $0.sname == line.sname }) != nil
             }
         }
 
