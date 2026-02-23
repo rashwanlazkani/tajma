@@ -1,6 +1,0 @@
-framework module Pods_TajmaToday {
-  umbrella header "Pods-TajmaToday-umbrella.h"
-
-  export *
-  module * { export * }
-}

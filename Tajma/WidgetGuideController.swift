@@ -6,7 +6,6 @@
 //  Copyright © 2017 Rashwan Lazkani. All rights reserved.
 //
 
-import SwiftyGif
 import UIKit
 
 class WidgetGuideController: UIViewController {
@@ -17,8 +16,11 @@ class WidgetGuideController: UIViewController {
         let topPadding = UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 20
         
         do {
-            let gif = try UIImage(gifName: "high-quality-widget-guide.gif")
-            let imageview = UIImageView(gifImage: gif, loopCount: -1)
+            // TODO: Add gif
+            //let gif = try UIImage(gifName: "high-quality-widget-guide.gif")
+            //let imageview = UIImageView(gifImage: gif, loopCount: -1)
+            let image = UIImage(named: "high-quality-widget-guide.gif")
+            let imageview = UIImageView(image: image)
             imageview.frame = CGRect(x: self.view.frame.midX - 137, y: 115 + topPadding, width: 274, height: 492)
             view.addSubview(imageview)
         } catch {

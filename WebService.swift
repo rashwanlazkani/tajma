@@ -3,7 +3,7 @@
 //  Tajmapp
 //
 //  Created by Rashwan Lazkani on 2015-05-01.
-//  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
+//  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.qqqqqq
 //
 
 import Alamofire
