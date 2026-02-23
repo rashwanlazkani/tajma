@@ -114,7 +114,13 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             do {
                 let results = try await webService.getStops(userInput: searchText)
                 guard !Task.isCancelled else { return }
-                stops = results
+                let query = searchText.lowercased()
+                stops = results.sorted { a, b in
+                    let aStarts = a.name.lowercased().hasPrefix(query)
+                    let bStarts = b.name.lowercased().hasPrefix(query)
+                    if aStarts != bStarts { return aStarts }
+                    return a.name < b.name
+                }
                 savedLines = DbService.shared.getLines()
                 if !stops.isEmpty {
                     segmentTitle = "Sökresultat"
