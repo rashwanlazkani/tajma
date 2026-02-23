@@ -31,6 +31,7 @@ struct StopsView: View {
                     if viewModel.isLoading {
                         ProgressView()
                             .scaleEffect(1.5)
+                            .tint(TajmaTheme.brandRed)
                     }
                 }
             }

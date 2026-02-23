@@ -21,6 +21,7 @@ struct WebViewScreen: View {
                 if isLoading {
                     ProgressView()
                         .scaleEffect(1.5)
+                        .tint(TajmaTheme.brandRed)
                 }
             }
         }

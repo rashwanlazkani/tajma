@@ -12,23 +12,31 @@ struct iPadMainView: View {
             GeometryReader { geometry in
                 HStack(spacing: 0) {
                     // Left panel: Stops
-                    ScrollView {
-                        LazyVStack(spacing: 0) {
-                            ForEach(Array(stopsVM.stops.enumerated()), id: \.element.id) { index, stop in
-                                Button {
-                                    stopsVM.searchText = ""
-                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                    selectStop(stop)
-                                } label: {
-                                    StopRowView(stop: stop, index: index, hasSavedLines: stopsVM.hasSavedLines(for: stop), savedLines: stopsVM.savedLineNumbers(for: stop))
-                                }
-                                .buttonStyle(.plain)
+                    ZStack {
+                        ScrollView {
+                            LazyVStack(spacing: 0) {
+                                ForEach(Array(stopsVM.stops.enumerated()), id: \.element.id) { index, stop in
+                                    Button {
+                                        stopsVM.searchText = ""
+                                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                        selectStop(stop)
+                                    } label: {
+                                        StopRowView(stop: stop, index: index, hasSavedLines: stopsVM.hasSavedLines(for: stop), savedLines: stopsVM.savedLineNumbers(for: stop))
+                                    }
+                                    .buttonStyle(.plain)
 
-                                TajmaTheme.separator.frame(height: 0.5)
+                                    TajmaTheme.separator.frame(height: 0.5)
+                                }
                             }
                         }
+                        .background(TajmaTheme.tableBackground)
+
+                        if stopsVM.isLoading {
+                            ProgressView()
+                                .scaleEffect(1.5)
+                                .tint(TajmaTheme.brandRed)
+                        }
                     }
-                    .background(TajmaTheme.tableBackground)
                     .frame(width: selectedStop != nil ? geometry.size.width / 2 : geometry.size.width)
                     .animation(.easeInOut(duration: 0.5), value: selectedStop != nil)
 
@@ -48,6 +56,7 @@ struct iPadMainView: View {
                                 if linesVM.isLoading {
                                     ProgressView()
                                         .scaleEffect(1.5)
+                                        .tint(TajmaTheme.brandRed)
                                 }
                             }
                         }
