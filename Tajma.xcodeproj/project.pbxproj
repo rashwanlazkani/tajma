@@ -31,6 +31,7 @@
 		CC000200000000000000000F /* WidgetGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC000100000000000000000F /* WidgetGuideView.swift */; };
 		CC0002000000000000000010 /* UIKitBridges.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0001000000000000000010 /* UIKitBridges.swift */; };
 		CC0002000000000000000011 /* iPadMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0001000000000000000011 /* iPadMainView.swift */; };
+		CC0002000000000000000012 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0001000000000000000012 /* SearchBarView.swift */; };
 		DD0008000000000000000001 /* TajmaWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0007000000000000000001 /* TajmaWidget.swift */; };
 		DD0008000000000000000002 /* WidgetLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0007000000000000000002 /* WidgetLocationManager.swift */; };
 		DD000C000000000000000001 /* TajmaWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DD0002000000000000000001 /* TajmaWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -114,6 +115,7 @@
 		CC000100000000000000000F /* WidgetGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetGuideView.swift; sourceTree = "<group>"; };
 		CC0001000000000000000010 /* UIKitBridges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitBridges.swift; sourceTree = "<group>"; };
 		CC0001000000000000000011 /* iPadMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadMainView.swift; sourceTree = "<group>"; };
+		CC0001000000000000000012 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		CCD40C0E70C3A27B45E7747D /* Pods-Tajma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tajma.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tajma/Pods-Tajma.debug.xcconfig"; sourceTree = "<group>"; };
 		D904558F2692BA5B4F8A2D92 /* Pods-TajmaWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TajmaWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TajmaWidget/Pods-TajmaWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		DD0002000000000000000001 /* TajmaWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TajmaWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +200,7 @@
 				CC0001000000000000000005 /* LineRowView.swift */,
 				CC0001000000000000000006 /* LinesHeaderRowView.swift */,
 				CC0001000000000000000007 /* MenuRowView.swift */,
+				CC0001000000000000000012 /* SearchBarView.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 				CC000200000000000000000F /* WidgetGuideView.swift in Sources */,
 				CC0002000000000000000010 /* UIKitBridges.swift in Sources */,
 				CC0002000000000000000011 /* iPadMainView.swift in Sources */,
+				CC0002000000000000000012 /* SearchBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
