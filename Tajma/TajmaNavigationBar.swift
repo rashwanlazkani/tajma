@@ -14,39 +14,36 @@ struct TajmaNavigationBar<TrailingContent: View>: View {
     }
 
     var body: some View {
-        ZStack {
-            TajmaTheme.brandRed
-
-            HStack {
-                if showBackButton {
-                    Button(action: { backAction?() }) {
-                        Image("back")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .padding(8)
-                    }
-                    .padding(.leading, 8)
-                } else {
-                    Color.clear.frame(width: 40, height: 40).padding(.leading, 8)
+        HStack {
+            if showBackButton {
+                Button(action: { backAction?() }) {
+                    Image("back")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .padding(8)
                 }
-
-                Spacer()
-
-                Text(title)
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.white)
-
-                Spacer()
-
-                if let trailingContent = trailingContent {
-                    trailingContent()
-                } else {
-                    Color.clear.frame(width: 40, height: 40).padding(.trailing, 8)
-                }
+                .padding(.leading, 8)
+            } else {
+                Color.clear.frame(width: 40, height: 40).padding(.leading, 8)
             }
-            .padding(.bottom, 8)
+
+            Spacer()
+
+            Text(title)
+                .font(.system(size: 18, weight: .bold))
+                .foregroundColor(.white)
+
+            Spacer()
+
+            if let trailingContent = trailingContent {
+                trailingContent()
+            } else {
+                Color.clear.frame(width: 40, height: 40).padding(.trailing, 8)
+            }
         }
+        .padding(.bottom, 8)
         .frame(height: 47)
+        .background(TajmaTheme.brandRed.ignoresSafeArea(edges: .top))
     }
 }
 
