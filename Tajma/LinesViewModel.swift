@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import WidgetKit
 
 @MainActor
 class LinesViewModel: ObservableObject {
@@ -41,6 +42,7 @@ class LinesViewModel: ObservableObject {
         }
         stop.lines = DbService.shared.getLinesAtStop(stop.id)
         objectWillChange.send()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     func isLineSelected(_ line: Line) -> Bool {

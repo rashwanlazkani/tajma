@@ -117,13 +117,19 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         Task {
             isLoading = true
             do {
-                let results = try await webService.getStops(location: location)
+                var results = try await webService.getStops(location: location)
+                for stop in results {
+                    stop.distance = DistanceHelper.calculate(stop, lat: location.latitude, long: location.longitude)
+                }
+                results.sort(by: { ($0.distance ?? 0) < ($1.distance ?? 0) })
                 stops = results
                 if stops.isEmpty {
                     errorAlert = AlertInfo(message: "Inga hållplatser i närheten.", retryAction: { [weak self] in self?.getNearestStops() })
                 }
                 locationManager.stopUpdatingLocation()
             } catch {
+                print("[StopsViewModel] getNearestStops error: \(error)")
+                print("[StopsViewModel] location: \(location.latitude), \(location.longitude)")
                 errorAlert = AlertInfo(message: "Ett fel har uppstått med hämtning av närmaste hållplatser.", retryAction: { [weak self] in
                     self?.location = CLLocationCoordinate2D()
                     self?.locationManager.startUpdatingLocation()

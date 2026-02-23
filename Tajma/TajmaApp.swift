@@ -3,6 +3,9 @@ import SwiftUI
 @main
 struct TajmaApp: App {
     init() {
+        // Clear any stale token to force a fresh fetch with current API subscription
+        WebService.clearCachedToken()
+
         let count = UserDefaults.standard.integer(forKey: "appOpenCount") + 1
         UserDefaults.standard.set(count, forKey: "appOpenCount")
 

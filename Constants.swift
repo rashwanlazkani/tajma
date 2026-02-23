@@ -7,9 +7,10 @@
 //
 
 struct Constants {
-    static let restURL = "https://api.vasttrafik.se/bin/rest.exe/v2/"
-    static let tokenURL = "https://api.vasttrafik.se/token"
-    static let key = "jZLPrtMTaS2aP2lUolla3ORfQfwa"
-    static let secret = "5Qcty0F1HD_FfeExo3kDmHqWkqoa"
+    static let apiBaseURL = "https://ext-api.vasttrafik.se/pr/v4"
+    static let tokenURL = "https://ext-api.vasttrafik.se/token"
+    static let key = "CxsnK79MEPMKelYHoP0QU8nMMuMa"
+    static let secret = "8rpcIR5IhquttfPKhfLq92bJP80a"
+    static let authKey = "Q3hzbks3OU1FUE1LZWxZSG9QMFFVOG5NTXVNYTo4cnBjSVI1SWhxdXR0ZlBLaGZMcTkyYkpQODBh"
     static let appID = "1073431878"
 }

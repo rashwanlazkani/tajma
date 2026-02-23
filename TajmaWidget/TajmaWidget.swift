@@ -29,8 +29,32 @@ struct TajmaWidgetProvider: TimelineProvider {
             }
 
             webService.getMyDeparturesAt(location, onCompletion: { stops in
-                let entry = DepartureEntry(date: Date(), stops: stops, isPlaceholder: false)
-                completion(Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(60))))
+                let now = Date()
+                var entries = [DepartureEntry]()
+
+                // Generate an entry per minute for 15 minutes so the
+                // countdown updates without a new network fetch.
+                for minute in 0..<15 {
+                    let entryDate = now.addingTimeInterval(Double(minute) * 60)
+                    let adjustedStops = stops.map { stop -> Stop in
+                        let adjustedLines = stop.lines.map { line -> Line in
+                            let adjusted = line.departures.map { max($0 - minute, 0) }
+                            return Line(id: line.id, stop: Stop(), stopId: line.stopid,
+                                        lineAndDirection: line.lineAndDirection, name: line.name,
+                                        sname: line.sname, direction: line.direction, type: line.type,
+                                        track: line.track, bgColor: line.bgColor, fgColor: line.fgColor,
+                                        departures: adjusted)
+                        }
+                        let newStop = Stop(id: stop.id, name: stop.name,
+                                           latitude: stop.lat, longitude: stop.lon,
+                                           distance: stop.distance, lines: adjustedLines)
+                        return newStop
+                    }
+                    entries.append(DepartureEntry(date: entryDate, stops: adjustedStops, isPlaceholder: false))
+                }
+
+                // After 15 minutes, fetch fresh data from the API
+                completion(Timeline(entries: entries, policy: .after(now.addingTimeInterval(15 * 60))))
             }, onError: { _ in
                 let entry = DepartureEntry(date: Date(), stops: [], isPlaceholder: false)
                 completion(Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(300))))
@@ -101,6 +125,7 @@ struct TajmaWidgetEntryView: View {
                     Divider().opacity(0.3)
                 }
             }
+            Spacer(minLength: 0)
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
@@ -153,12 +178,14 @@ struct WidgetDepartureRow: View {
     }
 }
 
+@main
 struct TajmaWidget: Widget {
     let kind: String = "TajmaWidget"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: TajmaWidgetProvider()) { entry in
             TajmaWidgetEntryView(entry: entry)
+                .containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("Tajma")
         .description("Se avgångar för dina favorithållplatser.")

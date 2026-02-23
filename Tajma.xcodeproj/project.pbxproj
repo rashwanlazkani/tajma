@@ -120,6 +120,7 @@
 		DD0007000000000000000001 /* TajmaWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TajmaWidget.swift; sourceTree = "<group>"; };
 		DD0007000000000000000002 /* WidgetLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetLocationManager.swift; sourceTree = "<group>"; };
 		DD0007000000000000000003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD0007000000000000000004 /* TajmaWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TajmaWidget.entitlements; sourceTree = "<group>"; };
 		F818619E1B41D52A005DDA3A /* DeviceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
 		F82CB0831BD25B2C0015D3C5 /* DbService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DbService.swift; sourceTree = "<group>"; };
 		F843A39D1B1B04C2008F4505 /* Tajma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tajma.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,12 +166,49 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		CC0003000000000000000001 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC000100000000000000000B /* StopsView.swift */,
+				CC000100000000000000000C /* LinesView.swift */,
+				CC000100000000000000000D /* MenuView.swift */,
+				CC000100000000000000000E /* WebViewScreen.swift */,
+				CC000100000000000000000F /* WidgetGuideView.swift */,
+				CC0001000000000000000011 /* iPadMainView.swift */,
+				CC0001000000000000000010 /* UIKitBridges.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		CC0003000000000000000002 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CC0001000000000000000008 /* StopsViewModel.swift */,
+				CC0001000000000000000009 /* LinesViewModel.swift */,
+				CC000100000000000000000A /* MenuViewModel.swift */,
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		CC0003000000000000000003 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				CC0001000000000000000003 /* TajmaNavigationBar.swift */,
+				CC0001000000000000000004 /* StopRowView.swift */,
+				CC0001000000000000000005 /* LineRowView.swift */,
+				CC0001000000000000000006 /* LinesHeaderRowView.swift */,
+				CC0001000000000000000007 /* MenuRowView.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
 		DD000B000000000000000001 /* TajmaWidget */ = {
 			isa = PBXGroup;
 			children = (
 				DD0007000000000000000001 /* TajmaWidget.swift */,
 				DD0007000000000000000002 /* WidgetLocationManager.swift */,
 				DD0007000000000000000003 /* Info.plist */,
+				DD0007000000000000000004 /* TajmaWidget.entitlements */,
 			);
 			path = TajmaWidget;
 			sourceTree = "<group>";
@@ -245,42 +283,6 @@
 				F843A3A01B1B04C2008F4505 /* Supporting Files */,
 			);
 			path = Tajma;
-			sourceTree = "<group>";
-		};
-		CC0003000000000000000001 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				CC000100000000000000000B /* StopsView.swift */,
-				CC000100000000000000000C /* LinesView.swift */,
-				CC000100000000000000000D /* MenuView.swift */,
-				CC000100000000000000000E /* WebViewScreen.swift */,
-				CC000100000000000000000F /* WidgetGuideView.swift */,
-				CC0001000000000000000011 /* iPadMainView.swift */,
-				CC0001000000000000000010 /* UIKitBridges.swift */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		CC0003000000000000000002 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				CC0001000000000000000008 /* StopsViewModel.swift */,
-				CC0001000000000000000009 /* LinesViewModel.swift */,
-				CC000100000000000000000A /* MenuViewModel.swift */,
-			);
-			name = ViewModels;
-			sourceTree = "<group>";
-		};
-		CC0003000000000000000003 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				CC0001000000000000000003 /* TajmaNavigationBar.swift */,
-				CC0001000000000000000004 /* StopRowView.swift */,
-				CC0001000000000000000005 /* LineRowView.swift */,
-				CC0001000000000000000006 /* LinesHeaderRowView.swift */,
-				CC0001000000000000000007 /* MenuRowView.swift */,
-			);
-			name = Components;
 			sourceTree = "<group>";
 		};
 		F843A3A01B1B04C2008F4505 /* Supporting Files */ = {
@@ -575,7 +577,7 @@
 			baseConfigurationReference = D904558F2692BA5B4F8A2D92 /* Pods-TajmaWidget.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TajmaWidget/TajmaWidget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
@@ -591,7 +593,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = TajmaWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma.widget;
@@ -606,7 +608,7 @@
 			baseConfigurationReference = 974E3B564DAC9F5AC32E1761 /* Pods-TajmaWidget.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_ENTITLEMENTS = Tajma/Tajma.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TajmaWidget/TajmaWidget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
@@ -618,7 +620,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = TajmaWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma.widget;
@@ -753,7 +755,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Tajma/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.golazo.tajma;
@@ -783,7 +785,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Tajma/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.4;
 				"MTL_ENABLE_DEBUG_INFO[arch=*]" = NO;
