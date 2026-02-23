@@ -23,6 +23,7 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private var location = CLLocationCoordinate2D()
     private var isFromBackground = false
+    private var searchTask: Task<Void, Never>?
 
     override init() {
         super.init()
@@ -103,16 +104,23 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     // MARK: - Private
 
     private func performSearch(_ searchText: String) {
-        Task {
+        searchTask?.cancel()
+        searchTask = Task {
+            // Debounce: wait 300ms before searching
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            guard !Task.isCancelled else { return }
+
             isLoading = true
             do {
                 let results = try await webService.getStops(userInput: searchText)
+                guard !Task.isCancelled else { return }
                 stops = results
                 savedLines = DbService.shared.getLines()
                 if !stops.isEmpty {
                     segmentTitle = "Sökresultat"
                 }
             } catch {
+                guard !Task.isCancelled else { return }
                 errorAlert = AlertInfo(message: "Ett fel har uppstått med sökningen.", retryAction: nil)
             }
             isLoading = false

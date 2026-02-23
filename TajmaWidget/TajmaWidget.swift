@@ -160,12 +160,14 @@ struct WidgetDepartureRow: View {
                 .foregroundColor(.primary.opacity(0.7))
                 .lineLimit(1)
             Spacer()
-            HStack(spacing: 8) {
+            HStack(spacing: 4) {
                 Text(departureText(0))
                     .font(.system(size: 12, weight: .medium))
+                    .frame(width: 22, alignment: .trailing)
                 Text(departureText(1))
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
+                    .frame(width: 22, alignment: .trailing)
             }
         }
     }
