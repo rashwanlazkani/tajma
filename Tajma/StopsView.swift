@@ -81,7 +81,7 @@ struct StopsView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 8)
+                .padding(.horizontal, 12)
                 .padding(.vertical, 8)
                 .background(Color.white.opacity(0.15))
                 .cornerRadius(8)
