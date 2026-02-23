@@ -27,7 +27,7 @@ struct LinesView: View {
             }
         }
         .background(TajmaTheme.linesBackground)
-        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
         .onAppear { viewModel.loadDepartures() }
         .alert("Tajma", isPresented: .constant(viewModel.errorMessage != nil)) {
             Button("OK") { dismiss() }

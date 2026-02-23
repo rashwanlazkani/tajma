@@ -11,12 +11,12 @@ struct WidgetGuideView: View {
             VStack(spacing: 15) {
                 Text("Tajmas Widget")
                     .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding(.top, 20)
 
                 Text("Lägg till Tajmas Widget för att se avgångstiderna för dina Favoriter ännu snabbare. Så här gör du:")
                     .font(.system(size: 16))
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal, 10)
 

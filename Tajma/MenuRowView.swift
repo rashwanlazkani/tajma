@@ -31,7 +31,7 @@ struct MenuRowView: View {
 
             Text(item.title)
                 .font(.system(size: 15))
-                .foregroundColor(TajmaTheme.menuText)
+                .foregroundStyle(TajmaTheme.menuText)
                 .padding(.leading, 15)
                 .lineLimit(1)
 
@@ -44,5 +44,7 @@ struct MenuRowView: View {
         }
         .frame(height: 44)
         .background(index % 2 == 0 ? TajmaTheme.rowEven : TajmaTheme.rowOdd)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(item.title)
     }
 }

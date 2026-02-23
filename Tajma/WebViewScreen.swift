@@ -25,7 +25,7 @@ struct WebViewScreen: View {
                 }
             }
         }
-        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 

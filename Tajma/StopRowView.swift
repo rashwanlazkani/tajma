@@ -10,7 +10,7 @@ struct StopRowView: View {
         HStack(spacing: 0) {
             Text(stop.name)
                 .font(.system(size: 17))
-                .foregroundColor(TajmaTheme.primaryText)
+                .foregroundStyle(TajmaTheme.primaryText)
                 .padding(.leading, 15)
                 .lineLimit(1)
 
@@ -21,7 +21,7 @@ struct StopRowView: View {
                     ForEach(savedLines, id: \.sname) { line in
                         Text(line.sname)
                             .font(.system(size: 11, weight: .bold))
-                            .foregroundColor(Color(hex: line.bgColor))
+                            .foregroundStyle(Color(hex: line.bgColor))
                             .frame(minWidth: 22, minHeight: 18)
                             .background(
                                 RoundedRectangle(cornerRadius: 4)
@@ -39,5 +39,7 @@ struct StopRowView: View {
         }
         .frame(height: 44)
         .background(index % 2 == 0 ? TajmaTheme.rowEven : TajmaTheme.rowOdd)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(stop.name + (savedLines.isEmpty ? "" : ", sparade linjer: " + savedLines.map(\.sname).joined(separator: ", ")))
     }
 }

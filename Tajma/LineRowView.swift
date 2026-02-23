@@ -18,13 +18,13 @@ struct LineRowView: View {
 
                 Text(formattedSname)
                     .font(.system(size: snameFontSize))
-                    .foregroundColor(Color(hex: line.bgColor))
+                    .foregroundStyle(Color(hex: line.bgColor))
             }
             .padding(.leading, 20)
 
             Text(line.direction)
                 .font(.system(size: 14))
-                .foregroundColor(TajmaTheme.primaryText)
+                .foregroundStyle(TajmaTheme.primaryText)
                 .lineLimit(1)
                 .padding(.leading, 9)
 
@@ -32,18 +32,21 @@ struct LineRowView: View {
 
             Text(firstDepartureText)
                 .font(.system(size: 14))
-                .foregroundColor(TajmaTheme.primaryText)
+                .foregroundStyle(TajmaTheme.primaryText)
                 .frame(width: 22, alignment: .trailing)
 
             Text(secondDepartureText)
                 .font(.system(size: 14))
-                .foregroundColor(TajmaTheme.secondaryText)
+                .foregroundStyle(TajmaTheme.secondaryText)
                 .frame(width: 22, alignment: .trailing)
                 .padding(.leading, 15)
                 .padding(.trailing, 16)
         }
         .frame(height: 44)
         .background(TajmaTheme.linesBackground)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Linje \(line.sname) \(line.direction), avgår om \(firstDepartureText) minuter" + (isSelected ? ", sparad" : ""))
+        .accessibilityHint(isSelected ? "Tryck för att ta bort från favoriter" : "Tryck för att spara som favorit")
     }
 
     private var formattedSname: String {

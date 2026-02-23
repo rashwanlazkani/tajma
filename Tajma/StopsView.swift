@@ -26,6 +26,8 @@ struct StopsView: View {
                             }
                         }
                     }
+                    .refreshable { viewModel.refresh() }
+                    .scrollDismissesKeyboard(.interactively)
                     .background(TajmaTheme.tableBackground)
 
                     if viewModel.isLoading {
@@ -36,18 +38,21 @@ struct StopsView: View {
                 }
             }
             .background(TajmaTheme.brandRed)
-            .navigationBarHidden(true)
+            .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: Stop.self) { stop in
                 LinesView(stop: stop)
             }
             .onAppear { viewModel.onAppear() }
-            .alert(item: $viewModel.errorAlert) { alert in
-                Alert(
-                    title: Text("Tajma"),
-                    message: Text(alert.message),
-                    primaryButton: .default(Text("OK")),
-                    secondaryButton: .default(Text("Försök igen")) { alert.retryAction?() }
-                )
+            .alert("Tajma", isPresented: Binding(
+                get: { viewModel.errorAlert != nil },
+                set: { if !$0 { viewModel.errorAlert = nil } }
+            )) {
+                Button("OK", role: .cancel) {}
+                if viewModel.errorAlert?.retryAction != nil {
+                    Button("Försök igen") { viewModel.errorAlert?.retryAction?() }
+                }
+            } message: {
+                Text(viewModel.errorAlert?.message ?? "")
             }
         }
     }
@@ -55,36 +60,11 @@ struct StopsView: View {
     private var stopsHeader: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                HStack(spacing: 8) {
-                    Image("search-white")
-                        .renderingMode(.template)
-                        .resizable()
-                        .frame(width: 14, height: 14)
-                        .foregroundColor(.white)
-
-                    TextField("", text: $viewModel.searchText, prompt: Text("Sök hållplats").foregroundColor(.white.opacity(0.4)))
-                        .foregroundColor(.white)
-                        .tint(.white)
-                        .autocorrectionDisabled()
-                        .onSubmit {
-                            viewModel.searchStops(viewModel.searchText)
-                        }
-                        .onChange(of: viewModel.searchText) { newValue in
-                            viewModel.searchStops(newValue)
-                        }
-
-                    if !viewModel.searchText.isEmpty {
-                        Button { viewModel.searchText = "" } label: {
-                            Image("erase")
-                                .resizable()
-                                .frame(width: 14, height: 14)
-                        }
-                    }
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color.white.opacity(0.15))
-                .cornerRadius(8)
+                SearchBarView(
+                    searchText: $viewModel.searchText,
+                    onSubmit: { viewModel.searchStops(viewModel.searchText) },
+                    onChange: { viewModel.searchStops($0) }
+                )
                 .padding(.leading, 16)
 
                 NavigationLink {

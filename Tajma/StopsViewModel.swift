@@ -48,6 +48,10 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         savedLines = DbService.shared.getLines()
     }
 
+    func refresh() {
+        refreshForSegment()
+    }
+
     func onReappear() {
         switch segmentIndex {
         case 0:
@@ -98,7 +102,9 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     func savedLineNumbers(for stop: Stop) -> [Line] {
         let linesAtStop = savedLines.filter { $0.stopid == stop.id }
         var seen = Set<String>()
-        return linesAtStop.filter { seen.insert($0.sname).inserted }
+        return linesAtStop
+            .filter { seen.insert($0.sname).inserted }
+            .sorted { (Int($0.sname) ?? Int.max) < (Int($1.sname) ?? Int.max) }
     }
 
     // MARK: - Private

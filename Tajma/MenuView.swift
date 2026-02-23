@@ -47,7 +47,7 @@ struct MenuView: View {
             }
             .background(TajmaTheme.tableBackground)
         }
-        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
         .sheet(isPresented: $showShareSheet) {
             ActivityViewControllerRepresentable(activityItems: viewModel.shareItems)
         }

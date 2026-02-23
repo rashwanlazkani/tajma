@@ -22,6 +22,7 @@ struct TajmaNavigationBar<TrailingContent: View>: View {
                         .frame(width: 24, height: 24)
                         .padding(8)
                 }
+                .accessibilityLabel("Tillbaka")
                 .padding(.leading, 8)
             } else {
                 Color.clear.frame(width: 40, height: 40).padding(.leading, 8)
@@ -31,7 +32,7 @@ struct TajmaNavigationBar<TrailingContent: View>: View {
 
             Text(title)
                 .font(.system(size: 18, weight: .bold))
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
 
             Spacer()
 

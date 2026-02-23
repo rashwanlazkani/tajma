@@ -29,6 +29,8 @@ struct iPadMainView: View {
                                 }
                             }
                         }
+                        .refreshable { stopsVM.refresh() }
+                        .scrollDismissesKeyboard(.interactively)
                         .background(TajmaTheme.tableBackground)
 
                         if stopsVM.isLoading {
@@ -45,7 +47,7 @@ struct iPadMainView: View {
                         VStack(spacing: 0) {
                             Text(linesVM.displayName)
                                 .font(.system(size: 18, weight: .bold))
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 10)
                                 .background(TajmaTheme.brandRed)
@@ -79,52 +81,27 @@ struct iPadMainView: View {
                     }
                 }
         )
-        .alert(item: $stopsVM.errorAlert) { alert in
-            Alert(
-                title: Text("Tajma"),
-                message: Text(alert.message),
-                primaryButton: .default(Text("OK")),
-                secondaryButton: .default(Text("Försök igen")) { alert.retryAction?() }
-            )
+        .alert("Tajma", isPresented: Binding(
+            get: { stopsVM.errorAlert != nil },
+            set: { if !$0 { stopsVM.errorAlert = nil } }
+        )) {
+            Button("OK", role: .cancel) {}
+            if stopsVM.errorAlert?.retryAction != nil {
+                Button("Försök igen") { stopsVM.errorAlert?.retryAction?() }
+            }
+        } message: {
+            Text(stopsVM.errorAlert?.message ?? "")
         }
     }
 
     private var iPadHeader: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 0) {
-                HStack(spacing: 8) {
-                    Image("search-white")
-                        .renderingMode(.template)
-                        .resizable()
-                        .frame(width: 14, height: 14)
-                        .foregroundColor(.white)
-
-                    TextField("", text: $stopsVM.searchText, prompt: Text("Sök hållplats").foregroundColor(.white.opacity(0.4)))
-                        .foregroundColor(.white)
-                        .tint(.white)
-                        .autocorrectionDisabled()
-                        .onSubmit {
-                            stopsVM.searchStops(stopsVM.searchText)
-                        }
-                        .onChange(of: stopsVM.searchText) { newValue in
-                            stopsVM.searchStops(newValue)
-                        }
-
-                    if !stopsVM.searchText.isEmpty {
-                        Button { stopsVM.searchText = "" } label: {
-                            Image("erase")
-                                .resizable()
-                                .frame(width: 14, height: 14)
-                        }
-                    }
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color.white.opacity(0.15))
-                .cornerRadius(8)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-            }
+            SearchBarView(
+                searchText: $stopsVM.searchText,
+                onSubmit: { stopsVM.searchStops(stopsVM.searchText) },
+                onChange: { stopsVM.searchStops($0) }
+            )
+            .padding(.horizontal, 16)
             .padding(.top, 8)
 
             Picker("", selection: $stopsVM.segmentIndex) {
