@@ -37,6 +37,7 @@ struct iPadMainView: View {
                             ProgressView()
                                 .scaleEffect(1.5)
                                 .tint(TajmaTheme.brandRed)
+                                .transition(.opacity)
                         }
                     }
                     .frame(width: selectedStop != nil ? geometry.size.width / 2 : geometry.size.width)
@@ -59,6 +60,7 @@ struct iPadMainView: View {
                                     ProgressView()
                                         .scaleEffect(1.5)
                                         .tint(TajmaTheme.brandRed)
+                                        .transition(.opacity)
                                 }
                             }
                         }
@@ -114,7 +116,9 @@ struct iPadMainView: View {
             .padding(.top, 10)
             .padding(.bottom, 15)
             .onChange(of: stopsVM.segmentIndex) { _ in
-                stopsVM.refreshForSegment()
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    stopsVM.refreshForSegment()
+                }
             }
         }
         .background(TajmaTheme.brandRed)

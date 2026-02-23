@@ -34,6 +34,7 @@ struct StopsView: View {
                         ProgressView()
                             .scaleEffect(1.5)
                             .tint(TajmaTheme.brandRed)
+                            .transition(.opacity)
                     }
                 }
             }
@@ -87,7 +88,9 @@ struct StopsView: View {
             .padding(.top, 10)
             .padding(.bottom, 15)
             .onChange(of: viewModel.segmentIndex) { _ in
-                viewModel.refreshForSegment()
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    viewModel.refreshForSegment()
+                }
             }
         }
         .background(TajmaTheme.brandRed)

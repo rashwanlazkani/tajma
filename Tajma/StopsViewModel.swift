@@ -1,6 +1,7 @@
 import Foundation
 import CoreLocation
 import StoreKit
+import SwiftUI
 import UIKit
 
 struct AlertInfo: Identifiable {
@@ -116,16 +117,18 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             try? await Task.sleep(nanoseconds: 300_000_000)
             guard !Task.isCancelled else { return }
 
-            isLoading = true
+            withAnimation { isLoading = true }
             do {
                 let results = try await webService.getStops(userInput: searchText)
                 guard !Task.isCancelled else { return }
                 let query = searchText.lowercased()
-                stops = results.sorted { a, b in
-                    let aStarts = a.name.lowercased().hasPrefix(query)
-                    let bStarts = b.name.lowercased().hasPrefix(query)
-                    if aStarts != bStarts { return aStarts }
-                    return a.name < b.name
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    stops = results.sorted { a, b in
+                        let aStarts = a.name.lowercased().hasPrefix(query)
+                        let bStarts = b.name.lowercased().hasPrefix(query)
+                        if aStarts != bStarts { return aStarts }
+                        return a.name < b.name
+                    }
                 }
                 savedLines = DbService.shared.getLines()
                 if !stops.isEmpty {
@@ -135,20 +138,22 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                 guard !Task.isCancelled else { return }
                 errorAlert = AlertInfo(message: "Ett fel har uppstått med sökningen.", retryAction: nil)
             }
-            isLoading = false
+            withAnimation { isLoading = false }
         }
     }
 
     private func getNearestStops() {
         Task {
-            isLoading = true
+            withAnimation { isLoading = true }
             do {
                 var results = try await webService.getStops(location: location)
                 for stop in results {
                     stop.distance = DistanceHelper.calculate(stop, lat: location.latitude, long: location.longitude)
                 }
                 results.sort(by: { ($0.distance ?? 0) < ($1.distance ?? 0) })
-                stops = results
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    stops = results
+                }
                 if stops.isEmpty {
                     errorAlert = AlertInfo(message: "Inga hållplatser i närheten.", retryAction: { [weak self] in self?.getNearestStops() })
                 }
@@ -161,7 +166,7 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                     self?.locationManager.startUpdatingLocation()
                 })
             }
-            isLoading = false
+            withAnimation { isLoading = false }
         }
     }
 

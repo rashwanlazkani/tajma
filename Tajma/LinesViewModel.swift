@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import UIKit
 import WidgetKit
 
@@ -22,13 +23,16 @@ class LinesViewModel: ObservableObject {
 
     func loadDepartures() {
         Task {
-            isLoading = true
+            withAnimation { isLoading = true }
             do {
-                lines = try await webService.getDeparturesAt(stop.id)
+                let results = try await webService.getDeparturesAt(stop.id)
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    lines = results
+                }
             } catch {
                 errorMessage = "Inga avgångar för tillfället på denna hållplats, försök igen senare."
             }
-            isLoading = false
+            withAnimation { isLoading = false }
         }
     }
 
