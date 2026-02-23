@@ -49,10 +49,6 @@
 	<string>Du behöver slå på platstjänster för att Tajma ska kunna visa de närmaste avgångarna i widgeten.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UIMainStoryboardFile~ipad</key>
-	<string>iPadStoryboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

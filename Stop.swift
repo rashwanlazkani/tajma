@@ -6,8 +6,12 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-open class Stop: Codable, Equatable {
-    var id: String
+open class Stop: Codable, Equatable, Identifiable, Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    public var id: String
     let name: String
     let lat: String
     let lon: String

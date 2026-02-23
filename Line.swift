@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Rashwan Lazkani. All rights reserved.
 //
 
-class Line: Codable {
-    var id: String = ""
+class Line: Codable, Identifiable {
+    public var id: String = ""
     var stop = Stop()
     var stopid: String
     var lineAndDirection: String = ""

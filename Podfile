@@ -1,15 +1,18 @@
-# Uncomment this line to define a global platform for your project
 platform :ios, '16.0'
-# Uncomment this line if you're using Swift
 use_frameworks!
 
 target 'Tajma' do
   pod 'SQLite.swift'
-  pod 'Alamofire'
 end
 
-target 'TajmaToday' do
-pod 'SQLite.swift'
-  pod 'Alamofire'
+target 'TajmaWidget' do
+  pod 'SQLite.swift'
 end
-SDK does not contain 'libarclite' at the path '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/arc/libarclite_iphonesimulator.a'; try increasing the minimum deployment target
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+    end
+  end
+end
