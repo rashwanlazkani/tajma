@@ -55,6 +55,11 @@ struct StopsView: View {
             } message: {
                 Text(viewModel.errorAlert?.message ?? "")
             }
+            .alert("Tack för att du använder Tajma!", isPresented: $viewModel.showWelcome) {
+                Button("OK") {}
+            } message: {
+                Text("En uppdatering till appen är här!\n\nWidgeten visar nu avgångar för dina sparade hållplatser som är i närheten. Lägg till widgeten på hemskärmen för att snabbt se nästa avgång.\n\nNär du sparar en linje på en hållplats visas båda riktningarna automatiskt.")
+            }
         }
     }
 

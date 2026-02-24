@@ -20,6 +20,7 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var segmentTitle = "Nära mig"
     @Published var searchText = ""
     @Published var errorAlert: AlertInfo?
+    @Published var showWelcome = false
 
     private let webService = WebService()
     private let locationManager = CLLocationManager()
@@ -48,6 +49,7 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         refreshForSegment()
         savedLines = DbService.shared.getLines()
+        checkFirstLaunch()
     }
 
     func refresh() {
@@ -160,6 +162,14 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                 })
             }
             withAnimation { isLoading = false }
+        }
+    }
+
+    private func checkFirstLaunch() {
+        let key = "hasShownWelcomeV2"
+        if !UserDefaults.standard.bool(forKey: key) {
+            UserDefaults.standard.set(true, forKey: key)
+            showWelcome = true
         }
     }
 
