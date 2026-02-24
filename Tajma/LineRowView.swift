@@ -3,6 +3,9 @@ import SwiftUI
 struct LineRowView: View {
     let line: Line
     let isSelected: Bool
+    private var isArrivingNow: Bool {
+        sortedDepartures.first == 0
+    }
 
     var body: some View {
         HStack(spacing: 0) {
@@ -31,8 +34,8 @@ struct LineRowView: View {
             Spacer()
 
             Text(firstDepartureText)
-                .font(.system(size: 14))
-                .foregroundStyle(TajmaTheme.primaryText)
+                .font(.system(size: 14, weight: isArrivingNow ? .bold : .regular))
+                .foregroundStyle(isArrivingNow ? TajmaTheme.brandRed : TajmaTheme.primaryText)
                 .frame(width: 22, alignment: .trailing)
 
             Text(secondDepartureText)

@@ -21,6 +21,6 @@ struct LinesHeaderRowView: View {
                 .padding(.trailing, 10)
         }
         .frame(height: 28)
-        .background(Color(red: 0.961, green: 0.961, blue: 0.961))
+        .background(TajmaTheme.linesBackground)
     }
 }
