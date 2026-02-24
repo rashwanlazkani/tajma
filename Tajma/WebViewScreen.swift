@@ -26,6 +26,7 @@ struct WebViewScreen: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
+        .enableSwipeBack()
     }
 }
 

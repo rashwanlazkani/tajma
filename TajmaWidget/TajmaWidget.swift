@@ -6,6 +6,7 @@ struct DepartureEntry: TimelineEntry {
     let date: Date
     let stops: [Stop]
     let isPlaceholder: Bool
+    let fetchedAt: Date
 }
 
 struct TajmaWidgetProvider: TimelineProvider {
@@ -13,51 +14,46 @@ struct TajmaWidgetProvider: TimelineProvider {
     let locationManager = WidgetLocationManager()
 
     func placeholder(in context: Context) -> DepartureEntry {
-        DepartureEntry(date: Date(), stops: [], isPlaceholder: true)
+        DepartureEntry(date: Date(), stops: [], isPlaceholder: true, fetchedAt: Date())
     }
 
     func getSnapshot(in context: Context, completion: @escaping (DepartureEntry) -> Void) {
-        completion(DepartureEntry(date: Date(), stops: [], isPlaceholder: false))
+        completion(DepartureEntry(date: Date(), stops: [], isPlaceholder: false, fetchedAt: Date()))
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<DepartureEntry>) -> Void) {
         locationManager.getCurrentLocation { location in
             guard let location = location else {
-                let entry = DepartureEntry(date: Date(), stops: [], isPlaceholder: false)
-                completion(Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(300))))
+                let entry = DepartureEntry(date: Date(), stops: [], isPlaceholder: false, fetchedAt: Date())
+                completion(Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(5))))
                 return
             }
 
             webService.getMyDeparturesAt(location, onCompletion: { stops in
                 let now = Date()
+                let fetchedAt = now
                 var entries = [DepartureEntry]()
+                let minuteCount = 15
 
-                // Generate an entry per minute for 15 minutes so the
-                // countdown updates without a new network fetch.
-                for minute in 0..<15 {
-                    let entryDate = now.addingTimeInterval(Double(minute) * 60)
-                    let adjustedStops = stops.map { stop -> Stop in
-                        let adjustedLines = stop.lines.map { line -> Line in
-                            let adjusted = line.departures.map { max($0 - minute, 0) }
-                            return Line(id: line.id, stop: Stop(), stopId: line.stopid,
-                                        lineAndDirection: line.lineAndDirection, name: line.name,
-                                        sname: line.sname, direction: line.direction, type: line.type,
-                                        track: line.track, bgColor: line.bgColor, fgColor: line.fgColor,
-                                        departures: adjusted)
+                for minuteOffset in 0..<minuteCount {
+                    let entryDate = now.addingTimeInterval(Double(minuteOffset) * 60)
+                    let adjustedStops = stops.compactMap { stop -> Stop? in
+                        let adjustedLines = stop.lines.compactMap { line -> Line? in
+                            let adjusted = line.departures.map { $0 - minuteOffset }.filter { $0 >= 0 }
+                            guard !adjusted.isEmpty else { return nil }
+                            return Line(id: line.id, stop: line.stop, stopId: line.stopid, lineAndDirection: line.lineAndDirection, name: line.name, sname: line.sname, direction: line.direction, type: line.type, track: line.track, bgColor: line.bgColor, fgColor: line.fgColor, departures: adjusted, rtDate: line.rtDate ?? "", date: line.date, rtTime: line.rtTime ?? "", time: line.time)
                         }
-                        let newStop = Stop(id: stop.id, name: stop.name,
-                                           latitude: stop.lat, longitude: stop.lon,
-                                           distance: stop.distance, lines: adjustedLines)
-                        return newStop
+                        guard !adjustedLines.isEmpty else { return nil }
+                        return Stop(id: stop.id, name: stop.name, latitude: stop.lat, longitude: stop.lon, distance: stop.distance, lines: adjustedLines)
                     }
-                    entries.append(DepartureEntry(date: entryDate, stops: adjustedStops, isPlaceholder: false))
+                    entries.append(DepartureEntry(date: entryDate, stops: adjustedStops, isPlaceholder: false, fetchedAt: fetchedAt))
                 }
 
-                // After 15 minutes, fetch fresh data from the API
-                completion(Timeline(entries: entries, policy: .after(now.addingTimeInterval(15 * 60))))
+                // Fetch fresh data after the last pre-computed entry
+                completion(Timeline(entries: entries, policy: .after(now.addingTimeInterval(Double(minuteCount) * 60))))
             }, onError: { _ in
-                let entry = DepartureEntry(date: Date(), stops: [], isPlaceholder: false)
-                completion(Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(300))))
+                let entry = DepartureEntry(date: Date(), stops: [], isPlaceholder: false, fetchedAt: Date())
+                completion(Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(60))))
             })
         }
     }

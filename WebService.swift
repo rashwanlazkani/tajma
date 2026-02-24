@@ -27,8 +27,13 @@ class WebService {
         iso8601Formatter.date(from: string) ?? iso8601FormatterNoFraction.date(from: string)
     }
 
+    private static let sharedDefaults = UserDefaults(suiteName: "group.tajma.today")!
+
     /// Invalidate any cached v2 token so a fresh v4 token is fetched.
     static func clearCachedToken() {
+        sharedDefaults.removeObject(forKey: "token")
+        sharedDefaults.removeObject(forKey: "expires")
+        // Also clear from standard in case of stale v2 tokens
         UserDefaults.standard.removeObject(forKey: "token")
         UserDefaults.standard.removeObject(forKey: "expires")
     }
@@ -272,11 +277,11 @@ class WebService {
     // MARK: - Token Management
 
     private func getValidToken() async throws -> String {
-        // Check we have a v4 token (not a stale v2 one)
-        let isV4 = UserDefaults.standard.bool(forKey: "tokenV4")
+        let defaults = WebService.sharedDefaults
+        let isV4 = defaults.bool(forKey: "tokenV4")
         if isV4,
-           let tokenDate = UserDefaults.standard.object(forKey: "expires") as? Date,
-           let token = UserDefaults.standard.string(forKey: "token"),
+           let tokenDate = defaults.object(forKey: "expires") as? Date,
+           let token = defaults.string(forKey: "token"),
            tokenDate > Date() {
             return token
         }
@@ -313,9 +318,10 @@ class WebService {
             throw NSError(domain: "Failed to get token", code: 401)
         }
 
-        UserDefaults.standard.set(token, forKey: "token")
-        UserDefaults.standard.set(Date().addSeconds(expires), forKey: "expires")
-        UserDefaults.standard.set(true, forKey: "tokenV4")
+        let defaults = WebService.sharedDefaults
+        defaults.set(token, forKey: "token")
+        defaults.set(Date().addSeconds(expires), forKey: "expires")
+        defaults.set(true, forKey: "tokenV4")
 
         return token
     }

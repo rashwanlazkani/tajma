@@ -3,6 +3,7 @@ import CoreLocation
 import StoreKit
 import SwiftUI
 import UIKit
+import WidgetKit
 
 struct AlertInfo: Identifiable {
     let id = UUID()
@@ -100,14 +101,6 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         savedLines.contains(where: { $0.stopid == stop.id })
     }
 
-    func savedLineNumbers(for stop: Stop) -> [Line] {
-        let linesAtStop = savedLines.filter { $0.stopid == stop.id }
-        var seen = Set<String>()
-        return linesAtStop
-            .filter { seen.insert($0.sname).inserted }
-            .sorted { (Int($0.sname) ?? Int.max) < (Int($1.sname) ?? Int.max) }
-    }
-
     // MARK: - Private
 
     private func performSearch(_ searchText: String) {
@@ -188,6 +181,7 @@ class StopsViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             segmentIndex = 0
             location = CLLocationCoordinate2D()
             locationManager.startUpdatingLocation()
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 

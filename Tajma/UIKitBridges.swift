@@ -2,6 +2,32 @@ import SwiftUI
 import MessageUI
 import UIKit
 
+// MARK: - Swipe Back Gesture
+
+struct SwipeBackGestureEnabler: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> UIViewController {
+        SwipeBackController()
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+}
+
+private class SwipeBackController: UIViewController {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+    }
+}
+
+extension View {
+    func enableSwipeBack() -> some View {
+        background(SwipeBackGestureEnabler())
+    }
+}
+
+// MARK: - Activity & Mail
+
 struct ActivityViewControllerRepresentable: UIViewControllerRepresentable {
     let activityItems: [Any]
 
