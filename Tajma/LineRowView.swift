@@ -33,22 +33,19 @@ struct LineRowView: View {
 
             Spacer()
 
-            Text(firstDepartureText)
-                .font(.system(size: 14, weight: isArrivingNow ? .bold : .regular))
-                .foregroundStyle(isArrivingNow ? TajmaTheme.brandRed : TajmaTheme.primaryText)
-                .frame(width: 22, alignment: .trailing)
-
-            Text(secondDepartureText)
-                .font(.system(size: 14))
-                .foregroundStyle(TajmaTheme.secondaryText)
-                .frame(width: 22, alignment: .trailing)
-                .padding(.leading, 15)
-                .padding(.trailing, 16)
+            HStack(spacing: 10) {
+                ForEach(Array(sortedDepartures.enumerated()), id: \.offset) { index, time in
+                    Text(departureText(time))
+                        .font(.system(size: 14, weight: index == 0 && isArrivingNow ? .bold : .regular))
+                        .foregroundStyle(index == 0 && isArrivingNow ? TajmaTheme.brandRed : (index == 0 ? TajmaTheme.primaryText : TajmaTheme.secondaryText))
+                }
+            }
+            .padding(.trailing, 16)
         }
         .frame(height: 44)
         .background(TajmaTheme.linesBackground)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Linje \(line.sname) \(line.direction), avgår om \(firstDepartureText) minuter" + (isSelected ? ", sparad" : ""))
+        .accessibilityLabel("Linje \(line.sname) \(line.direction), avgår om \(sortedDepartures.map { departureText($0) }.joined(separator: ", ")) minuter" + (isSelected ? ", sparad" : ""))
         .accessibilityHint(isSelected ? "Tryck för att ta bort från favoriter" : "Tryck för att spara som favorit")
     }
 
@@ -68,14 +65,8 @@ struct LineRowView: View {
         line.departures.sorted()
     }
 
-    private var firstDepartureText: String {
-        guard let time = sortedDepartures.first else { return "-" }
-        return time == 0 ? "Nu" : (time < 0 ? "0" : String(time))
+    private func departureText(_ time: Int) -> String {
+        time == 0 ? "Nu" : (time < 0 ? "0" : String(time))
     }
 
-    private var secondDepartureText: String {
-        guard sortedDepartures.count > 1 else { return "-" }
-        let time = sortedDepartures[1]
-        return time == 0 ? "Nu" : (time < 0 ? "0" : String(time))
-    }
 }

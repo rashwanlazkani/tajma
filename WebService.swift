@@ -106,7 +106,7 @@ class WebService {
     }
 
     func getDeparturesAt(_ stopid: String, widgetData: Bool = false) async throws -> [Line] {
-        let urlString = "\(Constants.apiBaseURL)/stop-areas/\(stopid)/departures?timeSpanInMinutes=60&maxDeparturesPerLine=2"
+        let urlString = "\(Constants.apiBaseURL)/stop-areas/\(stopid)/departures?timeSpanInMinutes=60&limit=10000"
 
         let token = try await getValidToken()
 
